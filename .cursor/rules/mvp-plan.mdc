@@ -1,0 +1,37 @@
+---
+description: Erzwingt Nutzung von MVP_PLAN.md und Plan-Disziplin (MVP-Phase)
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+Bitte beachte diese verbindlichen Projektregeln (MVP-Phase):
+
+1) Plan-Pflicht
+- Lies und befolge stets die Inhalte aus `MVP_PLAN.md`.
+- Vor jeder Implementierungs- oder Änderungsaktion: Plan kurz prüfen.
+- Weichen Maßnahmen vom Plan ab, begründe die Abweichung und aktualisiere den Plan vor der Umsetzung.
+
+2) Fokus (MVP ohne AI-Kontext)
+- AI-/Agent-/Kontext-Features sind in der MVP-Phase tabu (keine Implementierung/Änderung).
+- Ziel: Lauf- und Kernfunktionalität der Extension (Scan → Parsen → Generieren → Validieren).
+
+2a) Migration ohne Hybridlösung
+- Python-Module werden vollständig nach TypeScript portiert (Generator, Validator, Search/Index, Scanner-Fallbacks).
+- Nach Parität wird das Verzeichnis `python/` inklusive aller Verweise entfernt.
+- Keine Python-Laufzeit (keine Spawns), keine gemischten Pipelines.
+
+3) Determinismus & Qualität
+- Artefakte müssen deterministisch sein (gleiche Eingabe → gleiche Ausgabe/Hashes).
+- Halte Coverage-Schwellen und Validator-Regeln aus dem Plan ein.
+
+4) Arbeitsweise
+- Synchronisiere To-Do-Liste mit dem Plan, hake erledigte Schritte ab.
+- Nutze TypeScript für neue Module; Parser-Strategie und Architektur gemäß Plan.
+- Bevorzuge kurze, präzise Antworten auf Deutsch.
+
+5) Sicherheit/Scope
+- Nimm keine Änderungen an AI-/Kontext-bezogenen Verzeichnissen/Dateien vor (MVP-Fokus).
+
+Diese Regeln gelten bis die Akzeptanzkriterien im `MVP_PLAN.md` erreicht sind. Danach kann die Regel angepasst oder aufgehoben werden.
+

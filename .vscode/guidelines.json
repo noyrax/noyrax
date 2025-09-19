@@ -1,0 +1,40 @@
+{
+  "project_rules": {
+    "coding_standards": {
+      "max_line_length": 88,
+      "require_docstrings": true,
+      "naming_convention": "snake_case",
+      "forbidden_imports": [
+        "os.system",
+        "subprocess.call"
+      ]
+    },
+    "no_placeholders": {
+      "forbidden_bodies": [
+        "pass",
+        "TODO",
+        "raise NotImplementedError"
+      ],
+      "block_commit_if_present": true
+    },
+    "duplicate_prevention": {
+      "symbol_similarity_threshold": 0.86,
+      "prefer_extend_existing": true,
+      "block_on_near_duplicate": true
+    }
+  },
+  "agent_behavior": {
+    "deep_analysis_required": true,
+    "minimum_analysis_time": 30
+  },
+  "anti_ignore_enforcement": {
+    "enforcement_level": "strict",
+    "banned_patterns": [
+      "# ignore",
+      "# type: ignore",
+      "# noqa",
+      "// @ts-ignore",
+      "// eslint-disable"
+    ]
+  }
+}

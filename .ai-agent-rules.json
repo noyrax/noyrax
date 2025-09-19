@@ -1,0 +1,107 @@
+[
+  {
+    "id": "python_imports",
+    "name": "Python Import Order",
+    "description": "Python imports should be ordered correctly",
+    "category": "style",
+    "severity": "warning",
+    "enabled": true,
+    "conditions": [
+      {
+        "type": "file_extension",
+        "value": ".py",
+        "operator": "equals"
+      }
+    ],
+    "actions": [
+      {
+        "type": "suggest",
+        "message": "Import order should be: standard library, third-party, local imports"
+      }
+    ]
+  },
+  {
+    "id": "typescript_strict",
+    "name": "TypeScript Strict Mode",
+    "description": "TypeScript files should use strict mode",
+    "category": "code",
+    "severity": "error",
+    "enabled": true,
+    "conditions": [
+      {
+        "type": "file_extension",
+        "value": ".ts",
+        "operator": "equals"
+      }
+    ],
+    "actions": [
+      {
+        "type": "error",
+        "message": "TypeScript files must use strict mode"
+      }
+    ]
+  },
+  {
+    "id": "no_console_log",
+    "name": "No Console Log",
+    "description": "Console.log statements should not be in production code",
+    "category": "code",
+    "severity": "warning",
+    "enabled": true,
+    "conditions": [
+      {
+        "type": "content_pattern",
+        "value": "console\\.log",
+        "operator": "regex"
+      }
+    ],
+    "actions": [
+      {
+        "type": "warn",
+        "message": "Console.log statements should be removed in production"
+      }
+    ]
+  },
+  {
+    "id": "function_docstrings",
+    "name": "Function Docstrings",
+    "description": "All functions should have docstrings",
+    "category": "documentation",
+    "severity": "warning",
+    "enabled": true,
+    "conditions": [
+      {
+        "type": "file_extension",
+        "value": ".py",
+        "operator": "equals"
+      }
+    ],
+    "actions": [
+      {
+        "type": "suggest",
+        "message": "Function should have a docstring"
+      }
+    ]
+  },
+  {
+    "id": "security_hardcoded_secrets",
+    "name": "No Hardcoded Secrets",
+    "description": "No hardcoded secrets in code",
+    "category": "security",
+    "severity": "error",
+    "enabled": true,
+    "conditions": [
+      {
+        "type": "content_pattern",
+        "value": "(password|secret|key|token)\\s*=\\s*[\"'][^\"']+[\"']",
+        "operator": "regex"
+      }
+    ],
+    "actions": [
+      {
+        "type": "error",
+        "message": "Hardcoded secrets are not allowed"
+      }
+    ]
+  }
+]

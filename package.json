@@ -1,0 +1,179 @@
+{
+  "name": "documentation-system-plugin",
+  "displayName": "Documentation System Plugin",
+  "description": "Universelles VSCode-Plugin für automatische Dokumentations-Generierung. Scannt alle Dateitypen (Python, TypeScript, JavaScript, JSON, YAML, etc.) und generiert deterministische Dokumentation für KI-Integration.",
+  "version": "1.0.0",
+  "publisher": "benjamin-behrens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benjamin-behrens/documentation-system-plugin.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Documentation",
+    "Other"
+  ],
+  "keywords": [
+    "documentation",
+    "universal-scanner",
+    "deterministic",
+    "system-analysis",
+    "typescript",
+    "python",
+    "code-analysis"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  
+  "contributes": {
+    "commands": [
+      {
+        "command": "docs.generate",
+        "title": "Docs: Generate Documentation",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.scan",
+        "title": "Docs: Scan System",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.search",
+        "title": "Docs: Search in Documentation",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.validate",
+        "title": "Docs: Validate Documentation",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.sync",
+        "title": "Docs: Sync Documentation",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.open",
+        "title": "Docs: Open Documentation File",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.overview",
+        "title": "Docs: Show System Overview",
+        "category": "Documentation"
+      },
+      {
+        "command": "docs.fullCycle",
+        "title": "Docs: Full Cycle (Scan → Generate → Validate)",
+        "category": "Documentation"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "docsExplorer",
+          "name": "Documentation",
+          "when": "workspaceFolderCount > 0"
+        }
+      ],
+      "docsPanel": [
+        {
+          "id": "docsCommands",
+          "name": "Documentation Commands",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "docsPanel",
+          "title": "Documentation",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Documentation System",
+      "properties": {
+        "docs.workspaceRoot": {
+          "type": "string",
+          "default": "${workspaceFolder}",
+          "description": "Root directory of the workspace"
+        },
+        "docs.outputPath": {
+          "type": "string",
+          "default": "docs",
+          "description": "Output directory for generated documentation"
+        },
+        "docs.coverageThresholds.classes": {
+          "type": "number",
+          "default": 0.9,
+          "description": "Coverage-Schwelle für public Klassen (0..1)"
+        },
+        "docs.coverageThresholds.interfaces": {
+          "type": "number",
+          "default": 0.9,
+          "description": "Coverage-Schwelle für public Interfaces (0..1)"
+        },
+        "docs.coverageThresholds.methods": {
+          "type": "number",
+          "default": 0.9,
+          "description": "Coverage-Schwelle für public Methoden (0..1)"
+        },
+        "docs.coverageThresholds.functions": {
+          "type": "number",
+          "default": 0.8,
+          "description": "Coverage-Schwelle für public Funktionen (0..1)"
+        },
+        "docs.concurrency": {
+          "type": "number",
+          "default": 4,
+          "description": "Maximale Parallelität beim Parsen/Generieren"
+        },
+        "docs.useGitDiff": {
+          "type": "boolean",
+          "default": true,
+          "description": "Nur geänderte Dateien (git diff) bevorzugt parsen"
+        },
+        "docs.includeBackups": {
+          "type": "boolean",
+          "default": false,
+          "description": "Backup-/Archiv-Verzeichnisse in Scan einbeziehen"
+        },
+        "docs.includePrivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Private/protected Symbole in Dokumentation einbeziehen"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.4",
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2"
+  },
+  "dependencies": {
+    "@types/yaml": "^1.9.6",
+    "ignore": "^5.3.2",
+    "ts-morph": "^22.0.0",
+    "yaml": "^2.8.1",
+    "tree-sitter": "^0.21.1",
+    "tree-sitter-python": "^0.21.0"
+  }
+}

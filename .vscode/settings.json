@@ -1,0 +1,12 @@
+{
+  "docs.useGitDiff": false,
+  "docs.includeBackups": true
+}
+
+{
+    "python.testing.pytestArgs": [
+        "python"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

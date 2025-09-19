@@ -1,0 +1,34 @@
+---
+description: Systemüberblick und Architektur-Leitplanken für konsistente Implementierungen (MVP-konform)
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+Systemüberblick & Leitplanken
+
+1) Architekturkonsistenz
+- Halte dich an die in `MVP_PLAN.md` definierte Modulaufteilung: core/*, parsers/*, generator, validator, drift, cache, index, cli/commands, logging, config.
+- Vermeide zirkuläre Abhängigkeiten. Bevorzuge klare Import-Richtungen: core → parsers → symbols → generator/validator → cli.
+- Öffentliche APIs klar typisieren; vermeide any/unsichere Casts; frühe Guard-Clauses.
+
+2) Determinismus
+- Keine nicht-deterministischen Quellen (Datei-Order, Zufall, Zeit) ohne explizite Injektion/Mocking.
+- Sortierung und Normalisierung strikt einhalten (Pfad, Symbol, Signatur).
+
+3) Fehler- und Edge-Case-Handling
+- Parser-Fehler isolieren, Datei als unparsed markieren, Laufstatus (grün/gelb/rot) setzen.
+- Keine stillen Catches; Logging mit Kontext (Datei, Sprache, Symbol-ID).
+
+4) Performance & Skalierung
+- Async I/O, Worker-Threads für CPU-Bound; inkrementelle Läufe bevorzugen.
+- Caches invalidieren nur bei relevanten Änderungen (git diff/Hash).
+
+5) Tests & Qualität
+- Snapshot-Tests für Generator/Validator; Determinismus-Tests (identische Artefakte/Hashes).
+- Coverage-Schwellen aus Plan einhalten; MD-Hygiene sicherstellen.
+
+6) MVP-Scope
+- Keine AI-/Kontextfeatures anfassen; nur Scan/Parse/Generate/Validate.
+ - Keine Hybridlösung: Python-Code vollständig nach TypeScript portieren; `python/` nach Parität löschen; keine Python-Spawns.
+

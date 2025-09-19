@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-11-177Z.json",
+      "hash": "f55e5211da149649"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-11-192Z.json",
+      "hash": "55ba3e29f3e16962"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-11-271Z.json",
+      "hash": "86d95dd112f520d0"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-11-273Z.json",
+      "hash": "63241a064e2fe65c"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-41-149Z.json",
+      "hash": "b10b6b067d4ddb2f"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-41-180Z.json",
+      "hash": "9aecce45ddbc0c22"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-41-195Z.json",
+      "hash": "32982e03cd8e6202"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-41-275Z.json",
+      "hash": "9eb4232cd94b55bd"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-10-41-284Z.json",
+      "hash": "d381e342bf1464ae"
+    },
+    {
+      "path": ".ai-agent-context/backups/context-backup-2025-09-13T12-22-59-796Z.json",
+      "hash": "a412ee5b29269b3e"
+    },
+    {
+      "path": ".ai-agent-context/project-context.json",
+      "hash": "74234e98afe7498f"
+    },
+    {
+      "path": ".ai-agent-rules.json",
+      "hash": "7d81e36d8dd77ca6"
+    },
+    {
+      "path": ".cursor/rules/architecture-guardrails.mdc",
+      "hash": "b3059c49a88e6fd9"
+    },
+    {
+      "path": ".cursor/rules/mvp-plan.mdc",
+      "hash": "e0d5843004b85e2a"
+    },
+    {
+      "path": ".pytest_cache/CACHEDIR.TAG",
+      "hash": "37dc88ef9a0abedd"
+    },
+    {
+      "path": ".pytest_cache/README.md",
+      "hash": "420e808d79a6c25d"
+    },
+    {
+      "path": ".pytest_cache/v/cache/nodeids",
+      "hash": "4f53cda18c2baa0c"
+    },
+    {
+      "path": ".vscode/guidelines.json",
+      "hash": "68bdd468f343e95a"
+    },
+    {
+      "path": ".vscode/launch.json",
+      "hash": "78ec793a09635eed"
+    },
+    {
+      "path": ".vscode/settings.json",
+      "hash": "4b2020672ec3f41e"
+    },
+    {
+      "path": ".vscode/tasks.json",
+      "hash": "1ccc91beaba6f946"
+    },
+    {
+      "path": "docs/index/symbols.jsonl",
+      "hash": "50e38896e9b2d36a"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-11-177Z.json.md",
+      "hash": "3739febb27e11c1a"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-11-192Z.json.md",
+      "hash": "452edb5d97b09173"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-11-271Z.json.md",
+      "hash": "2a6b1cf21415e2bd"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-11-273Z.json.md",
+      "hash": "0a21d146df9b5be7"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-41-149Z.json.md",
+      "hash": "152d1e2df7fac342"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-41-180Z.json.md",
+      "hash": "6b69bc5561d701bd"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-41-195Z.json.md",
+      "hash": "843d00086e3d0be0"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-41-275Z.json.md",
+      "hash": "2832580762aa805e"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-10-41-284Z.json.md",
+      "hash": "c3bc3bc70ac05a62"
+    },
+    {
+      "path": "docs/modules/.ai-agent-context__backups__context-backup-2025-09-13T12-22-59-796Z.json.md",
+      "hash": "c2056ff7a23afb05"
+    },
+    {
+      "path": "docs/modules/.ai-agent-rules.json.md",
+      "hash": "feaad3848ff627f2"
+    },
+    {
+      "path": "docs/modules/.vscode__guidelines.json.md",
+      "hash": "7b622abdc2ddccad"
+    },
+    {
+      "path": "docs/modules/documentation.config.schema.json.md",
+      "hash": "ba117172af7dca8f"
+    },
+    {
+      "path": "docs/modules/package-lock.json.md",
+      "hash": "28c7d918da1fb2f3"
+    },
+    {
+      "path": "docs/modules/package.json.md",
+      "hash": "64a1a1f261153836"
+    },
+    {
+      "path": "docs/modules/src____tests____setup.ts.md",
+      "hash": "052a4960484eb1e4"
+    },
+    {
+      "path": "docs/modules/src__cache__ast-cache.ts.md",
+      "hash": "639d657962040736"
+    },
+    {
+      "path": "docs/modules/src__cache__output-cache.ts.md",
+      "hash": "fb518aef6f8ead16"
+    },
+    {
+      "path": "docs/modules/src__cache__signature-cache.ts.md",
+      "hash": "9646bc88a4f7f8f5"
+    },
+    {
+      "path": "docs/modules/src__core__async.ts.md",
+      "hash": "4ecdef6cbfa5dfe8"
+    },
+    {
+      "path": "docs/modules/src__core__git.ts.md",
+      "hash": "9d4a0e9efac9294a"
+    },
+    {
+      "path": "docs/modules/src__core__language-detection.ts.md",
+      "hash": "e6ab8234c72779ea"
+    },
+    {
+      "path": "docs/modules/src__core__scanner.ts.md",
+      "hash": "04657e7d7f2f497b"
+    },
+    {
+      "path": "docs/modules/src__core__symbols.ts.md",
+      "hash": "180aaf500c8c9f99"
+    },
+    {
+      "path": "docs/modules/src__drift__index.ts.md",
+      "hash": "65f318b24228ff21"
+    },
+    {
+      "path": "docs/modules/src__extension.ts.md",
+      "hash": "a7805f695cbed126"
+    },
+    {
+      "path": "docs/modules/src__generator__dependency-graph.ts.md",
+      "hash": "dce274b7514d1fd8"
+    },
+    {
+      "path": "docs/modules/src__generator__index.ts.md",
+      "hash": "b2d29d5aa9052d00"
+    },
+    {
+      "path": "docs/modules/src__index__index.ts.md",
+      "hash": "482b212d0cf06fec"
+    },
+    {
+      "path": "docs/modules/src__logging__index.ts.md",
+      "hash": "77caedf88a62f8b9"
+    },
+    {
+      "path": "docs/modules/src__parsers__dependencies.ts.md",
+      "hash": "cba89c89669b168e"
+    },
+    {
+      "path": "docs/modules/src__parsers__json-yaml.ts.md",
+      "hash": "850fab05747ab2a0"
+    },
+    {
+      "path": "docs/modules/src__parsers__python.ts.md",
+      "hash": "4d5f9953aaf24a4e"
+    },
+    {
+      "path": "docs/modules/src__parsers__ts-js.ts.md",
+      "hash": "05080e531d9c5d9c"
+    },
+    {
+      "path": "docs/modules/src__parsers__types.ts.md",
+      "hash": "6dc06ecc3dc3df3d"
+    },
+    {
+      "path": "docs/modules/src__ui__commands-provider.ts.md",
+      "hash": "3c59f8f6fc5efebe"
+    },
+    {
+      "path": "docs/modules/src__ui__status-bar.ts.md",
+      "hash": "ac7f02853cb725de"
+    },
+    {
+      "path": "docs/modules/src__validator__index.ts.md",
+      "hash": "704ae11d5cbaf55b"
+    },
+    {
+      "path": "docs/modules/src__validator__signature-matching.ts.md",
+      "hash": "815798907bf98747"
+    },
+    {
+      "path": "docs/modules/src__validator__status.ts.md",
+      "hash": "6a0bdc46335ff4e6"
+    },
+    {
+      "path": "docs/modules/tsconfig.json.md",
+      "hash": "a98edf96d33326c6"
+    },
+    {
+      "path": "docs/system/DEPENDENCIES.md",
+      "hash": "73a5fcef692f2a0b"
+    },
+    {
+      "path": "docs/system/DEPENDENCY_GRAPH.md",
+      "hash": "9f0d58882a86d0a4"
+    },
+    {
+      "path": "documentation.config.schema.json",
+      "hash": "f7b2ee31b25c8779"
+    },
+    {
+      "path": "jest.config.js",
+      "hash": "b269a35835f21c8b"
+    },
+    {
+      "path": "LICENSE",
+      "hash": "8f625336ab31925f"
+    },
+    {
+      "path": "MVP_PLAN.md",
+      "hash": "5f7c1a41cb462651"
+    },
+    {
+      "path": "package-lock.json",
+      "hash": "846e063ff1a4d3bf"
+    },
+    {
+      "path": "package.json",
+      "hash": "655a5e5d257de51a"
+    },
+    {
+      "path": "README.md",
+      "hash": "16f273508ac0d609"
+    },
+    {
+      "path": "src/__tests__/determinism.test.ts",
+      "hash": "74dc13dc7f36f8f9"
+    },
+    {
+      "path": "src/__tests__/setup.ts",
+      "hash": "e59d2bab6218bab1"
+    },
+    {
+      "path": "src/cache/ast-cache.ts",
+      "hash": "e6271c73eef17ae3"
+    },
+    {
+      "path": "src/cache/output-cache.ts",
+      "hash": "0d82c55b50cb87c0"
+    },
+    {
+      "path": "src/cache/signature-cache.ts",
+      "hash": "72d88f2c05c37871"
+    },
+    {
+      "path": "src/core/async.ts",
+      "hash": "708386ddc91af533"
+    },
+    {
+      "path": "src/core/git.ts",
+      "hash": "2c64132def074f40"
+    },
+    {
+      "path": "src/core/language-detection.ts",
+      "hash": "8eeee284444697c0"
+    },
+    {
+      "path": "src/core/scanner.ts",
+      "hash": "0131bebae077909d"
+    },
+    {
+      "path": "src/core/symbols.ts",
+      "hash": "2de3ac7e08e59397"
+    },
+    {
+      "path": "src/drift/index.ts",
+      "hash": "bf981324f6bd46a2"
+    },
+    {
+      "path": "src/extension.ts",
+      "hash": "e3159b02e236da18"
+    },
+    {
+      "path": "src/generator/dependency-graph.ts",
+      "hash": "aa7ecdbe7ec30802"
+    },
+    {
+      "path": "src/generator/index.ts",
+      "hash": "b24552d3ed3af2f3"
+    },
+    {
+      "path": "src/index/index.ts",
+      "hash": "0ee4d0ca7f30d5c7"
+    },
+    {
+      "path": "src/logging/index.ts",
+      "hash": "bce62a5874564ea1"
+    },
+    {
+      "path": "src/parsers/dependencies.ts",
+      "hash": "07168fb5543d3b54"
+    },
+    {
+      "path": "src/parsers/json-yaml.ts",
+      "hash": "12043d649f3494a6"
+    },
+    {
+      "path": "src/parsers/python.ts",
+      "hash": "867325929951c8c2"
+    },
+    {
+      "path": "src/parsers/ts-js.ts",
+      "hash": "9f57709a95117256"
+    },
+    {
+      "path": "src/parsers/types.ts",
+      "hash": "c5bc57850b103fdb"
+    },
+    {
+      "path": "src/ui/commands-provider.ts",
+      "hash": "cc48c671b6e0b50f"
+    },
+    {
+      "path": "src/ui/status-bar.ts",
+      "hash": "cbae6a077ed59ed3"
+    },
+    {
+      "path": "src/validator/index.ts",
+      "hash": "83248a325188affa"
+    },
+    {
+      "path": "src/validator/signature-matching.ts",
+      "hash": "46c477c04dc6b6b4"
+    },
+    {
+      "path": "src/validator/status.ts",
+      "hash": "42f282f77f9ce118"
+    },
+    {
+      "path": "tsconfig.json",
+      "hash": "8242626078d5987e"
+    }
+  ]
+}

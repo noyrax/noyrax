@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Documentation System Configuration",
+  "type": "object",
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "default": "docs",
+      "description": "Output directory for generated documentation"
+    },
+    "coverageThresholds": {
+      "type": "object",
+      "properties": {
+        "classes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.9,
+          "description": "Coverage threshold for public classes (0..1)"
+        },
+        "interfaces": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.9,
+          "description": "Coverage threshold for public interfaces (0..1)"
+        },
+        "methods": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.9,
+          "description": "Coverage threshold for public methods (0..1)"
+        },
+        "functions": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.8,
+          "description": "Coverage threshold for public functions (0..1)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 16,
+      "default": 4,
+      "description": "Maximum concurrency for parsing/generation"
+    },
+    "useGitDiff": {
+      "type": "boolean",
+      "default": true,
+      "description": "Only parse changed files (git diff) for incremental runs"
+    },
+    "includeBackups": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include backup/archive directories in scanning"
+    },
+    "excludePatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Additional glob patterns to exclude from scanning"
+    },
+    "includePrivate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include private/protected symbols in documentation"
+    }
+  },
+  "additionalProperties": false
+}

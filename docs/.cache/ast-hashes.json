@@ -403,7 +403,7 @@
     },
     {
       "path": "README.md",
-      "hash": "e9e4eecc828d6875"
+      "hash": "4d7f45cb875b4f24"
     },
     {
       "path": "sonar-project.properties",
@@ -546,6 +546,10 @@
       "hash": "1353af17fbfc79aa"
     },
     {
+      "path": "website/public/tabs.js",
+      "hash": "b56b34805a3f6a9f"
+    },
+    {
       "path": "website/README.md",
       "hash": "a77d536c269745fe"
     },
@@ -571,11 +575,11 @@
     },
     {
       "path": "website/src/components/Pricing.astro",
-      "hash": "e28c70cf6f187b0c"
+      "hash": "90707c4a8a2d2f33"
     },
     {
       "path": "website/src/components/QuickStart.astro",
-      "hash": "4149f02624c1039d"
+      "hash": "f428dba6535942a8"
     },
     {
       "path": "website/src/layouts/Layout.astro",
@@ -592,6 +596,10 @@
     {
       "path": "website/tsconfig.json",
       "hash": "f984fbc29f8b60a5"
+    },
+    {
+      "path": "website/vercel.json",
+      "hash": "6667652c1e12b16e"
     }
   ]
 }

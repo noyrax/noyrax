@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/noyrax/noyrax/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/noyrax/noyrax/ci.yml?style=flat-square&label=CI" alt="CI"></a>
   <a href="https://www.npmjs.com/package/@noyrax/cli"><img src="https://img.shields.io/npm/v/@noyrax/cli?style=flat-square&color=2563EB&label=npm" alt="npm version"></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=noyrax.noyrax"><img src="https://img.shields.io/visual-studio-marketplace/v/noyrax.noyrax?style=flat-square&color=10B981&label=VS%20Code" alt="VS Code"></a>
   <a href="https://github.com/noyrax/noyrax/stargazers"><img src="https://img.shields.io/github/stars/noyrax/noyrax?style=flat-square&color=F59E0B" alt="GitHub stars"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License"></a>
 </p>

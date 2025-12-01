@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeStableSymbolId = exports.computeSignatureHash = void 0;
 const crypto_1 = require("crypto");
+/**
+ * @public
+ * Compute hash for symbol signature
+ */
 function computeSignatureHash(symbol) {
     const base = [
         symbol.signature.name,

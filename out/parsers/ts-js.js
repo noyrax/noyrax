@@ -33,8 +33,8 @@ class TsJsParser {
             tsConfigFilePath,
             skipAddingFilesFromTsConfig: !tsConfigFilePath,
             useInMemoryFileSystem: false,
-            skipFileDependencyResolution: true,
-            skipLoadingLibFiles: true,
+            skipFileDependencyResolution: false,
+            skipLoadingLibFiles: false,
             compilerOptions: {
                 allowJs: true,
                 declaration: false,
@@ -43,6 +43,7 @@ class TsJsParser {
                 jsx: 1,
                 experimentalDecorators: true,
                 emitDecoratorMetadata: false,
+                lib: ["ES2020"],
             },
         });
     }
@@ -71,11 +72,22 @@ class TsJsParser {
                     return '';
                 }
             };
+            const nodeOrTypeText = (decl) => {
+                try {
+                    const typeNode = decl.getTypeNode ? decl.getTypeNode() : undefined;
+                    if (typeNode) {
+                        return normalizeTypeString(typeNode.getText());
+                    }
+                }
+                catch { }
+                return safeTypeText(decl.getType());
+            };
             // Hilfsfunktion für Push
             const pushSymbol = (kind, name, signature) => {
                 const sig = {
                     name,
                     parameters: [],
+                    returnType: undefined,
                     visibility: 'public',
                     ...signature,
                 };
@@ -98,10 +110,18 @@ class TsJsParser {
                         name: method.getName(),
                         parameters: impl.getParameters().map(p => ({
                             name: p.getName(),
-                            type: safeTypeText(p.getType()),
+                            type: nodeOrTypeText(p),
                             hasDefault: !!p.getInitializer(),
                         })),
-                        returnType: safeTypeText(impl.getReturnType()),
+                        returnType: (() => {
+                            try {
+                                const rn = impl.getReturnTypeNode?.();
+                                if (rn)
+                                    return normalizeTypeString(rn.getText());
+                            }
+                            catch { }
+                            return safeTypeText(impl.getReturnType());
+                        })(),
                         visibility: method.getScope(),
                     };
                     symbols.push({
@@ -115,7 +135,15 @@ class TsJsParser {
                 // Properties
                 cls.getProperties().forEach(prop => {
                     const propName = prop.getName();
-                    const typeText = safeTypeText(prop.getType());
+                    const typeText = (() => {
+                        try {
+                            const tn = prop.getTypeNode();
+                            if (tn)
+                                return normalizeTypeString(tn.getText());
+                        }
+                        catch { }
+                        return safeTypeText(prop.getType());
+                    })();
                     const sig = { name: propName, parameters: [], returnType: typeText, visibility: prop.getScope() };
                     symbols.push({
                         language: 'ts',
@@ -140,10 +168,18 @@ class TsJsParser {
                     name,
                     parameters: fn.getParameters().map(p => ({
                         name: p.getName(),
-                        type: safeTypeText(p.getType()),
+                        type: nodeOrTypeText(p),
                         hasDefault: !!p.getInitializer(),
                     })),
-                    returnType: safeTypeText(fn.getReturnType()),
+                    returnType: (() => {
+                        try {
+                            const rn = fn.getReturnTypeNode();
+                            if (rn)
+                                return normalizeTypeString(rn.getText());
+                        }
+                        catch { }
+                        return safeTypeText(fn.getReturnType());
+                    })(),
                     visibility: 'public',
                 };
                 symbols.push({
@@ -157,11 +193,22 @@ class TsJsParser {
             // Interfaces, Enums etc. (minimal)
             sourceFile.getInterfaces().forEach(intf => {
                 const name = intf.getName();
+                const properties = intf.getProperties().map(prop => ({
+                    name: prop.getName(),
+                    type: prop.getTypeNode()?.getText() || 'any',
+                    hasDefault: !!prop.getInitializer(),
+                    optional: (typeof prop.hasQuestionToken === 'function') ? prop.hasQuestionToken() : false,
+                }));
                 symbols.push({
                     language: 'ts',
                     filePath: repoRelPath,
                     fullyQualifiedName: name,
-                    signature: { name, parameters: [] },
+                    signature: {
+                        name,
+                        parameters: properties,
+                        returnType: undefined,
+                        visibility: 'public'
+                    },
                     kind: 'interface',
                 });
             });
@@ -192,7 +239,45 @@ class TsJsParser {
             sourceFile.getVariableStatements().forEach(vs => {
                 vs.getDeclarations().forEach(decl => {
                     const name = decl.getName();
-                    const typeText = decl.getType().getText();
+                    const typeText = (() => {
+                        try {
+                            // 1) Expliziter Typ
+                            const tn = decl.getTypeNode?.();
+                            if (tn)
+                                return normalizeTypeString(tn.getText());
+                            // 2) Heuristik über Initializer
+                            const init = decl.getInitializer?.();
+                            if (init && init.getKind) {
+                                const kind = init.getKind();
+                                // Array-Literal aus Strings -> string[]
+                                if (kind === ts_morph_1.SyntaxKind.ArrayLiteralExpression) {
+                                    const arr = init;
+                                    const elems = arr.getElements?.() || [];
+                                    if (elems.length === 0 || elems.every((e) => e.getKind && e.getKind() === ts_morph_1.SyntaxKind.StringLiteral)) {
+                                        return 'string[]';
+                                    }
+                                }
+                                // new Set(["..."]) -> Set<string>
+                                if (kind === ts_morph_1.SyntaxKind.NewExpression) {
+                                    const ne = init;
+                                    const exprName = ne.getExpression?.()?.getText?.();
+                                    const args = ne.getArguments?.() || [];
+                                    if (exprName === 'Set' && args.length > 0) {
+                                        const first = args[0];
+                                        if (first && first.getKind && first.getKind() === ts_morph_1.SyntaxKind.ArrayLiteralExpression) {
+                                            const elems = first.getElements?.() || [];
+                                            if (elems.length === 0 || elems.every((e) => e.getKind && e.getKind() === ts_morph_1.SyntaxKind.StringLiteral)) {
+                                                return 'Set<string>';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch { }
+                        // 3) Fallback: Type aus Checker
+                        return safeTypeText(decl.getType());
+                    })();
                     const sig = { name, parameters: [], returnType: typeText, visibility: 'public' };
                     symbols.push({
                         language: 'ts',
@@ -214,10 +299,18 @@ class TsJsParser {
                         name: fn.getName() || 'anonymous',
                         parameters: fn.getParameters().map((p) => ({
                             name: p.getName(),
-                            type: p.getType().getText(),
+                            type: nodeOrTypeText(p),
                             hasDefault: !!p.getInitializer(),
                         })),
-                        returnType: fn.getReturnType().getText(),
+                        returnType: (() => {
+                            try {
+                                const rn = fn.getReturnTypeNode();
+                                if (rn)
+                                    return normalizeTypeString(rn.getText());
+                            }
+                            catch { }
+                            return safeTypeText(fn.getReturnType());
+                        })(),
                         visibility: 'public',
                     };
                     symbols.push({

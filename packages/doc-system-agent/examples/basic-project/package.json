@@ -1,0 +1,15 @@
+{
+  "name": "basic-project-example",
+  "version": "1.0.0",
+  "description": "Beispielprojekt für @benni/doc-system-agent",
+  "type": "module",
+  "scripts": {
+    "scan": "echo 'Scan würde hier laufen - 5 files processed, 12 symbols extracted'",
+    "validate": "echo 'Validation würde hier laufen - Coverage: 12 / 12'",
+    "setup": "npx doc-agent init --verbose"
+  },
+  "devDependencies": {
+    "@benni/doc-system-agent": "^1.0.0"
+  }
+}
+

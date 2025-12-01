@@ -1,0 +1,88 @@
+---
+description: Zentrale Steuerung und Workflow-Orchestrierung für den AI-Agenten. Koordiniert alle anderen Rules und steuert die dynamische Plan-Erkennung.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Orchestrator – Zentrale Workflow-Steuerung
+
+Dieses Projekt ist eine **VS Code Extension** zur automatischen Dokumentationsgenerierung mit Selbst-Validierung. Der Agent muss die hier definierten Workflows bei jeder Interaktion befolgen.
+
+## Workflow-Übersicht
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    AGENT WORKFLOW                           │
+├─────────────────────────────────────────────────────────────┤
+│  1. Plan-Erkennung (*.plan.md im Projekt-Root)              │
+│  2. Pre-Check (001-pre-check.mdc)                           │
+│  3. Modul-spezifische Rules (010-013)                       │
+│  4. Implementierung (max. 3 Dateien)                        │
+│  5. Validierung (npm run scan && npm run validate)          │
+│  6. ADR bei signifikanten Änderungen                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 1. Dynamische Plan-Erkennung
+
+Vor jeder größeren Implementierung:
+
+1. **Suche nach Plänen**: Prüfe ob `*.plan.md` Dateien im Projekt-Root existieren
+2. **Priorisierung**:
+   - Spezifische Pläne (z.B. `feature-x.plan.md`) haben Vorrang
+   - Allgemeine Pläne (z.B. `MVP_PLAN.md`) als Fallback
+   - Bei mehreren Plänen: Den thematisch passendsten wählen
+3. **Kein Plan gefunden**: Arbeite nach Standard-Constraints (siehe `030-constraints.mdc`)
+4. **Plan-Abweichungen**: Müssen begründet und als ADR dokumentiert werden
+
+## 2. Generierte Dokumentation als Wissensbasis
+
+Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
+
+| Artefakt | Inhalt | Nutzen |
+|----------|--------|--------|
+| `docs/modules/*.md` | API-Dokumentation | Funktionen, Interfaces, Signaturen |
+| `docs/index/symbols.jsonl` | Symbol-Index | Dependencies pro Datei |
+| `docs/system/DEPENDENCIES.md` | Import-Übersicht | Module-Abhängigkeiten |
+| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Abhängigkeiten |
+| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Letzte Änderungen |
+| `docs/adr/*.md` | ADRs | Architektur-Entscheidungen |
+
+## 3. Rule-Hierarchie
+
+| Priorität | Rule-Typ | Beschreibung |
+|-----------|----------|--------------|
+| 1 (höchste) | Always-Apply | `000-orchestrator`, `001-pre-check`, `030-constraints` |
+| 2 | Auto-Attached | `010-013` – Aktiviert bei Arbeit in spezifischen Modulen |
+| 3 | Agent-Requested | `020-022` – Aktiviert bei expliziten Anfragen |
+
+## 4. Verbindliche Arbeitsweise
+
+- **Maximal 3 Dateien** gleichzeitig ändern
+- **Docs lesen** vor jeder Code-Änderung
+- **Dependency-Graph prüfen** vor neuen Imports
+- **Validierung ausführen** nach relevanten Änderungen
+- **ADR schreiben** bei signifikanten Architektur-Änderungen
+- **Keine Duplikate** – bestehende Artefakte nutzen, nicht neu erstellen
+- **Nicht raten** – bei Unklarheit fragen oder Docs lesen
+
+## 5. Memories-Integration
+
+Der Agent soll Memories nutzen, um projektspezifisches Wissen persistent zu speichern:
+
+### Was als Memory speichern:
+- Bestätigte Architektur-Entscheidungen (aus ADRs)
+- Etablierte Arbeitsmuster und Präferenzen
+- Validierte Projekt-Konventionen
+
+### Was NICHT als Memory speichern:
+- Temporäre Fehlersituationen
+- Experimentelle oder unbestätigte Ideen
+- Implementierungsdetails einzelner Tasks
+
+### Widerspruchs-Handling:
+Wenn der aktuelle Repo-Zustand einem Memory widerspricht:
+1. Memory kritisch prüfen
+2. Bei Widerspruch: Memory löschen oder aktualisieren
+3. Nicht stur an veralteten Memories festhalten

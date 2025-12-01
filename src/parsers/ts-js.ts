@@ -12,8 +12,8 @@ export class TsJsParser implements ParserAdapter {
             tsConfigFilePath,
             skipAddingFilesFromTsConfig: !tsConfigFilePath,
             useInMemoryFileSystem: false,
-            skipFileDependencyResolution: true,
-            skipLoadingLibFiles: true,
+            skipFileDependencyResolution: false,
+            skipLoadingLibFiles: false,
             compilerOptions: {
                 allowJs: true,
                 declaration: false,
@@ -22,6 +22,7 @@ export class TsJsParser implements ParserAdapter {
                 jsx: 1, // Preserve
                 experimentalDecorators: true,
                 emitDecoratorMetadata: false,
+                lib: ["ES2020"],
             },
         });
     }
@@ -52,11 +53,22 @@ export class TsJsParser implements ParserAdapter {
             }
         };
 
+        const nodeOrTypeText = (decl: { getType: () => Type; getTypeNode?: () => { getText: () => string } | undefined }): string => {
+            try {
+                const typeNode = decl.getTypeNode ? decl.getTypeNode() : undefined;
+                if (typeNode) {
+                    return normalizeTypeString(typeNode.getText());
+                }
+            } catch {}
+            return safeTypeText(decl.getType());
+        };
+
         // Hilfsfunktion für Push
         const pushSymbol = (kind: ParsedSymbol['kind'], name: string, signature?: Partial<SymbolSignature>) => {
             const sig: SymbolSignature = {
                 name,
                 parameters: [],
+                returnType: undefined,
                 visibility: 'public',
                 ...signature,
             };
@@ -80,10 +92,16 @@ export class TsJsParser implements ParserAdapter {
                     name: method.getName(),
                     parameters: impl.getParameters().map(p => ({
                         name: p.getName(),
-                        type: safeTypeText(p.getType()),
+                        type: nodeOrTypeText(p as any),
                         hasDefault: !!p.getInitializer(),
                     })),
-                    returnType: safeTypeText(impl.getReturnType()),
+                    returnType: (() => {
+                        try {
+                            const rn = (impl as any).getReturnTypeNode?.();
+                            if (rn) return normalizeTypeString(rn.getText());
+                        } catch {}
+                        return safeTypeText(impl.getReturnType());
+                    })(),
                     visibility: method.getScope() as any,
                 };
                 symbols.push({
@@ -97,7 +115,13 @@ export class TsJsParser implements ParserAdapter {
             // Properties
             cls.getProperties().forEach(prop => {
                 const propName = prop.getName();
-                const typeText = safeTypeText(prop.getType());
+                const typeText = (() => {
+                    try {
+                        const tn = prop.getTypeNode();
+                        if (tn) return normalizeTypeString(tn.getText());
+                    } catch {}
+                    return safeTypeText(prop.getType());
+                })();
                 const sig: SymbolSignature = { name: propName, parameters: [], returnType: typeText, visibility: prop.getScope() as any };
                 symbols.push({
                     language: 'ts',
@@ -123,10 +147,16 @@ export class TsJsParser implements ParserAdapter {
                 name,
                 parameters: fn.getParameters().map(p => ({
                     name: p.getName(),
-                    type: safeTypeText(p.getType()),
+                    type: nodeOrTypeText(p as any),
                     hasDefault: !!p.getInitializer(),
                 })),
-                returnType: safeTypeText(fn.getReturnType()),
+                returnType: (() => {
+                    try {
+                        const rn = fn.getReturnTypeNode();
+                        if (rn) return normalizeTypeString(rn.getText());
+                    } catch {}
+                    return safeTypeText(fn.getReturnType());
+                })(),
                 visibility: 'public',
             };
             symbols.push({
@@ -141,11 +171,22 @@ export class TsJsParser implements ParserAdapter {
         // Interfaces, Enums etc. (minimal)
         sourceFile.getInterfaces().forEach(intf => {
             const name = intf.getName();
+            const properties = intf.getProperties().map(prop => ({
+                name: prop.getName(),
+                type: prop.getTypeNode()?.getText() || 'any',
+                hasDefault: !!prop.getInitializer(),
+                optional: (typeof (prop as any).hasQuestionToken === 'function') ? (prop as any).hasQuestionToken() : false,
+            }));
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
-                signature: { name, parameters: [] },
+                signature: { 
+                    name, 
+                    parameters: properties,
+                    returnType: undefined,
+                    visibility: 'public'
+                },
                 kind: 'interface',
             });
         });
@@ -179,7 +220,43 @@ export class TsJsParser implements ParserAdapter {
         sourceFile.getVariableStatements().forEach(vs => {
             vs.getDeclarations().forEach(decl => {
                 const name = decl.getName();
-                const typeText = decl.getType().getText();
+                const typeText = (() => {
+                    try {
+                        // 1) Expliziter Typ
+                        const tn = decl.getTypeNode?.();
+                        if (tn) return normalizeTypeString(tn.getText());
+                        // 2) Heuristik über Initializer
+                        const init = decl.getInitializer?.();
+                        if (init && init.getKind) {
+                            const kind = init.getKind();
+                            // Array-Literal aus Strings -> string[]
+                            if (kind === SyntaxKind.ArrayLiteralExpression) {
+                                const arr: any = init as any;
+                                const elems = arr.getElements?.() || [];
+                                if (elems.length === 0 || elems.every((e: any) => e.getKind && e.getKind() === SyntaxKind.StringLiteral)) {
+                                    return 'string[]';
+                                }
+                            }
+                            // new Set(["..."]) -> Set<string>
+                            if (kind === SyntaxKind.NewExpression) {
+                                const ne: any = init as any;
+                                const exprName = ne.getExpression?.()?.getText?.();
+                                const args = ne.getArguments?.() || [];
+                                if (exprName === 'Set' && args.length > 0) {
+                                    const first = args[0];
+                                    if (first && first.getKind && first.getKind() === SyntaxKind.ArrayLiteralExpression) {
+                                        const elems = first.getElements?.() || [];
+                                        if (elems.length === 0 || elems.every((e: any) => e.getKind && e.getKind() === SyntaxKind.StringLiteral)) {
+                                            return 'Set<string>';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch {}
+                    // 3) Fallback: Type aus Checker
+                    return safeTypeText(decl.getType());
+                })();
                 const sig: SymbolSignature = { name, parameters: [], returnType: typeText, visibility: 'public' };
                 symbols.push({
                     language: 'ts',
@@ -202,10 +279,16 @@ export class TsJsParser implements ParserAdapter {
                     name: fn.getName() || 'anonymous',
                     parameters: fn.getParameters().map((p: ParameterDeclaration) => ({
                         name: p.getName(),
-                        type: p.getType().getText(),
+                        type: nodeOrTypeText(p as any),
                         hasDefault: !!p.getInitializer(),
                     })),
-                    returnType: fn.getReturnType().getText(),
+                    returnType: (() => {
+                        try {
+                            const rn = fn.getReturnTypeNode();
+                            if (rn) return normalizeTypeString(rn.getText());
+                        } catch {}
+                        return safeTypeText(fn.getReturnType());
+                    })(),
                     visibility: 'public',
                 };
                 symbols.push({

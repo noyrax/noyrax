@@ -12,6 +12,10 @@ export interface StatusReport {
     };
 }
 
+/**
+ * @public
+ * Compute overall validation status from results
+ */
 export function computeValidationStatus(
     errors: string[],
     warnings: string[],

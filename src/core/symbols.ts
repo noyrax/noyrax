@@ -1,6 +1,10 @@
 import { createHash } from 'crypto';
 import { ParsedSymbol } from '../parsers/types';
 
+/**
+ * @public
+ * Compute hash for symbol signature
+ */
 export function computeSignatureHash(symbol: ParsedSymbol): string {
     const base = [
         symbol.signature.name,

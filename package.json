@@ -1,89 +1,106 @@
 {
-  "name": "documentation-system-plugin",
-  "displayName": "Documentation System Plugin",
-  "description": "Universelles VSCode-Plugin für automatische Dokumentations-Generierung. Scannt alle Dateitypen (Python, TypeScript, JavaScript, JSON, YAML, etc.) und generiert deterministische Dokumentation für KI-Integration.",
-  "version": "1.0.0",
-  "publisher": "benjamin-behrens",
+  "name": "noyrax",
+  "displayName": "Noyrax",
+  "description": "Documentation that never drifts. Automatische Dokumentationsgenerierung mit Validierung und Drift-Detection.",
+  "version": "1.0.3",
+  "publisher": "noyrax",
+  "icon": "assets/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/benjamin-behrens/documentation-system-plugin.git"
+    "url": "https://github.com/noyrax/noyrax"
+  },
+  "homepage": "https://noyrax.dev",
+  "bugs": {
+    "url": "https://github.com/noyrax/noyrax/issues"
   },
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": [
     "Documentation",
+    "Linters",
     "Other"
   ],
   "keywords": [
+    "noyrax",
     "documentation",
-    "universal-scanner",
-    "deterministic",
-    "system-analysis",
+    "docs-as-code",
+    "drift-detection",
+    "validation",
     "typescript",
     "python",
-    "code-analysis"
+    "code-analysis",
+    "ai-agent",
+    "mcp"
   ],
   "main": "./out/extension.js",
   "activationEvents": [
     "onStartupFinished"
   ],
-  
   "contributes": {
     "commands": [
       {
-        "command": "docs.generate",
-        "title": "Docs: Generate Documentation",
-        "category": "Documentation"
+        "command": "noyrax.generate",
+        "title": "Noyrax: Generate Documentation",
+        "category": "Noyrax",
+        "icon": "$(file-text)"
       },
       {
-        "command": "docs.scan",
-        "title": "Docs: Scan System",
-        "category": "Documentation"
+        "command": "noyrax.scan",
+        "title": "Noyrax: Scan Project",
+        "category": "Noyrax",
+        "icon": "$(search)"
       },
       {
-        "command": "docs.search",
-        "title": "Docs: Search in Documentation",
-        "category": "Documentation"
+        "command": "noyrax.search",
+        "title": "Noyrax: Search in Documentation",
+        "category": "Noyrax",
+        "icon": "$(search)"
       },
       {
-        "command": "docs.validate",
-        "title": "Docs: Validate Documentation",
-        "category": "Documentation"
+        "command": "noyrax.validate",
+        "title": "Noyrax: Validate Documentation",
+        "category": "Noyrax",
+        "icon": "$(check)"
       },
       {
-        "command": "docs.sync",
-        "title": "Docs: Sync Documentation",
-        "category": "Documentation"
+        "command": "noyrax.drift",
+        "title": "Noyrax: Check for Drift",
+        "category": "Noyrax",
+        "icon": "$(warning)"
       },
       {
-        "command": "docs.open",
-        "title": "Docs: Open Documentation File",
-        "category": "Documentation"
+        "command": "noyrax.open",
+        "title": "Noyrax: Open Documentation File",
+        "category": "Noyrax",
+        "icon": "$(file)"
       },
       {
-        "command": "docs.overview",
-        "title": "Docs: Show System Overview",
-        "category": "Documentation"
+        "command": "noyrax.overview",
+        "title": "Noyrax: Show System Overview",
+        "category": "Noyrax",
+        "icon": "$(graph)"
       },
       {
-        "command": "docs.fullCycle",
-        "title": "Docs: Full Cycle (Scan → Generate → Validate)",
-        "category": "Documentation"
+        "command": "noyrax.fullCycle",
+        "title": "Noyrax: Full Cycle (Scan → Generate → Validate)",
+        "category": "Noyrax",
+        "icon": "$(sync)"
       }
     ],
     "views": {
       "explorer": [
         {
-          "id": "docsExplorer",
-          "name": "Documentation",
-          "when": "workspaceFolderCount > 0"
+          "id": "noyraxExplorer",
+          "name": "Noyrax",
+          "when": "workspaceFolderCount > 0",
+          "icon": "$(book)"
         }
       ],
-      "docsPanel": [
+      "noyraxPanel": [
         {
-          "id": "docsCommands",
-          "name": "Documentation Commands",
+          "id": "noyraxCommands",
+          "name": "Noyrax Commands",
           "when": "workspaceFolderCount > 0"
         }
       ]
@@ -91,78 +108,132 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "docsPanel",
-          "title": "Documentation",
+          "id": "noyraxPanel",
+          "title": "Noyrax",
           "icon": "$(book)"
         }
       ]
     },
     "configuration": {
-      "title": "Documentation System",
+      "title": "Noyrax",
       "properties": {
-        "docs.workspaceRoot": {
+        "noyrax.workspaceRoot": {
           "type": "string",
           "default": "${workspaceFolder}",
           "description": "Root directory of the workspace"
         },
-        "docs.outputPath": {
+        "noyrax.outputPath": {
           "type": "string",
           "default": "docs",
           "description": "Output directory for generated documentation"
         },
-        "docs.coverageThresholds.classes": {
+        "noyrax.coverageThresholds.classes": {
           "type": "number",
           "default": 0.9,
-          "description": "Coverage-Schwelle für public Klassen (0..1)"
+          "description": "Coverage threshold for public classes (0..1)"
         },
-        "docs.coverageThresholds.interfaces": {
+        "noyrax.coverageThresholds.interfaces": {
           "type": "number",
           "default": 0.9,
-          "description": "Coverage-Schwelle für public Interfaces (0..1)"
+          "description": "Coverage threshold for public interfaces (0..1)"
         },
-        "docs.coverageThresholds.methods": {
+        "noyrax.coverageThresholds.methods": {
           "type": "number",
           "default": 0.9,
-          "description": "Coverage-Schwelle für public Methoden (0..1)"
+          "description": "Coverage threshold for public methods (0..1)"
         },
-        "docs.coverageThresholds.functions": {
+        "noyrax.coverageThresholds.functions": {
           "type": "number",
           "default": 0.8,
-          "description": "Coverage-Schwelle für public Funktionen (0..1)"
+          "description": "Coverage threshold for public functions (0..1)"
         },
-        "docs.concurrency": {
+        "noyrax.concurrency": {
           "type": "number",
           "default": 4,
-          "description": "Maximale Parallelität beim Parsen/Generieren"
+          "description": "Maximum parallelism for parsing/generating"
         },
-        "docs.useGitDiff": {
+        "noyrax.useGitDiff": {
           "type": "boolean",
           "default": true,
-          "description": "Nur geänderte Dateien (git diff) bevorzugt parsen"
+          "description": "Only parse changed files (git diff)"
         },
-        "docs.includeBackups": {
+        "noyrax.includeBackups": {
           "type": "boolean",
           "default": false,
-          "description": "Backup-/Archiv-Verzeichnisse in Scan einbeziehen"
+          "description": "Include backup/archive directories in scan"
         },
-        "docs.includePrivate": {
+        "noyrax.includePrivate": {
           "type": "boolean",
           "default": false,
-          "description": "Private/protected Symbole in Dokumentation einbeziehen"
+          "description": "Include private/protected symbols in documentation"
+        },
+        "noyrax.blockOnDrift": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show error instead of warning when drift is detected"
         }
       }
-    }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "noyrax.generate",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "noyrax.scan",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "noyrax.validate",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "noyrax.scan",
+        "key": "ctrl+shift+n s",
+        "mac": "cmd+shift+n s",
+        "when": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "noyrax.generate",
+        "key": "ctrl+shift+n g",
+        "mac": "cmd+shift+n g",
+        "when": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "noyrax.validate",
+        "key": "ctrl+shift+n v",
+        "mac": "cmd+shift+n v",
+        "when": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "noyrax.fullCycle",
+        "key": "ctrl+shift+n f",
+        "mac": "cmd+shift+n f",
+        "when": "workspaceFolderCount > 0"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "sonar": "sonar-scanner",
+    "sonar:local": "sonar-scanner -Dsonar.host.url=http://localhost:9000",
+    "sonar:cloud": "sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}",
+    "quality": "npm run test && npm run sonar:cloud",
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "devDependencies": {
     "@types/node": "16.x",
     "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^2.22.0",
     "typescript": "^4.9.4",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",

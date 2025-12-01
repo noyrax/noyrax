@@ -1,0 +1,106 @@
+---
+description: Workflow für Abhängigkeits- und Impact-Analysen. Aktiviert bei Anfragen wie "welche Auswirkungen hat...", "wer nutzt...", "Dependencies von...".
+globs: []
+alwaysApply: false
+---
+
+# Impact-Analyse Workflow
+
+Diese Rule wird aktiviert bei Anfragen zu Abhängigkeiten und Auswirkungen.
+
+## Trigger-Phrasen
+
+- "welche Auswirkungen hat..."
+- "wer nutzt..." / "wer importiert..."
+- "Dependencies von..."
+- "was hängt ab von..."
+- "Impact-Analyse"
+- "Abhängigkeiten prüfen"
+
+## Datenquellen
+
+| Quelle | Inhalt | Nutzen |
+|--------|--------|--------|
+| `docs/system/DEPENDENCIES.md` | Import/Export pro Modul | Direkte Abhängigkeiten |
+| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Übersicht |
+| `docs/index/symbols.jsonl` | Symbol-Index | Symbol-Level Dependencies |
+
+## Analyse-Workflow
+
+### 1. Direkte Abhängigkeiten finden
+
+```bash
+# In DEPENDENCIES.md nach Modul suchen
+grep -A 20 "src/parsers/ts-js.ts" docs/system/DEPENDENCIES.md
+```
+
+Oder aus `symbols.jsonl`:
+
+```bash
+# Alle Dateien die ts-js.ts importieren
+grep "src/parsers/ts-js" docs/index/symbols.jsonl | jq '.dependents'
+```
+
+### 2. Transitive Abhängigkeiten
+
+Für tiefere Analyse den Dependency-Graph nutzen:
+
+```mermaid
+graph TD
+    A[src/core/scanner.ts] --> B[src/parsers/ts-js.ts]
+    B --> C[src/parsers/types.ts]
+    D[src/generator/index.ts] --> B
+```
+
+### 3. Impact-Bewertung
+
+| Änderungstyp | Impact | Aktion |
+|--------------|--------|--------|
+| Signatur-Änderung | Hoch | Alle Aufrufer prüfen |
+| Neue Funktion | Niedrig | Keine Breaking Changes |
+| Gelöschte Funktion | Kritisch | Migration erforderlich |
+| Interne Änderung | Niedrig | Tests ausführen |
+
+## Wann NICHT analysieren
+
+- Bei rein kosmetischen Änderungen
+- Bei Änderungen in Blatt-Modulen (keine Abhängigen)
+- Wenn nur Tests geändert werden
+
+## Beispiel-Analyse
+
+**Frage**: "Welche Auswirkungen hat eine Änderung an `normalizeSignature` in `signature-matching.ts`?"
+
+**Analyse**:
+
+1. **Direkte Nutzer** (aus DEPENDENCIES.md):
+   - `src/validator/index.ts` – Haupt-Validator
+   
+2. **Transitive Nutzer**:
+   - `src/extension.ts` – VS Code Extension Entry
+   - CLI-Commands (falls vorhanden)
+
+3. **Impact-Bewertung**:
+   - Signatur-Normalisierung ist kritisch für Validierung
+   - Änderung kann false positives/negatives verursachen
+   - **Empfehlung**: Ausführliche Tests, ggf. ADR
+
+## Zyklus-Erkennung
+
+Vor neuen Imports prüfen:
+
+```bash
+# Dependency-Graph auf Zyklen prüfen
+grep -E "^\s+[A-Z].*-->.*[A-Z]" docs/system/DEPENDENCY_GRAPH.md
+```
+
+Erlaubte Import-Richtung:
+```
+core → parsers → symbols → generator/validator → cli/ui
+```
+
+Verboten:
+```
+parsers → core  # Rückwärts-Import!
+validator → parsers → validator  # Zyklus!
+```

@@ -2,6 +2,7 @@ export interface SymbolParameter {
     name: string;
     type?: string;
     hasDefault?: boolean;
+    optional?: boolean;
 }
 
 export interface SymbolSignature {

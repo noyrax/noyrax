@@ -1,0 +1,86 @@
+---
+description: Architektur-Constraints und unverhandelbare Projektregeln. Diese Regeln gelten IMMER.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Architektur-Constraints
+
+Diese Constraints sind **unverhandelbar** und gelten für alle Änderungen am Projekt.
+
+## 1. Determinismus
+
+Alle Artefakte müssen deterministisch sein (gleiche Eingabe → gleiche Ausgabe).
+
+- **Keine nicht-deterministischen Quellen** ohne explizite Injektion/Mocking:
+  - Keine Datei-Reihenfolge aus `fs.readdir()` direkt verwenden
+  - Keine `Date.now()` oder `Math.random()` in Ausgaben
+  - Keine unsortierte Iteration über Objects/Maps
+- **Sortierung und Normalisierung** strikt einhalten:
+  - Pfade: Alphabetisch sortiert, forward-slashes
+  - Symbole: Nach Name, dann Typ sortiert
+  - Signaturen: Normalisiert (Whitespace, Generics)
+- **Änderungs-Kommentare** ohne Zeitstempel
+
+## 2. Architektur-Konsistenz
+
+- **Modulaufteilung** respektieren:
+  ```
+  core/       → Basis-Funktionen (Scanner, Git, Async)
+  parsers/    → Sprach-Parser (TS/JS, Python, JSON/YAML)
+  generator/  → Dokumentations-Generierung
+  validator/  → Validierung und Signatur-Matching
+  drift/      → Drift-Detection
+  cache/      → Cache-Layer (AST, Signature, Dependencies, Output)
+  index/      → Symbol-Index
+  logging/    → Logging-Infrastruktur
+  ui/         → VS Code UI-Komponenten
+  ```
+- **Import-Richtung** einhalten:
+  ```
+  core → parsers → symbols → generator/validator → cli/ui
+  ```
+- **Keine zirkulären Abhängigkeiten** – vor jedem neuen Import `DEPENDENCY_GRAPH.md` prüfen
+
+## 3. Typisierung
+
+- **Kein `any`** in öffentlichen APIs
+- **Keine unsicheren Casts** (`as unknown as X`)
+- **Frühe Guard-Clauses** statt tief verschachtelter Conditionals
+- **Interfaces** für komplexe Datenstrukturen
+
+## 4. Fehlerbehandlung
+
+- **Keine stillen Catches** – Fehler immer loggen oder weiterwerfen
+- **Parser-Fehler isolieren** – Datei als `unparsed` markieren, nicht abbrechen
+- **Logging mit Kontext** – Datei, Sprache, Symbol-ID mitloggen
+- **Laufstatus setzen** – grün/gelb/rot je nach Schwere
+
+## 5. Performance
+
+- **Async I/O** für Dateioperationen
+- **Inkrementelle Läufe** bevorzugen (Caches nutzen)
+- **Caches invalidieren** nur bei relevanten Änderungen (git diff/Hash)
+- **Worker-Threads** für CPU-intensive Operationen (falls nötig)
+
+## 6. Technologie-Stack
+
+- **TypeScript** für alle neuen Module
+- **Kein Python** – Migration ist abgeschlossen
+- **Keine Hybridlösungen** – keine Python-Spawns, keine gemischten Pipelines
+
+## 7. Qualität
+
+- **Snapshot-Tests** für Generator/Validator
+- **Determinismus-Tests** – identische Artefakte bei identischem Input
+- **Coverage-Schwellen** einhalten
+- **Markdown-Hygiene** – valide MD-Syntax, keine broken Links
+
+## 8. Änderungs-Disziplin
+
+- **Maximal 3 Dateien** pro Änderungsschritt
+- **Kein Entfernen von Funktionalität** ohne expliziten Ersatz
+- **Keine Eigenmächtigkeit** – keine Umstrukturierung ohne Freigabe
+- **ADR-Pflicht** bei signifikanten Änderungen
+- **Validierung nach Änderungen** – `npm run scan && npm run validate`

@@ -1,0 +1,23 @@
+{
+  "$schema": "../noyrax.config.schema.json",
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts"],
+  "output": {
+    "modules": "docs/modules",
+    "system": "docs/system",
+    "index": "docs/index"
+  },
+  "validation": {
+    "coverage": {
+      "classes": 0.9,
+      "functions": 0.8,
+      "interfaces": 0.9
+    },
+    "blockOnDrift": false
+  },
+  "generation": {
+    "includePrivate": false,
+    "includeExamples": true
+  }
+}
+

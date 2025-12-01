@@ -12,10 +12,18 @@ export interface AstHashCacheData {
     entries: AstHashEntry[];
 }
 
+/**
+ * @public
+ * Compute hash for file content
+ */
 export function computeFileHash(content: string): string {
     return createHash('sha256').update(content).digest('hex').slice(0, 16);
 }
 
+/**
+ * @public
+ * Load AST hash cache from file
+ */
 export function loadAstHashCache(cacheFile: string): AstHashCacheData | null {
     try {
         if (!fs.existsSync(cacheFile)) return null;
@@ -28,6 +36,10 @@ export function loadAstHashCache(cacheFile: string): AstHashCacheData | null {
     }
 }
 
+/**
+ * @public
+ * Save AST hash cache to file
+ */
 export function saveAstHashCache(cacheDir: string, data: AstHashCacheData) {
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
     const file = path.join(cacheDir, 'ast-hashes.json');

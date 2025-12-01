@@ -1,0 +1,7 @@
+organization=b3nn183
+projectKey=B3NN183
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.68145
+dashboardUrl=https://sonarcloud.io/dashboard?id=B3NN183
+ceTaskId=AZmldTGwwU41xCHBbQFz
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZmldTGwwU41xCHBbQFz

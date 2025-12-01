@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/docguard/docguard/discussions
+    about: Für Fragen und Ideen-Austausch
+  - name: 📖 Dokumentation
+    url: https://docguard.dev/docs
+    about: Schau zuerst in die Dokumentation
+

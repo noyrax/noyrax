@@ -1,0 +1,80 @@
+---
+description: Leitplanken für Parser-Module. Aktiviert bei Arbeit in src/parsers/.
+globs:
+  - "src/parsers/**"
+alwaysApply: false
+---
+
+# Parser-Modul Leitplanken
+
+Diese Regeln gelten für alle Änderungen in `src/parsers/`.
+
+## Parser-Übersicht
+
+| Datei | Sprachen | Verantwortung |
+|-------|----------|---------------|
+| `ts-js.ts` | TypeScript, JavaScript | Haupt-Parser für TS/JS |
+| `python.ts` | Python | Python-Datei-Parsing |
+| `json-yaml.ts` | JSON, YAML | Konfigurations-Dateien |
+| `dependencies.ts` | Alle | Import/Export-Extraktion |
+| `types.ts` | - | Gemeinsame Typen |
+
+## Verbindliche Regeln
+
+### 1. Fehler-Isolation
+
+```typescript
+// RICHTIG: Fehler isolieren, Datei als unparsed markieren
+try {
+  const symbols = parseFile(filePath);
+  return { status: 'parsed', symbols };
+} catch (error) {
+  logger.warn(`Parse error in ${filePath}`, { error });
+  return { status: 'unparsed', error: error.message };
+}
+
+// FALSCH: Stiller Catch oder Abbruch
+try {
+  return parseFile(filePath);
+} catch {
+  return []; // Fehler verschluckt!
+}
+```
+
+### 2. Keine stillen Catches
+
+- Jeder Catch-Block muss loggen oder den Fehler weiterwerfen
+- Logging mit Kontext: Datei, Sprache, Symbol-ID
+- Laufstatus setzen (grün/gelb/rot)
+
+### 3. Typgenauigkeit
+
+- Variablen-Typen extrahieren (nicht nur `unknown`)
+- Generics korrekt auflösen
+- Signatur-Normalisierung konsistent anwenden
+
+### 4. Deterministische Ausgaben
+
+- Symbol-Listen alphabetisch sortieren
+- Keine Abhängigkeit von Datei-Reihenfolge
+- Konsistente Whitespace-Normalisierung in Signaturen
+
+## Relevante Dokumentation
+
+Vor Änderungen lesen:
+- `docs/modules/src__parsers__ts-js.ts.md`
+- `docs/modules/src__parsers__python.ts.md`
+- `docs/modules/src__parsers__dependencies.ts.md`
+- `docs/modules/src__parsers__types.ts.md`
+
+## ADR-Referenzen
+
+- ADR-006: Parser Variable Type Extraction
+- ADR-007: TS Parser Load Libs for Accurate Types
+
+## Tests
+
+Nach Parser-Änderungen:
+1. `npm run test` – Unit-Tests
+2. `npm run scan` – Vollständiger Scan
+3. `npm run validate` – Signatur-Validierung

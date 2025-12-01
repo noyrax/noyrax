@@ -1,0 +1,178 @@
+name: 'Noyrax Validation'
+description: 'Validate documentation with Noyrax - detect drift and enforce coverage'
+author: 'Noyrax'
+
+branding:
+  icon: 'file-text'
+  color: 'blue'
+
+inputs:
+  command:
+    description: 'Command to run: scan, generate, validate, drift, or full'
+    required: false
+    default: 'validate'
+  
+  fail-on-drift:
+    description: 'Fail the action if drift is detected'
+    required: false
+    default: 'true'
+  
+  fail-on-coverage:
+    description: 'Fail if coverage is below threshold'
+    required: false
+    default: 'false'
+  
+  coverage-threshold:
+    description: 'Minimum coverage percentage (0-100)'
+    required: false
+    default: '80'
+  
+  config-path:
+    description: 'Path to docguard.config.json'
+    required: false
+    default: 'noyrax.config.json'
+  
+  github-token:
+    description: 'GitHub token for PR comments'
+    required: false
+    default: ''
+  
+  working-directory:
+    description: 'Working directory for Noyrax'
+    required: false
+    default: '.'
+
+outputs:
+  status:
+    description: 'Validation status: success, drift, or error'
+  
+  coverage:
+    description: 'Documentation coverage percentage'
+  
+  files-checked:
+    description: 'Number of files checked'
+  
+  drift-count:
+    description: 'Number of files with drift'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install Noyrax CLI
+      shell: bash
+      run: npm install -g @noyrax/cli
+    
+    - name: Run Noyrax
+      id: noyrax
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        NOYRAX_CONFIG: ${{ inputs.config-path }}
+        FAIL_ON_DRIFT: ${{ inputs.fail-on-drift }}
+        FAIL_ON_COVERAGE: ${{ inputs.fail-on-coverage }}
+        COVERAGE_THRESHOLD: ${{ inputs.coverage-threshold }}
+      run: |
+        set +e
+        
+        COMMAND="${{ inputs.command }}"
+        
+        case "$COMMAND" in
+          scan)
+            OUTPUT=$(noyrax scan --json 2>&1)
+            ;;
+          generate)
+            OUTPUT=$(noyrax generate --json 2>&1)
+            ;;
+          validate)
+            OUTPUT=$(noyrax validate --json 2>&1)
+            ;;
+          drift)
+            OUTPUT=$(noyrax drift --since HEAD~1 --json 2>&1)
+            ;;
+          full)
+            noyrax scan
+            noyrax generate
+            OUTPUT=$(noyrax validate --json 2>&1)
+            ;;
+          *)
+            echo "Unknown command: $COMMAND"
+            exit 1
+            ;;
+        esac
+        
+        EXIT_CODE=$?
+        
+        # Parse output
+        STATUS="success"
+        COVERAGE="0"
+        FILES_CHECKED="0"
+        DRIFT_COUNT="0"
+        
+        if echo "$OUTPUT" | grep -q '"status"'; then
+          STATUS=$(echo "$OUTPUT" | grep -o '"status":"[^"]*"' | cut -d'"' -f4 || echo "success")
+          COVERAGE=$(echo "$OUTPUT" | grep -o '"coverage":[0-9]*' | cut -d':' -f2 || echo "0")
+          FILES_CHECKED=$(echo "$OUTPUT" | grep -o '"filesChecked":[0-9]*' | cut -d':' -f2 || echo "0")
+          DRIFT_COUNT=$(echo "$OUTPUT" | grep -o '"driftCount":[0-9]*' | cut -d':' -f2 || echo "0")
+        fi
+        
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+        echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+        echo "files-checked=$FILES_CHECKED" >> $GITHUB_OUTPUT
+        echo "drift-count=$DRIFT_COUNT" >> $GITHUB_OUTPUT
+        
+        # Check failure conditions
+        if [[ "$FAIL_ON_DRIFT" == "true" && "$DRIFT_COUNT" -gt 0 ]]; then
+          echo "::error::Drift detected in $DRIFT_COUNT file(s)"
+          exit 1
+        fi
+        
+        if [[ "$FAIL_ON_COVERAGE" == "true" && "$COVERAGE" -lt "$COVERAGE_THRESHOLD" ]]; then
+          echo "::error::Coverage $COVERAGE% is below threshold $COVERAGE_THRESHOLD%"
+          exit 1
+        fi
+        
+        exit $EXIT_CODE
+    
+    - name: Comment on PR
+      if: inputs.github-token != '' && github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const status = '${{ steps.noyrax.outputs.status }}';
+          const coverage = '${{ steps.noyrax.outputs.coverage }}';
+          const filesChecked = '${{ steps.noyrax.outputs.files-checked }}';
+          const driftCount = '${{ steps.noyrax.outputs.drift-count }}';
+          
+          const statusEmoji = status === 'success' ? '✅' : (driftCount > 0 ? '⚠️' : '❌');
+          
+          const body = `## ${statusEmoji} Noyrax Validation Report
+          
+          | Metric | Value |
+          |--------|-------|
+          | Status | ${status} |
+          | Coverage | ${coverage}% |
+          | Files Checked | ${filesChecked} |
+          | Drift Detected | ${driftCount} |
+          
+          ${driftCount > 0 ? `
+          > **Warning:** Documentation drift detected in ${driftCount} file(s).
+          > Run \`noyrax validate --verbose\` locally for details.
+          ` : ''}
+          
+          ---
+          *Generated by [Noyrax](https://noyrax.dev)*
+          `;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: body
+          });
+

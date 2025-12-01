@@ -1,0 +1,69 @@
+---
+description: Pflichtschritte vor jeder Code-Änderung. Muss VOR jeder Implementierung durchlaufen werden.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Pre-Check – Pflichtschritte vor Code-Änderungen
+
+Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
+
+## Checkliste (in dieser Reihenfolge)
+
+### 1. Plan prüfen
+- [ ] Existiert ein `*.plan.md` im Projekt-Root?
+- [ ] Falls ja: Relevanten Plan lesen und befolgen
+- [ ] Falls nein: Standard-Constraints anwenden
+
+### 2. Dokumentation lesen
+- [ ] Relevante Modul-Doku aus `docs/modules/` gelesen
+- [ ] `docs/system/DEPENDENCIES.md` für betroffene Module geprüft
+- [ ] Bei Unsicherheit: Weitere Docs konsultieren, NICHT raten
+
+### 3. Abhängigkeiten prüfen
+- [ ] `docs/system/DEPENDENCY_GRAPH.md` geprüft
+- [ ] Keine neuen zirkulären Abhängigkeiten eingeführt
+- [ ] Import-Richtung respektiert: `core → parsers → symbols → generator/validator → cli`
+
+### 4. Scope begrenzen
+- [ ] **Maximal 3 Dateien** in diesem Änderungsschritt
+- [ ] Änderungen sind fokussiert und zusammenhängend
+- [ ] Keine unnötigen Refactorings "nebenbei"
+
+### 5. Implementierung
+- [ ] Code gemäß Plan/Constraints implementiert
+- [ ] TypeScript für neue Module (kein Python)
+- [ ] Öffentliche APIs klar typisiert (kein `any`)
+- [ ] Frühe Guard-Clauses, keine stillen Catches
+
+### 6. Nach der Änderung
+- [ ] `npm run scan && npm run validate` ausführen
+- [ ] Bei Fehlern: Korrigieren bevor fortfahren
+- [ ] Bei signifikanter Änderung: ADR in `docs/adr/` erstellen
+
+## Quick-Reference: Modul-Dokumentation finden
+
+```
+Modul: src/parsers/ts-js.ts
+Doku:  docs/modules/src__parsers__ts-js.ts.md
+
+Modul: src/validator/index.ts
+Doku:  docs/modules/src__validator__index.ts.md
+```
+
+Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
+
+## Wann ist eine Änderung "signifikant" (ADR-Pflicht)?
+
+- Neue Module oder signifikante API-Erweiterungen
+- Änderungen an der Architektur oder Datenflüssen
+- Neue Abhängigkeiten oder Technologien
+- Änderungen an Cache-Strategien oder Validierungslogik
+- Breaking Changes an bestehenden APIs
+
+## Bei Unklarheit
+
+1. **Mehr Docs lesen** – nicht raten
+2. **Fragen stellen** – lieber nachfragen als falsch implementieren
+3. **Kleiner anfangen** – lieber weniger ändern und validieren

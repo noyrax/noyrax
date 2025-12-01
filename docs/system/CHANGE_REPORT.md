@@ -1,0 +1,256 @@
+# Änderungsreport
+
+Letzter Lauf: Full
+Geparste Dateien: 148
+Übersprungene Dateien: 0
+
+## Geänderte Symbole
+- `action/action.yml::author`
+  - Alt: `author():`
+  - Neu: `author():string`
+- `action/action.yml::branding`
+  - Alt: `branding():`
+  - Neu: `branding():object`
+- `action/action.yml::description`
+  - Alt: `description():`
+  - Neu: `description():string`
+- `action/action.yml::inputs`
+  - Alt: `inputs():`
+  - Neu: `inputs():object`
+- `action/action.yml::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `action/action.yml::outputs`
+  - Alt: `outputs():`
+  - Neu: `outputs():object`
+- `action/action.yml::runs`
+  - Alt: `runs():`
+  - Neu: `runs():object`
+- `demo/docguard.config.json::$schema`
+  - Alt: `$schema():`
+  - Neu: `$schema():string`
+- `demo/docguard.config.json::exclude`
+  - Alt: `exclude():`
+  - Neu: `exclude():object`
+- `demo/docguard.config.json::generation`
+  - Alt: `generation():`
+  - Neu: `generation():object`
+- `demo/docguard.config.json::include`
+  - Alt: `include():`
+  - Neu: `include():object`
+- `demo/docguard.config.json::output`
+  - Alt: `output():`
+  - Neu: `output():object`
+- `demo/docguard.config.json::validation`
+  - Alt: `validation():`
+  - Neu: `validation():object`
+- `demo/package.json::description`
+  - Alt: `description():`
+  - Neu: `description():string`
+- `demo/package.json::devDependencies`
+  - Alt: `devDependencies():`
+  - Neu: `devDependencies():object`
+- `demo/package.json::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `demo/package.json::scripts`
+  - Alt: `scripts():`
+  - Neu: `scripts():object`
+- `demo/package.json::type`
+  - Alt: `type():`
+  - Neu: `type():string`
+- `demo/package.json::version`
+  - Alt: `version():`
+  - Neu: `version():string`
+- `mcp/package.json::author`
+  - Alt: `author():`
+  - Neu: `author():string`
+- `mcp/package.json::bin`
+  - Alt: `bin():`
+  - Neu: `bin():object`
+- `mcp/package.json::bugs`
+  - Alt: `bugs():`
+  - Neu: `bugs():object`
+- `mcp/package.json::dependencies`
+  - Alt: `dependencies():`
+  - Neu: `dependencies():object`
+- `mcp/package.json::description`
+  - Alt: `description():`
+  - Neu: `description():string`
+- `mcp/package.json::devDependencies`
+  - Alt: `devDependencies():`
+  - Neu: `devDependencies():object`
+- `mcp/package.json::engines`
+  - Alt: `engines():`
+  - Neu: `engines():object`
+- `mcp/package.json::homepage`
+  - Alt: `homepage():`
+  - Neu: `homepage():string`
+- `mcp/package.json::keywords`
+  - Alt: `keywords():`
+  - Neu: `keywords():object`
+- `mcp/package.json::license`
+  - Alt: `license():`
+  - Neu: `license():string`
+- `mcp/package.json::main`
+  - Alt: `main():`
+  - Neu: `main():string`
+- `mcp/package.json::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `mcp/package.json::repository`
+  - Alt: `repository():`
+  - Neu: `repository():object`
+- `mcp/package.json::scripts`
+  - Alt: `scripts():`
+  - Neu: `scripts():object`
+- `mcp/package.json::type`
+  - Alt: `type():`
+  - Neu: `type():string`
+- `mcp/package.json::types`
+  - Alt: `types():`
+  - Neu: `types():string`
+- `mcp/package.json::version`
+  - Alt: `version():`
+  - Neu: `version():string`
+- `package.json::activationEvents`
+  - Alt: `activationEvents():`
+  - Neu: `activationEvents():object`
+- `package.json::bugs`
+  - Alt: `bugs():`
+  - Neu: `bugs():object`
+- `package.json::categories`
+  - Alt: `categories():`
+  - Neu: `categories():object`
+- `package.json::contributes`
+  - Alt: `contributes():`
+  - Neu: `contributes():object`
+- `package.json::dependencies`
+  - Alt: `dependencies():`
+  - Neu: `dependencies():object`
+- `package.json::description`
+  - Alt: `description():`
+  - Neu: `description():string`
+- `package.json::devDependencies`
+  - Alt: `devDependencies():`
+  - Neu: `devDependencies():object`
+- `package.json::displayName`
+  - Alt: `displayName():`
+  - Neu: `displayName():string`
+- `package.json::engines`
+  - Alt: `engines():`
+  - Neu: `engines():object`
+- `package.json::homepage`
+  - Alt: `homepage():`
+  - Neu: `homepage():string`
+- `package.json::icon`
+  - Alt: `icon():`
+  - Neu: `icon():string`
+- `package.json::keywords`
+  - Alt: `keywords():`
+  - Neu: `keywords():object`
+- `package.json::main`
+  - Alt: `main():`
+  - Neu: `main():string`
+- `package.json::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `package.json::publisher`
+  - Alt: `publisher():`
+  - Neu: `publisher():string`
+- `package.json::repository`
+  - Alt: `repository():`
+  - Neu: `repository():object`
+- `package.json::scripts`
+  - Alt: `scripts():`
+  - Neu: `scripts():object`
+- `package.json::version`
+  - Alt: `version():`
+  - Neu: `version():string`
+- `packages/doc-system-agent/package.json::author`
+  - Alt: `author():`
+  - Neu: `author():string`
+- `packages/doc-system-agent/package.json::bin`
+  - Alt: `bin():`
+  - Neu: `bin():object`
+- `packages/doc-system-agent/package.json::bugs`
+  - Alt: `bugs():`
+  - Neu: `bugs():object`
+- `packages/doc-system-agent/package.json::dependencies`
+  - Alt: `dependencies():`
+  - Neu: `dependencies():object`
+- `packages/doc-system-agent/package.json::description`
+  - Alt: `description():`
+  - Neu: `description():string`
+- `packages/doc-system-agent/package.json::devDependencies`
+  - Alt: `devDependencies():`
+  - Neu: `devDependencies():object`
+- `packages/doc-system-agent/package.json::engines`
+  - Alt: `engines():`
+  - Neu: `engines():object`
+- `packages/doc-system-agent/package.json::exports`
+  - Alt: `exports():`
+  - Neu: `exports():object`
+- `packages/doc-system-agent/package.json::files`
+  - Alt: `files():`
+  - Neu: `files():object`
+- `packages/doc-system-agent/package.json::funding`
+  - Alt: `funding():`
+  - Neu: `funding():object`
+- `packages/doc-system-agent/package.json::homepage`
+  - Alt: `homepage():`
+  - Neu: `homepage():string`
+- `packages/doc-system-agent/package.json::keywords`
+  - Alt: `keywords():`
+  - Neu: `keywords():object`
+- `packages/doc-system-agent/package.json::license`
+  - Alt: `license():`
+  - Neu: `license():string`
+- `packages/doc-system-agent/package.json::main`
+  - Alt: `main():`
+  - Neu: `main():string`
+- `packages/doc-system-agent/package.json::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `packages/doc-system-agent/package.json::repository`
+  - Alt: `repository():`
+  - Neu: `repository():object`
+- `packages/doc-system-agent/package.json::scripts`
+  - Alt: `scripts():`
+  - Neu: `scripts():object`
+- `packages/doc-system-agent/package.json::type`
+  - Alt: `type():`
+  - Neu: `type():string`
+- `packages/doc-system-agent/package.json::types`
+  - Alt: `types():`
+  - Neu: `types():string`
+- `packages/doc-system-agent/package.json::version`
+  - Alt: `version():`
+  - Neu: `version():string`
+- `website/package.json::dependencies`
+  - Alt: `dependencies():`
+  - Neu: `dependencies():object`
+- `website/package.json::name`
+  - Alt: `name():`
+  - Neu: `name():string`
+- `website/package.json::private`
+  - Alt: `private():`
+  - Neu: `private():boolean`
+- `website/package.json::scripts`
+  - Alt: `scripts():`
+  - Neu: `scripts():object`
+- `website/package.json::type`
+  - Alt: `type():`
+  - Neu: `type():string`
+- `website/package.json::version`
+  - Alt: `version():`
+  - Neu: `version():string`
+
+## Abhängigkeiten
+- Neu: 0 Dependencies
+- Entfernt: 4 Dependencies
+- Gesamt: 0 Dependencies
+
+## Validator-Status
+- Fehler: 0
+- Warnungen: 0

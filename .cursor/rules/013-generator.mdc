@@ -1,0 +1,126 @@
+---
+description: Leitplanken für Generator-Module. Aktiviert bei Arbeit in src/generator/.
+globs:
+  - "src/generator/**"
+alwaysApply: false
+---
+
+# Generator-Modul Leitplanken
+
+Diese Regeln gelten für alle Änderungen in `src/generator/`.
+
+## Generator-Übersicht
+
+| Datei | Verantwortung |
+|-------|---------------|
+| `index.ts` | Haupt-Generator, orchestriert Generierung |
+| `module-doc.ts` | Modul-Dokumentation (Markdown) |
+| `dependency-graph.ts` | Mermaid-Abhängigkeitsgraph |
+| `change-report.ts` | Änderungsprotokoll |
+
+## Generierte Artefakte
+
+```
+docs/
+├── modules/           # Modul-Dokumentation
+│   └── *.md          # Eine Datei pro Source-Modul
+├── index/
+│   └── symbols.jsonl # Symbol-Index
+└── system/
+    ├── DEPENDENCIES.md      # Import-Übersicht
+    ├── DEPENDENCY_GRAPH.md  # Mermaid-Graph
+    └── CHANGE_REPORT.md     # Änderungsprotokoll
+```
+
+## Verbindliche Regeln
+
+### 1. Deterministische Markdown-Generierung
+
+```typescript
+// RICHTIG: Sortierte, konsistente Ausgabe
+const symbols = getSymbols(file).sort((a, b) => a.name.localeCompare(b.name));
+const markdown = generateMarkdown(symbols);
+
+// FALSCH: Unsortierte Ausgabe
+const symbols = getSymbols(file); // Reihenfolge undefiniert!
+```
+
+### 2. Markdown-Hygiene
+
+- Valide Markdown-Syntax
+- Keine broken Links
+- Konsistente Heading-Hierarchie (h1 → h2 → h3)
+- Code-Blöcke mit korrekter Sprach-Annotation
+
+### 3. Änderungs-Kommentare
+
+```markdown
+<!-- Geändert: Neue Funktion hinzugefügt -->
+```
+
+**OHNE Zeitstempel!** Zeitstempel brechen Determinismus.
+
+### 4. Union-Logik (Additive Generierung)
+
+Bei inkrementellen Läufen:
+1. Bestehende Dokumentation laden
+2. Neue Symbole hinzufügen (Union)
+3. Gelöschte Symbole entfernen (git diff)
+4. Änderungs-Kommentare einfügen
+
+```typescript
+// Union-Merge
+const existingSymbols = loadExistingDoc(filePath);
+const newSymbols = parseFile(filePath);
+const merged = unionSymbols(existingSymbols, newSymbols);
+```
+
+## Relevante Dokumentation
+
+Vor Änderungen lesen:
+- `docs/modules/src__generator__index.ts.md`
+- `docs/modules/src__generator__module-doc.ts.md`
+- `docs/modules/src__generator__dependency-graph.ts.md`
+- `docs/modules/src__generator__change-report.ts.md`
+
+## ADR-Referenzen
+
+- ADR-003: Documentation Generation Bugs
+- ADR-009: Consolidation Union Logic Phase 1-2
+- ADR-010: Extension Union Integration Phase 1-3 and Phase 2
+- ADR-011: Module Doc Change Tracking Phase 3
+- ADR-012: Git Deletions Change Report Phase 4
+
+## Ausgabe-Format
+
+### Modul-Dokumentation
+
+```markdown
+# Modul: src/example/file.ts
+
+## Übersicht
+Kurzbeschreibung des Moduls.
+
+## Funktionen
+
+### `functionName(param: Type): ReturnType`
+Beschreibung der Funktion.
+
+## Interfaces
+
+### `InterfaceName`
+| Property | Type | Description |
+|----------|------|-------------|
+| prop     | string | ... |
+
+## Dependencies
+- `./other-module`
+- `external-package`
+```
+
+## Tests
+
+Nach Generator-Änderungen:
+1. `npm run scan` – Generierung ausführen
+2. Snapshot-Tests prüfen
+3. Determinismus-Test: Zweimal scannen → identische Ausgabe

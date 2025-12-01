@@ -1,0 +1,94 @@
+---
+description: Leitplanken für Cache-Module. Aktiviert bei Arbeit in src/cache/.
+globs:
+  - "src/cache/**"
+alwaysApply: false
+---
+
+# Cache-Modul Leitplanken
+
+Diese Regeln gelten für alle Änderungen in `src/cache/`.
+
+## Cache-Layer Übersicht
+
+| Datei | Cache-Typ | Inhalt |
+|-------|-----------|--------|
+| `ast-cache.ts` | AST-Cache | Geparste Syntax-Bäume |
+| `signature-cache.ts` | Signatur-Cache | Normalisierte Signaturen |
+| `dependencies-cache.ts` | Dependencies-Cache | Import/Export-Beziehungen |
+| `output-cache.ts` | Output-Cache | Generierte Markdown-Dateien |
+
+## Verbindliche Regeln
+
+### 1. Cache-Kohärenz
+
+```typescript
+// RICHTIG: Cache-Key basiert auf Datei-Hash
+const cacheKey = computeFileHash(filePath, content);
+const cached = cache.get(cacheKey);
+
+// FALSCH: Cache-Key basiert auf Zeitstempel
+const cacheKey = `${filePath}-${Date.now()}`; // Nicht deterministisch!
+```
+
+### 2. Invalidierung
+
+Caches werden invalidiert bei:
+- Datei-Änderung (Hash-basiert)
+- Dependency-Änderung (transitiv)
+- Schema-Änderung (Version-Bump)
+
+```typescript
+// Korrekte Invalidierung
+if (fileHash !== cachedHash) {
+  cache.invalidate(filePath);
+  // Auch abhängige Dateien invalidieren
+  for (const dependent of getDependents(filePath)) {
+    cache.invalidate(dependent);
+  }
+}
+```
+
+### 3. Keine nicht-deterministischen Schlüssel
+
+- Keine Zeitstempel in Cache-Keys
+- Keine zufälligen IDs
+- Keine Prozess-IDs oder ähnliches
+
+### 4. Persistenz
+
+- Caches werden in `.doc-cache/` gespeichert
+- JSON-Format für Lesbarkeit
+- Versionierung für Schema-Migrationen
+
+## Relevante Dokumentation
+
+Vor Änderungen lesen:
+- `docs/modules/src__cache__ast-cache.ts.md`
+- `docs/modules/src__cache__signature-cache.ts.md`
+- `docs/modules/src__cache__dependencies-cache.ts.md`
+- `docs/modules/src__cache__output-cache.ts.md`
+
+## ADR-Referenzen
+
+- ADR-008: Dependencies Cache Phase 1
+
+## Cache-Strategie
+
+```
+┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│  AST-Cache  │───▶│ Sig-Cache    │───▶│ Output-Cache│
+└─────────────┘    └──────────────┘    └─────────────┘
+       │                  │                   │
+       └──────────────────┴───────────────────┘
+                          │
+                   Dependencies-Cache
+                   (Cross-File-Beziehungen)
+```
+
+## Tests
+
+Nach Cache-Änderungen:
+1. Determinismus-Test: Gleicher Input → Gleicher Cache-Inhalt
+2. Invalidierungs-Test: Änderung → Korrekter Cache-Miss
+3. Persistenz-Test: Cache überlebt Restart

@@ -1,21 +1,31 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { ParsedSymbol } from '../parsers/types';
+import {
+    parseModuleDoc,
+    buildModuleDocWithChanges,
+    renderModuleDoc
+} from './module-doc';
 
-function renderSymbolBlock(s: ParsedSymbol): string[] {
-    const out: string[] = [];
-    out.push(`### ${s.kind}: ${s.fullyQualifiedName}`);
-    const params = s.signature.parameters.map(p => `${p.name}${p.type ? `: ${p.type}` : ''}${p.hasDefault ? ' = …' : ''}`).join(', ');
-    const ret = s.signature.returnType ? `: ${s.signature.returnType}` : '';
-    out.push('');
-    out.push('```ts');
-    out.push(`${s.signature.name}(${params})${ret}`);
-    out.push('```');
-    out.push('');
-    return out;
+/**
+ * @public
+ * Make safe file name from module path
+ */
+function makeSafeFileName(filePath: string): string {
+    return filePath.replace(/[<>:"|?*]/g, '_').replace(/\//g, '__');
 }
 
-export function generatePerFileDocs(symbols: ParsedSymbol[]): Map<string, string> {
+/**
+ * @public
+ * Generate per-file documentation with change tracking
+ */
+export function generatePerFileDocs(
+    symbols: ParsedSymbol[],
+    modulesDir: string,
+    existingDocs?: Map<string, string>
+): Map<string, string> {
     const grouped = new Map<string, ParsedSymbol[]>();
-    const typeOrder: Record<string, number> = { module: 0, class: 1, interface: 2, enum: 3, method: 4, function: 5, variable: 6 } as any;
+    const typeOrder: Record<string, number> = { module: 0, class: 1, interface: 2, enum: 3, method: 4, function: 5, variable: 6, type: 7 } as any;
     const sorted = [...symbols].sort((a, b) => {
         if (a.filePath !== b.filePath) return a.filePath.localeCompare(b.filePath);
         const to = (k: string) => (typeOrder[k] ?? 99);
@@ -30,13 +40,32 @@ export function generatePerFileDocs(symbols: ParsedSymbol[]): Map<string, string
 
     const files = new Map<string, string>();
     for (const [filePath, syms] of grouped.entries()) {
-        const lines: string[] = [];
-        lines.push(`# Modul: ${filePath}`);
-        lines.push('');
-        for (const s of syms) {
-            lines.push(...renderSymbolBlock(s));
+        const safeName = makeSafeFileName(filePath);
+        const targetPath = path.join(modulesDir, `${safeName}.md`);
+        
+        // Load existing documentation if available
+        let existingDoc: { blocks: any[] } = { blocks: [] };
+        if (existingDocs && existingDocs.has(filePath)) {
+            try {
+                existingDoc = parseModuleDoc(existingDocs.get(filePath)!);
+            } catch (err) {
+                // If parsing fails, start fresh
+                existingDoc = { blocks: [] };
+            }
+        } else if (fs.existsSync(targetPath)) {
+            try {
+                const content = fs.readFileSync(targetPath, 'utf8');
+                existingDoc = parseModuleDoc(content);
+            } catch (err) {
+                // If parsing fails, start fresh
+                existingDoc = { blocks: [] };
+            }
         }
-        files.set(filePath, lines.join('\n'));
+        
+        // Build documentation with change tracking
+        const newDoc = buildModuleDocWithChanges(syms, existingDoc);
+        const content = renderModuleDoc(newDoc, filePath);
+        files.set(filePath, content);
     }
     return files;
 }

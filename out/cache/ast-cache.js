@@ -27,10 +27,18 @@ exports.saveAstHashCache = exports.loadAstHashCache = exports.computeFileHash = 
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const crypto_1 = require("crypto");
+/**
+ * @public
+ * Compute hash for file content
+ */
 function computeFileHash(content) {
     return (0, crypto_1.createHash)('sha256').update(content).digest('hex').slice(0, 16);
 }
 exports.computeFileHash = computeFileHash;
+/**
+ * @public
+ * Load AST hash cache from file
+ */
 function loadAstHashCache(cacheFile) {
     try {
         if (!fs.existsSync(cacheFile))
@@ -46,6 +54,10 @@ function loadAstHashCache(cacheFile) {
     }
 }
 exports.loadAstHashCache = loadAstHashCache;
+/**
+ * @public
+ * Save AST hash cache to file
+ */
 function saveAstHashCache(cacheDir, data) {
     if (!fs.existsSync(cacheDir))
         fs.mkdirSync(cacheDir, { recursive: true });

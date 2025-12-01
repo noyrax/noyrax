@@ -1,4 +1,325 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "baseId": "json://demo/docguard.config.json#$schema",
+      "signatureHash": "3a5b06d019e51293"
+    },
+    {
+      "baseId": "json://demo/docguard.config.json#exclude",
+      "signatureHash": "e6507e32b37c078b"
+    },
+    {
+      "baseId": "json://demo/docguard.config.json#generation",
+      "signatureHash": "5ac3b01c1dcadeee"
+    },
+    {
+      "baseId": "json://demo/docguard.config.json#include",
+      "signatureHash": "ceed2e0ec7470223"
+    },
+    {
+      "baseId": "json://demo/docguard.config.json#output",
+      "signatureHash": "5a3d818bf161caf5"
+    },
+    {
+      "baseId": "json://demo/docguard.config.json#validation",
+      "signatureHash": "f090c5298b5137f5"
+    },
+    {
+      "baseId": "json://demo/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "json://demo/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "json://demo/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "json://demo/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "json://demo/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "json://demo/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "json://mcp/package.json#author",
+      "signatureHash": "96887f0cd3aceba9"
+    },
+    {
+      "baseId": "json://mcp/package.json#bin",
+      "signatureHash": "be8e536cefbba867"
+    },
+    {
+      "baseId": "json://mcp/package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "json://mcp/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "json://mcp/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "json://mcp/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "json://mcp/package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "json://mcp/package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "json://mcp/package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "json://mcp/package.json#license",
+      "signatureHash": "890f06ad4d853359"
+    },
+    {
+      "baseId": "json://mcp/package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "json://mcp/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "json://mcp/package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "json://mcp/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "json://mcp/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "json://mcp/package.json#types",
+      "signatureHash": "d9cba02506adc640"
+    },
+    {
+      "baseId": "json://mcp/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "json://package.json#activationEvents",
+      "signatureHash": "4c5882e55e032dcb"
+    },
+    {
+      "baseId": "json://package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "json://package.json#categories",
+      "signatureHash": "374eb7a3790070cf"
+    },
+    {
+      "baseId": "json://package.json#contributes",
+      "signatureHash": "bee3b9d351298669"
+    },
+    {
+      "baseId": "json://package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "json://package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "json://package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "json://package.json#displayName",
+      "signatureHash": "30ada3e166821f72"
+    },
+    {
+      "baseId": "json://package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "json://package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "json://package.json#icon",
+      "signatureHash": "6e8f80fdf7bd7afb"
+    },
+    {
+      "baseId": "json://package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "json://package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "json://package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "json://package.json#publisher",
+      "signatureHash": "310930f0dfb9c0b6"
+    },
+    {
+      "baseId": "json://package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "json://package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "json://package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#author",
+      "signatureHash": "96887f0cd3aceba9"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#bin",
+      "signatureHash": "be8e536cefbba867"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#exports",
+      "signatureHash": "70df3a64219c0690"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#files",
+      "signatureHash": "661d01f81be3a993"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#funding",
+      "signatureHash": "79f41e62e834f6ee"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#license",
+      "signatureHash": "890f06ad4d853359"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#types",
+      "signatureHash": "d9cba02506adc640"
+    },
+    {
+      "baseId": "json://packages/doc-system-agent/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "json://website/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "json://website/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "json://website/package.json#private",
+      "signatureHash": "d09eb6bd053db5e3"
+    },
+    {
+      "baseId": "json://website/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "json://website/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "json://website/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "yaml://action/action.yml#author",
+      "signatureHash": "96887f0cd3aceba9"
+    },
+    {
+      "baseId": "yaml://action/action.yml#branding",
+      "signatureHash": "6c9cb34688b8ffc2"
+    },
+    {
+      "baseId": "yaml://action/action.yml#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "yaml://action/action.yml#inputs",
+      "signatureHash": "24487d48750da9f0"
+    },
+    {
+      "baseId": "yaml://action/action.yml#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "yaml://action/action.yml#outputs",
+      "signatureHash": "5f30357d46228303"
+    },
+    {
+      "baseId": "yaml://action/action.yml#runs",
+      "signatureHash": "9414ba8aebca90ca"
+    }
+  ]
 }

@@ -95,8 +95,8 @@ export class TestClass {
                 kind: 'method',
             }
         ];
-        const docs1 = (0, index_1.generatePerFileDocs)(symbols);
-        const docs2 = (0, index_1.generatePerFileDocs)(symbols);
+        const docs1 = (0, index_1.generatePerFileDocs)(symbols, tempDir);
+        const docs2 = (0, index_1.generatePerFileDocs)(symbols, tempDir);
         expect(docs1).toEqual(docs2);
         // Inhalte müssen identisch sein
         for (const [key, content1] of docs1.entries()) {

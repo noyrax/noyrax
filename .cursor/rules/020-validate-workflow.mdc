@@ -1,0 +1,106 @@
+---
+description: Workflow für Validierung und Prüfung. Aktiviert bei Anfragen wie "validiere", "prüfe", "check", "teste die Dokumentation".
+globs: []
+alwaysApply: false
+---
+
+# Validierungs-Workflow
+
+Diese Rule wird aktiviert bei Anfragen zur Validierung oder Prüfung.
+
+## Trigger-Phrasen
+
+- "validiere" / "validate"
+- "prüfe" / "check"
+- "teste die Dokumentation"
+- "sind die Docs aktuell?"
+- "Signatur-Check"
+- "Coverage prüfen"
+
+## Workflow
+
+### 1. Vollständige Validierung
+
+```bash
+# Scan ausführen (generiert/aktualisiert Dokumentation)
+npm run scan
+
+# Validierung ausführen (prüft Konsistenz)
+npm run validate
+```
+
+### 2. Ergebnis-Interpretation
+
+| Exit-Code | Status | Bedeutung |
+|-----------|--------|-----------|
+| 0 | ✅ Grün | Alles valide |
+| 1 | ⚠️ Gelb | Warnungen (z.B. fehlende Docs) |
+| 2 | ❌ Rot | Fehler (z.B. Signatur-Mismatch) |
+
+### 3. Bei Fehlern
+
+1. Fehler-Details aus Ausgabe lesen
+2. Betroffene Dateien identifizieren
+3. Ursache beheben (Code oder Docs)
+4. Erneut validieren
+
+## MCP-Server Integration (bevorzugt)
+
+Wenn der MCP-Server verfügbar ist, nutze ihn statt direkter Shell-Kommandos:
+
+```typescript
+// Bevorzugt: MCP-Server
+const result = await mcp.call('validation/runValidate', {
+  files: ['src/parsers/ts-js.ts'], // Optional: spezifische Dateien
+  verbose: true
+});
+
+// Fallback: Shell-Kommando
+await exec('npm run validate');
+```
+
+### MCP-Server Vorteile
+
+- Strukturierte Fehler-Rückgabe (JSON statt Freitext)
+- Teilvalidierung einzelner Dateien
+- Bessere Integration mit Agent-Workflows
+
+## Wann NICHT validieren
+
+- Bei rein kosmetischen Änderungen (Kommentare, Formatierung)
+- Wenn nur Dokumentation geändert wurde (kein Code)
+- Bei Änderungen außerhalb von `src/`
+
+## Automatische Validierung
+
+Nach jeder Code-Änderung in `src/` sollte automatisch validiert werden.
+Dies ist eine Pflicht aus `001-pre-check.mdc`, unabhängig davon ob der User
+explizit "validiere" sagt.
+
+## Typische Fehler und Lösungen
+
+### Signatur-Mismatch
+
+```
+Error: Signature mismatch in src/parsers/ts-js.ts
+  Expected: function parse(file: string): Symbol[]
+  Found:    function parse(file: string, options?: Options): Symbol[]
+```
+
+**Lösung**: `npm run scan` ausführen, um Dokumentation zu aktualisieren.
+
+### Fehlende Dokumentation
+
+```
+Warning: Missing documentation for src/new-module.ts
+```
+
+**Lösung**: `npm run scan` generiert die fehlende Dokumentation.
+
+### Veraltete Dokumentation
+
+```
+Info: Stale documentation for deleted file src/old-module.ts
+```
+
+**Lösung**: `npm run scan` entfernt veraltete Dokumentation automatisch.

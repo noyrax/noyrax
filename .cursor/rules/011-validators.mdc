@@ -1,0 +1,82 @@
+---
+description: Leitplanken für Validator-Module. Aktiviert bei Arbeit in src/validator/.
+globs:
+  - "src/validator/**"
+alwaysApply: false
+---
+
+# Validator-Modul Leitplanken
+
+Diese Regeln gelten für alle Änderungen in `src/validator/`.
+
+## Validator-Übersicht
+
+| Datei | Verantwortung |
+|-------|---------------|
+| `index.ts` | Haupt-Validator, orchestriert Validierung |
+| `signature-matching.ts` | Signatur-Vergleich und Normalisierung |
+| `status.ts` | Validierungs-Status und Reporting |
+
+## Verbindliche Regeln
+
+### 1. Signatur-Matching
+
+```typescript
+// Signaturen müssen normalisiert verglichen werden
+const normalizedDoc = normalizeSignature(docSignature);
+const normalizedCode = normalizeSignature(codeSignature);
+return normalizedDoc === normalizedCode;
+```
+
+Normalisierung umfasst:
+- Whitespace-Bereinigung
+- Generic-Vereinfachung (`T extends any` → `T`)
+- Optionale Parameter-Normalisierung
+- Import-Typ-Auflösung
+
+### 2. Deterministische Validierung
+
+- Gleiche Eingabe → Gleiche Validierungsergebnisse
+- Keine Abhängigkeit von Ausführungsreihenfolge
+- Sortierte Fehler-Ausgabe
+
+### 3. Datei-spezifische Validierung
+
+- Validiere nur geänderte Dateien bei inkrementellen Läufen
+- Cache-basierte Validierung nutzen
+- Klare Trennung: was ist valide, was ist Drift
+
+### 4. Coverage-Anforderungen
+
+Der Validator prüft:
+- Signatur-Übereinstimmung (Code ↔ Docs)
+- Symbol-Vollständigkeit (alle exportierten Symbole dokumentiert)
+- Dependency-Konsistenz (Imports in Docs korrekt)
+
+## Relevante Dokumentation
+
+Vor Änderungen lesen:
+- `docs/modules/src__validator__index.ts.md`
+- `docs/modules/src__validator__signature-matching.ts.md`
+- `docs/modules/src__validator__status.ts.md`
+
+## ADR-Referenzen
+
+- ADR-002: File-Specific Validation
+- ADR-004: Validator Signature Matching Fix
+- ADR-005: Validator Generic Simplification Tightening
+
+## Fehler-Kategorien
+
+| Kategorie | Schwere | Aktion |
+|-----------|---------|--------|
+| Signatur-Mismatch | Error | Muss behoben werden |
+| Fehlende Dokumentation | Warning | Sollte dokumentiert werden |
+| Veraltete Dokumentation | Info | Bei nächstem Scan aktualisiert |
+
+## Tests
+
+Nach Validator-Änderungen:
+1. `npm run test` – Unit-Tests
+2. `npm run validate` – Selbst-Validierung
+3. Snapshot-Tests prüfen

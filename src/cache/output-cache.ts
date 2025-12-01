@@ -12,10 +12,18 @@ export interface OutputHashCacheData {
     entries: OutputHashEntry[];
 }
 
+/**
+ * @public
+ * Compute content hash for caching
+ */
 export function computeContentHash(content: string): string {
     return createHash('sha256').update(content).digest('hex').slice(0, 16);
 }
 
+/**
+ * @public
+ * Load output hash cache from file
+ */
 export function loadOutputHashCache(cacheFile: string): OutputHashCacheData | null {
     try {
         if (!fs.existsSync(cacheFile)) return null;
@@ -28,6 +36,10 @@ export function loadOutputHashCache(cacheFile: string): OutputHashCacheData | nu
     }
 }
 
+/**
+ * @public
+ * Save output hash cache to file
+ */
 export function saveOutputHashCache(cacheDir: string, data: OutputHashCacheData) {
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
     const file = path.join(cacheDir, 'output-hashes.json');

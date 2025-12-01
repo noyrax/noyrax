@@ -11,6 +11,10 @@ export interface SignatureCacheData {
     entries: CacheEntry[];
 }
 
+/**
+ * @public
+ * Load signature cache from file
+ */
 export function loadSignatureCache(cacheFile: string): SignatureCacheData | null {
     try {
         if (!fs.existsSync(cacheFile)) return null;
@@ -23,6 +27,10 @@ export function loadSignatureCache(cacheFile: string): SignatureCacheData | null
     }
 }
 
+/**
+ * @public
+ * Save signature cache to file
+ */
 export function saveSignatureCache(cacheDir: string, data: SignatureCacheData) {
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
     const file = path.join(cacheDir, 'signatures.json');

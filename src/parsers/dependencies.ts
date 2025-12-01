@@ -8,6 +8,10 @@ export interface ModuleDependency {
     symbols?: string[]; // importierte/exportierte Symbole
 }
 
+/**
+ * @public
+ * Extract dependencies from TypeScript/JavaScript files
+ */
 export function extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[] {
     const deps: ModuleDependency[] = [];
 
@@ -54,6 +58,10 @@ export function extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: str
     return deps;
 }
 
+/**
+ * @public
+ * Extract dependencies from Python files
+ */
 export function extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[] {
     const deps: ModuleDependency[] = [];
     const lines = content.split(/\r?\n/);

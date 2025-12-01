@@ -1,7 +1,15 @@
+/**
+ * @public
+ * Normalize line endings to LF
+ */
 export function normalizeLineEndings(content: string): string {
     return content.replace(/\r\n?/g, '\n');
 }
 
+/**
+ * @public
+ * Guess language from shebang line
+ */
 export function guessLanguageByShebang(firstLine: string | null): string | null {
     if (!firstLine) return null;
     if (!firstLine.startsWith('#!')) return null;

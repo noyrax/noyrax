@@ -26,6 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveSignatureCache = exports.loadSignatureCache = void 0;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
+/**
+ * @public
+ * Load signature cache from file
+ */
 function loadSignatureCache(cacheFile) {
     try {
         if (!fs.existsSync(cacheFile))
@@ -41,6 +45,10 @@ function loadSignatureCache(cacheFile) {
     }
 }
 exports.loadSignatureCache = loadSignatureCache;
+/**
+ * @public
+ * Save signature cache to file
+ */
 function saveSignatureCache(cacheDir, data) {
     if (!fs.existsSync(cacheDir))
         fs.mkdirSync(cacheDir, { recursive: true });

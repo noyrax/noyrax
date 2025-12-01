@@ -80,10 +80,16 @@ export function computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thr
     }
 
     function isDocumented(symbolName: string): boolean {
-        // Wir suchen eine Überschrift-Zeile "### .*: fullyQualifiedName"
-        const needle = `### `; // prüfen in allen Dateien
+        // Wir suchen eine Überschrift-Zeile "### function/class/interface/method/variable/type: symbolName"
+        // oder "### symbolName" (ohne Präfix)
+        const patterns = [
+            new RegExp(`^###\\s+(function|class|interface|method|variable|type|enum):\\s+${symbolName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'm'),
+            new RegExp(`^###\\s+${symbolName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'm')
+        ];
         for (const content of mdIndex.values()) {
-            if (content.includes(`${needle}`) && content.includes(symbolName)) return true;
+            for (const pattern of patterns) {
+                if (pattern.test(content)) return true;
+            }
         }
         return false;
     }
@@ -133,6 +139,7 @@ export interface MarkdownDirReport {
     errors: string[];
     warnings: string[];
     files: Array<{ file: string; errors: string[]; warnings: string[] }>;
+    mismatchesCount?: number;
 }
 
 export function validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport {
@@ -163,12 +170,19 @@ export function validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]
     }
     
     // Signatur-Abgleich wenn Symbole verfügbar
+    let mismatchesCount = 0;
     if (symbols) {
-        const mismatches = validateSignatureMatching(symbols, allMarkdownContent);
+        const mismatches = validateSignatureMatching(symbols, modulesDir);
+        mismatchesCount = mismatches.length;
+        if (mismatchesCount > 0) {
+            logger.info(`Signature mismatches detected: ${mismatchesCount}`);
+        } else {
+            logger.info('No signature mismatches detected');
+        }
         warnings.push(...mismatches.map(m => `Signatur-Abweichung ${m.symbolId}: erwartet "${m.expected}", dokumentiert "${m.documented}"`));
     }
     
-    return { errors, warnings, files };
+    return { errors, warnings, files, mismatchesCount };
 }
 
 

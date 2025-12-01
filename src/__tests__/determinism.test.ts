@@ -82,8 +82,8 @@ export class TestClass {
             }
         ];
 
-        const docs1 = generatePerFileDocs(symbols);
-        const docs2 = generatePerFileDocs(symbols);
+        const docs1 = generatePerFileDocs(symbols, tempDir);
+        const docs2 = generatePerFileDocs(symbols, tempDir);
 
         expect(docs1).toEqual(docs2);
         

@@ -27,10 +27,18 @@ exports.saveOutputHashCache = exports.loadOutputHashCache = exports.computeConte
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const crypto_1 = require("crypto");
+/**
+ * @public
+ * Compute content hash for caching
+ */
 function computeContentHash(content) {
     return (0, crypto_1.createHash)('sha256').update(content).digest('hex').slice(0, 16);
 }
 exports.computeContentHash = computeContentHash;
+/**
+ * @public
+ * Load output hash cache from file
+ */
 function loadOutputHashCache(cacheFile) {
     try {
         if (!fs.existsSync(cacheFile))
@@ -46,6 +54,10 @@ function loadOutputHashCache(cacheFile) {
     }
 }
 exports.loadOutputHashCache = loadOutputHashCache;
+/**
+ * @public
+ * Save output hash cache to file
+ */
 function saveOutputHashCache(cacheDir, data) {
     if (!fs.existsSync(cacheDir))
         fs.mkdirSync(cacheDir, { recursive: true });

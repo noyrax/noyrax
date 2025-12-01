@@ -1,13 +1,13 @@
 # Modul: src/generator/index.ts
 
+<!-- change: signature-changed old="generatePerFileDocs():" new="generatePerFileDocs(existingDocs:Map<string, string>,modulesDir:string,symbols:ParsedSymbol[]):Map<string, string>" -->
 ### function: generatePerFileDocs
-
 ```ts
-generatePerFileDocs(symbols: {}): Map<string, string>
+generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs: Map<string, string>): Map<string, string>
 ```
 
-### function: renderSymbolBlock
-
+<!-- change: signature-changed old="makeSafeFileName():" new="makeSafeFileName(filePath:string):string" -->
+### function: makeSafeFileName
 ```ts
-renderSymbolBlock(s: ParsedSymbol): {}
+makeSafeFileName(filePath: string): string
 ```

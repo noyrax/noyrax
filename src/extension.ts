@@ -87,18 +87,20 @@ import { TsJsParser } from './parsers/ts-js';
 import { JsonYamlParser } from './parsers/json-yaml';
 import { PythonParser } from './parsers/python';
 import { generatePerFileDocs } from './generator/index';
+import { generateChangeReport, extractChangesFromModuleDocs } from './generator/change-report';
 import { generateMermaidGraph, generateDependencyOverview } from './generator/dependency-graph';
-import { validateSymbols, computeCoverage, validateMarkdownDir } from './validator/index';
+import { computeCoverage, validateMarkdownDir } from './validator/index';
 import { computeValidationStatus } from './validator/status';
 import { ParserAdapter, ParsedSymbol } from './parsers/types';
-import { computeSignatureHash, makeStableSymbolId } from './core/symbols';
 import { loadSignatureCache, saveSignatureCache } from './cache/signature-cache';
 import { computeCacheEntries, detectDrift } from './drift/index';
 import { computeContentHash, loadOutputHashCache, saveOutputHashCache } from './cache/output-cache';
 import { buildIndexFromSymbols, writeJsonlIndex } from './index/index';
 import { computeFileHash, loadAstHashCache, saveAstHashCache } from './cache/ast-cache';
+import { loadDependenciesCache, saveDependenciesCache } from './cache/dependencies-cache';
+import { buildDependenciesUnion, buildDependenciesUnionWithDebug, buildSymbolsUnion, UnionDebugInfo } from './core/consolidation';
 import { mapLimit } from './core/async';
-import { getChangedFiles } from './core/git';
+import { getChangedFiles, getDeletedFiles } from './core/git';
 import { ModuleDependency, extractTsJsDependencies, extractPythonDependencies } from './parsers/dependencies';
 import { CommandsProvider } from './ui/commands-provider';
 import { StatusBarManager } from './ui/status-bar';
@@ -118,34 +120,66 @@ async function generateDocumentationTs() {
         const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
         const scannedAll = scanWorkspace({ workspaceRoot }, includeBackups);
         let scanned = scannedAll;
+        let changed: Set<string> | null = null;
         const useGit = (vscode.workspace.getConfiguration('docs').get<boolean>('useGitDiff') ?? true);
-        if (useGit) {
-            const changed = getChangedFiles(workspaceRoot);
+        
+        // Prüfe, ob AST-Cache existiert (für ersten Lauf)
+        const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
+        const astCacheFile = path.join(cacheDir, 'ast-hashes.json');
+        const prevAst = loadAstHashCache(astCacheFile);
+        const isFirstRun = !prevAst || prevAst.entries.length === 0;
+        
+        // BEIM ERSTEN LAUF: IMMER VOLLSCAN, KEIN GIT-FILTER
+        if (isFirstRun) {
+            globalOutput.appendLine(`[cache] Erster Lauf erkannt, verwende Vollscan (${scannedAll.length} Dateien)`);
+            scanned = scannedAll;
+        } else if (useGit) {
+            changed = getChangedFiles(workspaceRoot);
             if (changed && changed.size > 0) {
-                const filtered = scanned.filter(f => changed.has(f.repositoryRelativePath));
-                scanned = filtered.length > 0 ? filtered : scannedAll;
+                const filtered = scannedAll.filter(f => changed!.has(f.repositoryRelativePath));
+                // Nur filtern, wenn genug Dateien gefunden wurden (mindestens 10% der Gesamtanzahl)
+                if (filtered.length > 0 && filtered.length >= Math.max(1, scannedAll.length * 0.1)) {
+                    scanned = filtered;
+                    globalOutput.appendLine(`[git] Inkrementeller Modus: ${filtered.length}/${scannedAll.length} Dateien`);
+                } else {
+                    globalOutput.appendLine(`[git] Zu wenige geänderte Dateien (${filtered.length}), verwende Vollscan`);
+                    scanned = scannedAll;
+                }
+            } else {
+                globalOutput.appendLine(`[git] Keine geänderten Dateien erkannt, verwende Vollscan`);
+                scanned = scannedAll;
             }
+        } else {
+            globalOutput.appendLine(`[git] Git-Filter deaktiviert, verwende Vollscan`);
+            scanned = scannedAll;
         }
         const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
         const allSymbols: ParsedSymbol[] = [];
         const allDependencies: ModuleDependency[] = [];
-        // AST-Hash-Cache laden
-        const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
-        const astCacheFile = path.join(cacheDir, 'ast-hashes.json');
-        const prevAst = loadAstHashCache(astCacheFile);
+        // AST-Hash-Cache bereits oben geladen, hier nur Map erstellen
         const astMap = new Map((prevAst?.entries ?? []).map(e => [e.path, e.hash] as const));
-        const nextAstEntries: { path: string; hash: string }[] = [];
+        let nextAstEntries: { path: string; hash: string }[] = [];
         const concurrency = (vscode.workspace.getConfiguration('docs').get<number>('concurrency') ?? 4);
         // Parallelisiertes Parsen mit Dependency-Extraktion
+        // Track welche Dateien tatsächlich geparst wurden (nicht übersprungen)
+        const actuallyParsedFiles = new Set<string>();
+        
         const parseResults = await mapLimit(scanned, Math.max(1, concurrency), async (f) => {
             const content = fs.readFileSync(f.absolutePath, 'utf8');
             const fileHash = computeFileHash(content);
             nextAstEntries.push({ path: f.repositoryRelativePath, hash: fileHash });
-            const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
-            if (unchanged) {
-                globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: übersprungen (unchanged)`);
-                return { symbols: [] as ParsedSymbol[], dependencies: [] as ModuleDependency[] };
+            
+            // BEIM ERSTEN LAUF: IMMER PARSEN
+            if (!isFirstRun) {
+                const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
+                if (unchanged) {
+                    globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: übersprungen (unchanged)`);
+                    return { symbols: [] as ParsedSymbol[], dependencies: [] as ModuleDependency[], wasParsed: false };
+                }
             }
+            
+            // Datei wird tatsächlich geparst
+            actuallyParsedFiles.add(f.repositoryRelativePath);
             globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: wird geparst (${f.language})`);
             
             let symbols: ParsedSymbol[] = [];
@@ -170,47 +204,120 @@ async function generateDocumentationTs() {
                 globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: ${dependencies.length} Python dependencies gefunden`);
             }
             
-            return { symbols, dependencies };
+            return { symbols, dependencies, wasParsed: true };
         });
         parseResults.forEach(result => {
             allSymbols.push(...result.symbols);
             allDependencies.push(...result.dependencies);
         });
-        // Fallback: Wenn keine Symbole gefunden wurden, einmal ohne Git-Filter erneut laufen
-        if (allSymbols.length === 0 && scanned !== scannedAll) {
-            const parseAll = await mapLimit(scannedAll, Math.max(1, concurrency), async (f) => {
-                const content = fs.readFileSync(f.absolutePath, 'utf8');
-                const fileHash = computeFileHash(content);
-                // nextAstEntries wurde oben bereits gefüllt; hier keine Duplikate erzwingen
-                const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
-                if (unchanged) return [] as ParsedSymbol[];
-                if (f.language === 'ts' || f.language === 'js') {
-                    const tsParser = parsers[0] as TsJsParser;
-                    const symbols = tsParser.parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                    const sourceFile = (tsParser as any).project.getSourceFile(f.absolutePath);
-                    if (sourceFile) {
-                        const deps = extractTsJsDependencies(sourceFile, f.repositoryRelativePath);
-                        allDependencies.push(...deps);
-                        globalOutput.appendLine(`[debug] Fallback ${f.repositoryRelativePath}: ${deps.length} dependencies`);
-                    }
-                    return symbols;
-                } else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
-                    return parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                } else if (f.language === 'python') {
-                    const symbols = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                    const deps = extractPythonDependencies(content, f.repositoryRelativePath);
-                    allDependencies.push(...deps);
-                    globalOutput.appendLine(`[debug] Fallback ${f.repositoryRelativePath}: ${deps.length} Python dependencies`);
-                    return symbols;
-                }
-                return [] as ParsedSymbol[];
-            });
-            parseAll.forEach(list => allSymbols.push(...list));
+        
+        // Logging für Debugging
+        globalOutput.appendLine(`[parse] ${allSymbols.length} Symbole und ${allDependencies.length} Dependencies gefunden (${actuallyParsedFiles.size} Dateien geparst, ${scanned.length - actuallyParsedFiles.size} übersprungen)`);
+        
+        // Fallback nur als letzte Rettung: Wenn beim ersten Lauf keine Symbole gefunden wurden
+        // (könnte auf Parser-Fehler oder leeres Projekt hinweisen)
+        if (allSymbols.length === 0 && isFirstRun) {
+            globalOutput.appendLine('[warn] Keine Symbole beim ersten Lauf gefunden. Möglicherweise Parser-Fehler oder leeres Projekt.');
         }
-        saveAstHashCache(cacheDir, { version: 1, entries: nextAstEntries });
-        const files = generatePerFileDocs(allSymbols);
+
+        // ========== PHASE 1.3: UNION-BILDUNG (ADDITIVE_DOCUMENTATION_PLAN.md, Abschnitt 6.2-6.3) ==========
+        
+        // 1. Dependencies-Union: Cache laden und mit neuen Dependencies mergen
+        const depCacheFile = path.join(cacheDir, 'dependencies.json');
+        const depCachePrev = loadDependenciesCache(depCacheFile);
+        // WICHTIG: Nur Dateien, die tatsächlich geparst wurden (nicht übersprungen)
+        const parsedFiles = actuallyParsedFiles;
+        
+        // Git-gelöschte Dateien erkennen (optional; leer wenn Git nicht verfügbar)
+        const deletedFilesFromGit = getDeletedFiles(workspaceRoot) ?? new Set<string>();
+        if (deletedFilesFromGit.size > 0) {
+            globalOutput.appendLine(`[git] ${deletedFilesFromGit.size} gelöschte Dateien erkannt`);
+        }
+        
+        // Debug: Zeige welche Dateien als "geparst" markiert sind
+        const parsedFilesList = Array.from(parsedFiles).slice(0, 10);
+        globalOutput.appendLine(`[union] parsedFiles.size: ${parsedFiles.size}, deletedFilesFromGit.size: ${deletedFilesFromGit.size}`);
+        if (parsedFiles.size > 0) {
+            globalOutput.appendLine(`[union] Geparste Dateien (erste 10): ${parsedFilesList.join(', ')}`);
+        }
+        
+        // Verwende buildDependenciesUnionWithDebug, um Debug-Info direkt zu erhalten
+        const unionResult = buildDependenciesUnionWithDebug(
+            allDependencies,
+            depCachePrev?.entries ?? [],
+            parsedFiles,
+            deletedFilesFromGit
+        );
+        const dependenciesUnion = unionResult.dependencies;
+        const debug = unionResult.debug;
+        
+        const prevDepCount = (depCachePrev?.entries ?? []).length;
+        globalOutput.appendLine(`[union] Dependencies: ${debug.newDeps} neu + ${prevDepCount} gecacht → ${dependenciesUnion.length} Union`);
+        globalOutput.appendLine(`[union]   - Beibehalten von ungeparsten: ${debug.keptFromUnparsed}`);
+        globalOutput.appendLine(`[union]   - Übersprungen (geparst): ${debug.skippedFromParsed}`);
+        globalOutput.appendLine(`[union]   - Übersprungen (gelöscht): ${debug.skippedFromDeleted}`);
+        
+        // 2. Symbol-Union: Index laden und mit neuen Symbolen mergen
+        const indexFile = path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl');
+        let symbolsPrev: ParsedSymbol[] = [];
+        if (fs.existsSync(indexFile)) {
+            try {
+                const lines = fs.readFileSync(indexFile, 'utf8').split(/\r?\n/).filter(Boolean);
+                symbolsPrev = lines.map(l => {
+                    try {
+                        const row = JSON.parse(l);
+                        // Rekonstruiere ParsedSymbol aus IndexRow (vereinfacht)
+                        return {
+                            language: 'unknown', // Index enthält keine Language
+                            filePath: row.path,
+                            fullyQualifiedName: row.name,
+                            kind: row.kind,
+                            signature: { name: row.name, parameters: [], returnType: '', visibility: 'public' as const }
+                        } as ParsedSymbol;
+                    } catch {
+                        return null;
+                    }
+                }).filter(Boolean) as ParsedSymbol[];
+            } catch {
+                // Index-Fehler: Fallback auf leere Liste
+                symbolsPrev = [];
+            }
+        }
+        
+        const symbolsUnion = buildSymbolsUnion(
+            allSymbols,
+            symbolsPrev,
+            parsedFiles,
+            deletedFilesFromGit
+        );
+        
+        globalOutput.appendLine(`[union] Symbole: ${allSymbols.length} neu + ${symbolsPrev.length} gecacht → ${symbolsUnion.length} Union`);
+        
+        // Von jetzt an: dependenciesUnion und symbolsUnion verwenden statt allDependencies/allSymbols
+        // ========== ENDE UNION-BILDUNG ==========
+
+        // AST-Cache speichern (nur wenn wir Einträge haben)
+        if (nextAstEntries.length > 0) {
+            saveAstHashCache(cacheDir, { version: 1, entries: nextAstEntries });
+        }
         const outDir = path.join(workspaceRoot, config.outputPath, 'modules');
         if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+        
+        // Load existing documentation for merge
+        const existingDocs = new Map<string, string>();
+        if (fs.existsSync(outDir)) {
+            const existingFiles = fs.readdirSync(outDir).filter(f => f.endsWith('.md'));
+            for (const file of existingFiles) {
+                const filePath = path.join(outDir, file);
+                const content = fs.readFileSync(filePath, 'utf8');
+                // Reverse safe file name to get original path
+                const originalPath = file.replace(/__/g, '/').replace(/\.md$/, '');
+                existingDocs.set(originalPath, content);
+            }
+        }
+        
+        const files = generatePerFileDocs(symbolsUnion, outDir, existingDocs);
+        
         // Output-Hash-Cache laden
         const outHashFile = path.join(cacheDir, 'output-hashes.json');
         const prevOut = loadOutputHashCache(outHashFile);
@@ -226,30 +333,77 @@ async function generateDocumentationTs() {
                 fs.writeFileSync(target, content, 'utf8');
             }
         }
-        saveOutputHashCache(cacheDir, { version: 1, entries: newEntries });
-        // Symbol-Index mit Dependencies erzeugen
-        const indexRows = buildIndexFromSymbols(allSymbols, allDependencies);
-        writeJsonlIndex(indexRows, path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl'));
+        // Output-Hash-Cache nur speichern, wenn wir Einträge erzeugt haben
+        if (newEntries.length > 0) {
+            saveOutputHashCache(cacheDir, { version: 1, entries: newEntries });
+        }
+        // Symbol-Index mit Dependencies erzeugen (aus Union)
+        const indexRows = buildIndexFromSymbols(symbolsUnion, dependenciesUnion);
+        // Index nur überschreiben, wenn wir auch Symbole haben, sonst alten Index behalten
+        if (symbolsUnion.length > 0) {
+            writeJsonlIndex(indexRows, path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl'));
+        }
         
-        // Abhängigkeitsgraph generieren
+        // Abhängigkeitsgraph generieren (aus Union)
         const systemDir = path.join(workspaceRoot, config.outputPath, 'system');
         if (!fs.existsSync(systemDir)) fs.mkdirSync(systemDir, { recursive: true });
-        const mermaidGraph = generateMermaidGraph(allDependencies);
-        const depOverview = generateDependencyOverview(allDependencies);
+        const mermaidGraph = generateMermaidGraph(dependenciesUnion);
+        const depOverview = generateDependencyOverview(dependenciesUnion);
         fs.writeFileSync(path.join(systemDir, 'DEPENDENCY_GRAPH.md'), mermaidGraph, 'utf8');
         fs.writeFileSync(path.join(systemDir, 'DEPENDENCIES.md'), depOverview, 'utf8');
+        
+        // Dependencies-Cache speichern (nur wenn Einträge vorhanden)
+        if (dependenciesUnion.length > 0) {
+            saveDependenciesCache(cacheDir, { version: 1, entries: dependenciesUnion });
+        }
+        
         // Signatur-Cache aktualisieren
         const prev = loadSignatureCache(path.join(cacheDir, 'signatures.json'));
-        const entries = computeCacheEntries(allSymbols);
-        saveSignatureCache(cacheDir, { version: 1, entries });
+        const entries = computeCacheEntries(symbolsUnion);
+        // Signatur-Cache nur speichern, wenn wir Einträge haben
+        if (entries.length > 0) {
+            saveSignatureCache(cacheDir, { version: 1, entries });
+        }
         const drift = detectDrift(prev, entries);
         if (drift.staleSymbols.length > 0) {
             vscode.window.showWarningMessage(`⚠️ Drift erkannt: ${drift.staleSymbols.length} Symbole mit geänderter Signatur.`);
         }
+        
+        // CHANGE_REPORT generieren (Phase 4)
+        const changes = extractChangesFromModuleDocs(files);
+        // prevDepCount bereits oben deklariert
+        const depAdded = dependenciesUnion.length > prevDepCount ? dependenciesUnion.length - prevDepCount : 0;
+        const depRemoved = prevDepCount > dependenciesUnion.length ? prevDepCount - dependenciesUnion.length : 0;
+        
+        // Validation-Status (vereinfacht, könnte aus validateDocumentationTs kommen)
+        const validationErrors = 0; // Wird später aus Validator-Ergebnissen kommen
+        const validationWarnings = drift.staleSymbols.length;
+        const validationDetails = drift.staleSymbols.length > 0 
+            ? drift.staleSymbols.slice(0, 5).map(id => `Signatur-Abweichung: ${id}`)
+            : [];
+        
+        const changeReport = generateChangeReport({
+            runType: changed && changed.size > 0 ? 'incremental' : 'full',
+            parsedFiles: scanned.length,
+            skippedFiles: 0, // Wird später aus AST-Cache berechnet
+            symbolsAdded: changes.symbolsAdded,
+            symbolsRemoved: changes.symbolsRemoved,
+            symbolsChanged: changes.symbolsChanged,
+            dependenciesAdded: depAdded,
+            dependenciesRemoved: depRemoved,
+            totalDependencies: dependenciesUnion.length,
+            validationErrors,
+            validationWarnings,
+            validationDetails
+        });
+        
+        fs.writeFileSync(path.join(systemDir, 'CHANGE_REPORT.md'), changeReport, 'utf8');
+        globalOutput.appendLine(`[report] CHANGE_REPORT.md erstellt`);
+        
         statusBar.text = "$(check) Dokumentation generiert";
         const dt = Date.now() - t0;
-        globalOutput.appendLine(`[generate] Gescannt: ${scanned.length}, Symbole: ${allSymbols.length}, Dependencies: ${allDependencies.length}, Dateien: ${files.size}, Dauer: ${dt}ms`);
-        vscode.window.showInformationMessage(`✅ Dokumentation erfolgreich generiert! ${allSymbols.length} Symbole in ${files.size} Dateien (${dt}ms).`);
+        globalOutput.appendLine(`[generate] Gescannt: ${scanned.length}, Symbole: ${symbolsUnion.length}, Dependencies: ${dependenciesUnion.length}, Dateien: ${files.size}, Dauer: ${dt}ms`);
+        vscode.window.showInformationMessage(`✅ Dokumentation erfolgreich generiert! ${symbolsUnion.length} Symbole in ${files.size} Dateien (${dt}ms).`);
         vscode.commands.executeCommand('docs.refresh');
 
     } catch (error) {
@@ -359,12 +513,18 @@ async function validateDocumentationTs() {
         const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
         const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
         const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
-        const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser()];
+        const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
         const allSymbols: ParsedSymbol[] = [];
         for (const f of scanned) {
             const content = fs.readFileSync(f.absolutePath, 'utf8');
             if (f.language === 'ts' || f.language === 'js') {
                 const parsed = parsers[0].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            } else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
+                const parsed = parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            } else if (f.language === 'python') {
+                const parsed = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
                 allSymbols.push(...parsed);
             }
         }
@@ -378,13 +538,30 @@ async function validateDocumentationTs() {
         const coverage = computeCoverage(allSymbols, modulesDir, thresholds);
         const mdReport = validateMarkdownDir(modulesDir, allSymbols);
         
-        // Status-Klassifizierung
+        // Drift-Erkennung: Signatur-Cache mit aktuellen Symbolen vergleichen
+        const currentEntries = computeCacheEntries(allSymbols);
+        const drift = detectDrift(prev, currentEntries);
+        
+        // Drift-Warnungen zu Validierungs-Warnungen hinzufügen
+        const driftWarnings: string[] = [];
+        if (drift.staleSymbols.length > 0) {
+            driftWarnings.push(`Drift erkannt: ${drift.staleSymbols.length} Symbole mit geänderter Signatur`);
+            drift.staleSymbols.slice(0, 10).forEach(id => {
+                driftWarnings.push(`  - Signatur-Abweichung: ${id}`);
+            });
+            if (drift.staleSymbols.length > 10) {
+                driftWarnings.push(`  ... und ${drift.staleSymbols.length - 10} weitere`);
+            }
+        }
+        
+        // Status-Klassifizierung (inkl. Drift)
         const signatureMismatches = mdReport.warnings.filter(w => w.includes('Signatur-Abweichung')).length;
+        const totalSignatureMismatches = signatureMismatches + drift.staleSymbols.length;
         const statusReport = computeValidationStatus(
             [...mdReport.errors, ...coverage.errors],
-            [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings],
+            [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings, ...driftWarnings],
             coverage.errors,
-            signatureMismatches,
+            totalSignatureMismatches,
             mdReport.errors
         );
         
@@ -392,11 +569,11 @@ async function validateDocumentationTs() {
             total_files: fileCount,
             valid_files: exists && mdReport.errors.length === 0 && coverage.errors.length === 0 ? fileCount : Math.max(0, fileCount - (mdReport.errors.length > 0 || coverage.errors.length > 0 ? 1 : 0)),
             invalid_files: (mdReport.errors.length > 0 || coverage.errors.length > 0) ? 1 : 0,
-            warnings: [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings],
+            warnings: [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings, ...driftWarnings],
             errors: exists ? [...mdReport.errors, ...coverage.errors] : ['modules/ fehlt'],
             status: statusReport,
             file_results: [
-                { file: modulesDir, valid: exists && mdReport.errors.length === 0 && coverage.errors.length === 0, warnings: prev ? mdReport.warnings : ['Kein Cache', ...mdReport.warnings], errors: exists ? [...mdReport.errors, ...coverage.errors] : ['Fehlend'], checks: { coverage } }
+                { file: modulesDir, valid: exists && mdReport.errors.length === 0 && coverage.errors.length === 0, warnings: prev ? [...mdReport.warnings, ...driftWarnings] : ['Kein Cache', ...mdReport.warnings, ...driftWarnings], errors: exists ? [...mdReport.errors, ...coverage.errors] : ['Fehlend'], checks: { coverage } }
             ]
         };
         showValidationResults(results);

@@ -1,0 +1,48 @@
+{
+  "name": "@noyrax/mcp",
+  "version": "1.0.0",
+  "description": "Noyrax MCP Server - AI Agent Integration für Cursor, Copilot und Claude",
+  "type": "module",
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "bin": {
+    "noyrax-mcp": "dist/server.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/server.js",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "noyrax",
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cursor",
+    "copilot",
+    "claude",
+    "documentation",
+    "validation"
+  ],
+  "author": "Benjamin Behrens <contact@noyrax.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noyrax/noyrax"
+  },
+  "homepage": "https://noyrax.dev",
+  "bugs": {
+    "url": "https://github.com/noyrax/noyrax/issues"
+  }
+}

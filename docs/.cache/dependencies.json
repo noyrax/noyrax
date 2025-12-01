@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "from": "demo/src/calculator.ts",
+      "to": "./types",
+      "type": "import",
+      "symbols": [
+        "CalculationResult"
+      ]
+    },
+    {
+      "from": "demo/src/user-service.ts",
+      "to": "./types",
+      "type": "import",
+      "symbols": [
+        "AppError",
+        "User",
+        "UserQueryOptions"
+      ]
+    },
+    {
+      "from": "src/validator/signature-matching.ts",
+      "to": "../core/symbols",
+      "type": "import",
+      "symbols": [
+        "computeSignatureHash"
+      ]
+    },
+    {
+      "from": "src/validator/signature-matching.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    }
+  ]
+}

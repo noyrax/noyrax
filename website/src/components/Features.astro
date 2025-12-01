@@ -1,0 +1,73 @@
+---
+const features = [
+  {
+    icon: '🔄',
+    title: 'Auto-Generate',
+    description: 'Generiert Markdown-Dokumentation aus Code – deterministisch und reproduzierbar.',
+    items: ['TypeScript/JavaScript', 'Python', 'JSON/YAML Configs', 'Multi-Language Support']
+  },
+  {
+    icon: '🛡️',
+    title: 'Drift-Detection',
+    description: 'Erkennt automatisch, wenn Code und Dokumentation auseinanderlaufen.',
+    items: ['Signatur-Validierung', 'Coverage-Metriken', 'Change-Tracking', 'Inkrementelle Updates']
+  },
+  {
+    icon: '🤖',
+    title: 'AI-Native',
+    description: 'Built for Cursor, Copilot & Claude mit MCP-Server und strukturierten Workflows.',
+    items: ['MCP-Server Integration', 'Impact-Analyse', 'ADR-Generierung', 'Cursor Rules']
+  }
+];
+---
+
+<section id="features" class="py-24 bg-slate-900 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Drei Säulen für aktuelle Docs
+      </h2>
+      <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+        Noyrax kombiniert automatische Generierung, kontinuierliche Validierung 
+        und nahtlose AI-Integration.
+      </p>
+    </div>
+    
+    <!-- Features Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div 
+          class="group p-8 bg-slate-800/50 border border-slate-700 rounded-2xl hover:border-noyrax-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-noyrax-blue/5"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <!-- Icon -->
+          <div class="text-4xl mb-4">{feature.icon}</div>
+          
+          <!-- Title -->
+          <h3 class="text-xl font-semibold text-white mb-3 group-hover:text-noyrax-blue transition-colors">
+            {feature.title}
+          </h3>
+          
+          <!-- Description -->
+          <p class="text-slate-400 mb-6">
+            {feature.description}
+          </p>
+          
+          <!-- Items -->
+          <ul class="space-y-2">
+            {feature.items.map(item => (
+              <li class="flex items-center gap-2 text-slate-300">
+                <svg class="w-4 h-4 text-success-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+

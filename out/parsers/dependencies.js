@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.extractPythonDependencies = exports.extractTsJsDependencies = void 0;
+/**
+ * @public
+ * Extract dependencies from TypeScript/JavaScript files
+ */
 function extractTsJsDependencies(sourceFile, repoRelPath) {
     const deps = [];
     // Import declarations
@@ -43,6 +47,10 @@ function extractTsJsDependencies(sourceFile, repoRelPath) {
     return deps;
 }
 exports.extractTsJsDependencies = extractTsJsDependencies;
+/**
+ * @public
+ * Extract dependencies from Python files
+ */
 function extractPythonDependencies(content, repoRelPath) {
     const deps = [];
     const lines = content.split(/\r?\n/);

@@ -1,4 +1,33 @@
 {
   "version": 1,
-  "entries": []
+  "entries": [
+    {
+      "path": "action__action.yml.md",
+      "hash": "cd9d217fd35a5281"
+    },
+    {
+      "path": "demo__docguard.config.json.md",
+      "hash": "87da24bb2c74314a"
+    },
+    {
+      "path": "demo__package.json.md",
+      "hash": "fb5fdc244e124e1e"
+    },
+    {
+      "path": "mcp__package.json.md",
+      "hash": "598e0086d13c7746"
+    },
+    {
+      "path": "package.json.md",
+      "hash": "3c3e80c053b5d508"
+    },
+    {
+      "path": "packages__doc-system-agent__package.json.md",
+      "hash": "34df6a6f17c70841"
+    },
+    {
+      "path": "website__package.json.md",
+      "hash": "7333dbc060037ff8"
+    }
+  ]
 }

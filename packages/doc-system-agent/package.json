@@ -1,0 +1,70 @@
+{
+  "name": "@noyrax/cli",
+  "version": "1.0.0",
+  "description": "Noyrax CLI - Documentation that never drifts. Automatische Dokumentationsgenerierung, Validierung und AI-Agent Integration.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "noyrax": "dist/cli/index.js",
+    "doc-agent": "dist/cli/index.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./mcp": {
+      "import": "./dist/mcp/server.js",
+      "types": "./dist/mcp/server.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "noyrax",
+    "documentation",
+    "docs-as-code",
+    "drift-detection",
+    "ai-agent",
+    "mcp",
+    "cursor",
+    "copilot",
+    "vscode",
+    "typescript",
+    "validation",
+    "code-analysis"
+  ],
+  "author": "Benjamin Behrens <contact@noyrax.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.23.0",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noyrax/noyrax"
+  },
+  "homepage": "https://noyrax.dev",
+  "bugs": {
+    "url": "https://github.com/noyrax/noyrax/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/noyrax"
+  }
+}

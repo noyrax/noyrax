@@ -73,6 +73,7 @@ const ts_js_1 = require("./parsers/ts-js");
 const json_yaml_1 = require("./parsers/json-yaml");
 const python_1 = require("./parsers/python");
 const index_1 = require("./generator/index");
+const change_report_1 = require("./generator/change-report");
 const dependency_graph_1 = require("./generator/dependency-graph");
 const index_2 = require("./validator/index");
 const status_1 = require("./validator/status");
@@ -81,6 +82,8 @@ const index_3 = require("./drift/index");
 const output_cache_1 = require("./cache/output-cache");
 const index_4 = require("./index/index");
 const ast_cache_1 = require("./cache/ast-cache");
+const dependencies_cache_1 = require("./cache/dependencies-cache");
+const consolidation_1 = require("./core/consolidation");
 const async_1 = require("./core/async");
 const git_1 = require("./core/git");
 const dependencies_1 = require("./parsers/dependencies");
@@ -100,34 +103,65 @@ async function generateDocumentationTs() {
         const includeBackups = vscode.workspace.getConfiguration('docs').get('includeBackups') ?? false;
         const scannedAll = (0, scanner_1.scanWorkspace)({ workspaceRoot }, includeBackups);
         let scanned = scannedAll;
+        let changed = null;
         const useGit = (vscode.workspace.getConfiguration('docs').get('useGitDiff') ?? true);
-        if (useGit) {
-            const changed = (0, git_1.getChangedFiles)(workspaceRoot);
+        // Prüfe, ob AST-Cache existiert (für ersten Lauf)
+        const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
+        const astCacheFile = path.join(cacheDir, 'ast-hashes.json');
+        const prevAst = (0, ast_cache_1.loadAstHashCache)(astCacheFile);
+        const isFirstRun = !prevAst || prevAst.entries.length === 0;
+        // BEIM ERSTEN LAUF: IMMER VOLLSCAN, KEIN GIT-FILTER
+        if (isFirstRun) {
+            globalOutput.appendLine(`[cache] Erster Lauf erkannt, verwende Vollscan (${scannedAll.length} Dateien)`);
+            scanned = scannedAll;
+        }
+        else if (useGit) {
+            changed = (0, git_1.getChangedFiles)(workspaceRoot);
             if (changed && changed.size > 0) {
-                const filtered = scanned.filter(f => changed.has(f.repositoryRelativePath));
-                scanned = filtered.length > 0 ? filtered : scannedAll;
+                const filtered = scannedAll.filter(f => changed.has(f.repositoryRelativePath));
+                // Nur filtern, wenn genug Dateien gefunden wurden (mindestens 10% der Gesamtanzahl)
+                if (filtered.length > 0 && filtered.length >= Math.max(1, scannedAll.length * 0.1)) {
+                    scanned = filtered;
+                    globalOutput.appendLine(`[git] Inkrementeller Modus: ${filtered.length}/${scannedAll.length} Dateien`);
+                }
+                else {
+                    globalOutput.appendLine(`[git] Zu wenige geänderte Dateien (${filtered.length}), verwende Vollscan`);
+                    scanned = scannedAll;
+                }
             }
+            else {
+                globalOutput.appendLine(`[git] Keine geänderten Dateien erkannt, verwende Vollscan`);
+                scanned = scannedAll;
+            }
+        }
+        else {
+            globalOutput.appendLine(`[git] Git-Filter deaktiviert, verwende Vollscan`);
+            scanned = scannedAll;
         }
         const parsers = [new ts_js_1.TsJsParser(), new json_yaml_1.JsonYamlParser(), new python_1.PythonParser()];
         const allSymbols = [];
         const allDependencies = [];
-        // AST-Hash-Cache laden
-        const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
-        const astCacheFile = path.join(cacheDir, 'ast-hashes.json');
-        const prevAst = (0, ast_cache_1.loadAstHashCache)(astCacheFile);
+        // AST-Hash-Cache bereits oben geladen, hier nur Map erstellen
         const astMap = new Map((prevAst?.entries ?? []).map(e => [e.path, e.hash]));
-        const nextAstEntries = [];
+        let nextAstEntries = [];
         const concurrency = (vscode.workspace.getConfiguration('docs').get('concurrency') ?? 4);
         // Parallelisiertes Parsen mit Dependency-Extraktion
+        // Track welche Dateien tatsächlich geparst wurden (nicht übersprungen)
+        const actuallyParsedFiles = new Set();
         const parseResults = await (0, async_1.mapLimit)(scanned, Math.max(1, concurrency), async (f) => {
             const content = fs.readFileSync(f.absolutePath, 'utf8');
             const fileHash = (0, ast_cache_1.computeFileHash)(content);
             nextAstEntries.push({ path: f.repositoryRelativePath, hash: fileHash });
-            const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
-            if (unchanged) {
-                globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: übersprungen (unchanged)`);
-                return { symbols: [], dependencies: [] };
+            // BEIM ERSTEN LAUF: IMMER PARSEN
+            if (!isFirstRun) {
+                const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
+                if (unchanged) {
+                    globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: übersprungen (unchanged)`);
+                    return { symbols: [], dependencies: [], wasParsed: false };
+                }
             }
+            // Datei wird tatsächlich geparst
+            actuallyParsedFiles.add(f.repositoryRelativePath);
             globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: wird geparst (${f.language})`);
             let symbols = [];
             let dependencies = [];
@@ -152,51 +186,97 @@ async function generateDocumentationTs() {
                 dependencies = (0, dependencies_1.extractPythonDependencies)(content, f.repositoryRelativePath);
                 globalOutput.appendLine(`[debug] ${f.repositoryRelativePath}: ${dependencies.length} Python dependencies gefunden`);
             }
-            return { symbols, dependencies };
+            return { symbols, dependencies, wasParsed: true };
         });
         parseResults.forEach(result => {
             allSymbols.push(...result.symbols);
             allDependencies.push(...result.dependencies);
         });
-        // Fallback: Wenn keine Symbole gefunden wurden, einmal ohne Git-Filter erneut laufen
-        if (allSymbols.length === 0 && scanned !== scannedAll) {
-            const parseAll = await (0, async_1.mapLimit)(scannedAll, Math.max(1, concurrency), async (f) => {
-                const content = fs.readFileSync(f.absolutePath, 'utf8');
-                const fileHash = (0, ast_cache_1.computeFileHash)(content);
-                // nextAstEntries wurde oben bereits gefüllt; hier keine Duplikate erzwingen
-                const unchanged = astMap.get(f.repositoryRelativePath) === fileHash;
-                if (unchanged)
-                    return [];
-                if (f.language === 'ts' || f.language === 'js') {
-                    const tsParser = parsers[0];
-                    const symbols = tsParser.parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                    const sourceFile = tsParser.project.getSourceFile(f.absolutePath);
-                    if (sourceFile) {
-                        const deps = (0, dependencies_1.extractTsJsDependencies)(sourceFile, f.repositoryRelativePath);
-                        allDependencies.push(...deps);
-                        globalOutput.appendLine(`[debug] Fallback ${f.repositoryRelativePath}: ${deps.length} dependencies`);
-                    }
-                    return symbols;
-                }
-                else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
-                    return parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                }
-                else if (f.language === 'python') {
-                    const symbols = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                    const deps = (0, dependencies_1.extractPythonDependencies)(content, f.repositoryRelativePath);
-                    allDependencies.push(...deps);
-                    globalOutput.appendLine(`[debug] Fallback ${f.repositoryRelativePath}: ${deps.length} Python dependencies`);
-                    return symbols;
-                }
-                return [];
-            });
-            parseAll.forEach(list => allSymbols.push(...list));
+        // Logging für Debugging
+        globalOutput.appendLine(`[parse] ${allSymbols.length} Symbole und ${allDependencies.length} Dependencies gefunden (${actuallyParsedFiles.size} Dateien geparst, ${scanned.length - actuallyParsedFiles.size} übersprungen)`);
+        // Fallback nur als letzte Rettung: Wenn beim ersten Lauf keine Symbole gefunden wurden
+        // (könnte auf Parser-Fehler oder leeres Projekt hinweisen)
+        if (allSymbols.length === 0 && isFirstRun) {
+            globalOutput.appendLine('[warn] Keine Symbole beim ersten Lauf gefunden. Möglicherweise Parser-Fehler oder leeres Projekt.');
         }
-        (0, ast_cache_1.saveAstHashCache)(cacheDir, { version: 1, entries: nextAstEntries });
-        const files = (0, index_1.generatePerFileDocs)(allSymbols);
+        // ========== PHASE 1.3: UNION-BILDUNG (ADDITIVE_DOCUMENTATION_PLAN.md, Abschnitt 6.2-6.3) ==========
+        // 1. Dependencies-Union: Cache laden und mit neuen Dependencies mergen
+        const depCacheFile = path.join(cacheDir, 'dependencies.json');
+        const depCachePrev = (0, dependencies_cache_1.loadDependenciesCache)(depCacheFile);
+        // WICHTIG: Nur Dateien, die tatsächlich geparst wurden (nicht übersprungen)
+        const parsedFiles = actuallyParsedFiles;
+        // Git-gelöschte Dateien erkennen (optional; leer wenn Git nicht verfügbar)
+        const deletedFilesFromGit = (0, git_1.getDeletedFiles)(workspaceRoot) ?? new Set();
+        if (deletedFilesFromGit.size > 0) {
+            globalOutput.appendLine(`[git] ${deletedFilesFromGit.size} gelöschte Dateien erkannt`);
+        }
+        // Debug: Zeige welche Dateien als "geparst" markiert sind
+        const parsedFilesList = Array.from(parsedFiles).slice(0, 10);
+        globalOutput.appendLine(`[union] parsedFiles.size: ${parsedFiles.size}, deletedFilesFromGit.size: ${deletedFilesFromGit.size}`);
+        if (parsedFiles.size > 0) {
+            globalOutput.appendLine(`[union] Geparste Dateien (erste 10): ${parsedFilesList.join(', ')}`);
+        }
+        // Verwende buildDependenciesUnionWithDebug, um Debug-Info direkt zu erhalten
+        const unionResult = (0, consolidation_1.buildDependenciesUnionWithDebug)(allDependencies, depCachePrev?.entries ?? [], parsedFiles, deletedFilesFromGit);
+        const dependenciesUnion = unionResult.dependencies;
+        const debug = unionResult.debug;
+        const prevDepCount = (depCachePrev?.entries ?? []).length;
+        globalOutput.appendLine(`[union] Dependencies: ${debug.newDeps} neu + ${prevDepCount} gecacht → ${dependenciesUnion.length} Union`);
+        globalOutput.appendLine(`[union]   - Beibehalten von ungeparsten: ${debug.keptFromUnparsed}`);
+        globalOutput.appendLine(`[union]   - Übersprungen (geparst): ${debug.skippedFromParsed}`);
+        globalOutput.appendLine(`[union]   - Übersprungen (gelöscht): ${debug.skippedFromDeleted}`);
+        // 2. Symbol-Union: Index laden und mit neuen Symbolen mergen
+        const indexFile = path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl');
+        let symbolsPrev = [];
+        if (fs.existsSync(indexFile)) {
+            try {
+                const lines = fs.readFileSync(indexFile, 'utf8').split(/\r?\n/).filter(Boolean);
+                symbolsPrev = lines.map(l => {
+                    try {
+                        const row = JSON.parse(l);
+                        // Rekonstruiere ParsedSymbol aus IndexRow (vereinfacht)
+                        return {
+                            language: 'unknown',
+                            filePath: row.path,
+                            fullyQualifiedName: row.name,
+                            kind: row.kind,
+                            signature: { name: row.name, parameters: [], returnType: '', visibility: 'public' }
+                        };
+                    }
+                    catch {
+                        return null;
+                    }
+                }).filter(Boolean);
+            }
+            catch {
+                // Index-Fehler: Fallback auf leere Liste
+                symbolsPrev = [];
+            }
+        }
+        const symbolsUnion = (0, consolidation_1.buildSymbolsUnion)(allSymbols, symbolsPrev, parsedFiles, deletedFilesFromGit);
+        globalOutput.appendLine(`[union] Symbole: ${allSymbols.length} neu + ${symbolsPrev.length} gecacht → ${symbolsUnion.length} Union`);
+        // Von jetzt an: dependenciesUnion und symbolsUnion verwenden statt allDependencies/allSymbols
+        // ========== ENDE UNION-BILDUNG ==========
+        // AST-Cache speichern (nur wenn wir Einträge haben)
+        if (nextAstEntries.length > 0) {
+            (0, ast_cache_1.saveAstHashCache)(cacheDir, { version: 1, entries: nextAstEntries });
+        }
         const outDir = path.join(workspaceRoot, config.outputPath, 'modules');
         if (!fs.existsSync(outDir))
             fs.mkdirSync(outDir, { recursive: true });
+        // Load existing documentation for merge
+        const existingDocs = new Map();
+        if (fs.existsSync(outDir)) {
+            const existingFiles = fs.readdirSync(outDir).filter(f => f.endsWith('.md'));
+            for (const file of existingFiles) {
+                const filePath = path.join(outDir, file);
+                const content = fs.readFileSync(filePath, 'utf8');
+                // Reverse safe file name to get original path
+                const originalPath = file.replace(/__/g, '/').replace(/\.md$/, '');
+                existingDocs.set(originalPath, content);
+            }
+        }
+        const files = (0, index_1.generatePerFileDocs)(symbolsUnion, outDir, existingDocs);
         // Output-Hash-Cache laden
         const outHashFile = path.join(cacheDir, 'output-hashes.json');
         const prevOut = (0, output_cache_1.loadOutputHashCache)(outHashFile);
@@ -212,30 +292,70 @@ async function generateDocumentationTs() {
                 fs.writeFileSync(target, content, 'utf8');
             }
         }
-        (0, output_cache_1.saveOutputHashCache)(cacheDir, { version: 1, entries: newEntries });
-        // Symbol-Index mit Dependencies erzeugen
-        const indexRows = (0, index_4.buildIndexFromSymbols)(allSymbols, allDependencies);
-        (0, index_4.writeJsonlIndex)(indexRows, path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl'));
-        // Abhängigkeitsgraph generieren
+        // Output-Hash-Cache nur speichern, wenn wir Einträge erzeugt haben
+        if (newEntries.length > 0) {
+            (0, output_cache_1.saveOutputHashCache)(cacheDir, { version: 1, entries: newEntries });
+        }
+        // Symbol-Index mit Dependencies erzeugen (aus Union)
+        const indexRows = (0, index_4.buildIndexFromSymbols)(symbolsUnion, dependenciesUnion);
+        // Index nur überschreiben, wenn wir auch Symbole haben, sonst alten Index behalten
+        if (symbolsUnion.length > 0) {
+            (0, index_4.writeJsonlIndex)(indexRows, path.join(workspaceRoot, config.outputPath, 'index', 'symbols.jsonl'));
+        }
+        // Abhängigkeitsgraph generieren (aus Union)
         const systemDir = path.join(workspaceRoot, config.outputPath, 'system');
         if (!fs.existsSync(systemDir))
             fs.mkdirSync(systemDir, { recursive: true });
-        const mermaidGraph = (0, dependency_graph_1.generateMermaidGraph)(allDependencies);
-        const depOverview = (0, dependency_graph_1.generateDependencyOverview)(allDependencies);
+        const mermaidGraph = (0, dependency_graph_1.generateMermaidGraph)(dependenciesUnion);
+        const depOverview = (0, dependency_graph_1.generateDependencyOverview)(dependenciesUnion);
         fs.writeFileSync(path.join(systemDir, 'DEPENDENCY_GRAPH.md'), mermaidGraph, 'utf8');
         fs.writeFileSync(path.join(systemDir, 'DEPENDENCIES.md'), depOverview, 'utf8');
+        // Dependencies-Cache speichern (nur wenn Einträge vorhanden)
+        if (dependenciesUnion.length > 0) {
+            (0, dependencies_cache_1.saveDependenciesCache)(cacheDir, { version: 1, entries: dependenciesUnion });
+        }
         // Signatur-Cache aktualisieren
         const prev = (0, signature_cache_1.loadSignatureCache)(path.join(cacheDir, 'signatures.json'));
-        const entries = (0, index_3.computeCacheEntries)(allSymbols);
-        (0, signature_cache_1.saveSignatureCache)(cacheDir, { version: 1, entries });
+        const entries = (0, index_3.computeCacheEntries)(symbolsUnion);
+        // Signatur-Cache nur speichern, wenn wir Einträge haben
+        if (entries.length > 0) {
+            (0, signature_cache_1.saveSignatureCache)(cacheDir, { version: 1, entries });
+        }
         const drift = (0, index_3.detectDrift)(prev, entries);
         if (drift.staleSymbols.length > 0) {
             vscode.window.showWarningMessage(`⚠️ Drift erkannt: ${drift.staleSymbols.length} Symbole mit geänderter Signatur.`);
         }
+        // CHANGE_REPORT generieren (Phase 4)
+        const changes = (0, change_report_1.extractChangesFromModuleDocs)(files);
+        // prevDepCount bereits oben deklariert
+        const depAdded = dependenciesUnion.length > prevDepCount ? dependenciesUnion.length - prevDepCount : 0;
+        const depRemoved = prevDepCount > dependenciesUnion.length ? prevDepCount - dependenciesUnion.length : 0;
+        // Validation-Status (vereinfacht, könnte aus validateDocumentationTs kommen)
+        const validationErrors = 0; // Wird später aus Validator-Ergebnissen kommen
+        const validationWarnings = drift.staleSymbols.length;
+        const validationDetails = drift.staleSymbols.length > 0
+            ? drift.staleSymbols.slice(0, 5).map(id => `Signatur-Abweichung: ${id}`)
+            : [];
+        const changeReport = (0, change_report_1.generateChangeReport)({
+            runType: changed && changed.size > 0 ? 'incremental' : 'full',
+            parsedFiles: scanned.length,
+            skippedFiles: 0,
+            symbolsAdded: changes.symbolsAdded,
+            symbolsRemoved: changes.symbolsRemoved,
+            symbolsChanged: changes.symbolsChanged,
+            dependenciesAdded: depAdded,
+            dependenciesRemoved: depRemoved,
+            totalDependencies: dependenciesUnion.length,
+            validationErrors,
+            validationWarnings,
+            validationDetails
+        });
+        fs.writeFileSync(path.join(systemDir, 'CHANGE_REPORT.md'), changeReport, 'utf8');
+        globalOutput.appendLine(`[report] CHANGE_REPORT.md erstellt`);
         statusBar.text = "$(check) Dokumentation generiert";
         const dt = Date.now() - t0;
-        globalOutput.appendLine(`[generate] Gescannt: ${scanned.length}, Symbole: ${allSymbols.length}, Dependencies: ${allDependencies.length}, Dateien: ${files.size}, Dauer: ${dt}ms`);
-        vscode.window.showInformationMessage(`✅ Dokumentation erfolgreich generiert! ${allSymbols.length} Symbole in ${files.size} Dateien (${dt}ms).`);
+        globalOutput.appendLine(`[generate] Gescannt: ${scanned.length}, Symbole: ${symbolsUnion.length}, Dependencies: ${dependenciesUnion.length}, Dateien: ${files.size}, Dauer: ${dt}ms`);
+        vscode.window.showInformationMessage(`✅ Dokumentation erfolgreich generiert! ${symbolsUnion.length} Symbole in ${files.size} Dateien (${dt}ms).`);
         vscode.commands.executeCommand('docs.refresh');
     }
     catch (error) {
@@ -341,12 +461,20 @@ async function validateDocumentationTs() {
         const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
         const includeBackups = vscode.workspace.getConfiguration('docs').get('includeBackups') ?? false;
         const scanned = (0, scanner_1.scanWorkspace)({ workspaceRoot }, includeBackups);
-        const parsers = [new ts_js_1.TsJsParser(), new json_yaml_1.JsonYamlParser()];
+        const parsers = [new ts_js_1.TsJsParser(), new json_yaml_1.JsonYamlParser(), new python_1.PythonParser()];
         const allSymbols = [];
         for (const f of scanned) {
             const content = fs.readFileSync(f.absolutePath, 'utf8');
             if (f.language === 'ts' || f.language === 'js') {
                 const parsed = parsers[0].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            }
+            else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
+                const parsed = parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            }
+            else if (f.language === 'python') {
+                const parsed = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
                 allSymbols.push(...parsed);
             }
         }
@@ -359,18 +487,33 @@ async function validateDocumentationTs() {
         };
         const coverage = (0, index_2.computeCoverage)(allSymbols, modulesDir, thresholds);
         const mdReport = (0, index_2.validateMarkdownDir)(modulesDir, allSymbols);
-        // Status-Klassifizierung
+        // Drift-Erkennung: Signatur-Cache mit aktuellen Symbolen vergleichen
+        const currentEntries = (0, index_3.computeCacheEntries)(allSymbols);
+        const drift = (0, index_3.detectDrift)(prev, currentEntries);
+        // Drift-Warnungen zu Validierungs-Warnungen hinzufügen
+        const driftWarnings = [];
+        if (drift.staleSymbols.length > 0) {
+            driftWarnings.push(`Drift erkannt: ${drift.staleSymbols.length} Symbole mit geänderter Signatur`);
+            drift.staleSymbols.slice(0, 10).forEach(id => {
+                driftWarnings.push(`  - Signatur-Abweichung: ${id}`);
+            });
+            if (drift.staleSymbols.length > 10) {
+                driftWarnings.push(`  ... und ${drift.staleSymbols.length - 10} weitere`);
+            }
+        }
+        // Status-Klassifizierung (inkl. Drift)
         const signatureMismatches = mdReport.warnings.filter(w => w.includes('Signatur-Abweichung')).length;
-        const statusReport = (0, status_1.computeValidationStatus)([...mdReport.errors, ...coverage.errors], [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings], coverage.errors, signatureMismatches, mdReport.errors);
+        const totalSignatureMismatches = signatureMismatches + drift.staleSymbols.length;
+        const statusReport = (0, status_1.computeValidationStatus)([...mdReport.errors, ...coverage.errors], [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings, ...driftWarnings], coverage.errors, totalSignatureMismatches, mdReport.errors);
         const results = {
             total_files: fileCount,
             valid_files: exists && mdReport.errors.length === 0 && coverage.errors.length === 0 ? fileCount : Math.max(0, fileCount - (mdReport.errors.length > 0 || coverage.errors.length > 0 ? 1 : 0)),
             invalid_files: (mdReport.errors.length > 0 || coverage.errors.length > 0) ? 1 : 0,
-            warnings: [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings],
+            warnings: [...(prev ? [] : ['Kein vorheriger Signatur-Cache vorhanden']), ...mdReport.warnings, ...driftWarnings],
             errors: exists ? [...mdReport.errors, ...coverage.errors] : ['modules/ fehlt'],
             status: statusReport,
             file_results: [
-                { file: modulesDir, valid: exists && mdReport.errors.length === 0 && coverage.errors.length === 0, warnings: prev ? mdReport.warnings : ['Kein Cache', ...mdReport.warnings], errors: exists ? [...mdReport.errors, ...coverage.errors] : ['Fehlend'], checks: { coverage } }
+                { file: modulesDir, valid: exists && mdReport.errors.length === 0 && coverage.errors.length === 0, warnings: prev ? [...mdReport.warnings, ...driftWarnings] : ['Kein Cache', ...mdReport.warnings, ...driftWarnings], errors: exists ? [...mdReport.errors, ...coverage.errors] : ['Fehlend'], checks: { coverage } }
             ]
         };
         showValidationResults(results);

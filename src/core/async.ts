@@ -1,3 +1,7 @@
+/**
+ * @public
+ * Utility function for parallel processing with concurrency limit
+ */
 export async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
     const results: R[] = new Array(items.length) as any;
     let idx = 0;
@@ -8,10 +12,17 @@ export async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, in
             while (active < limit && idx < items.length) {
                 const current = idx++;
                 active++;
-                Promise.resolve(fn(items[current], current))
-                    .then(res => { results[current] = res as any; })
-                    .catch(reject)
-                    .finally(() => { active--; next(); });
+                (async () => {
+                    try {
+                        const res = await fn(items[current], current);
+                        results[current] = res;
+                    } catch (err) {
+                        reject(err);
+                    } finally {
+                        active--;
+                        next();
+                    }
+                })();
             }
         };
         next();

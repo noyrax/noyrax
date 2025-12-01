@@ -1,0 +1,134 @@
+---
+description: Workflow zum Erstellen von Architecture Decision Records. Aktiviert bei Anfragen wie "ADR schreiben", "dokumentiere die Entscheidung", "Architektur-Entscheidung".
+globs: []
+alwaysApply: false
+---
+
+# ADR-Workflow
+
+Diese Rule wird aktiviert bei Anfragen zu Architecture Decision Records.
+
+## Trigger-Phrasen
+
+- "ADR schreiben" / "ADR erstellen"
+- "dokumentiere die Entscheidung"
+- "Architektur-Entscheidung festhalten"
+- "warum haben wir X so gemacht?"
+- "Decision Record"
+
+## Wann ist ein ADR erforderlich?
+
+### Pflicht-Trigger
+
+- Neue Module oder signifikante API-Erweiterungen
+- Änderungen an der Architektur oder Datenflüssen
+- Neue Abhängigkeiten oder Technologien
+- Änderungen an Cache-Strategien
+- Änderungen an Validierungslogik
+- Breaking Changes an bestehenden APIs
+
+### Kein ADR nötig
+
+- Bugfixes ohne Architektur-Relevanz
+- Rein kosmetische Änderungen
+- Dokumentations-Updates
+- Test-Erweiterungen
+
+## ADR-Format
+
+Speicherort: `docs/adr/XXX-kurzbeschreibung.md`
+
+Nummerierung: Fortlaufend (nächste freie Nummer)
+
+```markdown
+# ADR-XXX: Kurzbeschreibung
+
+## Status
+
+Accepted | Proposed | Deprecated | Superseded by ADR-YYY
+
+## Kontext
+
+Welches Problem musste gelöst werden?
+Welche Rahmenbedingungen gab es?
+
+## Entscheidung
+
+Was wurde entschieden?
+Wie wurde es umgesetzt?
+
+## Konsequenzen
+
+### Positive
+- Vorteil 1
+- Vorteil 2
+
+### Negative
+- Trade-off 1
+- Einschränkung 1
+
+## Alternativen
+
+### Alternative A
+Beschreibung, warum nicht gewählt.
+
+### Alternative B
+Beschreibung, warum nicht gewählt.
+```
+
+## Bestehende ADRs
+
+| ADR | Thema |
+|-----|-------|
+| 001 | Signatur-Abweichung Fix |
+| 002 | File-Specific Validation |
+| 003 | Documentation Generation Bugs |
+| 004 | Validator Signature Matching Fix |
+| 005 | Validator Generic Simplification |
+| 006 | Parser Variable Type Extraction |
+| 007 | TS Parser Load Libs |
+| 008 | Dependencies Cache Phase 1 |
+| 009 | Consolidation Union Logic |
+| 010 | Extension Union Integration |
+| 011 | Module Doc Change Tracking |
+| 012 | Git Deletions Change Report |
+| 013 | System Functionality Fixes |
+
+## Workflow
+
+### 1. Nummer ermitteln
+
+```bash
+# Höchste existierende ADR-Nummer finden
+ls docs/adr/*.md | sort -V | tail -1
+# Beispiel: 013-system-functionality-fixes.md
+# → Nächste Nummer: 014
+```
+
+### 2. ADR erstellen
+
+```bash
+# Datei anlegen
+touch docs/adr/014-meine-entscheidung.md
+```
+
+### 3. Inhalt ausfüllen
+
+Mindestens diese Abschnitte:
+- **Kontext**: Was war das Problem?
+- **Entscheidung**: Was wurde gemacht?
+- **Konsequenzen**: Was sind die Auswirkungen?
+
+### 4. Referenzen aktualisieren
+
+Falls relevant:
+- In betroffenen Modul-Rules (010-013) ADR referenzieren
+- In Modul-Dokumentation verlinken
+
+## Memory-Integration
+
+Bestätigte ADR-Entscheidungen sollten als Memories gespeichert werden,
+damit der Agent in zukünftigen Sessions darauf zugreifen kann.
+
+Beispiel-Memory:
+> "Das Projekt verwendet Union-Logik für additive Dokumentationsgenerierung (siehe ADR-009)."

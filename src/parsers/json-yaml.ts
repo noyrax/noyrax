@@ -44,7 +44,7 @@ export class JsonYamlParser implements ParserAdapter {
         const keys = Object.keys(obj).sort();
         for (const k of keys) {
             const v = obj[k];
-            const sig: SymbolSignature = { name: k, parameters: [], returnType: typeof v };
+            const sig: SymbolSignature = { name: k, parameters: [], returnType: typeof v, visibility: 'public' };
             out.push({
                 language: lang,
                 filePath: repoRel,

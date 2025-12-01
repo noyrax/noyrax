@@ -20,12 +20,17 @@ const DEFAULT_EXCLUDES = new Set([
     'node_modules',
     '.git', '.svn', '.hg',
     'dist', 'out', 'build',
-    '__pycache__', '.mypy_cache', '.venv', '.cache'
+    '__pycache__', '.mypy_cache', '.venv', '.cache',
+    'docs' // Generierte Dokumentation sollte nicht gescannt werden
 ]);
 
 const BACKUP_DIR_NAMES = new Set(['backup', 'backups', 'archive', 'archives']);
 const BACKUP_FILE_SUFFIXES = ['.bak', '.old', '.tmp', '.swp', '.swo'];
 
+/**
+ * @public
+ * Scan workspace for source files
+ */
 export function scanWorkspace(options: ScanOptions, includeBackups = false): ScannedFile[] {
     const root = path.resolve(options.workspaceRoot);
     const results: ScannedFile[] = [];
@@ -90,6 +95,8 @@ export function scanWorkspace(options: ScanOptions, includeBackups = false): Sca
 
             const fullPath = path.join(currentDir, entry.name);
             const repoRel = path.relative(root, fullPath).split(path.sep).join('/');
+            // Generierte Dokumentation ausschließen (docs/ Verzeichnis)
+            if (repoRel.startsWith('docs/')) continue;
             if (ig.ignores(repoRel)) continue;
             if (entry.isDirectory()) {
                 if (!includeBackups && BACKUP_DIR_NAMES.has(entry.name.toLowerCase())) continue;

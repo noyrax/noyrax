@@ -14,7 +14,8 @@ const plans = [
     ],
     cta: 'Get Started',
     href: '#quick-start',
-    highlighted: false
+    highlighted: false,
+    comingSoon: false
   },
   {
     name: 'Pro',
@@ -29,9 +30,10 @@ const plans = [
       'Custom Themes',
       'API Access'
     ],
-    cta: 'Start Free Trial',
+    cta: 'Coming Soon',
     href: '#',
-    highlighted: true
+    highlighted: true,
+    comingSoon: true
   },
   {
     name: 'Team',
@@ -46,9 +48,10 @@ const plans = [
       'Role-based Access',
       'Audit Logs'
     ],
-    cta: 'Contact Sales',
+    cta: 'Coming Soon',
     href: '#',
-    highlighted: false
+    highlighted: false,
+    comingSoon: true
   }
 ];
 ---
@@ -105,16 +108,25 @@ const plans = [
           </ul>
           
           {/* CTA */}
-          <a 
-            href={plan.href}
-            class={`block w-full py-3 rounded-lg font-semibold text-center transition-all ${
-              plan.highlighted
-                ? 'bg-noyrax-blue hover:bg-blue-600 text-white'
-                : 'bg-slate-700 hover:bg-slate-600 text-white'
-            }`}
-          >
-            {plan.cta}
-          </a>
+          {plan.comingSoon ? (
+            <button 
+              disabled
+              class="block w-full py-3 rounded-lg font-semibold text-center bg-slate-600 text-slate-400 cursor-not-allowed"
+            >
+              {plan.cta}
+            </button>
+          ) : (
+            <a 
+              href={plan.href}
+              class={`block w-full py-3 rounded-lg font-semibold text-center transition-all ${
+                plan.highlighted
+                  ? 'bg-noyrax-blue hover:bg-blue-600 text-white'
+                  : 'bg-slate-700 hover:bg-slate-600 text-white'
+              }`}
+            >
+              {plan.cta}
+            </a>
+          )}
         </div>
       ))}
     </div>
@@ -124,7 +136,7 @@ const plans = [
       <p class="text-slate-400 mb-4">
         Brauchst du mehr? <strong class="text-white">Enterprise</strong> mit SSO, Compliance Reports und dediziertem Support.
       </p>
-      <a href="#" class="inline-flex items-center gap-2 text-noyrax-blue hover:text-blue-400 transition-colors">
+      <a href="mailto:hello@noyrax.dev" class="inline-flex items-center gap-2 text-noyrax-blue hover:text-blue-400 transition-colors">
         Kontaktiere uns
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

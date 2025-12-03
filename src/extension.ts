@@ -40,29 +40,30 @@ export function activate(context: vscode.ExtensionContext) {
     const statusBarManager = new StatusBarManager(context);
     globalStatusBar = statusBarManager;
 
-    // Commands registrieren
-    registerCommand(context, 'docs.generate', 'Dokumentation generieren', async () => { globalOutput.show(true); await generateDocumentationTs(); });
-    registerCommand(context, 'docs.scan', 'System vollständig scannen', async () => { globalOutput.show(true); await scanSystemTs(); });
-    registerCommand(context, 'docs.search', 'In Dokumentation suchen', searchDocumentation);
-    registerCommand(context, 'docs.validate', 'Dokumentation validieren', async () => { globalOutput.show(true); await validateDocumentationTs(); });
-    registerCommand(context, 'docs.sync', 'Dokumentation synchronisieren', syncDocumentation);
-    registerCommand(context, 'docs.open', 'Dokumentationsdatei öffnen', openDocumentationFile);
-    registerCommand(context, 'docs.overview', 'Systemübersicht anzeigen', showSystemOverview);
+    // Commands registrieren (noyrax.* für Rebranding ADR-018)
+    registerCommand(context, 'noyrax.generate', 'Dokumentation generieren', async () => { globalOutput.show(true); await generateDocumentationTs(); });
+    registerCommand(context, 'noyrax.scan', 'System vollständig scannen', async () => { globalOutput.show(true); await scanSystemTs(); });
+    registerCommand(context, 'noyrax.search', 'In Dokumentation suchen', searchDocumentation);
+    registerCommand(context, 'noyrax.validate', 'Dokumentation validieren', async () => { globalOutput.show(true); await validateDocumentationTs(); });
+    registerCommand(context, 'noyrax.drift', 'Drift-Erkennung ausführen', async () => { globalOutput.show(true); await checkDriftTs(); });
+    registerCommand(context, 'noyrax.sync', 'Dokumentation synchronisieren', syncDocumentation);
+    registerCommand(context, 'noyrax.open', 'Dokumentationsdatei öffnen', openDocumentationFile);
+    registerCommand(context, 'noyrax.overview', 'Systemübersicht anzeigen', showSystemOverview);
 
     // TreeView Provider registrieren
     const docsProvider = new DocumentationProvider();
-    vscode.window.registerTreeDataProvider('docsExplorer', docsProvider);
+    vscode.window.registerTreeDataProvider('noyraxExplorer', docsProvider);
     
     // Commands Panel Provider
     const commandsProvider = new CommandsProvider();
-    vscode.window.registerTreeDataProvider('docsCommands', commandsProvider);
+    vscode.window.registerTreeDataProvider('noyraxCommands', commandsProvider);
 
     // Refresh-Command für TreeView
-    registerCommand(context, 'docs.refresh', 'Dokumentation aktualisieren', () => {
+    registerCommand(context, 'noyrax.refresh', 'Dokumentation aktualisieren', () => {
         docsProvider.refresh();
         commandsProvider.refresh();
     });
-    registerCommand(context, 'docs.fullCycle', 'Vollständiger Lauf', async () => {
+    registerCommand(context, 'noyrax.fullCycle', 'Vollständiger Lauf', async () => {
         await scanSystemTs();
         await generateDocumentationTs();
         await validateDocumentationTs();
@@ -404,7 +405,7 @@ async function generateDocumentationTs() {
         const dt = Date.now() - t0;
         globalOutput.appendLine(`[generate] Gescannt: ${scanned.length}, Symbole: ${symbolsUnion.length}, Dependencies: ${dependenciesUnion.length}, Dateien: ${files.size}, Dauer: ${dt}ms`);
         vscode.window.showInformationMessage(`✅ Dokumentation erfolgreich generiert! ${symbolsUnion.length} Symbole in ${files.size} Dateien (${dt}ms).`);
-        vscode.commands.executeCommand('docs.refresh');
+        vscode.commands.executeCommand('noyrax.refresh');
 
     } catch (error) {
         statusBar.text = "$(error) Fehler";
@@ -432,7 +433,7 @@ async function scanSystemTs() {
         const dt = Date.now() - t0;
         globalOutput.appendLine(`[scan] Dateien: ${scanned.length}, Dauer: ${dt}ms`);
         vscode.window.showInformationMessage(`✅ System gescannt: ${scanned.length} Dateien (${dt}ms).`);
-        vscode.commands.executeCommand('docs.refresh');
+        vscode.commands.executeCommand('noyrax.refresh');
 
     } catch (error) {
         statusBar.text = "$(error) Fehler";
@@ -492,6 +493,80 @@ async function searchDocumentation() {
         vscode.window.showErrorMessage(`❌ Suchfehler: ${error}`);
     } finally {
         setTimeout(() => statusBar.dispose(), 3000);
+    }
+}
+
+async function checkDriftTs() {
+    const config = getConfig();
+    const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+    statusBar.text = "$(sync~spin) Prüfe Drift...";
+    statusBar.show();
+
+    try {
+        const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+        if (!workspaceRoot) {
+            throw new Error('Kein Workspace geöffnet');
+        }
+        const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
+        
+        // Lade vorherigen Signatur-Cache
+        const prev = loadSignatureCache(path.join(cacheDir, 'signatures.json'));
+
+        if (!prev) {
+            globalOutput.appendLine('⚠️ Kein Signatur-Cache vorhanden. Führe zuerst "Generate" aus.');
+            vscode.window.showWarningMessage('Kein Signatur-Cache vorhanden. Führe zuerst "Noyrax: Generate Documentation" aus.');
+            statusBar.text = "$(warning) Kein Cache";
+            return;
+        }
+
+        // Scanne aktuelle Symbole
+        const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
+        const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
+        const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
+        const allSymbols: ParsedSymbol[] = [];
+        for (const f of scanned) {
+            const content = fs.readFileSync(f.absolutePath, 'utf8');
+            if (f.language === 'ts' || f.language === 'js') {
+                const parsed = parsers[0].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            } else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
+                const parsed = parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            } else if (f.language === 'python') {
+                const parsed = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                allSymbols.push(...parsed);
+            }
+        }
+        
+        const currentEntries = computeCacheEntries(allSymbols);
+
+        // Drift-Erkennung
+        const drift = detectDrift(prev, currentEntries);
+
+        globalOutput.appendLine(`\n=== Drift-Analyse ===`);
+        globalOutput.appendLine(`Geprüfte Symbole: ${currentEntries.length}`);
+        globalOutput.appendLine(`Symbole mit Signatur-Abweichung: ${drift.staleSymbols.length}`);
+
+        if (drift.staleSymbols.length === 0) {
+            globalOutput.appendLine(`\n✅ Kein Drift erkannt - Dokumentation ist aktuell.`);
+            vscode.window.showInformationMessage('✅ Kein Drift erkannt - Dokumentation ist aktuell.');
+            statusBar.text = "$(check) Kein Drift";
+        } else {
+            globalOutput.appendLine(`\n⚠️ Signatur-Abweichungen:`);
+            drift.staleSymbols.slice(0, 20).forEach(id => globalOutput.appendLine(`  - ${id}`));
+            if (drift.staleSymbols.length > 20) {
+                globalOutput.appendLine(`  ... und ${drift.staleSymbols.length - 20} weitere`);
+            }
+
+            vscode.window.showWarningMessage(`⚠️ Drift erkannt: ${drift.staleSymbols.length} Symbole mit geänderter Signatur. Führe "Generate" aus um zu synchronisieren.`);
+            statusBar.text = `$(warning) ${drift.staleSymbols.length} Drift`;
+        }
+    } catch (error) {
+        globalOutput.appendLine(`❌ Drift-Prüfung fehlgeschlagen: ${error}`);
+        vscode.window.showErrorMessage(`❌ Drift-Prüfung fehlgeschlagen: ${error}`);
+        statusBar.text = "$(error) Fehler";
+    } finally {
+        setTimeout(() => statusBar.dispose(), 5000);
     }
 }
 

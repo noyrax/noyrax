@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/validate.ts
 
-<!-- change: signature-changed old="ValidateRequest():" new="ValidateRequest(files?:string[],verbose?:boolean):" -->
+<!-- change: symbol-added name="ValidateRequest" kind="interface" -->
 ### interface: ValidateRequest
 ```ts
 interface ValidateRequest {
@@ -9,11 +9,7 @@ interface ValidateRequest {
 }
 ```
 
-<!-- change: signature-changed old="ValidateResponse():" new="ValidateResponse(coverage:{
-    documented: number;
-    total: number;
-    percentage: number;
-  },duration:number,errors:ValidationError[],logs:string[],status:'success' | 'warnings' | 'errors',warnings:ValidationError[]):" -->
+<!-- change: symbol-added name="ValidateResponse" kind="interface" -->
 ### interface: ValidateResponse
 ```ts
 interface ValidateResponse {
@@ -30,7 +26,7 @@ interface ValidateResponse {
 }
 ```
 
-<!-- change: signature-changed old="ValidationError():" new="ValidationError(expected?:string,file:string,found?:string,message:string,type:'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage'):" -->
+<!-- change: symbol-added name="ValidationError" kind="interface" -->
 ### interface: ValidationError
 ```ts
 interface ValidationError {
@@ -42,13 +38,13 @@ interface ValidationError {
 }
 ```
 
-<!-- change: signature-changed old="runValidate():" new="runValidate(request:ValidateRequest):Promise<ValidateResponse>" -->
+<!-- change: symbol-added name="runValidate" kind="function" -->
 ### function: runValidate
 ```ts
 runValidate(request: ValidateRequest): Promise<ValidateResponse>
 ```
 
-<!-- change: signature-changed old="execAsync():" new="execAsync():any" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### variable: execAsync
 ```ts
 execAsync: any

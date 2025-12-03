@@ -1,6 +1,6 @@
 # Modul: src/__tests__/setup.ts
 
-<!-- change: signature-changed old="mockDate():" new="mockDate():any" -->
+<!-- change: symbol-added name="mockDate" kind="variable" -->
 ### variable: mockDate
 ```ts
 mockDate: any

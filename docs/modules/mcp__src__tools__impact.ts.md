@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/impact.ts
 
-<!-- change: signature-changed old="ImpactRequest():" new="ImpactRequest(file:string,symbol?:string):" -->
+<!-- change: symbol-added name="ImpactRequest" kind="interface" -->
 ### interface: ImpactRequest
 ```ts
 interface ImpactRequest {
@@ -9,7 +9,7 @@ interface ImpactRequest {
 }
 ```
 
-<!-- change: signature-changed old="ImpactResponse():" new="ImpactResponse(directDependents:string[],file:string,impactLevel:'low' | 'medium' | 'high' | 'critical',recommendation:string,symbol?:string,transitiveDependents:string[]):" -->
+<!-- change: symbol-added name="ImpactResponse" kind="interface" -->
 ### interface: ImpactResponse
 ```ts
 interface ImpactResponse {
@@ -22,7 +22,7 @@ interface ImpactResponse {
 }
 ```
 
-<!-- change: signature-changed old="SymbolEntry():" new="SymbolEntry(dependencies?:string[],dependents?:string[],file:string,name:string,type:string):" -->
+<!-- change: symbol-added name="SymbolEntry" kind="interface" -->
 ### interface: SymbolEntry
 ```ts
 interface SymbolEntry {
@@ -34,13 +34,13 @@ interface SymbolEntry {
 }
 ```
 
-<!-- change: signature-changed old="analyzeImpact():" new="analyzeImpact(request:ImpactRequest):Promise<ImpactResponse>" -->
+<!-- change: symbol-added name="analyzeImpact" kind="function" -->
 ### function: analyzeImpact
 ```ts
 analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>
 ```
 
-<!-- change: signature-changed old="buildDependencyMap():" new="buildDependencyMap(symbolsPath:string):Promise<Map<string, Set<string>>>" -->
+<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
 ### function: buildDependencyMap
 ```ts
 buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>

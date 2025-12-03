@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/scan.ts
 
-<!-- change: signature-changed old="ScanRequest():" new="ScanRequest(files?:string[],incremental?:boolean):" -->
+<!-- change: symbol-added name="ScanRequest" kind="interface" -->
 ### interface: ScanRequest
 ```ts
 interface ScanRequest {
@@ -9,7 +9,7 @@ interface ScanRequest {
 }
 ```
 
-<!-- change: signature-changed old="ScanResponse():" new="ScanResponse(duration:number,errors?:string[],filesProcessed:number,logs:string[],status:'success' | 'error' | 'partial',symbolsExtracted:number):" -->
+<!-- change: symbol-added name="ScanResponse" kind="interface" -->
 ### interface: ScanResponse
 ```ts
 interface ScanResponse {
@@ -22,13 +22,13 @@ interface ScanResponse {
 }
 ```
 
-<!-- change: signature-changed old="runScan():" new="runScan(request:ScanRequest):Promise<ScanResponse>" -->
+<!-- change: symbol-added name="runScan" kind="function" -->
 ### function: runScan
 ```ts
 runScan(request: ScanRequest): Promise<ScanResponse>
 ```
 
-<!-- change: signature-changed old="execAsync():" new="execAsync():any" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### variable: execAsync
 ```ts
 execAsync: any

@@ -1,20 +1,18 @@
 # Modul: src/extension.ts
 
+<!-- change: symbol-added name="DocumentationItem" kind="class" -->
 ### class: DocumentationItem
 ```ts
 class DocumentationItem
 ```
 
+<!-- change: symbol-added name="DocumentationProvider" kind="class" -->
 ### class: DocumentationProvider
 ```ts
 class DocumentationProvider
 ```
 
-<!-- change: signature-changed old="SearchResult():" new="SearchResult(file:string,matches:Array<{
-        line: number;
-        content: string;
-        context: string;
-    }>,module:string,score:number):" -->
+<!-- change: symbol-added name="SearchResult" kind="interface" -->
 ### interface: SearchResult
 ```ts
 interface SearchResult {
@@ -29,13 +27,7 @@ interface SearchResult {
 }
 ```
 
-<!-- change: signature-changed old="ValidationResult():" new="ValidationResult(errors:string[],file_results:Array<{
-        file: string;
-        valid: boolean;
-        warnings: string[];
-        errors: string[];
-        checks: Record<string, any>;
-    }>,invalid_files:number,status?:any,total_files:number,valid_files:number,warnings:string[]):" -->
+<!-- change: symbol-added name="ValidationResult" kind="interface" -->
 ### interface: ValidationResult
 ```ts
 interface ValidationResult {
@@ -55,145 +47,151 @@ interface ValidationResult {
 }
 ```
 
-<!-- change: signature-changed old="getChildren():" new="getChildren(element:DocumentationItem):Thenable<DocumentationItem[]>" -->
+<!-- change: symbol-added name="DocumentationProvider.getChildren" kind="method" -->
 ### method: DocumentationProvider.getChildren
 ```ts
 getChildren(element: DocumentationItem): Thenable<DocumentationItem[]>
 ```
 
-<!-- change: signature-changed old="getDocumentationFiles():" new="getDocumentationFiles():Promise<DocumentationItem[]>" -->
+<!-- change: symbol-added name="DocumentationProvider.getDocumentationFiles" kind="method" -->
 ### method: DocumentationProvider.getDocumentationFiles
 ```ts
 getDocumentationFiles(): Promise<DocumentationItem[]>
 ```
 
-<!-- change: signature-changed old="getTreeItem():" new="getTreeItem(element:DocumentationItem):vscode.TreeItem" -->
+<!-- change: symbol-added name="DocumentationProvider.getTreeItem" kind="method" -->
 ### method: DocumentationProvider.getTreeItem
 ```ts
 getTreeItem(element: DocumentationItem): vscode.TreeItem
 ```
 
-<!-- change: signature-changed old="refresh():" new="refresh():void" -->
+<!-- change: symbol-added name="DocumentationProvider.refresh" kind="method" -->
 ### method: DocumentationProvider.refresh
 ```ts
 refresh(): void
 ```
 
-<!-- change: signature-changed old="activate():" new="activate(context:vscode.ExtensionContext):void" -->
+<!-- change: symbol-added name="activate" kind="function" -->
 ### function: activate
 ```ts
 activate(context: vscode.ExtensionContext): void
 ```
 
-<!-- change: signature-changed old="deactivate():" new="deactivate():void" -->
+<!-- change: symbol-added name="checkDriftTs" kind="function" -->
+### function: checkDriftTs
+```ts
+checkDriftTs(): any
+```
+
+<!-- change: symbol-added name="deactivate" kind="function" -->
 ### function: deactivate
 ```ts
 deactivate(): void
 ```
 
-<!-- change: signature-changed old="escapeHtml():" new="escapeHtml(text:string):string" -->
+<!-- change: symbol-added name="escapeHtml" kind="function" -->
 ### function: escapeHtml
 ```ts
 escapeHtml(text: string): string
 ```
 
-<!-- change: signature-changed old="findSourceDirectories():" new="findSourceDirectories(workspaceRoot:string):string[]" -->
+<!-- change: symbol-added name="findSourceDirectories" kind="function" -->
 ### function: findSourceDirectories
 ```ts
 findSourceDirectories(workspaceRoot: string): string[]
 ```
 
-<!-- change: signature-changed old="generateDocumentationTs():" new="generateDocumentationTs():any" -->
+<!-- change: symbol-added name="generateDocumentationTs" kind="function" -->
 ### function: generateDocumentationTs
 ```ts
 generateDocumentationTs(): any
 ```
 
-<!-- change: signature-changed old="getConfig():" new="getConfig():{ workspaceRoot: any; outputPath: string; }" -->
+<!-- change: symbol-added name="getConfig" kind="function" -->
 ### function: getConfig
 ```ts
 getConfig(): { workspaceRoot: any; outputPath: string; }
 ```
 
-<!-- change: signature-changed old="loadEnv():" new="loadEnv(envFile:string):Record<string, string>" -->
+<!-- change: symbol-added name="loadEnv" kind="function" -->
 ### function: loadEnv
 ```ts
 loadEnv(envFile: string): Record<string, string>
 ```
 
-<!-- change: signature-changed old="openDocumentationFile():" new="openDocumentationFile():any" -->
+<!-- change: symbol-added name="openDocumentationFile" kind="function" -->
 ### function: openDocumentationFile
 ```ts
 openDocumentationFile(): any
 ```
 
-<!-- change: signature-changed old="registerCommand():" new="registerCommand(callback:(...args: any[]) => any,command:string,context:vscode.ExtensionContext,title:string):void" -->
+<!-- change: symbol-added name="registerCommand" kind="function" -->
 ### function: registerCommand
 ```ts
 registerCommand(context: vscode.ExtensionContext, command: string, title: string, callback: (...args: any[]) => any): void
 ```
 
-<!-- change: signature-changed old="scanSystemTs():" new="scanSystemTs():any" -->
+<!-- change: symbol-added name="scanSystemTs" kind="function" -->
 ### function: scanSystemTs
 ```ts
 scanSystemTs(): any
 ```
 
-<!-- change: signature-changed old="searchDocumentation():" new="searchDocumentation():any" -->
+<!-- change: symbol-added name="searchDocumentation" kind="function" -->
 ### function: searchDocumentation
 ```ts
 searchDocumentation(): any
 ```
 
-<!-- change: signature-changed old="showSearchResults():" new="showSearchResults(query:string,results:SearchResult[]):void" -->
+<!-- change: symbol-added name="showSearchResults" kind="function" -->
 ### function: showSearchResults
 ```ts
 showSearchResults(results: SearchResult[], query: string): void
 ```
 
-<!-- change: signature-changed old="showSystemOverview():" new="showSystemOverview():any" -->
+<!-- change: symbol-added name="showSystemOverview" kind="function" -->
 ### function: showSystemOverview
 ```ts
 showSystemOverview(): any
 ```
 
-<!-- change: signature-changed old="showValidationResults():" new="showValidationResults(results:ValidationResult):void" -->
+<!-- change: symbol-added name="showValidationResults" kind="function" -->
 ### function: showValidationResults
 ```ts
 showValidationResults(results: ValidationResult): void
 ```
 
-<!-- change: signature-changed old="syncDocumentation():" new="syncDocumentation():any" -->
+<!-- change: symbol-added name="syncDocumentation" kind="function" -->
 ### function: syncDocumentation
 ```ts
 syncDocumentation(): any
 ```
 
-<!-- change: signature-changed old="validateDocumentationTs():" new="validateDocumentationTs():any" -->
+<!-- change: symbol-added name="validateDocumentationTs" kind="function" -->
 ### function: validateDocumentationTs
 ```ts
 validateDocumentationTs(): any
 ```
 
-<!-- change: signature-changed old="_onDidChangeTreeData():" new="_onDidChangeTreeData():vscode.EventEmitter<DocumentationItem | undefined | null | void>" -->
+<!-- change: symbol-added name="DocumentationProvider._onDidChangeTreeData" kind="variable" -->
 ### variable: DocumentationProvider._onDidChangeTreeData
 ```ts
 _onDidChangeTreeData: vscode.EventEmitter<DocumentationItem | undefined | null | void>
 ```
 
-<!-- change: signature-changed old="onDidChangeTreeData():" new="onDidChangeTreeData():vscode.Event<DocumentationItem | undefined | null | void>" -->
+<!-- change: symbol-added name="DocumentationProvider.onDidChangeTreeData" kind="variable" -->
 ### variable: DocumentationProvider.onDidChangeTreeData
 ```ts
 onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | null | void>
 ```
 
-<!-- change: signature-changed old="globalOutput():" new="globalOutput():vscode.OutputChannel" -->
+<!-- change: symbol-added name="globalOutput" kind="variable" -->
 ### variable: globalOutput
 ```ts
 globalOutput: vscode.OutputChannel
 ```
 
-<!-- change: signature-changed old="globalStatusBar():" new="globalStatusBar():StatusBarManager" -->
+<!-- change: symbol-added name="globalStatusBar" kind="variable" -->
 ### variable: globalStatusBar
 ```ts
 globalStatusBar: StatusBarManager

@@ -1,6 +1,6 @@
 # Modul: src/parsers/dependencies.ts
 
-<!-- change: signature-changed old="ModuleDependency():" new="ModuleDependency(from:string,symbols?:string[],to:string,type:'import' | 'export' | 'require'):" -->
+<!-- change: symbol-added name="ModuleDependency" kind="interface" -->
 ### interface: ModuleDependency
 ```ts
 interface ModuleDependency {
@@ -11,13 +11,13 @@ interface ModuleDependency {
 }
 ```
 
-<!-- change: signature-changed old="extractPythonDependencies():" new="extractPythonDependencies(content:string,repoRelPath:string):ModuleDependency[]" -->
+<!-- change: symbol-added name="extractPythonDependencies" kind="function" -->
 ### function: extractPythonDependencies
 ```ts
 extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]
 ```
 
-<!-- change: signature-changed old="extractTsJsDependencies():" new="extractTsJsDependencies(repoRelPath:string,sourceFile:SourceFile):ModuleDependency[]" -->
+<!-- change: symbol-added name="extractTsJsDependencies" kind="function" -->
 ### function: extractTsJsDependencies
 ```ts
 extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[]

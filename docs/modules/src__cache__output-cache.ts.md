@@ -1,6 +1,6 @@
 # Modul: src/cache/output-cache.ts
 
-<!-- change: signature-changed old="OutputHashCacheData():" new="OutputHashCacheData(entries:OutputHashEntry[],version:1):" -->
+<!-- change: symbol-added name="OutputHashCacheData" kind="interface" -->
 ### interface: OutputHashCacheData
 ```ts
 interface OutputHashCacheData {
@@ -9,7 +9,7 @@ interface OutputHashCacheData {
 }
 ```
 
-<!-- change: signature-changed old="OutputHashEntry():" new="OutputHashEntry(hash:string,path:string):" -->
+<!-- change: symbol-added name="OutputHashEntry" kind="interface" -->
 ### interface: OutputHashEntry
 ```ts
 interface OutputHashEntry {
@@ -18,19 +18,19 @@ interface OutputHashEntry {
 }
 ```
 
-<!-- change: signature-changed old="computeContentHash():" new="computeContentHash(content:string):string" -->
+<!-- change: symbol-added name="computeContentHash" kind="function" -->
 ### function: computeContentHash
 ```ts
 computeContentHash(content: string): string
 ```
 
-<!-- change: signature-changed old="loadOutputHashCache():" new="loadOutputHashCache(cacheFile:string):OutputHashCacheData | null" -->
+<!-- change: symbol-added name="loadOutputHashCache" kind="function" -->
 ### function: loadOutputHashCache
 ```ts
 loadOutputHashCache(cacheFile: string): OutputHashCacheData | null
 ```
 
-<!-- change: signature-changed old="saveOutputHashCache():" new="saveOutputHashCache(cacheDir:string,data:OutputHashCacheData):void" -->
+<!-- change: symbol-added name="saveOutputHashCache" kind="function" -->
 ### function: saveOutputHashCache
 ```ts
 saveOutputHashCache(cacheDir: string, data: OutputHashCacheData): void

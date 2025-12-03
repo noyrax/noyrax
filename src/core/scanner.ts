@@ -21,7 +21,10 @@ const DEFAULT_EXCLUDES = new Set([
     '.git', '.svn', '.hg',
     'dist', 'out', 'build',
     '__pycache__', '.mypy_cache', '.venv', '.cache',
-    'docs' // Generierte Dokumentation sollte nicht gescannt werden
+    'docs', // Generierte Dokumentation sollte nicht gescannt werden
+    '.ai-agent-context', // AI-Agent-Kontext (Backups, Metadaten)
+    '.vscode', // VS Code Workspace-Einstellungen
+    '.cursor', // Cursor IDE Einstellungen
 ]);
 
 const BACKUP_DIR_NAMES = new Set(['backup', 'backups', 'archive', 'archives']);

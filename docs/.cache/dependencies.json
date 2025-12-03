@@ -20,6 +20,1356 @@
       ]
     },
     {
+      "from": "mcp/src/resources/docs.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "mcp/src/resources/docs.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "./resources/docs.js",
+      "type": "import",
+      "symbols": [
+        "readDocsResource"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "./tools/drift.js",
+      "type": "import",
+      "symbols": [
+        "DriftRequest",
+        "runDriftCheck"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "./tools/impact.js",
+      "type": "import",
+      "symbols": [
+        "analyzeImpact",
+        "ImpactRequest"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "./tools/scan.js",
+      "type": "import",
+      "symbols": [
+        "runScan",
+        "ScanRequest"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "./tools/validate.js",
+      "type": "import",
+      "symbols": [
+        "runValidate",
+        "ValidateRequest"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "@modelcontextprotocol/sdk/server",
+      "type": "import",
+      "symbols": [
+        "Server"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "@modelcontextprotocol/sdk/server/stdio.js",
+      "type": "import",
+      "symbols": [
+        "StdioServerTransport"
+      ]
+    },
+    {
+      "from": "mcp/src/server.ts",
+      "to": "@modelcontextprotocol/sdk/types.js",
+      "type": "import",
+      "symbols": [
+        "CallToolRequestSchema",
+        "ListResourcesRequestSchema",
+        "ListToolsRequestSchema",
+        "ReadResourceRequestSchema"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/drift.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/drift.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/drift.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/drift.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/impact.ts",
+      "to": "node:fs",
+      "type": "import",
+      "symbols": [
+        "createReadStream"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/impact.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/impact.ts",
+      "to": "node:readline",
+      "type": "import",
+      "symbols": [
+        "* as readline"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/scan.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/scan.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/validate.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "mcp/src/tools/validate.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/index.ts",
+      "to": "../constants.js",
+      "type": "import",
+      "symbols": [
+        "PACKAGE_VERSION",
+        "RULES_VERSION"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/index.ts",
+      "to": "./init.js",
+      "type": "import",
+      "symbols": [
+        "initProject"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/index.ts",
+      "to": "./update.js",
+      "type": "import",
+      "symbols": [
+        "updateRules"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/index.ts",
+      "to": "commander",
+      "type": "import",
+      "symbols": [
+        "Command"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/init.ts",
+      "to": "../constants.js",
+      "type": "import",
+      "symbols": [
+        "MCP_CONFIG",
+        "RULE_FILES",
+        "RULES_VERSION"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/init.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/init.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/init.ts",
+      "to": "node:url",
+      "type": "import",
+      "symbols": [
+        "fileURLToPath"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/update.ts",
+      "to": "../constants.js",
+      "type": "import",
+      "symbols": [
+        "RULE_FILES",
+        "RULES_VERSION"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/update.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/update.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/cli/update.ts",
+      "to": "node:url",
+      "type": "import",
+      "symbols": [
+        "fileURLToPath"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/index.ts",
+      "to": "./cli/init.js",
+      "type": "export",
+      "symbols": [
+        "InitOptions",
+        "initProject"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/index.ts",
+      "to": "./cli/update.js",
+      "type": "export",
+      "symbols": [
+        "UpdateOptions",
+        "updateRules"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/index.ts",
+      "to": "./constants.js",
+      "type": "export",
+      "symbols": [
+        "PACKAGE_VERSION",
+        "RULES_VERSION"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/index.ts",
+      "to": "./mcp/server.js",
+      "type": "export",
+      "symbols": [
+        "startMcpServer"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/index.ts",
+      "to": "./mcp/types.js",
+      "type": "export",
+      "symbols": [
+        "DriftRequest",
+        "DriftResponse",
+        "ImpactRequest",
+        "ImpactResponse",
+        "ScanRequest",
+        "ScanResponse",
+        "ValidateRequest",
+        "ValidateResponse"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/resources/docs.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/resources/docs.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./resources/docs.js",
+      "type": "import",
+      "symbols": [
+        "readDocsResource"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./tools/drift.js",
+      "type": "import",
+      "symbols": [
+        "runDriftCheck"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./tools/impact.js",
+      "type": "import",
+      "symbols": [
+        "analyzeImpact"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./tools/scan.js",
+      "type": "import",
+      "symbols": [
+        "runScan"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./tools/validate.js",
+      "type": "import",
+      "symbols": [
+        "runValidate"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "./types.js",
+      "type": "import",
+      "symbols": [
+        "DriftRequest",
+        "ImpactRequest",
+        "ScanRequest",
+        "ValidateRequest"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "@modelcontextprotocol/sdk/server",
+      "type": "import",
+      "symbols": [
+        "Server"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "@modelcontextprotocol/sdk/server/stdio.js",
+      "type": "import",
+      "symbols": [
+        "StdioServerTransport"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/server.ts",
+      "to": "@modelcontextprotocol/sdk/types.js",
+      "type": "import",
+      "symbols": [
+        "CallToolRequestSchema",
+        "ListResourcesRequestSchema",
+        "ListToolsRequestSchema",
+        "ReadResourceRequestSchema"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
+      "to": "../types.js",
+      "type": "import",
+      "symbols": [
+        "DriftItem",
+        "DriftRequest",
+        "DriftResponse"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
+      "to": "node:fs/promises",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/impact.ts",
+      "to": "../types.js",
+      "type": "import",
+      "symbols": [
+        "ImpactRequest",
+        "ImpactResponse"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/impact.ts",
+      "to": "node:fs",
+      "type": "import",
+      "symbols": [
+        "createReadStream"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/impact.ts",
+      "to": "node:path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/impact.ts",
+      "to": "node:readline",
+      "type": "import",
+      "symbols": [
+        "* as readline"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/scan.ts",
+      "to": "../types.js",
+      "type": "import",
+      "symbols": [
+        "ScanRequest",
+        "ScanResponse"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/scan.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/scan.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/validate.ts",
+      "to": "../types.js",
+      "type": "import",
+      "symbols": [
+        "ValidateRequest",
+        "ValidateResponse",
+        "ValidationError"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/validate.ts",
+      "to": "node:child_process",
+      "type": "import",
+      "symbols": [
+        "exec"
+      ]
+    },
+    {
+      "from": "packages/doc-system-agent/src/mcp/tools/validate.ts",
+      "to": "node:util",
+      "type": "import",
+      "symbols": [
+        "promisify"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../core/scanner",
+      "type": "import",
+      "symbols": [
+        "scanWorkspace"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../core/symbols",
+      "type": "import",
+      "symbols": [
+        "computeSignatureHash"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../generator/index",
+      "type": "import",
+      "symbols": [
+        "generatePerFileDocs"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "os",
+      "type": "import",
+      "symbols": [
+        "* as os"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/__tests__/parser-symbol-types.test.ts",
+      "to": "../core/signature-formatter",
+      "type": "import",
+      "symbols": [
+        "SignatureFormatter"
+      ]
+    },
+    {
+      "from": "src/__tests__/parser-symbol-types.test.ts",
+      "to": "../parsers/json-yaml",
+      "type": "import",
+      "symbols": [
+        "JsonYamlParser"
+      ]
+    },
+    {
+      "from": "src/__tests__/parser-symbol-types.test.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/cache/ast-cache.ts",
+      "to": "crypto",
+      "type": "import",
+      "symbols": [
+        "createHash"
+      ]
+    },
+    {
+      "from": "src/cache/ast-cache.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cache/ast-cache.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/cache/dependencies-cache.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cache/dependencies-cache.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/cache/output-cache.ts",
+      "to": "crypto",
+      "type": "import",
+      "symbols": [
+        "createHash"
+      ]
+    },
+    {
+      "from": "src/cache/output-cache.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cache/output-cache.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/cache/signature-cache.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cache/signature-cache.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/core/consolidation.ts",
+      "to": "../cache/dependencies-cache",
+      "type": "import",
+      "symbols": [
+        "DependencyCacheEntry"
+      ]
+    },
+    {
+      "from": "src/core/consolidation.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/core/consolidation.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/core/consolidation.ts",
+      "to": "./symbols",
+      "type": "import",
+      "symbols": [
+        "makeStableSymbolId"
+      ]
+    },
+    {
+      "from": "src/core/git.ts",
+      "to": "child_process",
+      "type": "import",
+      "symbols": [
+        "spawnSync"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "../logging/index",
+      "type": "import",
+      "symbols": [
+        "Logger"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "./language-detection",
+      "type": "import",
+      "symbols": [
+        "guessLanguageByShebang"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "ignore",
+      "type": "import",
+      "symbols": [
+        "default as ignore"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/core/signature-formatter.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/core/symbols.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/core/symbols.ts",
+      "to": "crypto",
+      "type": "import",
+      "symbols": [
+        "createHash"
+      ]
+    },
+    {
+      "from": "src/drift/index.ts",
+      "to": "../cache/signature-cache",
+      "type": "import",
+      "symbols": [
+        "CacheEntry",
+        "SignatureCacheData"
+      ]
+    },
+    {
+      "from": "src/drift/index.ts",
+      "to": "../core/symbols",
+      "type": "import",
+      "symbols": [
+        "computeSignatureHash",
+        "makeStableSymbolId"
+      ]
+    },
+    {
+      "from": "src/drift/index.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./cache/ast-cache",
+      "type": "import",
+      "symbols": [
+        "computeFileHash",
+        "loadAstHashCache",
+        "saveAstHashCache"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./cache/dependencies-cache",
+      "type": "import",
+      "symbols": [
+        "loadDependenciesCache",
+        "saveDependenciesCache"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./cache/output-cache",
+      "type": "import",
+      "symbols": [
+        "computeContentHash",
+        "loadOutputHashCache",
+        "saveOutputHashCache"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./cache/signature-cache",
+      "type": "import",
+      "symbols": [
+        "loadSignatureCache",
+        "saveSignatureCache"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./core/async",
+      "type": "import",
+      "symbols": [
+        "mapLimit"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./core/consolidation",
+      "type": "import",
+      "symbols": [
+        "buildDependenciesUnion",
+        "buildDependenciesUnionWithDebug",
+        "buildSymbolsUnion",
+        "UnionDebugInfo"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./core/git",
+      "type": "import",
+      "symbols": [
+        "getChangedFiles",
+        "getDeletedFiles"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./core/scanner",
+      "type": "import",
+      "symbols": [
+        "scanWorkspace"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./drift/index",
+      "type": "import",
+      "symbols": [
+        "computeCacheEntries",
+        "detectDrift"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./generator/change-report",
+      "type": "import",
+      "symbols": [
+        "extractChangesFromModuleDocs",
+        "generateChangeReport"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./generator/dependency-graph",
+      "type": "import",
+      "symbols": [
+        "generateDependencyOverview",
+        "generateMermaidGraph"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./generator/index",
+      "type": "import",
+      "symbols": [
+        "generatePerFileDocs"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./index/index",
+      "type": "import",
+      "symbols": [
+        "buildIndexFromSymbols",
+        "writeJsonlIndex"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "extractPythonDependencies",
+        "extractTsJsDependencies",
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./parsers/json-yaml",
+      "type": "import",
+      "symbols": [
+        "JsonYamlParser"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./parsers/python",
+      "type": "import",
+      "symbols": [
+        "PythonParser"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./ui/commands-provider",
+      "type": "import",
+      "symbols": [
+        "CommandsProvider"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./ui/status-bar",
+      "type": "import",
+      "symbols": [
+        "StatusBarManager"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./validator/index",
+      "type": "import",
+      "symbols": [
+        "computeCoverage",
+        "validateMarkdownDir"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "./validator/status",
+      "type": "import",
+      "symbols": [
+        "computeValidationStatus"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/extension.ts",
+      "to": "vscode",
+      "type": "import",
+      "symbols": [
+        "* as vscode"
+      ]
+    },
+    {
+      "from": "src/generator/change-report.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/generator/change-report.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/generator/dependency-graph.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/generator/index.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/generator/index.ts",
+      "to": "./module-doc",
+      "type": "import",
+      "symbols": [
+        "buildModuleDocWithChanges",
+        "parseModuleDoc",
+        "renderModuleDoc"
+      ]
+    },
+    {
+      "from": "src/generator/index.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/generator/index.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/generator/module-doc.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "../core/symbols",
+      "type": "import",
+      "symbols": [
+        "makeStableSymbolId"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/parsers/dependencies.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/parsers/dependencies.ts",
+      "to": "ts-morph",
+      "type": "import",
+      "symbols": [
+        "SourceFile"
+      ]
+    },
+    {
+      "from": "src/parsers/json-yaml.ts",
+      "to": "./types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter",
+        "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/parsers/json-yaml.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/parsers/json-yaml.ts",
+      "to": "yaml",
+      "type": "import",
+      "symbols": [
+        "* as YAML"
+      ]
+    },
+    {
+      "from": "src/parsers/python.ts",
+      "to": "./dependencies",
+      "type": "import",
+      "symbols": [
+        "extractPythonDependencies"
+      ]
+    },
+    {
+      "from": "src/parsers/python.ts",
+      "to": "./types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter",
+        "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/parsers/python.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/parsers/python.ts",
+      "to": "tree-sitter",
+      "type": "import",
+      "symbols": [
+        "default as Parser"
+      ]
+    },
+    {
+      "from": "src/parsers/python.ts",
+      "to": "tree-sitter-python",
+      "type": "import",
+      "symbols": [
+        "default as Python"
+      ]
+    },
+    {
+      "from": "src/parsers/ts-js.ts",
+      "to": "./dependencies",
+      "type": "import",
+      "symbols": [
+        "extractTsJsDependencies"
+      ]
+    },
+    {
+      "from": "src/parsers/ts-js.ts",
+      "to": "./types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter",
+        "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/parsers/ts-js.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/parsers/ts-js.ts",
+      "to": "ts-morph",
+      "type": "import",
+      "symbols": [
+        "ExportDeclaration",
+        "FunctionDeclaration",
+        "ModuleDeclaration",
+        "ParameterDeclaration",
+        "Project",
+        "SyntaxKind",
+        "Type"
+      ]
+    },
+    {
+      "from": "src/ui/commands-provider.ts",
+      "to": "vscode",
+      "type": "import",
+      "symbols": [
+        "* as vscode"
+      ]
+    },
+    {
+      "from": "src/ui/status-bar.ts",
+      "to": "vscode",
+      "type": "import",
+      "symbols": [
+        "* as vscode"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "../logging/index",
+      "type": "import",
+      "symbols": [
+        "Logger"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "./signature-matching",
+      "type": "import",
+      "symbols": [
+        "validateSignatureMatching"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "./status",
+      "type": "import",
+      "symbols": [
+        "computeValidationStatus",
+        "StatusReport"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/validator/index.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
       "from": "src/validator/signature-matching.ts",
       "to": "../core/symbols",
       "type": "import",

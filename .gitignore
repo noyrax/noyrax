@@ -5,3 +5,13 @@ out/
 dist/
 .env
 .env.local
+.ai-agent-context/
+.ai-agent-rules.json
+.vscode/guidelines.json
+analyze-actual-documentation.js
+demo/src/*.js
+demo/src/*.js.map
+mcp/package-lock.json
+package-lock.json
+packages/doc-system-agent/package-lock.json
+website/package-lock.json

@@ -1,24 +1,24 @@
 # Modul: src/generator/dependency-graph.ts
 
-<!-- change: signature-changed old="appendDependencySection():" new="appendDependencySection(deps:ModuleDependency[],lines:string[],title:string):void" -->
+<!-- change: symbol-added name="appendDependencySection" kind="function" -->
 ### function: appendDependencySection
 ```ts
 appendDependencySection(lines: string[], title: string, deps: ModuleDependency[]): void
 ```
 
-<!-- change: signature-changed old="generateDependencyOverview():" new="generateDependencyOverview(dependencies:ModuleDependency[]):string" -->
+<!-- change: symbol-added name="generateDependencyOverview" kind="function" -->
 ### function: generateDependencyOverview
 ```ts
 generateDependencyOverview(dependencies: ModuleDependency[]): string
 ```
 
-<!-- change: signature-changed old="generateMermaidGraph():" new="generateMermaidGraph(dependencies:ModuleDependency[]):string" -->
+<!-- change: symbol-added name="generateMermaidGraph" kind="function" -->
 ### function: generateMermaidGraph
 ```ts
 generateMermaidGraph(dependencies: ModuleDependency[]): string
 ```
 
-<!-- change: signature-changed old="groupDependenciesByFrom():" new="groupDependenciesByFrom(dependencies:ModuleDependency[]):Map<string, ModuleDependency[]>" -->
+<!-- change: symbol-added name="groupDependenciesByFrom" kind="function" -->
 ### function: groupDependenciesByFrom
 ```ts
 groupDependenciesByFrom(dependencies: ModuleDependency[]): Map<string, ModuleDependency[]>

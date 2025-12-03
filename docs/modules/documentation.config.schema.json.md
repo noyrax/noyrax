@@ -1,30 +1,30 @@
 # Modul: documentation.config.schema.json
 
-<!-- change: signature-changed old="$schema():" new="$schema():string" -->
+<!-- change: symbol-added name="$schema" kind="variable" -->
 ### variable: $schema
 ```ts
 $schema: string
 ```
 
-<!-- change: signature-changed old="additionalProperties():" new="additionalProperties():boolean" -->
+<!-- change: symbol-added name="additionalProperties" kind="variable" -->
 ### variable: additionalProperties
 ```ts
 additionalProperties: boolean
 ```
 
-<!-- change: signature-changed old="properties():" new="properties():object" -->
+<!-- change: symbol-added name="properties" kind="variable" -->
 ### variable: properties
 ```ts
 properties: object
 ```
 
-<!-- change: signature-changed old="title():" new="title():string" -->
+<!-- change: symbol-added name="title" kind="variable" -->
 ### variable: title
 ```ts
 title: string
 ```
 
-<!-- change: signature-changed old="type():" new="type():string" -->
+<!-- change: symbol-added name="type" kind="variable" -->
 ### variable: type
 ```ts
 type: string

@@ -1,6 +1,6 @@
 # Modul: src/drift/index.ts
 
-<!-- change: signature-changed old="DriftResult():" new="DriftResult(staleSymbols:string[]):" -->
+<!-- change: symbol-added name="DriftResult" kind="interface" -->
 ### interface: DriftResult
 ```ts
 interface DriftResult {
@@ -8,13 +8,13 @@ interface DriftResult {
 }
 ```
 
-<!-- change: signature-changed old="computeCacheEntries():" new="computeCacheEntries(symbols:ParsedSymbol[]):CacheEntry[]" -->
+<!-- change: symbol-added name="computeCacheEntries" kind="function" -->
 ### function: computeCacheEntries
 ```ts
 computeCacheEntries(symbols: ParsedSymbol[]): CacheEntry[]
 ```
 
-<!-- change: signature-changed old="detectDrift():" new="detectDrift(current:CacheEntry[],previous:SignatureCacheData | null):DriftResult" -->
+<!-- change: symbol-added name="detectDrift" kind="function" -->
 ### function: detectDrift
 ```ts
 detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult

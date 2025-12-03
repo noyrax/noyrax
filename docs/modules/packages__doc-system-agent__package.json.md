@@ -1,120 +1,120 @@
 # Modul: packages/doc-system-agent/package.json
 
-<!-- change: signature-changed old="author():" new="author():string" -->
+<!-- change: symbol-added name="author" kind="variable" -->
 ### variable: author
 ```ts
 author: string
 ```
 
-<!-- change: signature-changed old="bin():" new="bin():object" -->
+<!-- change: symbol-added name="bin" kind="variable" -->
 ### variable: bin
 ```ts
 bin: object
 ```
 
-<!-- change: signature-changed old="bugs():" new="bugs():object" -->
+<!-- change: symbol-added name="bugs" kind="variable" -->
 ### variable: bugs
 ```ts
 bugs: object
 ```
 
-<!-- change: signature-changed old="dependencies():" new="dependencies():object" -->
+<!-- change: symbol-added name="dependencies" kind="variable" -->
 ### variable: dependencies
 ```ts
 dependencies: object
 ```
 
-<!-- change: signature-changed old="description():" new="description():string" -->
+<!-- change: symbol-added name="description" kind="variable" -->
 ### variable: description
 ```ts
 description: string
 ```
 
-<!-- change: signature-changed old="devDependencies():" new="devDependencies():object" -->
+<!-- change: symbol-added name="devDependencies" kind="variable" -->
 ### variable: devDependencies
 ```ts
 devDependencies: object
 ```
 
-<!-- change: signature-changed old="engines():" new="engines():object" -->
+<!-- change: symbol-added name="engines" kind="variable" -->
 ### variable: engines
 ```ts
 engines: object
 ```
 
-<!-- change: signature-changed old="exports():" new="exports():object" -->
+<!-- change: symbol-added name="exports" kind="variable" -->
 ### variable: exports
 ```ts
 exports: object
 ```
 
-<!-- change: signature-changed old="files():" new="files():object" -->
+<!-- change: symbol-added name="files" kind="variable" -->
 ### variable: files
 ```ts
 files: object
 ```
 
-<!-- change: signature-changed old="funding():" new="funding():object" -->
+<!-- change: symbol-added name="funding" kind="variable" -->
 ### variable: funding
 ```ts
 funding: object
 ```
 
-<!-- change: signature-changed old="homepage():" new="homepage():string" -->
+<!-- change: symbol-added name="homepage" kind="variable" -->
 ### variable: homepage
 ```ts
 homepage: string
 ```
 
-<!-- change: signature-changed old="keywords():" new="keywords():object" -->
+<!-- change: symbol-added name="keywords" kind="variable" -->
 ### variable: keywords
 ```ts
 keywords: object
 ```
 
-<!-- change: signature-changed old="license():" new="license():string" -->
+<!-- change: symbol-added name="license" kind="variable" -->
 ### variable: license
 ```ts
 license: string
 ```
 
-<!-- change: signature-changed old="main():" new="main():string" -->
+<!-- change: symbol-added name="main" kind="variable" -->
 ### variable: main
 ```ts
 main: string
 ```
 
-<!-- change: signature-changed old="name():" new="name():string" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: name
 ```ts
 name: string
 ```
 
-<!-- change: signature-changed old="repository():" new="repository():object" -->
+<!-- change: symbol-added name="repository" kind="variable" -->
 ### variable: repository
 ```ts
 repository: object
 ```
 
-<!-- change: signature-changed old="scripts():" new="scripts():object" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: scripts
 ```ts
 scripts: object
 ```
 
-<!-- change: signature-changed old="type():" new="type():string" -->
+<!-- change: symbol-added name="type" kind="variable" -->
 ### variable: type
 ```ts
 type: string
 ```
 
-<!-- change: signature-changed old="types():" new="types():string" -->
+<!-- change: symbol-added name="types" kind="variable" -->
 ### variable: types
 ```ts
 types: string
 ```
 
-<!-- change: signature-changed old="version():" new="version():string" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: version
 ```ts
 version: string

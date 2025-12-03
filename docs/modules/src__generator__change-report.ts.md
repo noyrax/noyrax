@@ -1,6 +1,6 @@
 # Modul: src/generator/change-report.ts
 
-<!-- change: signature-changed old="ChangeData():" new="ChangeData(dependenciesAdded:number,dependenciesRemoved:number,parsedFiles:number,runType:'full' | 'incremental',skippedFiles:number,symbolsAdded:Array<{ filePath: string; symbolName: string; kind: string }>,symbolsChanged:Array<{ filePath: string; symbolName: string; oldSignature: string; newSignature: string }>,symbolsRemoved:Array<{ filePath: string; symbolName: string; kind: string }>,totalDependencies:number,validationDetails?:string[],validationErrors:number,validationWarnings:number):" -->
+<!-- change: symbol-added name="ChangeData" kind="interface" -->
 ### interface: ChangeData
 ```ts
 interface ChangeData {
@@ -19,13 +19,13 @@ interface ChangeData {
 }
 ```
 
-<!-- change: signature-changed old="extractChangesFromModuleDocs():" new="extractChangesFromModuleDocs(moduleDocs:Map<string, string>):{ symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }" -->
+<!-- change: symbol-added name="extractChangesFromModuleDocs" kind="function" -->
 ### function: extractChangesFromModuleDocs
 ```ts
 extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }
 ```
 
-<!-- change: signature-changed old="generateChangeReport():" new="generateChangeReport(data:ChangeData):string" -->
+<!-- change: symbol-added name="generateChangeReport" kind="function" -->
 ### function: generateChangeReport
 ```ts
 generateChangeReport(data: ChangeData): string

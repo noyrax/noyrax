@@ -1,6 +1,6 @@
 # Modul: src/core/scanner.ts
 
-<!-- change: signature-changed old="ScannedFile():" new="ScannedFile(absolutePath:string,language:string | null,repositoryRelativePath:string):" -->
+<!-- change: symbol-added name="ScannedFile" kind="interface" -->
 ### interface: ScannedFile
 ```ts
 interface ScannedFile {
@@ -10,7 +10,7 @@ interface ScannedFile {
 }
 ```
 
-<!-- change: signature-changed old="ScanOptions():" new="ScanOptions(excludeGlobs?:string[],includeGlobs?:string[],workspaceRoot:string):" -->
+<!-- change: symbol-added name="ScanOptions" kind="interface" -->
 ### interface: ScanOptions
 ```ts
 interface ScanOptions {
@@ -20,25 +20,25 @@ interface ScanOptions {
 }
 ```
 
-<!-- change: signature-changed old="scanWorkspace():" new="scanWorkspace(includeBackups:boolean=…,options:ScanOptions):ScannedFile[]" -->
+<!-- change: symbol-added name="scanWorkspace" kind="function" -->
 ### function: scanWorkspace
 ```ts
 scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]
 ```
 
-<!-- change: signature-changed old="BACKUP_DIR_NAMES():" new="BACKUP_DIR_NAMES():Set<string>" -->
+<!-- change: symbol-added name="BACKUP_DIR_NAMES" kind="variable" -->
 ### variable: BACKUP_DIR_NAMES
 ```ts
 BACKUP_DIR_NAMES: Set<string>
 ```
 
-<!-- change: signature-changed old="BACKUP_FILE_SUFFIXES():" new="BACKUP_FILE_SUFFIXES():string[]" -->
+<!-- change: symbol-added name="BACKUP_FILE_SUFFIXES" kind="variable" -->
 ### variable: BACKUP_FILE_SUFFIXES
 ```ts
 BACKUP_FILE_SUFFIXES: string[]
 ```
 
-<!-- change: signature-changed old="DEFAULT_EXCLUDES():" new="DEFAULT_EXCLUDES():Set<string>" -->
+<!-- change: symbol-added name="DEFAULT_EXCLUDES" kind="variable" -->
 ### variable: DEFAULT_EXCLUDES
 ```ts
 DEFAULT_EXCLUDES: Set<string>

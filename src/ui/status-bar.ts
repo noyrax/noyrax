@@ -11,7 +11,7 @@ export class StatusBarManager {
         this.scanButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
         this.scanButton.text = "$(search) Scan";
         this.scanButton.tooltip = "System scannen";
-        this.scanButton.command = "docs.scan";
+        this.scanButton.command = "noyrax.scan";
         this.scanButton.show();
         context.subscriptions.push(this.scanButton);
 
@@ -19,7 +19,7 @@ export class StatusBarManager {
         this.generateButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 99);
         this.generateButton.text = "$(file-text) Generate";
         this.generateButton.tooltip = "Dokumentation generieren";
-        this.generateButton.command = "docs.generate";
+        this.generateButton.command = "noyrax.generate";
         this.generateButton.show();
         context.subscriptions.push(this.generateButton);
 
@@ -27,15 +27,15 @@ export class StatusBarManager {
         this.validateButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 98);
         this.validateButton.text = "$(check) Validate";
         this.validateButton.tooltip = "Dokumentation validieren";
-        this.validateButton.command = "docs.validate";
+        this.validateButton.command = "noyrax.validate";
         this.validateButton.show();
         context.subscriptions.push(this.validateButton);
 
         // Status Indicator
         this.statusIndicator = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 97);
-        this.statusIndicator.text = "$(circle-outline) Docs";
+        this.statusIndicator.text = "$(circle-outline) Noyrax";
         this.statusIndicator.tooltip = "Dokumentationsstatus";
-        this.statusIndicator.command = "docs.overview";
+        this.statusIndicator.command = "noyrax.overview";
         this.statusIndicator.show();
         context.subscriptions.push(this.statusIndicator);
     }

@@ -1,6 +1,6 @@
 # Modul: src/parsers/types.ts
 
-<!-- change: signature-changed old="ParsedSymbol():" new="ParsedSymbol(filePath:string,fullyQualifiedName:string,kind:'class' | 'interface' | 'function' | 'method' | 'type' | 'enum' | 'variable' | 'module',language:string,signature:SymbolSignature):" -->
+<!-- change: symbol-added name="ParsedSymbol" kind="interface" -->
 ### interface: ParsedSymbol
 ```ts
 interface ParsedSymbol {
@@ -12,7 +12,7 @@ interface ParsedSymbol {
 }
 ```
 
-<!-- change: signature-changed old="ParserAdapter():" new="ParserAdapter(language:string):" -->
+<!-- change: symbol-added name="ParserAdapter" kind="interface" -->
 ### interface: ParserAdapter
 ```ts
 interface ParserAdapter {
@@ -20,7 +20,7 @@ interface ParserAdapter {
 }
 ```
 
-<!-- change: signature-changed old="SymbolParameter():" new="SymbolParameter(hasDefault?:boolean,name:string,optional?:boolean,type?:string):" -->
+<!-- change: symbol-added name="SymbolParameter" kind="interface" -->
 ### interface: SymbolParameter
 ```ts
 interface SymbolParameter {
@@ -31,7 +31,7 @@ interface SymbolParameter {
 }
 ```
 
-<!-- change: signature-changed old="SymbolSignature():" new="SymbolSignature(name:string,parameters:SymbolParameter[],returnType?:string,visibility?:'public' | 'protected' | 'private' | 'package'):" -->
+<!-- change: symbol-added name="SymbolSignature" kind="interface" -->
 ### interface: SymbolSignature
 ```ts
 interface SymbolSignature {

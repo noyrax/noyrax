@@ -1,36 +1,36 @@
 # Modul: demo/package.json
 
-<!-- change: signature-changed old="description():" new="description():string" -->
+<!-- change: symbol-added name="description" kind="variable" -->
 ### variable: description
 ```ts
 description: string
 ```
 
-<!-- change: signature-changed old="devDependencies():" new="devDependencies():object" -->
+<!-- change: symbol-added name="devDependencies" kind="variable" -->
 ### variable: devDependencies
 ```ts
 devDependencies: object
 ```
 
-<!-- change: signature-changed old="name():" new="name():string" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: name
 ```ts
 name: string
 ```
 
-<!-- change: signature-changed old="scripts():" new="scripts():object" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: scripts
 ```ts
 scripts: object
 ```
 
-<!-- change: signature-changed old="type():" new="type():string" -->
+<!-- change: symbol-added name="type" kind="variable" -->
 ### variable: type
 ```ts
 type: string
 ```
 
-<!-- change: signature-changed old="version():" new="version():string" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: version
 ```ts
 version: string

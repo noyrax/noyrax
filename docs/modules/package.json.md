@@ -1,108 +1,102 @@
 # Modul: package.json
 
-<!-- change: signature-changed old="activationEvents():" new="activationEvents():object" -->
+<!-- change: symbol-added name="activationEvents" kind="variable" -->
 ### variable: activationEvents
 ```ts
 activationEvents: object
 ```
 
-<!-- change: signature-changed old="bugs():" new="bugs():object" -->
+<!-- change: symbol-added name="bugs" kind="variable" -->
 ### variable: bugs
 ```ts
 bugs: object
 ```
 
-<!-- change: signature-changed old="categories():" new="categories():object" -->
+<!-- change: symbol-added name="categories" kind="variable" -->
 ### variable: categories
 ```ts
 categories: object
 ```
 
-<!-- change: signature-changed old="contributes():" new="contributes():object" -->
+<!-- change: symbol-added name="contributes" kind="variable" -->
 ### variable: contributes
 ```ts
 contributes: object
 ```
 
-<!-- change: signature-changed old="dependencies():" new="dependencies():object" -->
+<!-- change: symbol-added name="dependencies" kind="variable" -->
 ### variable: dependencies
 ```ts
 dependencies: object
 ```
 
-<!-- change: signature-changed old="description():" new="description():string" -->
+<!-- change: symbol-added name="description" kind="variable" -->
 ### variable: description
 ```ts
 description: string
 ```
 
-<!-- change: signature-changed old="devDependencies():" new="devDependencies():object" -->
+<!-- change: symbol-added name="devDependencies" kind="variable" -->
 ### variable: devDependencies
 ```ts
 devDependencies: object
 ```
 
-<!-- change: signature-changed old="displayName():" new="displayName():string" -->
+<!-- change: symbol-added name="displayName" kind="variable" -->
 ### variable: displayName
 ```ts
 displayName: string
 ```
 
-<!-- change: signature-changed old="engines():" new="engines():object" -->
+<!-- change: symbol-added name="engines" kind="variable" -->
 ### variable: engines
 ```ts
 engines: object
 ```
 
-<!-- change: signature-changed old="homepage():" new="homepage():string" -->
+<!-- change: symbol-added name="homepage" kind="variable" -->
 ### variable: homepage
 ```ts
 homepage: string
 ```
 
-<!-- change: signature-changed old="icon():" new="icon():string" -->
-### variable: icon
-```ts
-icon: string
-```
-
-<!-- change: signature-changed old="keywords():" new="keywords():object" -->
+<!-- change: symbol-added name="keywords" kind="variable" -->
 ### variable: keywords
 ```ts
 keywords: object
 ```
 
-<!-- change: signature-changed old="main():" new="main():string" -->
+<!-- change: symbol-added name="main" kind="variable" -->
 ### variable: main
 ```ts
 main: string
 ```
 
-<!-- change: signature-changed old="name():" new="name():string" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: name
 ```ts
 name: string
 ```
 
-<!-- change: signature-changed old="publisher():" new="publisher():string" -->
+<!-- change: symbol-added name="publisher" kind="variable" -->
 ### variable: publisher
 ```ts
 publisher: string
 ```
 
-<!-- change: signature-changed old="repository():" new="repository():object" -->
+<!-- change: symbol-added name="repository" kind="variable" -->
 ### variable: repository
 ```ts
 repository: object
 ```
 
-<!-- change: signature-changed old="scripts():" new="scripts():object" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: scripts
 ```ts
 scripts: object
 ```
 
-<!-- change: signature-changed old="version():" new="version():string" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: version
 ```ts
 version: string

@@ -2,6 +2,266 @@
   "version": 1,
   "entries": [
     {
+      "path": "action__action.yml.md",
+      "hash": "c4a6330d7842ba88"
+    },
+    {
+      "path": "demo__docguard.config.json.md",
+      "hash": "52c49d50091ad793"
+    },
+    {
+      "path": "demo__package.json.md",
+      "hash": "26cf79d74f776ebc"
+    },
+    {
+      "path": "demo__src__calculator.ts.md",
+      "hash": "75194a787f43c997"
+    },
+    {
+      "path": "demo__src__types.ts.md",
+      "hash": "d89ec7184698675b"
+    },
+    {
+      "path": "demo__src__user-service.ts.md",
+      "hash": "3d63cb7e519b8785"
+    },
+    {
+      "path": "documentation.config.schema.json.md",
+      "hash": "268413ed31b85b00"
+    },
+    {
+      "path": "mcp__package.json.md",
+      "hash": "0054d3b95b584ea3"
+    },
+    {
+      "path": "mcp__src__resources__docs.ts.md",
+      "hash": "ed0fe524472dc2da"
+    },
+    {
+      "path": "mcp__src__server.ts.md",
+      "hash": "751615ba43b2f80d"
+    },
+    {
+      "path": "mcp__src__tools__drift.ts.md",
+      "hash": "c92b707082cd6aa4"
+    },
+    {
+      "path": "mcp__src__tools__impact.ts.md",
+      "hash": "25e18150d9a78bca"
+    },
+    {
+      "path": "mcp__src__tools__scan.ts.md",
+      "hash": "125f24a5af802b98"
+    },
+    {
+      "path": "mcp__src__tools__validate.ts.md",
+      "hash": "a651febea4641c36"
+    },
+    {
+      "path": "mcp__tsconfig.json.md",
+      "hash": "3b64d9d472d9998d"
+    },
+    {
+      "path": "package.json.md",
+      "hash": "c3a5eecc4f1543fb"
+    },
+    {
+      "path": "packages__doc-system-agent__examples__basic-project__package.json.md",
+      "hash": "e1cd15f2deef13c5"
+    },
+    {
+      "path": "packages__doc-system-agent__examples__basic-project__src__calculator.ts.md",
+      "hash": "5758ac73a0060231"
+    },
+    {
+      "path": "packages__doc-system-agent__package.json.md",
+      "hash": "e797f11b68feb344"
+    },
+    {
+      "path": "packages__doc-system-agent__src__cli__index.ts.md",
+      "hash": "a9eb0a58bc930887"
+    },
+    {
+      "path": "packages__doc-system-agent__src__cli__init.ts.md",
+      "hash": "c274ff85da933816"
+    },
+    {
+      "path": "packages__doc-system-agent__src__cli__update.ts.md",
+      "hash": "dabbfd90c5cb54f6"
+    },
+    {
+      "path": "packages__doc-system-agent__src__constants.ts.md",
+      "hash": "dc64e4b959294b56"
+    },
+    {
+      "path": "packages__doc-system-agent__src__index.ts.md",
+      "hash": "1298fa8500531f72"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__resources__docs.ts.md",
+      "hash": "86b021399f4c04f6"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__server.ts.md",
+      "hash": "be594eee3acff5e5"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__tools__drift.ts.md",
+      "hash": "b448afc91049d214"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__tools__impact.ts.md",
+      "hash": "6bc35bf402daeffe"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__tools__scan.ts.md",
+      "hash": "4c8924ae900be0be"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__tools__validate.ts.md",
+      "hash": "5d0ae8944cc1b751"
+    },
+    {
+      "path": "packages__doc-system-agent__src__mcp__types.ts.md",
+      "hash": "5215164ef2f6d771"
+    },
+    {
+      "path": "packages__doc-system-agent__tsconfig.json.md",
+      "hash": "e2587bbb0c133d62"
+    },
+    {
+      "path": "src____tests____setup.ts.md",
+      "hash": "f3b0d6b9be9f5314"
+    },
+    {
+      "path": "src__cache__ast-cache.ts.md",
+      "hash": "f02ce543356bb7e1"
+    },
+    {
+      "path": "src__cache__dependencies-cache.ts.md",
+      "hash": "e64761f3b08020c8"
+    },
+    {
+      "path": "src__cache__output-cache.ts.md",
+      "hash": "35aab25af4d9f332"
+    },
+    {
+      "path": "src__cache__signature-cache.ts.md",
+      "hash": "6478767efc2b742d"
+    },
+    {
+      "path": "src__core__async.ts.md",
+      "hash": "62fc63da8c6915bf"
+    },
+    {
+      "path": "src__core__consolidation.ts.md",
+      "hash": "adc6d17b7af164e6"
+    },
+    {
+      "path": "src__core__git.ts.md",
+      "hash": "35ef8d42b87991d9"
+    },
+    {
+      "path": "src__core__language-detection.ts.md",
+      "hash": "1ed4fa252ad40f54"
+    },
+    {
+      "path": "src__core__scanner.ts.md",
+      "hash": "7a9daafdfc9db246"
+    },
+    {
+      "path": "src__core__signature-formatter.ts.md",
+      "hash": "1bdd75b0ebd7c3b5"
+    },
+    {
+      "path": "src__core__symbols.ts.md",
+      "hash": "2c5ca775a6047b72"
+    },
+    {
+      "path": "src__drift__index.ts.md",
+      "hash": "3367c261837bb9b9"
+    },
+    {
+      "path": "src__extension.ts.md",
+      "hash": "815a9b7b87d1c4a8"
+    },
+    {
+      "path": "src__generator__change-report.ts.md",
+      "hash": "76e39fd84bdecea1"
+    },
+    {
+      "path": "src__generator__dependency-graph.ts.md",
+      "hash": "bd2970faf24ca85f"
+    },
+    {
+      "path": "src__generator__index.ts.md",
+      "hash": "5c84b6a0105f03f4"
+    },
+    {
+      "path": "src__generator__module-doc.ts.md",
+      "hash": "47e1b876adb5d497"
+    },
+    {
+      "path": "src__index__index.ts.md",
+      "hash": "0dba80ad0f077f27"
+    },
+    {
+      "path": "src__logging__index.ts.md",
+      "hash": "e540b984a1e8d9d8"
+    },
+    {
+      "path": "src__parsers__dependencies.ts.md",
+      "hash": "d86d5d9ab16a87ed"
+    },
+    {
+      "path": "src__parsers__json-yaml.ts.md",
+      "hash": "da0c8f1d06d7d8e7"
+    },
+    {
+      "path": "src__parsers__python.ts.md",
+      "hash": "b416f5033a1f03d2"
+    },
+    {
+      "path": "src__parsers__ts-js.ts.md",
+      "hash": "96561962931255b6"
+    },
+    {
+      "path": "src__parsers__types.ts.md",
+      "hash": "220fdcc6bd3beaa9"
+    },
+    {
+      "path": "src__ui__commands-provider.ts.md",
+      "hash": "ed0e018d9d818d41"
+    },
+    {
+      "path": "src__ui__status-bar.ts.md",
+      "hash": "d936f1284b4fba78"
+    },
+    {
+      "path": "src__validator__index.ts.md",
+      "hash": "fd47895782a41b06"
+    },
+    {
+      "path": "src__validator__signature-matching.ts.md",
+      "hash": "6063bebc6f5417a1"
+    },
+    {
+      "path": "src__validator__status.ts.md",
+      "hash": "5696c5401a996ff7"
+    },
+    {
+      "path": "tsconfig.json.md",
+      "hash": "11f93067a81bc9d1"
+    },
+    {
+      "path": "website__package.json.md",
+      "hash": "73282fceb6ce043c"
+    },
+    {
+      "path": "website__tsconfig.json.md",
+      "hash": "c528c58bbf510ea6"
+    },
+    {
       "path": "website__vercel.json.md",
       "hash": "69f61dd2a0621ed5"
     }

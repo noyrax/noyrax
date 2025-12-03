@@ -338,7 +338,7 @@ export function renderModuleDoc(doc: ModuleDoc, filePath: string): string {
             case 'function':
             case 'method':
                 const params = block.symbol.signature.parameters
-                    .map(p => `${p.name}${p.type ? `: ${p.type}` : ''}${p.hasDefault ? ' = …' : ''}`)
+                    .map(p => `${p.name}${p.optional ? '?' : ''}${p.type ? `: ${p.type}` : ''}${p.hasDefault ? ' = …' : ''}`)
                     .join(', ');
                 const ret = block.symbol.signature.returnType ? `: ${block.symbol.signature.returnType}` : '';
                 lines.push(`${block.symbol.signature.name}(${params})${ret}`);

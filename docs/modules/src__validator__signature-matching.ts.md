@@ -1,6 +1,6 @@
 # Modul: src/validator/signature-matching.ts
 
-<!-- change: signature-changed old="SignatureMismatch():" new="SignatureMismatch(documented:string,expected:string,severity:'warning' | 'error',symbolId:string):" -->
+<!-- change: symbol-added name="SignatureMismatch" kind="interface" -->
 ### interface: SignatureMismatch
 ```ts
 interface SignatureMismatch {
@@ -11,49 +11,49 @@ interface SignatureMismatch {
 }
 ```
 
-<!-- change: signature-changed old="escapeRegex():" new="escapeRegex(str:string):string" -->
+<!-- change: symbol-added name="escapeRegex" kind="function" -->
 ### function: escapeRegex
 ```ts
 escapeRegex(str: string): string
 ```
 
-<!-- change: signature-changed old="formatSignatureForDoc():" new="formatSignatureForDoc(symbol:ParsedSymbol):string" -->
+<!-- change: symbol-added name="formatSignatureForDoc" kind="function" -->
 ### function: formatSignatureForDoc
 ```ts
 formatSignatureForDoc(symbol: ParsedSymbol): string
 ```
 
-<!-- change: signature-changed old="isArchitecturallyValid():" new="isArchitecturallyValid(documented:string,expected:string,symbol:ParsedSymbol):boolean" -->
+<!-- change: symbol-added name="isArchitecturallyValid" kind="function" -->
 ### function: isArchitecturallyValid
 ```ts
 isArchitecturallyValid(expected: string, documented: string, symbol: ParsedSymbol): boolean
 ```
 
-<!-- change: signature-changed old="isGenericTypeSimplification():" new="isGenericTypeSimplification(documented:string,expected:string):boolean" -->
+<!-- change: symbol-added name="isGenericTypeSimplification" kind="function" -->
 ### function: isGenericTypeSimplification
 ```ts
 isGenericTypeSimplification(expected: string, documented: string): boolean
 ```
 
-<!-- change: signature-changed old="isOptionalFieldCompatible():" new="isOptionalFieldCompatible(documented:string,expected:string):boolean" -->
+<!-- change: symbol-added name="isOptionalFieldCompatible" kind="function" -->
 ### function: isOptionalFieldCompatible
 ```ts
 isOptionalFieldCompatible(expected: string, documented: string): boolean
 ```
 
-<!-- change: signature-changed old="isPromiseWrapperPattern():" new="isPromiseWrapperPattern(documented:string,expected:string):boolean" -->
+<!-- change: symbol-added name="isPromiseWrapperPattern" kind="function" -->
 ### function: isPromiseWrapperPattern
 ```ts
 isPromiseWrapperPattern(expected: string, documented: string): boolean
 ```
 
-<!-- change: signature-changed old="isResponseWrapperPattern():" new="isResponseWrapperPattern(documented:string,expected:string):boolean" -->
+<!-- change: symbol-added name="isResponseWrapperPattern" kind="function" -->
 ### function: isResponseWrapperPattern
 ```ts
 isResponseWrapperPattern(expected: string, documented: string): boolean
 ```
 
-<!-- change: signature-changed old="validateSignatureMatching():" new="validateSignatureMatching(modulesDir:string,symbols:ParsedSymbol[]):SignatureMismatch[]" -->
+<!-- change: symbol-added name="validateSignatureMatching" kind="function" -->
 ### function: validateSignatureMatching
 ```ts
 validateSignatureMatching(symbols: ParsedSymbol[], modulesDir: string): SignatureMismatch[]

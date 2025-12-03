@@ -4,7 +4,6 @@
   "description": "Documentation that never drifts. Automatische Dokumentationsgenerierung mit Validierung und Drift-Detection.",
   "version": "1.0.3",
   "publisher": "noyrax",
-  "icon": "assets/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/noyrax/noyrax"
@@ -35,7 +34,18 @@
   ],
   "main": "./out/extension.js",
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onView:noyraxExplorer",
+    "onView:noyraxCommands",
+    "onCommand:noyrax.generate",
+    "onCommand:noyrax.scan",
+    "onCommand:noyrax.search",
+    "onCommand:noyrax.validate",
+    "onCommand:noyrax.drift",
+    "onCommand:noyrax.open",
+    "onCommand:noyrax.overview",
+    "onCommand:noyrax.fullCycle",
+    "onCommand:noyrax.refresh"
   ],
   "contributes": {
     "commands": [
@@ -187,6 +197,28 @@
         {
           "command": "noyrax.validate",
           "when": "workspaceFolderCount > 0"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "noyrax.refresh",
+          "when": "view == noyraxExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "noyrax.generate",
+          "when": "view == noyraxCommands",
+          "group": "navigation@1"
+        },
+        {
+          "command": "noyrax.scan",
+          "when": "view == noyraxCommands",
+          "group": "navigation@2"
+        },
+        {
+          "command": "noyrax.validate",
+          "when": "view == noyraxCommands",
+          "group": "navigation@3"
         }
       ]
     },

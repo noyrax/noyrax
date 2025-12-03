@@ -1,6 +1,6 @@
 # Modul: src/validator/index.ts
 
-<!-- change: signature-changed old="CoverageMetrics():" new="CoverageMetrics(documentedClasses:number,documentedFunctions:number,documentedInterfaces:number,documentedMethods:number,totalClasses:number,totalFunctions:number,totalInterfaces:number,totalMethods:number):" -->
+<!-- change: symbol-added name="CoverageMetrics" kind="interface" -->
 ### interface: CoverageMetrics
 ```ts
 interface CoverageMetrics {
@@ -15,7 +15,7 @@ interface CoverageMetrics {
 }
 ```
 
-<!-- change: signature-changed old="CoverageReport():" new="CoverageReport(errors:string[],metrics:CoverageMetrics,warnings:string[]):" -->
+<!-- change: symbol-added name="CoverageReport" kind="interface" -->
 ### interface: CoverageReport
 ```ts
 interface CoverageReport {
@@ -25,7 +25,7 @@ interface CoverageReport {
 }
 ```
 
-<!-- change: signature-changed old="CoverageThresholds():" new="CoverageThresholds(classes:number,functions:number,interfaces:number,methods:number):" -->
+<!-- change: symbol-added name="CoverageThresholds" kind="interface" -->
 ### interface: CoverageThresholds
 ```ts
 interface CoverageThresholds {
@@ -36,7 +36,7 @@ interface CoverageThresholds {
 }
 ```
 
-<!-- change: signature-changed old="MarkdownDirReport():" new="MarkdownDirReport(errors:string[],files:Array<{ file: string; errors: string[]; warnings: string[] }>,mismatchesCount?:number,warnings:string[]):" -->
+<!-- change: symbol-added name="MarkdownDirReport" kind="interface" -->
 ### interface: MarkdownDirReport
 ```ts
 interface MarkdownDirReport {
@@ -47,7 +47,7 @@ interface MarkdownDirReport {
 }
 ```
 
-<!-- change: signature-changed old="ValidationReport():" new="ValidationReport(errors:string[],status?:StatusReport,totalSymbols:number,warnings:string[]):" -->
+<!-- change: symbol-added name="ValidationReport" kind="interface" -->
 ### interface: ValidationReport
 ```ts
 interface ValidationReport {
@@ -58,25 +58,25 @@ interface ValidationReport {
 }
 ```
 
-<!-- change: signature-changed old="computeCoverage():" new="computeCoverage(modulesDir:string,symbols:ParsedSymbol[],thresholds:CoverageThresholds=…):CoverageReport" -->
+<!-- change: symbol-added name="computeCoverage" kind="function" -->
 ### function: computeCoverage
 ```ts
 computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport
 ```
 
-<!-- change: signature-changed old="validateMarkdownContent():" new="validateMarkdownContent(md:string):{ errors: string[]; warnings: string[] }" -->
+<!-- change: symbol-added name="validateMarkdownContent" kind="function" -->
 ### function: validateMarkdownContent
 ```ts
 validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }
 ```
 
-<!-- change: signature-changed old="validateMarkdownDir():" new="validateMarkdownDir(modulesDir:string,symbols:ParsedSymbol[]):MarkdownDirReport" -->
+<!-- change: symbol-added name="validateMarkdownDir" kind="function" -->
 ### function: validateMarkdownDir
 ```ts
 validateMarkdownDir(modulesDir: string, symbols: ParsedSymbol[]): MarkdownDirReport
 ```
 
-<!-- change: signature-changed old="validateSymbols():" new="validateSymbols(symbols:ParsedSymbol[]):ValidationReport" -->
+<!-- change: symbol-added name="validateSymbols" kind="function" -->
 ### function: validateSymbols
 ```ts
 validateSymbols(symbols: ParsedSymbol[]): ValidationReport

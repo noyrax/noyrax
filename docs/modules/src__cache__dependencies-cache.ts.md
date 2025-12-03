@@ -1,6 +1,6 @@
 # Modul: src/cache/dependencies-cache.ts
 
-<!-- change: signature-changed old="DependenciesCacheData():" new="DependenciesCacheData(entries:DependencyCacheEntry[],version:1):" -->
+<!-- change: symbol-added name="DependenciesCacheData" kind="interface" -->
 ### interface: DependenciesCacheData
 ```ts
 interface DependenciesCacheData {
@@ -9,7 +9,7 @@ interface DependenciesCacheData {
 }
 ```
 
-<!-- change: signature-changed old="DependencyCacheEntry():" new="DependencyCacheEntry(from:string,symbols?:string[],to:string,type:'import' | 'export' | 'require'):" -->
+<!-- change: symbol-added name="DependencyCacheEntry" kind="interface" -->
 ### interface: DependencyCacheEntry
 ```ts
 interface DependencyCacheEntry {
@@ -20,13 +20,13 @@ interface DependencyCacheEntry {
 }
 ```
 
-<!-- change: signature-changed old="loadDependenciesCache():" new="loadDependenciesCache(cacheFile:string):DependenciesCacheData | null" -->
+<!-- change: symbol-added name="loadDependenciesCache" kind="function" -->
 ### function: loadDependenciesCache
 ```ts
 loadDependenciesCache(cacheFile: string): DependenciesCacheData | null
 ```
 
-<!-- change: signature-changed old="saveDependenciesCache():" new="saveDependenciesCache(cacheDir:string,data:DependenciesCacheData):void" -->
+<!-- change: symbol-added name="saveDependenciesCache" kind="function" -->
 ### function: saveDependenciesCache
 ```ts
 saveDependenciesCache(cacheDir: string, data: DependenciesCacheData): void

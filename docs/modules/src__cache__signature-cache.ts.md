@@ -1,6 +1,6 @@
 # Modul: src/cache/signature-cache.ts
 
-<!-- change: signature-changed old="CacheEntry():" new="CacheEntry(baseId:string,signatureHash:string):" -->
+<!-- change: symbol-added name="CacheEntry" kind="interface" -->
 ### interface: CacheEntry
 ```ts
 interface CacheEntry {
@@ -9,7 +9,7 @@ interface CacheEntry {
 }
 ```
 
-<!-- change: signature-changed old="SignatureCacheData():" new="SignatureCacheData(entries:CacheEntry[],version:1):" -->
+<!-- change: symbol-added name="SignatureCacheData" kind="interface" -->
 ### interface: SignatureCacheData
 ```ts
 interface SignatureCacheData {
@@ -18,13 +18,13 @@ interface SignatureCacheData {
 }
 ```
 
-<!-- change: signature-changed old="loadSignatureCache():" new="loadSignatureCache(cacheFile:string):SignatureCacheData | null" -->
+<!-- change: symbol-added name="loadSignatureCache" kind="function" -->
 ### function: loadSignatureCache
 ```ts
 loadSignatureCache(cacheFile: string): SignatureCacheData | null
 ```
 
-<!-- change: signature-changed old="saveSignatureCache():" new="saveSignatureCache(cacheDir:string,data:SignatureCacheData):void" -->
+<!-- change: symbol-added name="saveSignatureCache" kind="function" -->
 ### function: saveSignatureCache
 ```ts
 saveSignatureCache(cacheDir: string, data: SignatureCacheData): void

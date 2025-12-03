@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/drift.ts
 
-<!-- change: signature-changed old="DriftItem():" new="DriftItem(expected?:string,file:string,found?:string,message:string,type:'signature_mismatch' | 'new_file' | 'deleted_file' | 'modified'):" -->
+<!-- change: symbol-added name="DriftItem" kind="interface" -->
 ### interface: DriftItem
 ```ts
 interface DriftItem {
@@ -12,7 +12,7 @@ interface DriftItem {
 }
 ```
 
-<!-- change: signature-changed old="DriftRequest():" new="DriftRequest(since?:string):" -->
+<!-- change: symbol-added name="DriftRequest" kind="interface" -->
 ### interface: DriftRequest
 ```ts
 interface DriftRequest {
@@ -20,7 +20,7 @@ interface DriftRequest {
 }
 ```
 
-<!-- change: signature-changed old="DriftResponse():" new="DriftResponse(changedFiles:string[],drifted:DriftItem[],duration:number,status:'clean' | 'drift_detected'):" -->
+<!-- change: symbol-added name="DriftResponse" kind="interface" -->
 ### interface: DriftResponse
 ```ts
 interface DriftResponse {
@@ -31,19 +31,19 @@ interface DriftResponse {
 }
 ```
 
-<!-- change: signature-changed old="getDocPath():" new="getDocPath(sourcePath:string):string" -->
+<!-- change: symbol-added name="getDocPath" kind="function" -->
 ### function: getDocPath
 ```ts
 getDocPath(sourcePath: string): string
 ```
 
-<!-- change: signature-changed old="runDriftCheck():" new="runDriftCheck(request:DriftRequest):Promise<DriftResponse>" -->
+<!-- change: symbol-added name="runDriftCheck" kind="function" -->
 ### function: runDriftCheck
 ```ts
 runDriftCheck(request: DriftRequest): Promise<DriftResponse>
 ```
 
-<!-- change: signature-changed old="execAsync():" new="execAsync():any" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### variable: execAsync
 ```ts
 execAsync: any

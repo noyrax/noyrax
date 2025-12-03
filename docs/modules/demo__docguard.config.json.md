@@ -1,36 +1,36 @@
 # Modul: demo/docguard.config.json
 
-<!-- change: signature-changed old="$schema():" new="$schema():string" -->
+<!-- change: symbol-added name="$schema" kind="variable" -->
 ### variable: $schema
 ```ts
 $schema: string
 ```
 
-<!-- change: signature-changed old="exclude():" new="exclude():object" -->
+<!-- change: symbol-added name="exclude" kind="variable" -->
 ### variable: exclude
 ```ts
 exclude: object
 ```
 
-<!-- change: signature-changed old="generation():" new="generation():object" -->
+<!-- change: symbol-added name="generation" kind="variable" -->
 ### variable: generation
 ```ts
 generation: object
 ```
 
-<!-- change: signature-changed old="include():" new="include():object" -->
+<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: include
 ```ts
 include: object
 ```
 
-<!-- change: signature-changed old="output():" new="output():object" -->
+<!-- change: symbol-added name="output" kind="variable" -->
 ### variable: output
 ```ts
 output: object
 ```
 
-<!-- change: signature-changed old="validation():" new="validation():object" -->
+<!-- change: symbol-added name="validation" kind="variable" -->
 ### variable: validation
 ```ts
 validation: object

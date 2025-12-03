@@ -1,0 +1,159 @@
+---
+description: Pre-Planning Checklisten für proaktive Fehlervorbeugung. Aktiviert bei Anfragen wie "plane", "implementiere", "ändere", "refactore".
+globs: []
+alwaysApply: false
+---
+
+# Pre-Planning Checklisten
+
+Diese Checklisten helfen dem Agent, Fehler zu vermeiden, BEVOR sie implementiert werden. Basierend auf historischen Fixes (ADR-001 bis ADR-017).
+
+## 1. Vor Scanner-Änderungen
+
+**Datei:** `src/core/scanner.ts`
+
+### Checkliste
+
+- [ ] Sind alle irrelevanten Verzeichnisse in `DEFAULT_EXCLUDES`?
+  - `.ai-agent-context`, `.vscode`, `.cursor`, `node_modules`, `.git`
+- [ ] Ist die `.gitignore` aktuell? (Scanner nutzt sie, Zeile 39-46)
+- [ ] Werden Backup-Dateien korrekt gefiltert? (`BACKUP_DIR_NAMES`, `BACKUP_FILE_SUFFIXES`)
+- [ ] Ist die Sortierung deterministisch? (`entries.sort()`, Zeile 90)
+
+### Relevante ADRs
+
+- Keine direkten ADRs, aber Scanner-Bugs führen zu Index-Rauschen
+
+---
+
+## 2. Vor Parser-Änderungen
+
+**Dateien:** `src/parsers/ts-js.ts`, `src/parsers/json-yaml.ts`, `src/parsers/python.ts`
+
+### Checkliste
+
+- [ ] Führt die Änderung zu Hash-Änderungen? (Signatur-Hash in `src/core/symbols.ts`)
+- [ ] Sind alle Symbol-Typen konsistent behandelt?
+  - `class`, `interface`, `type`, `enum`, `function`, `method`, `variable`, `module`
+- [ ] Wird `getTypeNode()` vor `getType()` bevorzugt? (Zeilen 56-64 in ts-js.ts)
+- [ ] Sind Standard-Libs geladen? (`skipLoadingLibFiles: false`)
+- [ ] Sind JSON/YAML-Symbole semantisch relevant?
+  - `package.json` Keys: relevant
+  - Backup-Dateien: irrelevant
+
+### Relevante ADRs
+
+- **ADR-004**: Symbol-typ-spezifische Formatierung
+- **ADR-005**: TypeNode vor getType()
+- **ADR-006**: Variablen-Typen präziser
+- **ADR-007**: Standard-Libs laden
+
+---
+
+## 3. Vor Validator-Änderungen
+
+**Datei:** `src/validator/signature-matching.ts`
+
+### Checkliste
+
+- [ ] Ist die Formatierung identisch mit dem Generator?
+  - `renderModuleDoc()` in `module-doc.ts` vergleichen
+  - `formatSignatureForDoc()` in `signature-matching.ts` vergleichen
+- [ ] Werden alle Symbol-Typen validiert? (Keine `continue` für bestimmte Typen)
+- [ ] Sind Toleranz-Regeln semantisch korrekt?
+  - `isArchitecturallyValid()` – generisch oder hardcoded?
+  - `isOptionalFieldCompatible()` – mehrzeilige Interfaces?
+  - `isGenericTypeSimplification()` – zu tolerant bei `{}`?
+- [ ] Werden optionale Parameter mit `?` markiert? (Zeile 74)
+
+### Relevante ADRs
+
+- **ADR-001**: Signatur-Abweichung-Fix (hardcoded Patterns)
+- **ADR-004**: Validator Signature-Matching Reparatur
+- **ADR-013**: System-Funktionalitäts-Fixes
+- **ADR-017**: Optional-Feld-Kompatibilität
+
+---
+
+## 4. Vor Generator-Änderungen
+
+**Dateien:** `src/generator/module-doc.ts`, `src/generator/index.ts`
+
+### Checkliste
+
+- [ ] Ist die Formatierung konsistent mit dem Validator?
+- [ ] Werden optionale Parameter mit `?` markiert? (Zeile 341)
+- [ ] Ist die Sortierung deterministisch? (`compareBlocks()`)
+- [ ] Werden Change-Kommentare korrekt generiert?
+
+### Relevante ADRs
+
+- **ADR-003**: Documentation Generation Bugs
+- **ADR-011**: Module Doc Change Tracking
+
+---
+
+## 5. Vor Cache-Änderungen
+
+**Dateien:** `src/cache/*.ts`, `src/core/consolidation.ts`
+
+### Checkliste
+
+- [ ] Wird `isFirstRun` ZUERST geprüft, vor Git-Filter?
+- [ ] Ist die Union-Logik korrekt?
+  - `parsedFiles` = tatsächlich geparste Dateien
+  - `deletedFiles` = aus Git erkannte Löschungen
+  - Alte Einträge nur behalten wenn Datei nicht geparst UND nicht gelöscht
+- [ ] Ist die Cache-Version korrekt? (`version: 1`)
+- [ ] Gibt es null-Fallbacks bei korruptem Cache?
+
+### Relevante ADRs
+
+- **ADR-008**: Dependencies-Cache Phase 1
+- **ADR-009**: Consolidation Union Logic
+- **ADR-013**: "Generate twice" Problem
+
+---
+
+## 6. Anti-Patterns vermeiden
+
+### Hardcoded Pattern-Fixes
+
+```typescript
+// SCHLECHT: Hardcoded Toleranz
+if ((expected === 'Plugin()' && documented === 'PluginApiResponse()')) {
+    return true;
+}
+
+// BESSER: Generische Pattern-Erkennung
+if (isResponseWrapperPattern(expected, documented)) {
+    return true;
+}
+```
+
+### Signatur-Hash-Instabilität
+
+```typescript
+// ACHTUNG: Parser-Verbesserungen ändern den Hash
+// z.B. "add():" → "add(a:number,b:number):CalculationResult"
+// Das ist normal und führt zu vielen CHANGE_REPORT-Einträgen
+```
+
+### Generator/Validator Inkonsistenz
+
+```typescript
+// Generator und Validator MÜSSEN identisch formatieren
+// Sonst gibt es False-Positive Mismatches
+```
+
+---
+
+## 7. Nach Änderungen
+
+Immer ausführen:
+
+```bash
+npm run scan && npm run validate
+```
+
+Bei signifikanten Änderungen: ADR in `docs/adr/` erstellen.

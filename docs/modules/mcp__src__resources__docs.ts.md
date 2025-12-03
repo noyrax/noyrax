@@ -1,6 +1,6 @@
 # Modul: mcp/src/resources/docs.ts
 
-<!-- change: signature-changed old="ParsedUri():" new="ParsedUri(filePath:string,name:string,type:'system' | 'modules' | 'adr' | 'index'):" -->
+<!-- change: symbol-added name="ParsedUri" kind="interface" -->
 ### interface: ParsedUri
 ```ts
 interface ParsedUri {
@@ -10,37 +10,37 @@ interface ParsedUri {
 }
 ```
 
-<!-- change: signature-changed old="getSystemFilePath():" new="getSystemFilePath(name:string):string" -->
+<!-- change: symbol-added name="getSystemFilePath" kind="function" -->
 ### function: getSystemFilePath
 ```ts
 getSystemFilePath(name: string): string
 ```
 
-<!-- change: signature-changed old="listADRs():" new="listADRs():Promise<string[]>" -->
+<!-- change: symbol-added name="listADRs" kind="function" -->
 ### function: listADRs
 ```ts
 listADRs(): Promise<string[]>
 ```
 
-<!-- change: signature-changed old="listModuleDocs():" new="listModuleDocs():Promise<string[]>" -->
+<!-- change: symbol-added name="listModuleDocs" kind="function" -->
 ### function: listModuleDocs
 ```ts
 listModuleDocs(): Promise<string[]>
 ```
 
-<!-- change: signature-changed old="parseDocsUri():" new="parseDocsUri(uri:string):ParsedUri | null" -->
+<!-- change: symbol-added name="parseDocsUri" kind="function" -->
 ### function: parseDocsUri
 ```ts
 parseDocsUri(uri: string): ParsedUri | null
 ```
 
-<!-- change: signature-changed old="readDocsResource():" new="readDocsResource(uri:string):Promise<string>" -->
+<!-- change: symbol-added name="readDocsResource" kind="function" -->
 ### function: readDocsResource
 ```ts
 readDocsResource(uri: string): Promise<string>
 ```
 
-<!-- change: signature-changed old="DOCS_BASE():" new="DOCS_BASE():"docs"" -->
+<!-- change: symbol-added name="DOCS_BASE" kind="variable" -->
 ### variable: DOCS_BASE
 ```ts
 DOCS_BASE: "docs"

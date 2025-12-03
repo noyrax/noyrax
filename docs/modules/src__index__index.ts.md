@@ -1,6 +1,6 @@
 # Modul: src/index/index.ts
 
-<!-- change: signature-changed old="IndexRow():" new="IndexRow(dependencies?:string[],kind:string,name:string,path:string,summary?:string,symbol_id:string):" -->
+<!-- change: symbol-added name="IndexRow" kind="interface" -->
 ### interface: IndexRow
 ```ts
 interface IndexRow {
@@ -13,13 +13,13 @@ interface IndexRow {
 }
 ```
 
-<!-- change: signature-changed old="buildIndexFromSymbols():" new="buildIndexFromSymbols(dependencies:ModuleDependency[]=…,symbols:ParsedSymbol[]):IndexRow[]" -->
+<!-- change: symbol-added name="buildIndexFromSymbols" kind="function" -->
 ### function: buildIndexFromSymbols
 ```ts
 buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: ModuleDependency[] = …): IndexRow[]
 ```
 
-<!-- change: signature-changed old="writeJsonlIndex():" new="writeJsonlIndex(outFile:string,rows:IndexRow[]):void" -->
+<!-- change: symbol-added name="writeJsonlIndex" kind="function" -->
 ### function: writeJsonlIndex
 ```ts
 writeJsonlIndex(rows: IndexRow[], outFile: string): void

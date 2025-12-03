@@ -1,6 +1,6 @@
 # Modul: src/generator/module-doc.ts
 
-<!-- change: signature-changed old="ModuleDoc():" new="ModuleDoc(blocks:ModuleDocBlock[]):" -->
+<!-- change: symbol-added name="ModuleDoc" kind="interface" -->
 ### interface: ModuleDoc
 ```ts
 interface ModuleDoc {
@@ -8,7 +8,7 @@ interface ModuleDoc {
 }
 ```
 
-<!-- change: signature-changed old="ModuleDocBlock():" new="ModuleDocBlock(comment:string,symbol:ParsedSymbol):" -->
+<!-- change: symbol-added name="ModuleDocBlock" kind="interface" -->
 ### interface: ModuleDocBlock
 ```ts
 interface ModuleDocBlock {
@@ -17,7 +17,7 @@ interface ModuleDocBlock {
 }
 ```
 
-<!-- change: signature-changed old="ParsedBlock():" new="ParsedBlock(comment:string,fullyQualifiedName:string,kind:ParsedSymbol['kind'],signature:SymbolSignature,symbol:ParsedSymbol):" -->
+<!-- change: symbol-added name="ParsedBlock" kind="interface" -->
 ### interface: ParsedBlock
 ```ts
 interface ParsedBlock {
@@ -29,7 +29,7 @@ interface ParsedBlock {
 }
 ```
 
-<!-- change: signature-changed old="ParsedModuleDoc():" new="ParsedModuleDoc(blocks:ParsedBlock[]):" -->
+<!-- change: symbol-added name="ParsedModuleDoc" kind="interface" -->
 ### interface: ParsedModuleDoc
 ```ts
 interface ParsedModuleDoc {
@@ -37,43 +37,43 @@ interface ParsedModuleDoc {
 }
 ```
 
-<!-- change: signature-changed old="buildModuleDocWithChanges():" new="buildModuleDocWithChanges(existingDoc:ParsedModuleDoc,symbols:ParsedSymbol[]):ModuleDoc" -->
+<!-- change: symbol-added name="buildModuleDocWithChanges" kind="function" -->
 ### function: buildModuleDocWithChanges
 ```ts
 buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc
 ```
 
-<!-- change: signature-changed old="compareBlocks():" new="compareBlocks(a:ModuleDocBlock,b:ModuleDocBlock):number" -->
+<!-- change: symbol-added name="compareBlocks" kind="function" -->
 ### function: compareBlocks
 ```ts
 compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number
 ```
 
-<!-- change: signature-changed old="normalizeSignature():" new="normalizeSignature(sig:SymbolSignature):string" -->
+<!-- change: symbol-added name="normalizeSignature" kind="function" -->
 ### function: normalizeSignature
 ```ts
 normalizeSignature(sig: SymbolSignature): string
 ```
 
-<!-- change: signature-changed old="parseModuleDoc():" new="parseModuleDoc(content:string):ParsedModuleDoc" -->
+<!-- change: symbol-added name="parseModuleDoc" kind="function" -->
 ### function: parseModuleDoc
 ```ts
 parseModuleDoc(content: string): ParsedModuleDoc
 ```
 
-<!-- change: signature-changed old="parseSignatureFromCode():" new="parseSignatureFromCode(code:string,kind:ParsedSymbol['kind']):SymbolSignature" -->
+<!-- change: symbol-added name="parseSignatureFromCode" kind="function" -->
 ### function: parseSignatureFromCode
 ```ts
 parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature
 ```
 
-<!-- change: signature-changed old="renderModuleDoc():" new="renderModuleDoc(doc:ModuleDoc,filePath:string):string" -->
+<!-- change: symbol-added name="renderModuleDoc" kind="function" -->
 ### function: renderModuleDoc
 ```ts
 renderModuleDoc(doc: ModuleDoc, filePath: string): string
 ```
 
-<!-- change: signature-changed old="signatureChanged():" new="signatureChanged(a:ParsedSymbol,b:ParsedSymbol):boolean" -->
+<!-- change: symbol-added name="signatureChanged" kind="function" -->
 ### function: signatureChanged
 ```ts
 signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean

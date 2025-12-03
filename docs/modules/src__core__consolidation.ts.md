@@ -1,6 +1,6 @@
 # Modul: src/core/consolidation.ts
 
-<!-- change: signature-changed old="DependenciesUnionResult():" new="DependenciesUnionResult(debug:UnionDebugInfo,dependencies:DependencyCacheEntry[]):" -->
+<!-- change: symbol-added name="DependenciesUnionResult" kind="interface" -->
 ### interface: DependenciesUnionResult
 ```ts
 interface DependenciesUnionResult {
@@ -9,7 +9,7 @@ interface DependenciesUnionResult {
 }
 ```
 
-<!-- change: signature-changed old="UnionDebugInfo():" new="UnionDebugInfo(keptFromUnparsed:number,newDeps:number,skippedFromDeleted:number,skippedFromParsed:number):" -->
+<!-- change: symbol-added name="UnionDebugInfo" kind="interface" -->
 ### interface: UnionDebugInfo
 ```ts
 interface UnionDebugInfo {
@@ -20,37 +20,37 @@ interface UnionDebugInfo {
 }
 ```
 
-<!-- change: signature-changed old="buildDependenciesUnion():" new="buildDependenciesUnion(deletedFiles:Set<string>,dependenciesCachePrev:DependencyCacheEntry[],dependenciesNew:ModuleDependency[],parsedFiles:Set<string>):DependencyCacheEntry[]" -->
+<!-- change: symbol-added name="buildDependenciesUnion" kind="function" -->
 ### function: buildDependenciesUnion
 ```ts
 buildDependenciesUnion(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependencyCacheEntry[]
 ```
 
-<!-- change: signature-changed old="buildDependenciesUnionWithDebug():" new="buildDependenciesUnionWithDebug(deletedFiles:Set<string>,dependenciesCachePrev:DependencyCacheEntry[],dependenciesNew:ModuleDependency[],parsedFiles:Set<string>):DependenciesUnionResult" -->
+<!-- change: symbol-added name="buildDependenciesUnionWithDebug" kind="function" -->
 ### function: buildDependenciesUnionWithDebug
 ```ts
 buildDependenciesUnionWithDebug(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependenciesUnionResult
 ```
 
-<!-- change: signature-changed old="buildPreviousDependenciesMap():" new="buildPreviousDependenciesMap(entries:DependencyCacheEntry[]):Map<string, DependencyCacheEntry[]>" -->
+<!-- change: symbol-added name="buildPreviousDependenciesMap" kind="function" -->
 ### function: buildPreviousDependenciesMap
 ```ts
 buildPreviousDependenciesMap(entries: DependencyCacheEntry[]): Map<string, DependencyCacheEntry[]>
 ```
 
-<!-- change: signature-changed old="buildSymbolsUnion():" new="buildSymbolsUnion(deletedFiles:Set<string>,parsedFiles:Set<string>,symbolsNew:ParsedSymbol[],symbolsPrev:ParsedSymbol[]):ParsedSymbol[]" -->
+<!-- change: symbol-added name="buildSymbolsUnion" kind="function" -->
 ### function: buildSymbolsUnion
 ```ts
 buildSymbolsUnion(symbolsNew: ParsedSymbol[], symbolsPrev: ParsedSymbol[], parsedFiles: Set<string>, deletedFiles: Set<string>): ParsedSymbol[]
 ```
 
-<!-- change: signature-changed old="buildUnionMap():" new="buildUnionMap(deletedFiles:Set<string>,depMapPrev:Map<string, DependencyCacheEntry[]>,dependenciesNew:ModuleDependency[],parsedFiles:Set<string>):{ union: Map<string, DependencyCacheEntry[]>, debug: UnionDebugInfo }" -->
+<!-- change: symbol-added name="buildUnionMap" kind="function" -->
 ### function: buildUnionMap
 ```ts
 buildUnionMap(dependenciesNew: ModuleDependency[], depMapPrev: Map<string, DependencyCacheEntry[]>, parsedFiles: Set<string>, deletedFiles: Set<string>): { union: Map<string, DependencyCacheEntry[]>, debug: UnionDebugInfo }
 ```
 
-<!-- change: signature-changed old="deduplicateAndSortDependencies():" new="deduplicateAndSortDependencies(depMap:Map<string, DependencyCacheEntry[]>):DependencyCacheEntry[]" -->
+<!-- change: symbol-added name="deduplicateAndSortDependencies" kind="function" -->
 ### function: deduplicateAndSortDependencies
 ```ts
 deduplicateAndSortDependencies(depMap: Map<string, DependencyCacheEntry[]>): DependencyCacheEntry[]

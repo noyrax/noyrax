@@ -199,9 +199,11 @@ export async function startMcpServer(): Promise<void> {
 // CLI-Modus
 const args = process.argv.slice(2);
 if (args[0] === 'start' || args.length === 0) {
-  startMcpServer().catch((error: unknown) => {
+  try {
+    await startMcpServer();
+  } catch (error: unknown) {
     console.error('Server error:', error);
     process.exit(1);
-  });
+  }
 }
 

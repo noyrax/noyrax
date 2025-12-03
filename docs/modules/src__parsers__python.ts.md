@@ -1,36 +1,36 @@
 # Modul: src/parsers/python.ts
 
-<!-- change: signature-changed old="extractParameters():" new="extractParameters(funcNode:Parser.SyntaxNode,source:string):Array<{ name: string; type?: string; hasDefault?: boolean }>" -->
+<!-- change: symbol-added name="PythonParser" kind="class" -->
 ### class: PythonParser
 ```ts
 class PythonParser
 ```
 
-<!-- change: signature-changed old="extractParameters():" new="extractParameters(funcNode:Parser.SyntaxNode,source:string):Array<{ name: string; type?: string; hasDefault?: boolean }>" -->
+<!-- change: symbol-added name="PythonParser.extractParameters" kind="method" -->
 ### method: PythonParser.extractParameters
 ```ts
 extractParameters(funcNode: Parser.SyntaxNode, source: string): Array<{ name: string; type?: string; hasDefault?: boolean }>
 ```
 
-<!-- change: signature-changed old="getNodeText():" new="getNodeText(childType:string,node:Parser.SyntaxNode,source:string):string | null" -->
+<!-- change: symbol-added name="PythonParser.getNodeText" kind="method" -->
 ### method: PythonParser.getNodeText
 ```ts
 getNodeText(node: Parser.SyntaxNode, childType: string, source: string): string | null
 ```
 
-<!-- change: signature-changed old="parse():" new="parse(fileContent:string,filePath:string):ParsedSymbol[]" -->
+<!-- change: symbol-added name="PythonParser.parse" kind="method" -->
 ### method: PythonParser.parse
 ```ts
 parse(filePath: string, fileContent: string): ParsedSymbol[]
 ```
 
-<!-- change: signature-changed old="language():" new="language():string" -->
+<!-- change: symbol-added name="PythonParser.language" kind="variable" -->
 ### variable: PythonParser.language
 ```ts
 language: string
 ```
 
-<!-- change: signature-changed old="parser():" new="parser():Parser" -->
+<!-- change: symbol-added name="PythonParser.parser" kind="variable" -->
 ### variable: PythonParser.parser
 ```ts
 parser: Parser

@@ -1,12 +1,12 @@
 # Modul: tsconfig.json
 
-<!-- change: signature-changed old="compilerOptions():" new="compilerOptions():object" -->
+<!-- change: symbol-added name="compilerOptions" kind="variable" -->
 ### variable: compilerOptions
 ```ts
 compilerOptions: object
 ```
 
-<!-- change: signature-changed old="exclude():" new="exclude():object" -->
+<!-- change: symbol-added name="exclude" kind="variable" -->
 ### variable: exclude
 ```ts
 exclude: object

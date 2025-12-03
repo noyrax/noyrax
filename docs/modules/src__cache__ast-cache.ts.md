@@ -1,6 +1,6 @@
 # Modul: src/cache/ast-cache.ts
 
-<!-- change: signature-changed old="AstHashCacheData():" new="AstHashCacheData(entries:AstHashEntry[],version:1):" -->
+<!-- change: symbol-added name="AstHashCacheData" kind="interface" -->
 ### interface: AstHashCacheData
 ```ts
 interface AstHashCacheData {
@@ -9,7 +9,7 @@ interface AstHashCacheData {
 }
 ```
 
-<!-- change: signature-changed old="AstHashEntry():" new="AstHashEntry(hash:string,path:string):" -->
+<!-- change: symbol-added name="AstHashEntry" kind="interface" -->
 ### interface: AstHashEntry
 ```ts
 interface AstHashEntry {
@@ -18,19 +18,19 @@ interface AstHashEntry {
 }
 ```
 
-<!-- change: signature-changed old="computeFileHash():" new="computeFileHash(content:string):string" -->
+<!-- change: symbol-added name="computeFileHash" kind="function" -->
 ### function: computeFileHash
 ```ts
 computeFileHash(content: string): string
 ```
 
-<!-- change: signature-changed old="loadAstHashCache():" new="loadAstHashCache(cacheFile:string):AstHashCacheData | null" -->
+<!-- change: symbol-added name="loadAstHashCache" kind="function" -->
 ### function: loadAstHashCache
 ```ts
 loadAstHashCache(cacheFile: string): AstHashCacheData | null
 ```
 
-<!-- change: signature-changed old="saveAstHashCache():" new="saveAstHashCache(cacheDir:string,data:AstHashCacheData):void" -->
+<!-- change: symbol-added name="saveAstHashCache" kind="function" -->
 ### function: saveAstHashCache
 ```ts
 saveAstHashCache(cacheDir: string, data: AstHashCacheData): void

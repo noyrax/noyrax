@@ -1,36 +1,36 @@
 # Modul: src/parsers/json-yaml.ts
 
-<!-- change: signature-changed old="collectFromObject():" new="collectFromObject(lang:string,obj:any,out:ParsedSymbol[],repoRel:string):void" -->
+<!-- change: symbol-added name="JsonYamlParser" kind="class" -->
 ### class: JsonYamlParser
 ```ts
 class JsonYamlParser
 ```
 
-<!-- change: signature-changed old="collectFromObject():" new="collectFromObject(lang:string,obj:any,out:ParsedSymbol[],repoRel:string):void" -->
+<!-- change: symbol-added name="JsonYamlParser.collectFromObject" kind="method" -->
 ### method: JsonYamlParser.collectFromObject
 ```ts
 collectFromObject(obj: any, repoRel: string, out: ParsedSymbol[], lang: string): void
 ```
 
-<!-- change: signature-changed old="extractFrontMatter():" new="extractFrontMatter(content:string):any | null" -->
+<!-- change: symbol-added name="JsonYamlParser.extractFrontMatter" kind="method" -->
 ### method: JsonYamlParser.extractFrontMatter
 ```ts
 extractFrontMatter(content: string): any | null
 ```
 
-<!-- change: signature-changed old="parse():" new="parse(fileContent:string,filePath:string):ParsedSymbol[]" -->
+<!-- change: symbol-added name="JsonYamlParser.parse" kind="method" -->
 ### method: JsonYamlParser.parse
 ```ts
 parse(filePath: string, fileContent: string): ParsedSymbol[]
 ```
 
-<!-- change: signature-changed old="asRepoRel():" new="asRepoRel(p:string):string" -->
+<!-- change: symbol-added name="asRepoRel" kind="function" -->
 ### function: asRepoRel
 ```ts
 asRepoRel(p: string): string
 ```
 
-<!-- change: signature-changed old="language():" new="language():string" -->
+<!-- change: symbol-added name="JsonYamlParser.language" kind="variable" -->
 ### variable: JsonYamlParser.language
 ```ts
 language: string

@@ -1,36 +1,36 @@
 # Modul: website/package.json
 
-<!-- change: signature-changed old="dependencies():" new="dependencies():object" -->
+<!-- change: symbol-added name="dependencies" kind="variable" -->
 ### variable: dependencies
 ```ts
 dependencies: object
 ```
 
-<!-- change: signature-changed old="name():" new="name():string" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: name
 ```ts
 name: string
 ```
 
-<!-- change: signature-changed old="private():" new="private():boolean" -->
+<!-- change: symbol-added name="private" kind="variable" -->
 ### variable: private
 ```ts
 private: boolean
 ```
 
-<!-- change: signature-changed old="scripts():" new="scripts():object" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: scripts
 ```ts
 scripts: object
 ```
 
-<!-- change: signature-changed old="type():" new="type():string" -->
+<!-- change: symbol-added name="type" kind="variable" -->
 ### variable: type
 ```ts
 type: string
 ```
 
-<!-- change: signature-changed old="version():" new="version():string" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: version
 ```ts
 version: string

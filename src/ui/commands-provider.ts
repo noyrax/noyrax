@@ -15,13 +15,13 @@ export class CommandsProvider implements vscode.TreeDataProvider<CommandItem> {
     getChildren(element?: CommandItem): Thenable<CommandItem[]> {
         if (!element) {
             return Promise.resolve([
-                new CommandItem('🔍 System scannen', 'docs.scan', 'Scannt alle Dateien im Workspace'),
-                new CommandItem('📝 Dokumentation generieren', 'docs.generate', 'Erzeugt Markdown-Dokumentation'),
-                new CommandItem('✅ Dokumentation validieren', 'docs.validate', 'Prüft Coverage und Qualität'),
-                new CommandItem('🔎 In Dokumentation suchen', 'docs.search', 'Durchsucht Symbol-Index'),
-                new CommandItem('📂 Dokumentation öffnen', 'docs.open', 'Öffnet generierte Dateien'),
-                new CommandItem('📊 Systemübersicht anzeigen', 'docs.overview', 'Zeigt Abhängigkeitsgraphen'),
-                new CommandItem('🔄 Vollständiger Lauf', 'docs.fullCycle', 'Scan → Generate → Validate'),
+                new CommandItem('🔍 System scannen', 'noyrax.scan', 'Scannt alle Dateien im Workspace'),
+                new CommandItem('📝 Dokumentation generieren', 'noyrax.generate', 'Erzeugt Markdown-Dokumentation'),
+                new CommandItem('✅ Dokumentation validieren', 'noyrax.validate', 'Prüft Coverage und Qualität'),
+                new CommandItem('🔎 In Dokumentation suchen', 'noyrax.search', 'Durchsucht Symbol-Index'),
+                new CommandItem('📂 Dokumentation öffnen', 'noyrax.open', 'Öffnet generierte Dateien'),
+                new CommandItem('📊 Systemübersicht anzeigen', 'noyrax.overview', 'Zeigt Abhängigkeitsgraphen'),
+                new CommandItem('🔄 Vollständiger Lauf', 'noyrax.fullCycle', 'Scan → Generate → Validate'),
             ]);
         }
         return Promise.resolve([]);

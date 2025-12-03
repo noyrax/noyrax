@@ -110,26 +110,38 @@ npm install -g @noyrax/cli
 # Oder als Dev-Dependency
 npm install -D @noyrax/cli
 
-# Projekt initialisieren
+# Projekt für Noyrax vorbereiten (.cursor/rules + mcp.json)
 npx noyrax init
 
-# Dokumentation generieren
-npx noyrax generate
+# Später Rules aktualisieren
+npx noyrax update
 
-# Validieren
-npx noyrax validate
+# Installation prüfen
+npx noyrax info
+
+# Hinweis:
+# Die eigentliche Pipeline (Scan → Generate → Validate)
+# läuft heute über die VS Code Extension bzw. den MCP-Server,
+# nicht direkt über das CLI.
 ```
 
 ### Option 3: Mit AI-Agent (Cursor)
 
 ```bash
-# Agent-Package installieren
-npm install -D @noyrax/agent
+# Cursor Rules & MCP-Konfiguration initialisieren
+npx noyrax init
 
-# Cursor Rules initialisieren
-npx noyrax init --with-rules
+# Projekt in Cursor öffnen
+# - Die .cursor/rules werden automatisch geladen
+# - Der MCP-Server \"doc-validation\" steht zur Verfügung
 
-# MCP-Server wird automatisch konfiguriert
+# In Cursor/VS Code:
+# - Noyrax-Extension installieren
+# - MCP-Tools verwenden:
+#   validation/runScan
+#   validation/runValidate
+#   validation/runDriftCheck
+#   validation/analyzeImpact
 ```
 
 ---
@@ -147,22 +159,14 @@ npx noyrax init --with-rules
 
 ### CLI Commands
 
-```bash
-# Vollständiger Scan
-noyrax scan
+- `npx noyrax init` – Projekt für Noyrax vorbereiten (`.cursor/rules/` + `mcp.json`)
+- `npx noyrax update` – Rules auf die neueste Version bringen
+- `npx noyrax info` – Versionen und enthaltene Rules anzeigen
 
-# Inkrementelle Generierung (nur geänderte Dateien)
-noyrax generate --incremental
-
-# Validierung mit detailliertem Output
-noyrax validate --verbose
-
-# Drift-Check seit letztem Commit
-noyrax drift --since HEAD~1
-
-# Impact-Analyse für eine Datei
-noyrax impact src/core/scanner.ts
-```
+> **Hinweis:** Befehle wie `noyrax scan`, `noyrax generate`, `noyrax validate`, `noyrax drift` oder `noyrax impact`
+> sind in der aktuellen Version noch nicht als CLI-Unterbefehle implementiert.
+> Die entsprechenden Funktionen stehen über die VS Code Extension und die MCP-Tools
+> (`validation/runScan`, `validation/runValidate`, `validation/runDriftCheck`, `validation/analyzeImpact`) zur Verfügung.
 
 ### Konfiguration
 

@@ -20,7 +20,11 @@ website/package-lock.json
 .cursor/
 plans-archive/
 
-# Lokale Demo-/Website-Build-Artefakte (Quellcode bleibt im Repo)
-demo/docs/
-website/.astro/
-website/.vercel/
+# Demo- und Website-Projekte nicht im Kern-Repo versionieren
+demo/
+website/
+
+# Lokale Build-/Analyse-Artefakte
+docs/.cache/
+.scannerwork/
+.coverage/

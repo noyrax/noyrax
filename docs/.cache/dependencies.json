@@ -645,6 +645,104 @@
       ]
     },
     {
+      "from": "src/__tests__/signature-formatter.test.ts",
+      "to": "../core/signature-formatter",
+      "type": "import",
+      "symbols": [
+        "SignatureFormatter"
+      ]
+    },
+    {
+      "from": "src/__tests__/signature-formatter.test.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "../core/consolidation",
+      "type": "import",
+      "symbols": [
+        "buildSymbolsUnion"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "../generator/index",
+      "type": "import",
+      "symbols": [
+        "generatePerFileDocs"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "../index/index",
+      "type": "import",
+      "symbols": [
+        "buildIndexFromSymbols",
+        "writeJsonlIndex"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "os",
+      "type": "import",
+      "symbols": [
+        "* as os"
+      ]
+    },
+    {
+      "from": "src/__tests__/snapshot-doc-generation.test.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/__tests__/symbol-classifier.test.ts",
+      "to": "../core/symbol-classifier",
+      "type": "import",
+      "symbols": [
+        "classifySymbol",
+        "SymbolClassification"
+      ]
+    },
+    {
+      "from": "src/__tests__/symbol-classifier.test.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
       "from": "src/cache/ast-cache.ts",
       "to": "crypto",
       "type": "import",
@@ -811,6 +909,14 @@
       "symbols": [
         "ParsedSymbol",
         "SymbolSignature"
+      ]
+    },
+    {
+      "from": "src/core/symbol-classifier.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
       ]
     },
     {
@@ -1133,6 +1239,22 @@
     },
     {
       "from": "src/generator/module-doc.ts",
+      "to": "../core/signature-formatter",
+      "type": "import",
+      "symbols": [
+        "SignatureFormatter"
+      ]
+    },
+    {
+      "from": "src/generator/module-doc.ts",
+      "to": "../core/symbol-classifier",
+      "type": "import",
+      "symbols": [
+        "classifySymbol"
+      ]
+    },
+    {
+      "from": "src/generator/module-doc.ts",
       "to": "../parsers/types",
       "type": "import",
       "symbols": [
@@ -1161,7 +1283,8 @@
       "to": "../parsers/types",
       "type": "import",
       "symbols": [
-        "ParsedSymbol"
+        "ParsedSymbol",
+        "SymbolSignature"
       ]
     },
     {
@@ -1367,6 +1490,22 @@
       "type": "import",
       "symbols": [
         "* as path"
+      ]
+    },
+    {
+      "from": "src/validator/signature-matching.ts",
+      "to": "../core/signature-formatter",
+      "type": "import",
+      "symbols": [
+        "SignatureFormatter"
+      ]
+    },
+    {
+      "from": "src/validator/signature-matching.ts",
+      "to": "../core/symbol-classifier",
+      "type": "import",
+      "symbols": [
+        "classifySymbol"
       ]
     },
     {

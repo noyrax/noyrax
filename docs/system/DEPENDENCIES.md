@@ -156,6 +156,30 @@
 - `../parsers/json-yaml` (JsonYamlParser)
 - `../parsers/ts-js` (TsJsParser)
 
+## src/__tests__/signature-formatter.test.ts
+
+### Imports
+- `../core/signature-formatter` (SignatureFormatter)
+- `../parsers/types` (ParsedSymbol)
+
+## src/__tests__/snapshot-doc-generation.test.ts
+
+### Imports
+- `../core/consolidation` (buildSymbolsUnion)
+- `../generator/index` (generatePerFileDocs)
+- `../index/index` (buildIndexFromSymbols, writeJsonlIndex)
+- `../parsers/ts-js` (TsJsParser)
+- `../parsers/types` (ParsedSymbol)
+- `fs` (* as fs)
+- `os` (* as os)
+- `path` (* as path)
+
+## src/__tests__/symbol-classifier.test.ts
+
+### Imports
+- `../core/symbol-classifier` (classifySymbol, SymbolClassification)
+- `../parsers/types` (ParsedSymbol)
+
 ## src/cache/ast-cache.ts
 
 ### Imports
@@ -208,6 +232,11 @@
 
 ### Imports
 - `../parsers/types` (ParsedSymbol, SymbolSignature)
+
+## src/core/symbol-classifier.ts
+
+### Imports
+- `../parsers/types` (ParsedSymbol)
 
 ## src/core/symbols.ts
 
@@ -273,6 +302,8 @@
 ## src/generator/module-doc.ts
 
 ### Imports
+- `../core/signature-formatter` (SignatureFormatter)
+- `../core/symbol-classifier` (classifySymbol)
 - `../parsers/types` (ParsedSymbol, SymbolSignature)
 
 ## src/index/index.ts
@@ -280,7 +311,7 @@
 ### Imports
 - `../core/symbols` (makeStableSymbolId)
 - `../parsers/dependencies` (ModuleDependency)
-- `../parsers/types` (ParsedSymbol)
+- `../parsers/types` (ParsedSymbol, SymbolSignature)
 - `fs` (* as fs)
 - `path` (* as path)
 
@@ -337,5 +368,7 @@
 ## src/validator/signature-matching.ts
 
 ### Imports
+- `../core/signature-formatter` (SignatureFormatter)
+- `../core/symbol-classifier` (classifySymbol)
 - `../core/symbols` (computeSignatureHash)
 - `../parsers/types` (ParsedSymbol)

@@ -2,7 +2,7 @@
   "name": "noyrax",
   "displayName": "Noyrax",
   "description": "Documentation that never drifts. Automatische Dokumentationsgenerierung mit Validierung und Drift-Detection.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "noyrax",
   "repository": {
     "type": "git",
@@ -181,6 +181,17 @@
           "type": "boolean",
           "default": false,
           "description": "Show error instead of warning when drift is detected"
+        },
+        "noyrax.apiDoc.depth": {
+          "type": "string",
+          "enum": ["full", "standard", "minimal"],
+          "default": "full",
+          "description": "Depth of generated API documentation for symbols (full | standard | minimal)."
+        },
+        "noyrax.apiDoc.includeInternal": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also generate deep API documentation for internal (non-public) symbols."
         }
       }
     },

@@ -266,14 +266,18 @@ async function generateDocumentationTs() {
                 const lines = fs.readFileSync(indexFile, 'utf8').split(/\r?\n/).filter(Boolean);
                 symbolsPrev = lines.map(l => {
                     try {
-                        const row = JSON.parse(l);
-                        // Rekonstruiere ParsedSymbol aus IndexRow (vereinfacht)
+                        const row = JSON.parse(l) as {
+                            path: string;
+                            kind: ParsedSymbol['kind'];
+                            name: string;
+                            signature?: import('./parsers/types').SymbolSignature;
+                        };
                         return {
                             language: 'unknown', // Index enthält keine Language
                             filePath: row.path,
                             fullyQualifiedName: row.name,
                             kind: row.kind,
-                            signature: { name: row.name, parameters: [], returnType: '', visibility: 'public' as const }
+                            signature: row.signature ?? { name: row.name, parameters: [], returnType: '', visibility: 'public' as const }
                         } as ParsedSymbol;
                     } catch {
                         return null;

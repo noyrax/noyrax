@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ParsedSymbol } from '../parsers/types';
+import { ParsedSymbol, SymbolSignature } from '../parsers/types';
 import { makeStableSymbolId } from '../core/symbols';
 import { ModuleDependency } from '../parsers/dependencies';
 
@@ -9,6 +9,7 @@ export interface IndexRow {
     path: string; // repo-relative source path
     kind: string;
     name: string;
+    signature?: SymbolSignature;
     summary?: string;
     dependencies?: string[]; // imported modules
 }
@@ -33,6 +34,7 @@ export function buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: Mod
         path: s.filePath,
         kind: s.kind,
         name: s.fullyQualifiedName,
+        signature: s.signature,
         dependencies: depsByFile.get(s.filePath),
     }));
 }

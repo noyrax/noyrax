@@ -2,1672 +2,1728 @@
   "version": 1,
   "entries": [
     {
-      "baseId": "json://demo/docguard.config.json#$schema",
-      "signatureHash": "3a5b06d019e51293"
-    },
-    {
-      "baseId": "json://demo/docguard.config.json#exclude",
-      "signatureHash": "e6507e32b37c078b"
-    },
-    {
-      "baseId": "json://demo/docguard.config.json#generation",
-      "signatureHash": "5ac3b01c1dcadeee"
-    },
-    {
-      "baseId": "json://demo/docguard.config.json#include",
-      "signatureHash": "ceed2e0ec7470223"
-    },
-    {
-      "baseId": "json://demo/docguard.config.json#output",
-      "signatureHash": "5a3d818bf161caf5"
-    },
-    {
-      "baseId": "json://demo/docguard.config.json#validation",
-      "signatureHash": "f090c5298b5137f5"
-    },
-    {
-      "baseId": "json://demo/package.json#description",
-      "signatureHash": "b023407ca06c76d0"
-    },
-    {
-      "baseId": "json://demo/package.json#devDependencies",
-      "signatureHash": "5c600ea0136930ac"
-    },
-    {
-      "baseId": "json://demo/package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://demo/package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://demo/package.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://demo/package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://documentation.config.schema.json#$schema",
-      "signatureHash": "3a5b06d019e51293"
-    },
-    {
-      "baseId": "json://documentation.config.schema.json#additionalProperties",
-      "signatureHash": "7fde76926b774155"
-    },
-    {
-      "baseId": "json://documentation.config.schema.json#properties",
-      "signatureHash": "e22bdad86987885e"
-    },
-    {
-      "baseId": "json://documentation.config.schema.json#title",
-      "signatureHash": "7c2e71fc47b0931f"
-    },
-    {
-      "baseId": "json://documentation.config.schema.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://mcp/package.json#author",
+      "baseId": "unknown://action/action.yml#author",
       "signatureHash": "96887f0cd3aceba9"
     },
     {
-      "baseId": "json://mcp/package.json#bin",
-      "signatureHash": "be8e536cefbba867"
-    },
-    {
-      "baseId": "json://mcp/package.json#bugs",
-      "signatureHash": "32f6fe48379ef9dc"
-    },
-    {
-      "baseId": "json://mcp/package.json#dependencies",
-      "signatureHash": "426fc6696dafd097"
-    },
-    {
-      "baseId": "json://mcp/package.json#description",
-      "signatureHash": "b023407ca06c76d0"
-    },
-    {
-      "baseId": "json://mcp/package.json#devDependencies",
-      "signatureHash": "5c600ea0136930ac"
-    },
-    {
-      "baseId": "json://mcp/package.json#engines",
-      "signatureHash": "1488aa427d0291f2"
-    },
-    {
-      "baseId": "json://mcp/package.json#homepage",
-      "signatureHash": "97626245bb537780"
-    },
-    {
-      "baseId": "json://mcp/package.json#keywords",
-      "signatureHash": "01f0f50d85537286"
-    },
-    {
-      "baseId": "json://mcp/package.json#license",
-      "signatureHash": "890f06ad4d853359"
-    },
-    {
-      "baseId": "json://mcp/package.json#main",
-      "signatureHash": "24101cf9689db7b2"
-    },
-    {
-      "baseId": "json://mcp/package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://mcp/package.json#repository",
-      "signatureHash": "3ea8d4ebf245b7d1"
-    },
-    {
-      "baseId": "json://mcp/package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://mcp/package.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://mcp/package.json#types",
-      "signatureHash": "d9cba02506adc640"
-    },
-    {
-      "baseId": "json://mcp/package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://mcp/tsconfig.json#compilerOptions",
-      "signatureHash": "23ac1b44264744c9"
-    },
-    {
-      "baseId": "json://mcp/tsconfig.json#exclude",
-      "signatureHash": "e6507e32b37c078b"
-    },
-    {
-      "baseId": "json://mcp/tsconfig.json#include",
-      "signatureHash": "ceed2e0ec7470223"
-    },
-    {
-      "baseId": "json://package.json#activationEvents",
-      "signatureHash": "4c5882e55e032dcb"
-    },
-    {
-      "baseId": "json://package.json#bugs",
-      "signatureHash": "32f6fe48379ef9dc"
-    },
-    {
-      "baseId": "json://package.json#categories",
-      "signatureHash": "374eb7a3790070cf"
-    },
-    {
-      "baseId": "json://package.json#contributes",
-      "signatureHash": "bee3b9d351298669"
-    },
-    {
-      "baseId": "json://package.json#dependencies",
-      "signatureHash": "426fc6696dafd097"
-    },
-    {
-      "baseId": "json://package.json#description",
-      "signatureHash": "b023407ca06c76d0"
-    },
-    {
-      "baseId": "json://package.json#devDependencies",
-      "signatureHash": "5c600ea0136930ac"
-    },
-    {
-      "baseId": "json://package.json#displayName",
-      "signatureHash": "30ada3e166821f72"
-    },
-    {
-      "baseId": "json://package.json#engines",
-      "signatureHash": "1488aa427d0291f2"
-    },
-    {
-      "baseId": "json://package.json#homepage",
-      "signatureHash": "97626245bb537780"
-    },
-    {
-      "baseId": "json://package.json#keywords",
-      "signatureHash": "01f0f50d85537286"
-    },
-    {
-      "baseId": "json://package.json#main",
-      "signatureHash": "24101cf9689db7b2"
-    },
-    {
-      "baseId": "json://package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://package.json#publisher",
-      "signatureHash": "310930f0dfb9c0b6"
-    },
-    {
-      "baseId": "json://package.json#repository",
-      "signatureHash": "3ea8d4ebf245b7d1"
-    },
-    {
-      "baseId": "json://package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#description",
-      "signatureHash": "b023407ca06c76d0"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#devDependencies",
-      "signatureHash": "5c600ea0136930ac"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/examples/basic-project/package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#author",
-      "signatureHash": "96887f0cd3aceba9"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#bin",
-      "signatureHash": "be8e536cefbba867"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#bugs",
-      "signatureHash": "32f6fe48379ef9dc"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#dependencies",
-      "signatureHash": "426fc6696dafd097"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#description",
-      "signatureHash": "b023407ca06c76d0"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#devDependencies",
-      "signatureHash": "5c600ea0136930ac"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#engines",
-      "signatureHash": "1488aa427d0291f2"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#exports",
-      "signatureHash": "70df3a64219c0690"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#files",
-      "signatureHash": "661d01f81be3a993"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#funding",
-      "signatureHash": "79f41e62e834f6ee"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#homepage",
-      "signatureHash": "97626245bb537780"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#keywords",
-      "signatureHash": "01f0f50d85537286"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#license",
-      "signatureHash": "890f06ad4d853359"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#main",
-      "signatureHash": "24101cf9689db7b2"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#repository",
-      "signatureHash": "3ea8d4ebf245b7d1"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#types",
-      "signatureHash": "d9cba02506adc640"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/tsconfig.json#compilerOptions",
-      "signatureHash": "23ac1b44264744c9"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/tsconfig.json#exclude",
-      "signatureHash": "e6507e32b37c078b"
-    },
-    {
-      "baseId": "json://packages/doc-system-agent/tsconfig.json#include",
-      "signatureHash": "ceed2e0ec7470223"
-    },
-    {
-      "baseId": "json://tsconfig.json#compilerOptions",
-      "signatureHash": "23ac1b44264744c9"
-    },
-    {
-      "baseId": "json://tsconfig.json#exclude",
-      "signatureHash": "e6507e32b37c078b"
-    },
-    {
-      "baseId": "json://website/package.json#dependencies",
-      "signatureHash": "426fc6696dafd097"
-    },
-    {
-      "baseId": "json://website/package.json#name",
-      "signatureHash": "839dd08a16863e54"
-    },
-    {
-      "baseId": "json://website/package.json#private",
-      "signatureHash": "d09eb6bd053db5e3"
-    },
-    {
-      "baseId": "json://website/package.json#scripts",
-      "signatureHash": "7b9e9346e8c10e4d"
-    },
-    {
-      "baseId": "json://website/package.json#type",
-      "signatureHash": "f8ca4f8c31ca9b6e"
-    },
-    {
-      "baseId": "json://website/package.json#version",
-      "signatureHash": "323c7ea46033e806"
-    },
-    {
-      "baseId": "json://website/tsconfig.json#compilerOptions",
-      "signatureHash": "23ac1b44264744c9"
-    },
-    {
-      "baseId": "json://website/tsconfig.json#extends",
-      "signatureHash": "4540b22503b6dc08"
-    },
-    {
-      "baseId": "json://website/vercel.json#buildCommand",
-      "signatureHash": "8ce0cfe4135e0959"
-    },
-    {
-      "baseId": "json://website/vercel.json#framework",
-      "signatureHash": "92ec5bd33737f868"
-    },
-    {
-      "baseId": "json://website/vercel.json#installCommand",
-      "signatureHash": "fe3613e48a89e7de"
-    },
-    {
-      "baseId": "json://website/vercel.json#outputDirectory",
-      "signatureHash": "8e8d77d726b74850"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator",
-      "signatureHash": "0d63741e516c683f"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.add",
-      "signatureHash": "e9a717c5116f4194"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.clearHistory",
-      "signatureHash": "d1ffc83efb1ca9a6"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.createResult",
-      "signatureHash": "93a0f287d31f1950"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.divide",
-      "signatureHash": "94ab9f1f3acd5525"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.getHistory",
-      "signatureHash": "ef61c92e110e9a77"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.history",
-      "signatureHash": "16ccafdb16085c38"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.multiply",
-      "signatureHash": "bdc778c69be6855a"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#Calculator.subtract",
-      "signatureHash": "147e3c72e49e0895"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#factorial",
-      "signatureHash": "a205db7c7371e875"
-    },
-    {
-      "baseId": "ts://demo/src/calculator.ts#fibonacci",
-      "signatureHash": "95ba1e907b72a136"
-    },
-    {
-      "baseId": "ts://demo/src/types.ts#AppError",
-      "signatureHash": "7112d281dfaf3805"
-    },
-    {
-      "baseId": "ts://demo/src/types.ts#CalculationResult",
-      "signatureHash": "c4fb76601cf10f34"
-    },
-    {
-      "baseId": "ts://demo/src/types.ts#User",
-      "signatureHash": "588919c1c2482e0d"
-    },
-    {
-      "baseId": "ts://demo/src/types.ts#UserQueryOptions",
-      "signatureHash": "728acda6fe65f6b6"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#formatUserDisplay",
-      "signatureHash": "aa584881f693c78c"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#isValidEmail",
-      "signatureHash": "b4689f0ad1fa7cbe"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService",
-      "signatureHash": "dd392d841764fa9a"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.cache",
-      "signatureHash": "d9ca3dd5b571f9f7"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.createUser",
-      "signatureHash": "cd93d0898dbbcd6a"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.deactivateUser",
-      "signatureHash": "cbe19af6f1dcb255"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.generateId",
-      "signatureHash": "f9121d2ebc1514ad"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.getUserById",
-      "signatureHash": "7e5d3ab856cab59a"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.listUsers",
-      "signatureHash": "6490130d549442bc"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.logger",
-      "signatureHash": "5e2600cf938d2c25"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.updateUser",
-      "signatureHash": "f9d188d744583407"
-    },
-    {
-      "baseId": "ts://demo/src/user-service.ts#UserService.users",
-      "signatureHash": "c19e68128ad38bf2"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#DOCS_BASE",
-      "signatureHash": "4805c2e1350bb67d"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#getSystemFilePath",
-      "signatureHash": "c14ea731b19010ef"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#listADRs",
-      "signatureHash": "874488013ea72d4a"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#listModuleDocs",
-      "signatureHash": "23ab127ffd9a8745"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#parseDocsUri",
-      "signatureHash": "f68effe019747241"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#ParsedUri",
-      "signatureHash": "d3a8f0bf8fee973f"
-    },
-    {
-      "baseId": "ts://mcp/src/resources/docs.ts#readDocsResource",
-      "signatureHash": "c11bf9e82260b51c"
-    },
-    {
-      "baseId": "ts://mcp/src/server.ts#server",
-      "signatureHash": "ad4e2f6519ca7c04"
-    },
-    {
-      "baseId": "ts://mcp/src/server.ts#transport",
-      "signatureHash": "632549d702feac8f"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#DriftItem",
-      "signatureHash": "be3425bb69fa7aa6"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#DriftRequest",
-      "signatureHash": "9221ce1de55a076c"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#DriftResponse",
-      "signatureHash": "795a92b053d0e7bb"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#getDocPath",
-      "signatureHash": "45b871e0a479305c"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/drift.ts#runDriftCheck",
-      "signatureHash": "c631ac3fe2622945"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#analyzeImpact",
-      "signatureHash": "8ed9e84db1a4b382"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#buildDependencyMap",
-      "signatureHash": "efacdaa520e95a60"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#calculateImpact",
-      "signatureHash": "5c2fe0a3f30995b6"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#ImpactRequest",
-      "signatureHash": "a523e0dac5808ae9"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#ImpactResponse",
-      "signatureHash": "0d2ed749e2a7e1f3"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/impact.ts#SymbolEntry",
-      "signatureHash": "3ed94a20c10d2f59"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/scan.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/scan.ts#runScan",
-      "signatureHash": "7d92605f2f606bbe"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/scan.ts#ScanRequest",
-      "signatureHash": "4ac7b0952a38a2b6"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/scan.ts#ScanResponse",
-      "signatureHash": "c5a04eab7c607d47"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/validate.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/validate.ts#runValidate",
-      "signatureHash": "49ca05845d053046"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/validate.ts#ValidateRequest",
-      "signatureHash": "0d74e13bca2e9be0"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/validate.ts#ValidateResponse",
-      "signatureHash": "8abdd5687e94edfb"
-    },
-    {
-      "baseId": "ts://mcp/src/tools/validate.ts#ValidationError",
-      "signatureHash": "516f6ca521e91d87"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/examples/basic-project/src/calculator.ts#add",
-      "signatureHash": "db9774c08f50c05b"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/examples/basic-project/src/calculator.ts#divide",
-      "signatureHash": "714dc8291467636a"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/examples/basic-project/src/calculator.ts#multiply",
-      "signatureHash": "8d591c8f188e9949"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/examples/basic-project/src/calculator.ts#power",
-      "signatureHash": "c7ad4d252019796f"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/examples/basic-project/src/calculator.ts#subtract",
-      "signatureHash": "36c95b0965df9db0"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/index.ts#program",
-      "signatureHash": "2df81a9db11b15a6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#__dirname",
-      "signatureHash": "e299a297acedcc45"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#fileExists",
-      "signatureHash": "703102d9716fbdc1"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#InitOptions",
-      "signatureHash": "960af4ed4bd25ace"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#initProject",
-      "signatureHash": "78466091b5324bfa"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#InitResult",
-      "signatureHash": "f27212d78e287210"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#__dirname",
-      "signatureHash": "e299a297acedcc45"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#fileExists",
-      "signatureHash": "703102d9716fbdc1"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#RulesVersion",
-      "signatureHash": "e39706b9cb6be07d"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#UpdateOptions",
-      "signatureHash": "cedd7386e1218935"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#UpdateResult",
-      "signatureHash": "5fecf0488611dab6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#updateRules",
-      "signatureHash": "f5e10245aa3453ca"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/constants.ts#MCP_CONFIG",
-      "signatureHash": "cd94d8b16d15c3fa"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/constants.ts#PACKAGE_VERSION",
-      "signatureHash": "29d29466999a14da"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/constants.ts#RULE_FILES",
-      "signatureHash": "9318b2237d081a81"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/constants.ts#RULES_VERSION",
-      "signatureHash": "60c0bc7100d53d05"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#DriftRequest",
-      "signatureHash": "dd248f124c1741d4"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#DriftResponse",
-      "signatureHash": "db7d30ef36282d9e"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ImpactRequest",
-      "signatureHash": "bdd309c72f5d6a80"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ImpactResponse",
-      "signatureHash": "19e70465c5c5c352"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#InitOptions",
-      "signatureHash": "c5199c11df1be3a1"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#initProject",
-      "signatureHash": "48174ed6eb0afd92"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#PACKAGE_VERSION",
-      "signatureHash": "55d3965c7d05d8a1"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:DriftRequestfrom:./mcp/types.js",
-      "signatureHash": "c6f2f2d7128ca412"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:DriftResponsefrom:./mcp/types.js",
-      "signatureHash": "f446153b33f2d10d"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ImpactRequestfrom:./mcp/types.js",
-      "signatureHash": "1d651030c81d0f80"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ImpactResponsefrom:./mcp/types.js",
-      "signatureHash": "ddb494aefb7c6e08"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:InitOptionsfrom:./cli/init.js",
-      "signatureHash": "609fc05d4fb12474"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:initProjectfrom:./cli/init.js",
-      "signatureHash": "468089fe91e8dcc0"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:PACKAGE_VERSIONfrom:./constants.js",
-      "signatureHash": "cff98d73760d2b8b"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:RULES_VERSIONfrom:./constants.js",
-      "signatureHash": "9364bca291fe36d0"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ScanRequestfrom:./mcp/types.js",
-      "signatureHash": "83f00ad7771c6b3a"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ScanResponsefrom:./mcp/types.js",
-      "signatureHash": "174e57a5fe1c560c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:startMcpServerfrom:./mcp/server.js",
-      "signatureHash": "045abf8ca91e5705"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:UpdateOptionsfrom:./cli/update.js",
-      "signatureHash": "2af29f2dcd3092d0"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:updateRulesfrom:./cli/update.js",
-      "signatureHash": "2ce4415c7718674b"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ValidateRequestfrom:./mcp/types.js",
-      "signatureHash": "371be5111c2c571c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#reexport:ValidateResponsefrom:./mcp/types.js",
-      "signatureHash": "5bc7b0d0dd21e690"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#RULES_VERSION",
-      "signatureHash": "c9f93589410ff349"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ScanRequest",
-      "signatureHash": "5f32d8f817bf07e6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ScanResponse",
-      "signatureHash": "1520bdac06235a3c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#startMcpServer",
-      "signatureHash": "3a401ecbebfd05d7"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#UpdateOptions",
-      "signatureHash": "491b2529e1de89fc"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#updateRules",
-      "signatureHash": "956ff900cf76e02c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ValidateRequest",
-      "signatureHash": "3a24a3bdb8ed1e0c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/index.ts#ValidateResponse",
-      "signatureHash": "f8f5a031912079ee"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#DOCS_BASE",
-      "signatureHash": "4805c2e1350bb67d"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#getSystemFilePath",
-      "signatureHash": "c14ea731b19010ef"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#listADRs",
-      "signatureHash": "874488013ea72d4a"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#listModuleDocs",
-      "signatureHash": "23ab127ffd9a8745"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#parseDocsUri",
-      "signatureHash": "f68effe019747241"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#ParsedUri",
-      "signatureHash": "d3a8f0bf8fee973f"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#readDocsResource",
-      "signatureHash": "c11bf9e82260b51c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/server.ts#args",
-      "signatureHash": "360f54b83677608c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/server.ts#startMcpServer",
-      "signatureHash": "9cf346f6e4019820"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#getDocPath",
-      "signatureHash": "45b871e0a479305c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#runDriftCheck",
-      "signatureHash": "c631ac3fe2622945"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#analyzeImpact",
-      "signatureHash": "8ed9e84db1a4b382"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#buildDependencyMap",
-      "signatureHash": "efacdaa520e95a60"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#calculateImpact",
-      "signatureHash": "5c2fe0a3f30995b6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#SymbolEntry",
-      "signatureHash": "3ed94a20c10d2f59"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/scan.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/scan.ts#runScan",
-      "signatureHash": "7d92605f2f606bbe"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/validate.ts#execAsync",
-      "signatureHash": "5a1967e92e4655aa"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/tools/validate.ts#runValidate",
-      "signatureHash": "49ca05845d053046"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#DriftItem",
-      "signatureHash": "be3425bb69fa7aa6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#DriftRequest",
-      "signatureHash": "9221ce1de55a076c"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#DriftResponse",
-      "signatureHash": "795a92b053d0e7bb"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ImpactRequest",
-      "signatureHash": "a523e0dac5808ae9"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ImpactResponse",
-      "signatureHash": "0d2ed749e2a7e1f3"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ScanRequest",
-      "signatureHash": "4ac7b0952a38a2b6"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ScanResponse",
-      "signatureHash": "c5a04eab7c607d47"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ValidateRequest",
-      "signatureHash": "0d74e13bca2e9be0"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ValidateResponse",
-      "signatureHash": "8abdd5687e94edfb"
-    },
-    {
-      "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ValidationError",
-      "signatureHash": "516f6ca521e91d87"
-    },
-    {
-      "baseId": "ts://src/__tests__/setup.ts#mockDate",
-      "signatureHash": "468ff0f269335657"
-    },
-    {
-      "baseId": "ts://src/cache/ast-cache.ts#AstHashCacheData",
-      "signatureHash": "48fc86373fb35392"
-    },
-    {
-      "baseId": "ts://src/cache/ast-cache.ts#AstHashEntry",
-      "signatureHash": "e5c0f16f70e65f0e"
-    },
-    {
-      "baseId": "ts://src/cache/ast-cache.ts#computeFileHash",
-      "signatureHash": "8bbaa9298cb2993f"
-    },
-    {
-      "baseId": "ts://src/cache/ast-cache.ts#loadAstHashCache",
-      "signatureHash": "65fd814f9788fc69"
-    },
-    {
-      "baseId": "ts://src/cache/ast-cache.ts#saveAstHashCache",
-      "signatureHash": "5522cf44784183a1"
-    },
-    {
-      "baseId": "ts://src/cache/dependencies-cache.ts#DependenciesCacheData",
-      "signatureHash": "2d12b4bb1facd95c"
-    },
-    {
-      "baseId": "ts://src/cache/dependencies-cache.ts#DependencyCacheEntry",
-      "signatureHash": "7c52a7d32c803c10"
-    },
-    {
-      "baseId": "ts://src/cache/dependencies-cache.ts#loadDependenciesCache",
-      "signatureHash": "ae7d8be9a8fb510d"
-    },
-    {
-      "baseId": "ts://src/cache/dependencies-cache.ts#saveDependenciesCache",
-      "signatureHash": "4e68b940005b9872"
-    },
-    {
-      "baseId": "ts://src/cache/output-cache.ts#computeContentHash",
-      "signatureHash": "39a87c438e3a6e36"
-    },
-    {
-      "baseId": "ts://src/cache/output-cache.ts#loadOutputHashCache",
-      "signatureHash": "9dd876c7a99d7652"
-    },
-    {
-      "baseId": "ts://src/cache/output-cache.ts#OutputHashCacheData",
-      "signatureHash": "8cd8b78e399503cd"
-    },
-    {
-      "baseId": "ts://src/cache/output-cache.ts#OutputHashEntry",
-      "signatureHash": "2aae52531e0f45e8"
-    },
-    {
-      "baseId": "ts://src/cache/output-cache.ts#saveOutputHashCache",
-      "signatureHash": "1dd907484c392c3a"
-    },
-    {
-      "baseId": "ts://src/cache/signature-cache.ts#CacheEntry",
-      "signatureHash": "c0f796eb7d6ed1e4"
-    },
-    {
-      "baseId": "ts://src/cache/signature-cache.ts#loadSignatureCache",
-      "signatureHash": "9616e1ee0da18d60"
-    },
-    {
-      "baseId": "ts://src/cache/signature-cache.ts#saveSignatureCache",
-      "signatureHash": "fbd515cceecd5369"
-    },
-    {
-      "baseId": "ts://src/cache/signature-cache.ts#SignatureCacheData",
-      "signatureHash": "bcbf964f35c7324b"
-    },
-    {
-      "baseId": "ts://src/core/async.ts#mapLimit",
-      "signatureHash": "081fe0829d6bd19f"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#buildDependenciesUnion",
-      "signatureHash": "b25a11b6f40be66b"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#buildDependenciesUnionWithDebug",
-      "signatureHash": "22453101c66906cb"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#buildPreviousDependenciesMap",
-      "signatureHash": "7c9137e906385a0c"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#buildSymbolsUnion",
-      "signatureHash": "2654dcfcd833ff74"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#buildUnionMap",
-      "signatureHash": "cf370a0bd578a59a"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#deduplicateAndSortDependencies",
-      "signatureHash": "3f5c64e09d011452"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#DependenciesUnionResult",
-      "signatureHash": "2a7b416e53ae2ed3"
-    },
-    {
-      "baseId": "ts://src/core/consolidation.ts#UnionDebugInfo",
-      "signatureHash": "4dce643aa7150b3f"
-    },
-    {
-      "baseId": "ts://src/core/git.ts#getChangedFiles",
-      "signatureHash": "22d4e5b0655b6c40"
-    },
-    {
-      "baseId": "ts://src/core/git.ts#getDeletedFiles",
-      "signatureHash": "4223fc1339202919"
-    },
-    {
-      "baseId": "ts://src/core/language-detection.ts#guessLanguageByShebang",
-      "signatureHash": "5fd198b9b415b4b7"
-    },
-    {
-      "baseId": "ts://src/core/language-detection.ts#normalizeLineEndings",
-      "signatureHash": "043e1e42ee13a3f0"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#BACKUP_DIR_NAMES",
-      "signatureHash": "fb710c1220c8e022"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#BACKUP_FILE_SUFFIXES",
-      "signatureHash": "a3b58fe5e8ff494e"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#DEFAULT_EXCLUDES",
-      "signatureHash": "fc6b6e046d36b3dd"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#ScannedFile",
-      "signatureHash": "7c102c616459a20a"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#ScanOptions",
-      "signatureHash": "d2d336b1afc58b23"
-    },
-    {
-      "baseId": "ts://src/core/scanner.ts#scanWorkspace",
-      "signatureHash": "606c9426b4f0d06a"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#CompareOptions",
-      "signatureHash": "16ee910574481193"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#CompareResult",
-      "signatureHash": "1086269ec56947d1"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter",
-      "signatureHash": "03fae82f2c10b6af"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.compare",
-      "signatureHash": "a426569ee58d9e9e"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatForDoc",
-      "signatureHash": "50eb060d3f9e0365"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatFunctionOrMethod",
-      "signatureHash": "8aa5dc0557c80601"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatFunctionParameter",
-      "signatureHash": "b0d16b209454e708"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatInterface",
-      "signatureHash": "c77030342d175786"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatInterfaceProperty",
-      "signatureHash": "788d99bf63b6e3cb"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatVariable",
-      "signatureHash": "d154b97f54ac17f7"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.isGenericTypeSimplification",
-      "signatureHash": "1cc57383741aa9b2"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.isOptionalFieldCompatible",
-      "signatureHash": "b2582e19de1bf763"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.normalize",
-      "signatureHash": "c2d02bf01ecf05bb"
-    },
-    {
-      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.normalizeSignature",
-      "signatureHash": "19b6c6498a0ac18b"
-    },
-    {
-      "baseId": "ts://src/core/symbols.ts#computeSignatureHash",
-      "signatureHash": "df33bb64ce8f8940"
-    },
-    {
-      "baseId": "ts://src/core/symbols.ts#makeStableSymbolId",
-      "signatureHash": "9dc21ededa1f99ef"
-    },
-    {
-      "baseId": "ts://src/drift/index.ts#computeCacheEntries",
-      "signatureHash": "13c4fa1ad7ca1a86"
-    },
-    {
-      "baseId": "ts://src/drift/index.ts#detectDrift",
-      "signatureHash": "0d3cac0345dceb56"
-    },
-    {
-      "baseId": "ts://src/drift/index.ts#DriftResult",
-      "signatureHash": "dc2c759de8b79f11"
-    },
-    {
-      "baseId": "ts://src/extension.ts#activate",
-      "signatureHash": "f93629ec84e52398"
-    },
-    {
-      "baseId": "ts://src/extension.ts#checkDriftTs",
-      "signatureHash": "187384a4a55c20da"
-    },
-    {
-      "baseId": "ts://src/extension.ts#deactivate",
-      "signatureHash": "ce7129845f6ef766"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationItem",
-      "signatureHash": "a914717b43f1f1b1"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider",
-      "signatureHash": "51b2d950464e0095"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider._onDidChangeTreeData",
-      "signatureHash": "b5ec19ba34cc6c7e"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider.getChildren",
-      "signatureHash": "d42923bc1503f9b8"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider.getDocumentationFiles",
-      "signatureHash": "a92f6162c94efc1f"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider.getTreeItem",
-      "signatureHash": "a7ca4affa17aa1e1"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider.onDidChangeTreeData",
-      "signatureHash": "fca4431b3c64c422"
-    },
-    {
-      "baseId": "ts://src/extension.ts#DocumentationProvider.refresh",
-      "signatureHash": "a07983b4817333ec"
-    },
-    {
-      "baseId": "ts://src/extension.ts#escapeHtml",
-      "signatureHash": "e68842432a67f079"
-    },
-    {
-      "baseId": "ts://src/extension.ts#findSourceDirectories",
-      "signatureHash": "59e0bcb8d4a08662"
-    },
-    {
-      "baseId": "ts://src/extension.ts#generateDocumentationTs",
-      "signatureHash": "cb193fd07c44a24a"
-    },
-    {
-      "baseId": "ts://src/extension.ts#getConfig",
-      "signatureHash": "37dda7739c698bd2"
-    },
-    {
-      "baseId": "ts://src/extension.ts#globalOutput",
-      "signatureHash": "7c6036f666b77880"
-    },
-    {
-      "baseId": "ts://src/extension.ts#globalStatusBar",
-      "signatureHash": "e20f3896cee8f951"
-    },
-    {
-      "baseId": "ts://src/extension.ts#loadEnv",
-      "signatureHash": "ff97963bd19f618f"
-    },
-    {
-      "baseId": "ts://src/extension.ts#openDocumentationFile",
-      "signatureHash": "e8758dd86d64391b"
-    },
-    {
-      "baseId": "ts://src/extension.ts#registerCommand",
-      "signatureHash": "95785ed9bb6223d5"
-    },
-    {
-      "baseId": "ts://src/extension.ts#scanSystemTs",
-      "signatureHash": "4cd083705e430adb"
-    },
-    {
-      "baseId": "ts://src/extension.ts#searchDocumentation",
-      "signatureHash": "3a759a80c6fa1d50"
-    },
-    {
-      "baseId": "ts://src/extension.ts#SearchResult",
-      "signatureHash": "2c5dc25e2e4d6c2d"
-    },
-    {
-      "baseId": "ts://src/extension.ts#showSearchResults",
-      "signatureHash": "162939aa5b913e8c"
-    },
-    {
-      "baseId": "ts://src/extension.ts#showSystemOverview",
-      "signatureHash": "7c9f7f63ab41bc72"
-    },
-    {
-      "baseId": "ts://src/extension.ts#showValidationResults",
-      "signatureHash": "225b8332b62d3883"
-    },
-    {
-      "baseId": "ts://src/extension.ts#syncDocumentation",
-      "signatureHash": "1acc8fe768feb55d"
-    },
-    {
-      "baseId": "ts://src/extension.ts#validateDocumentationTs",
-      "signatureHash": "464d7ca8123d6b8a"
-    },
-    {
-      "baseId": "ts://src/extension.ts#ValidationResult",
-      "signatureHash": "781ea5d761a9bb92"
-    },
-    {
-      "baseId": "ts://src/generator/change-report.ts#ChangeData",
-      "signatureHash": "e9758f62344fb723"
-    },
-    {
-      "baseId": "ts://src/generator/change-report.ts#extractChangesFromModuleDocs",
-      "signatureHash": "d47563b84ae09a92"
-    },
-    {
-      "baseId": "ts://src/generator/change-report.ts#generateChangeReport",
-      "signatureHash": "65235a6a7052deba"
-    },
-    {
-      "baseId": "ts://src/generator/dependency-graph.ts#appendDependencySection",
-      "signatureHash": "0a0e5aa00775aca4"
-    },
-    {
-      "baseId": "ts://src/generator/dependency-graph.ts#generateDependencyOverview",
-      "signatureHash": "45556c1fd48c7c5a"
-    },
-    {
-      "baseId": "ts://src/generator/dependency-graph.ts#generateMermaidGraph",
-      "signatureHash": "8d456bec91d98bba"
-    },
-    {
-      "baseId": "ts://src/generator/dependency-graph.ts#groupDependenciesByFrom",
-      "signatureHash": "7712255566aa3cb6"
-    },
-    {
-      "baseId": "ts://src/generator/index.ts#generatePerFileDocs",
-      "signatureHash": "7896bf436e864bf4"
-    },
-    {
-      "baseId": "ts://src/generator/index.ts#makeSafeFileName",
-      "signatureHash": "3625474f8dbf7635"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#buildModuleDocWithChanges",
-      "signatureHash": "a77408e193f866b3"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#compareBlocks",
-      "signatureHash": "c3effe4379058062"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#ModuleDoc",
-      "signatureHash": "b39e1dda4040c673"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#ModuleDocBlock",
-      "signatureHash": "a6604056434875cb"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#normalizeSignature",
-      "signatureHash": "19b6c6498a0ac18b"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#ParsedBlock",
-      "signatureHash": "c147ac618975b6d0"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#ParsedModuleDoc",
-      "signatureHash": "ba2e606c066e97c6"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#parseModuleDoc",
-      "signatureHash": "a4cc698140f7e143"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#parseSignatureFromCode",
-      "signatureHash": "370c2c022ce517a0"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#renderModuleDoc",
-      "signatureHash": "4b110cf883155046"
-    },
-    {
-      "baseId": "ts://src/generator/module-doc.ts#signatureChanged",
-      "signatureHash": "a6250a01572408c0"
-    },
-    {
-      "baseId": "ts://src/index/index.ts#buildIndexFromSymbols",
-      "signatureHash": "da5f5cdf52240c12"
-    },
-    {
-      "baseId": "ts://src/index/index.ts#IndexRow",
-      "signatureHash": "f389af63ea6e8de8"
-    },
-    {
-      "baseId": "ts://src/index/index.ts#writeJsonlIndex",
-      "signatureHash": "e95bdd53c0d4b6f8"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#Logger",
-      "signatureHash": "9488bef7fafa5b6a"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#Logger.component",
-      "signatureHash": "9e6f79a86de8723f"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#Logger.error",
-      "signatureHash": "fc1647dd220a98fe"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#Logger.info",
-      "signatureHash": "b33e5f4587135ffe"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#Logger.warn",
-      "signatureHash": "79328438a6d9cad2"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#LoggerOptions",
-      "signatureHash": "584eb8ecb88790d7"
-    },
-    {
-      "baseId": "ts://src/logging/index.ts#LogLevel",
-      "signatureHash": "59f6c109dbf39318"
-    },
-    {
-      "baseId": "ts://src/parsers/dependencies.ts#extractPythonDependencies",
-      "signatureHash": "6139e6bbbd854d17"
-    },
-    {
-      "baseId": "ts://src/parsers/dependencies.ts#extractTsJsDependencies",
-      "signatureHash": "6af4b8f0b0dd1059"
-    },
-    {
-      "baseId": "ts://src/parsers/dependencies.ts#ModuleDependency",
-      "signatureHash": "e8a0d51d5d94ddf0"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#asRepoRel",
-      "signatureHash": "b4257ebe440ba31b"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser",
-      "signatureHash": "10445888500045e7"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser.collectFromObject",
-      "signatureHash": "124af879908e810f"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser.extractFrontMatter",
-      "signatureHash": "1c5c9aa31d00ce0a"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser.language",
-      "signatureHash": "1377df0dffb38b51"
-    },
-    {
-      "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser.parse",
-      "signatureHash": "7fb4e4727025247b"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser",
-      "signatureHash": "c5d2691e0c981247"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser.extractParameters",
-      "signatureHash": "b95dc15d0d88c9c5"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser.getNodeText",
-      "signatureHash": "dd0e0aa04d04a350"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser.language",
-      "signatureHash": "1377df0dffb38b51"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser.parse",
-      "signatureHash": "7fb4e4727025247b"
-    },
-    {
-      "baseId": "ts://src/parsers/python.ts#PythonParser.parser",
-      "signatureHash": "2068694a576334a4"
-    },
-    {
-      "baseId": "ts://src/parsers/ts-js.ts#TsJsParser",
-      "signatureHash": "dd8a24b11c830c3b"
-    },
-    {
-      "baseId": "ts://src/parsers/ts-js.ts#TsJsParser.language",
-      "signatureHash": "1377df0dffb38b51"
-    },
-    {
-      "baseId": "ts://src/parsers/ts-js.ts#TsJsParser.parse",
-      "signatureHash": "7fb4e4727025247b"
-    },
-    {
-      "baseId": "ts://src/parsers/ts-js.ts#TsJsParser.project",
-      "signatureHash": "1a87c27f9d3a392e"
-    },
-    {
-      "baseId": "ts://src/parsers/types.ts#ParsedSymbol",
-      "signatureHash": "57091c0724e2a9d3"
-    },
-    {
-      "baseId": "ts://src/parsers/types.ts#ParserAdapter",
-      "signatureHash": "22a85d5921b70363"
-    },
-    {
-      "baseId": "ts://src/parsers/types.ts#SymbolParameter",
-      "signatureHash": "304e22302d658578"
-    },
-    {
-      "baseId": "ts://src/parsers/types.ts#SymbolSignature",
-      "signatureHash": "098c27e5b6bf5a6b"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandItem",
-      "signatureHash": "95af1dc432ab3cfe"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider",
-      "signatureHash": "7c783b0e33dced45"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider._onDidChangeTreeData",
-      "signatureHash": "979069a898260778"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider.getChildren",
-      "signatureHash": "6b41e14d70844a05"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider.getTreeItem",
-      "signatureHash": "bcd317bde5e58469"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider.onDidChangeTreeData",
-      "signatureHash": "9ca7973e3ccce27e"
-    },
-    {
-      "baseId": "ts://src/ui/commands-provider.ts#CommandsProvider.refresh",
-      "signatureHash": "a07983b4817333ec"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager",
-      "signatureHash": "9309c3cd085c51bc"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.generateButton",
-      "signatureHash": "4ded3b3895280ca9"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.hideProgress",
-      "signatureHash": "aea4407be1c357ee"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.scanButton",
-      "signatureHash": "0475033cbf2e8117"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.showProgress",
-      "signatureHash": "445d5dc7c2513449"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.statusIndicator",
-      "signatureHash": "50d846060ae0bf50"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.updateStatus",
-      "signatureHash": "820707444a60f0f8"
-    },
-    {
-      "baseId": "ts://src/ui/status-bar.ts#StatusBarManager.validateButton",
-      "signatureHash": "9a0f56880b8221ed"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#computeCoverage",
-      "signatureHash": "d5f43a349f420f9b"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#CoverageMetrics",
-      "signatureHash": "2900cb5add46f417"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#CoverageReport",
-      "signatureHash": "dcbca3ef274b987c"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#CoverageThresholds",
-      "signatureHash": "7f7dcd35d4e92589"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#MarkdownDirReport",
-      "signatureHash": "932109a5edc3c204"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#validateMarkdownContent",
-      "signatureHash": "bd880e49ba840ffd"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#validateMarkdownDir",
-      "signatureHash": "d6efd94036f4ae1d"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#validateSymbols",
-      "signatureHash": "c5833b419ccb1672"
-    },
-    {
-      "baseId": "ts://src/validator/index.ts#ValidationReport",
-      "signatureHash": "49ff4507760af2f5"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#escapeRegex",
-      "signatureHash": "a1a545550aad1064"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#formatSignatureForDoc",
-      "signatureHash": "dfe42d4ef2d09174"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#isArchitecturallyValid",
-      "signatureHash": "8835eedbd9610158"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#isGenericTypeSimplification",
-      "signatureHash": "702781a60abf45a7"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#isOptionalFieldCompatible",
-      "signatureHash": "231ee5db1e0f4fa7"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#isPromiseWrapperPattern",
-      "signatureHash": "fe312bcd2d74c315"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#isResponseWrapperPattern",
-      "signatureHash": "4b483eab7f01f460"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#SignatureMismatch",
-      "signatureHash": "6a5fdad40012f368"
-    },
-    {
-      "baseId": "ts://src/validator/signature-matching.ts#validateSignatureMatching",
-      "signatureHash": "71446a0efaa1d0fa"
-    },
-    {
-      "baseId": "ts://src/validator/status.ts#computeValidationStatus",
-      "signatureHash": "5d43c78fe1050f6e"
-    },
-    {
-      "baseId": "ts://src/validator/status.ts#StatusReport",
-      "signatureHash": "66bfcae896841e14"
-    },
-    {
-      "baseId": "ts://src/validator/status.ts#ValidationStatus",
-      "signatureHash": "e28d659ec343eba0"
-    },
-    {
-      "baseId": "yaml://action/action.yml#author",
-      "signatureHash": "96887f0cd3aceba9"
-    },
-    {
-      "baseId": "yaml://action/action.yml#branding",
+      "baseId": "unknown://action/action.yml#branding",
       "signatureHash": "6c9cb34688b8ffc2"
     },
     {
-      "baseId": "yaml://action/action.yml#description",
+      "baseId": "unknown://action/action.yml#description",
       "signatureHash": "b023407ca06c76d0"
     },
     {
-      "baseId": "yaml://action/action.yml#inputs",
+      "baseId": "unknown://action/action.yml#inputs",
       "signatureHash": "24487d48750da9f0"
     },
     {
-      "baseId": "yaml://action/action.yml#name",
+      "baseId": "unknown://action/action.yml#name",
       "signatureHash": "839dd08a16863e54"
     },
     {
-      "baseId": "yaml://action/action.yml#outputs",
+      "baseId": "unknown://action/action.yml#outputs",
       "signatureHash": "5f30357d46228303"
     },
     {
-      "baseId": "yaml://action/action.yml#runs",
+      "baseId": "unknown://action/action.yml#runs",
       "signatureHash": "9414ba8aebca90ca"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#$schema",
+      "signatureHash": "3a5b06d019e51293"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#exclude",
+      "signatureHash": "e6507e32b37c078b"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#generation",
+      "signatureHash": "5ac3b01c1dcadeee"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#include",
+      "signatureHash": "ceed2e0ec7470223"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#output",
+      "signatureHash": "5a3d818bf161caf5"
+    },
+    {
+      "baseId": "unknown://demo/docguard.config.json#validation",
+      "signatureHash": "f090c5298b5137f5"
+    },
+    {
+      "baseId": "unknown://demo/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "unknown://demo/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "unknown://demo/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://demo/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://demo/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://demo/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator",
+      "signatureHash": "0d63741e516c683f"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.add",
+      "signatureHash": "e9a717c5116f4194"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.clearHistory",
+      "signatureHash": "d1ffc83efb1ca9a6"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.createResult",
+      "signatureHash": "93a0f287d31f1950"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.divide",
+      "signatureHash": "94ab9f1f3acd5525"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.getHistory",
+      "signatureHash": "ef61c92e110e9a77"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.history",
+      "signatureHash": "16ccafdb16085c38"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.multiply",
+      "signatureHash": "bdc778c69be6855a"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#Calculator.subtract",
+      "signatureHash": "147e3c72e49e0895"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#factorial",
+      "signatureHash": "a205db7c7371e875"
+    },
+    {
+      "baseId": "unknown://demo/src/calculator.ts#fibonacci",
+      "signatureHash": "95ba1e907b72a136"
+    },
+    {
+      "baseId": "unknown://demo/src/types.ts#AppError",
+      "signatureHash": "7112d281dfaf3805"
+    },
+    {
+      "baseId": "unknown://demo/src/types.ts#CalculationResult",
+      "signatureHash": "c4fb76601cf10f34"
+    },
+    {
+      "baseId": "unknown://demo/src/types.ts#User",
+      "signatureHash": "588919c1c2482e0d"
+    },
+    {
+      "baseId": "unknown://demo/src/types.ts#UserQueryOptions",
+      "signatureHash": "728acda6fe65f6b6"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#formatUserDisplay",
+      "signatureHash": "aa584881f693c78c"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#isValidEmail",
+      "signatureHash": "b4689f0ad1fa7cbe"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService",
+      "signatureHash": "dd392d841764fa9a"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.cache",
+      "signatureHash": "d9ca3dd5b571f9f7"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.createUser",
+      "signatureHash": "cd93d0898dbbcd6a"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.deactivateUser",
+      "signatureHash": "cbe19af6f1dcb255"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.generateId",
+      "signatureHash": "f9121d2ebc1514ad"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.getUserById",
+      "signatureHash": "7e5d3ab856cab59a"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.listUsers",
+      "signatureHash": "6490130d549442bc"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.logger",
+      "signatureHash": "5e2600cf938d2c25"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.updateUser",
+      "signatureHash": "f9d188d744583407"
+    },
+    {
+      "baseId": "unknown://demo/src/user-service.ts#UserService.users",
+      "signatureHash": "c19e68128ad38bf2"
+    },
+    {
+      "baseId": "unknown://documentation.config.schema.json#$schema",
+      "signatureHash": "3a5b06d019e51293"
+    },
+    {
+      "baseId": "unknown://documentation.config.schema.json#additionalProperties",
+      "signatureHash": "7fde76926b774155"
+    },
+    {
+      "baseId": "unknown://documentation.config.schema.json#properties",
+      "signatureHash": "e22bdad86987885e"
+    },
+    {
+      "baseId": "unknown://documentation.config.schema.json#title",
+      "signatureHash": "7c2e71fc47b0931f"
+    },
+    {
+      "baseId": "unknown://documentation.config.schema.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#author",
+      "signatureHash": "96887f0cd3aceba9"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#bin",
+      "signatureHash": "be8e536cefbba867"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#license",
+      "signatureHash": "890f06ad4d853359"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#types",
+      "signatureHash": "d9cba02506adc640"
+    },
+    {
+      "baseId": "unknown://mcp/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#DOCS_BASE",
+      "signatureHash": "4805c2e1350bb67d"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#getSystemFilePath",
+      "signatureHash": "c14ea731b19010ef"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#listADRs",
+      "signatureHash": "874488013ea72d4a"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#listModuleDocs",
+      "signatureHash": "23ab127ffd9a8745"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#parseDocsUri",
+      "signatureHash": "f68effe019747241"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#ParsedUri",
+      "signatureHash": "d3a8f0bf8fee973f"
+    },
+    {
+      "baseId": "unknown://mcp/src/resources/docs.ts#readDocsResource",
+      "signatureHash": "c11bf9e82260b51c"
+    },
+    {
+      "baseId": "unknown://mcp/src/server.ts#server",
+      "signatureHash": "ad4e2f6519ca7c04"
+    },
+    {
+      "baseId": "unknown://mcp/src/server.ts#transport",
+      "signatureHash": "632549d702feac8f"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#DriftItem",
+      "signatureHash": "be3425bb69fa7aa6"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#DriftRequest",
+      "signatureHash": "9221ce1de55a076c"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#DriftResponse",
+      "signatureHash": "795a92b053d0e7bb"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#getDocPath",
+      "signatureHash": "45b871e0a479305c"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/drift.ts#runDriftCheck",
+      "signatureHash": "c631ac3fe2622945"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#analyzeImpact",
+      "signatureHash": "8ed9e84db1a4b382"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#buildDependencyMap",
+      "signatureHash": "efacdaa520e95a60"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#calculateImpact",
+      "signatureHash": "5c2fe0a3f30995b6"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#ImpactRequest",
+      "signatureHash": "a523e0dac5808ae9"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#ImpactResponse",
+      "signatureHash": "0d2ed749e2a7e1f3"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/impact.ts#SymbolEntry",
+      "signatureHash": "3ed94a20c10d2f59"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/scan.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/scan.ts#runScan",
+      "signatureHash": "7d92605f2f606bbe"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/scan.ts#ScanRequest",
+      "signatureHash": "4ac7b0952a38a2b6"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/scan.ts#ScanResponse",
+      "signatureHash": "c5a04eab7c607d47"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/validate.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/validate.ts#runValidate",
+      "signatureHash": "49ca05845d053046"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/validate.ts#ValidateRequest",
+      "signatureHash": "0d74e13bca2e9be0"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/validate.ts#ValidateResponse",
+      "signatureHash": "8abdd5687e94edfb"
+    },
+    {
+      "baseId": "unknown://mcp/src/tools/validate.ts#ValidationError",
+      "signatureHash": "516f6ca521e91d87"
+    },
+    {
+      "baseId": "unknown://mcp/tsconfig.json#compilerOptions",
+      "signatureHash": "23ac1b44264744c9"
+    },
+    {
+      "baseId": "unknown://mcp/tsconfig.json#exclude",
+      "signatureHash": "e6507e32b37c078b"
+    },
+    {
+      "baseId": "unknown://mcp/tsconfig.json#include",
+      "signatureHash": "ceed2e0ec7470223"
+    },
+    {
+      "baseId": "unknown://package.json#activationEvents",
+      "signatureHash": "4c5882e55e032dcb"
+    },
+    {
+      "baseId": "unknown://package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "unknown://package.json#categories",
+      "signatureHash": "374eb7a3790070cf"
+    },
+    {
+      "baseId": "unknown://package.json#contributes",
+      "signatureHash": "bee3b9d351298669"
+    },
+    {
+      "baseId": "unknown://package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "unknown://package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "unknown://package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "unknown://package.json#displayName",
+      "signatureHash": "30ada3e166821f72"
+    },
+    {
+      "baseId": "unknown://package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "unknown://package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "unknown://package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "unknown://package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "unknown://package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://package.json#publisher",
+      "signatureHash": "310930f0dfb9c0b6"
+    },
+    {
+      "baseId": "unknown://package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "unknown://package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/src/calculator.ts#add",
+      "signatureHash": "db9774c08f50c05b"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/src/calculator.ts#divide",
+      "signatureHash": "714dc8291467636a"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/src/calculator.ts#multiply",
+      "signatureHash": "8d591c8f188e9949"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/src/calculator.ts#power",
+      "signatureHash": "c7ad4d252019796f"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/examples/basic-project/src/calculator.ts#subtract",
+      "signatureHash": "36c95b0965df9db0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#author",
+      "signatureHash": "96887f0cd3aceba9"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#bin",
+      "signatureHash": "be8e536cefbba867"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#bugs",
+      "signatureHash": "32f6fe48379ef9dc"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#description",
+      "signatureHash": "b023407ca06c76d0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#devDependencies",
+      "signatureHash": "5c600ea0136930ac"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#engines",
+      "signatureHash": "1488aa427d0291f2"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#exports",
+      "signatureHash": "70df3a64219c0690"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#files",
+      "signatureHash": "661d01f81be3a993"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#funding",
+      "signatureHash": "79f41e62e834f6ee"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#homepage",
+      "signatureHash": "97626245bb537780"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#keywords",
+      "signatureHash": "01f0f50d85537286"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#license",
+      "signatureHash": "890f06ad4d853359"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#main",
+      "signatureHash": "24101cf9689db7b2"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#repository",
+      "signatureHash": "3ea8d4ebf245b7d1"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#types",
+      "signatureHash": "d9cba02506adc640"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/index.ts#program",
+      "signatureHash": "2df81a9db11b15a6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/init.ts#__dirname",
+      "signatureHash": "e299a297acedcc45"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/init.ts#fileExists",
+      "signatureHash": "703102d9716fbdc1"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/init.ts#InitOptions",
+      "signatureHash": "960af4ed4bd25ace"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/init.ts#initProject",
+      "signatureHash": "78466091b5324bfa"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/init.ts#InitResult",
+      "signatureHash": "f27212d78e287210"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#__dirname",
+      "signatureHash": "e299a297acedcc45"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#fileExists",
+      "signatureHash": "703102d9716fbdc1"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#RulesVersion",
+      "signatureHash": "e39706b9cb6be07d"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#UpdateOptions",
+      "signatureHash": "cedd7386e1218935"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#UpdateResult",
+      "signatureHash": "5fecf0488611dab6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/cli/update.ts#updateRules",
+      "signatureHash": "f5e10245aa3453ca"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/constants.ts#MCP_CONFIG",
+      "signatureHash": "cd94d8b16d15c3fa"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/constants.ts#PACKAGE_VERSION",
+      "signatureHash": "29d29466999a14da"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/constants.ts#RULE_FILES",
+      "signatureHash": "9318b2237d081a81"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/constants.ts#RULES_VERSION",
+      "signatureHash": "60c0bc7100d53d05"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#DriftRequest",
+      "signatureHash": "dd248f124c1741d4"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#DriftResponse",
+      "signatureHash": "db7d30ef36282d9e"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ImpactRequest",
+      "signatureHash": "bdd309c72f5d6a80"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ImpactResponse",
+      "signatureHash": "19e70465c5c5c352"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#InitOptions",
+      "signatureHash": "c5199c11df1be3a1"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#initProject",
+      "signatureHash": "48174ed6eb0afd92"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#PACKAGE_VERSION",
+      "signatureHash": "55d3965c7d05d8a1"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:DriftRequestfrom:./mcp/types.js",
+      "signatureHash": "c6f2f2d7128ca412"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:DriftResponsefrom:./mcp/types.js",
+      "signatureHash": "f446153b33f2d10d"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ImpactRequestfrom:./mcp/types.js",
+      "signatureHash": "1d651030c81d0f80"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ImpactResponsefrom:./mcp/types.js",
+      "signatureHash": "ddb494aefb7c6e08"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:InitOptionsfrom:./cli/init.js",
+      "signatureHash": "609fc05d4fb12474"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:initProjectfrom:./cli/init.js",
+      "signatureHash": "468089fe91e8dcc0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:PACKAGE_VERSIONfrom:./constants.js",
+      "signatureHash": "cff98d73760d2b8b"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:RULES_VERSIONfrom:./constants.js",
+      "signatureHash": "9364bca291fe36d0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ScanRequestfrom:./mcp/types.js",
+      "signatureHash": "83f00ad7771c6b3a"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ScanResponsefrom:./mcp/types.js",
+      "signatureHash": "174e57a5fe1c560c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:startMcpServerfrom:./mcp/server.js",
+      "signatureHash": "045abf8ca91e5705"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:UpdateOptionsfrom:./cli/update.js",
+      "signatureHash": "2af29f2dcd3092d0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:updateRulesfrom:./cli/update.js",
+      "signatureHash": "2ce4415c7718674b"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ValidateRequestfrom:./mcp/types.js",
+      "signatureHash": "371be5111c2c571c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#reexport:ValidateResponsefrom:./mcp/types.js",
+      "signatureHash": "5bc7b0d0dd21e690"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#RULES_VERSION",
+      "signatureHash": "c9f93589410ff349"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ScanRequest",
+      "signatureHash": "5f32d8f817bf07e6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ScanResponse",
+      "signatureHash": "1520bdac06235a3c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#startMcpServer",
+      "signatureHash": "3a401ecbebfd05d7"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#UpdateOptions",
+      "signatureHash": "491b2529e1de89fc"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#updateRules",
+      "signatureHash": "956ff900cf76e02c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ValidateRequest",
+      "signatureHash": "3a24a3bdb8ed1e0c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/index.ts#ValidateResponse",
+      "signatureHash": "f8f5a031912079ee"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#DOCS_BASE",
+      "signatureHash": "4805c2e1350bb67d"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#getSystemFilePath",
+      "signatureHash": "c14ea731b19010ef"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#listADRs",
+      "signatureHash": "874488013ea72d4a"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#listModuleDocs",
+      "signatureHash": "23ab127ffd9a8745"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#parseDocsUri",
+      "signatureHash": "f68effe019747241"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#ParsedUri",
+      "signatureHash": "d3a8f0bf8fee973f"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/resources/docs.ts#readDocsResource",
+      "signatureHash": "c11bf9e82260b51c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/server.ts#args",
+      "signatureHash": "360f54b83677608c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/server.ts#startMcpServer",
+      "signatureHash": "9cf346f6e4019820"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/drift.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/drift.ts#getDocPath",
+      "signatureHash": "45b871e0a479305c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/drift.ts#runDriftCheck",
+      "signatureHash": "c631ac3fe2622945"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/impact.ts#analyzeImpact",
+      "signatureHash": "8ed9e84db1a4b382"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/impact.ts#buildDependencyMap",
+      "signatureHash": "efacdaa520e95a60"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/impact.ts#calculateImpact",
+      "signatureHash": "5c2fe0a3f30995b6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/impact.ts#SymbolEntry",
+      "signatureHash": "3ed94a20c10d2f59"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/scan.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/scan.ts#runScan",
+      "signatureHash": "7d92605f2f606bbe"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/validate.ts#execAsync",
+      "signatureHash": "5a1967e92e4655aa"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/tools/validate.ts#runValidate",
+      "signatureHash": "49ca05845d053046"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#DriftItem",
+      "signatureHash": "be3425bb69fa7aa6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#DriftRequest",
+      "signatureHash": "9221ce1de55a076c"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#DriftResponse",
+      "signatureHash": "795a92b053d0e7bb"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ImpactRequest",
+      "signatureHash": "a523e0dac5808ae9"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ImpactResponse",
+      "signatureHash": "0d2ed749e2a7e1f3"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ScanRequest",
+      "signatureHash": "4ac7b0952a38a2b6"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ScanResponse",
+      "signatureHash": "c5a04eab7c607d47"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ValidateRequest",
+      "signatureHash": "0d74e13bca2e9be0"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ValidateResponse",
+      "signatureHash": "8abdd5687e94edfb"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/src/mcp/types.ts#ValidationError",
+      "signatureHash": "516f6ca521e91d87"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/tsconfig.json#compilerOptions",
+      "signatureHash": "23ac1b44264744c9"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/tsconfig.json#exclude",
+      "signatureHash": "e6507e32b37c078b"
+    },
+    {
+      "baseId": "unknown://packages/doc-system-agent/tsconfig.json#include",
+      "signatureHash": "ceed2e0ec7470223"
+    },
+    {
+      "baseId": "unknown://src/__tests__/setup.ts#mockDate",
+      "signatureHash": "468ff0f269335657"
+    },
+    {
+      "baseId": "unknown://src/__tests__/signature-formatter.test.ts#makeSymbol",
+      "signatureHash": "5c7c1beefb59d33b"
+    },
+    {
+      "baseId": "unknown://src/__tests__/snapshot-doc-generation.test.ts#SNAPSHOT_TS",
+      "signatureHash": "5416030e72e4d592"
+    },
+    {
+      "baseId": "unknown://src/__tests__/symbol-classifier.test.ts#makeSymbol",
+      "signatureHash": "5c7c1beefb59d33b"
+    },
+    {
+      "baseId": "unknown://src/cache/ast-cache.ts#AstHashCacheData",
+      "signatureHash": "48fc86373fb35392"
+    },
+    {
+      "baseId": "unknown://src/cache/ast-cache.ts#AstHashEntry",
+      "signatureHash": "e5c0f16f70e65f0e"
+    },
+    {
+      "baseId": "unknown://src/cache/ast-cache.ts#computeFileHash",
+      "signatureHash": "8bbaa9298cb2993f"
+    },
+    {
+      "baseId": "unknown://src/cache/ast-cache.ts#loadAstHashCache",
+      "signatureHash": "65fd814f9788fc69"
+    },
+    {
+      "baseId": "unknown://src/cache/ast-cache.ts#saveAstHashCache",
+      "signatureHash": "5522cf44784183a1"
+    },
+    {
+      "baseId": "unknown://src/cache/dependencies-cache.ts#DependenciesCacheData",
+      "signatureHash": "2d12b4bb1facd95c"
+    },
+    {
+      "baseId": "unknown://src/cache/dependencies-cache.ts#DependencyCacheEntry",
+      "signatureHash": "7c52a7d32c803c10"
+    },
+    {
+      "baseId": "unknown://src/cache/dependencies-cache.ts#loadDependenciesCache",
+      "signatureHash": "ae7d8be9a8fb510d"
+    },
+    {
+      "baseId": "unknown://src/cache/dependencies-cache.ts#saveDependenciesCache",
+      "signatureHash": "4e68b940005b9872"
+    },
+    {
+      "baseId": "unknown://src/cache/output-cache.ts#computeContentHash",
+      "signatureHash": "39a87c438e3a6e36"
+    },
+    {
+      "baseId": "unknown://src/cache/output-cache.ts#loadOutputHashCache",
+      "signatureHash": "9dd876c7a99d7652"
+    },
+    {
+      "baseId": "unknown://src/cache/output-cache.ts#OutputHashCacheData",
+      "signatureHash": "8cd8b78e399503cd"
+    },
+    {
+      "baseId": "unknown://src/cache/output-cache.ts#OutputHashEntry",
+      "signatureHash": "2aae52531e0f45e8"
+    },
+    {
+      "baseId": "unknown://src/cache/output-cache.ts#saveOutputHashCache",
+      "signatureHash": "1dd907484c392c3a"
+    },
+    {
+      "baseId": "unknown://src/cache/signature-cache.ts#CacheEntry",
+      "signatureHash": "c0f796eb7d6ed1e4"
+    },
+    {
+      "baseId": "unknown://src/cache/signature-cache.ts#loadSignatureCache",
+      "signatureHash": "9616e1ee0da18d60"
+    },
+    {
+      "baseId": "unknown://src/cache/signature-cache.ts#saveSignatureCache",
+      "signatureHash": "fbd515cceecd5369"
+    },
+    {
+      "baseId": "unknown://src/cache/signature-cache.ts#SignatureCacheData",
+      "signatureHash": "bcbf964f35c7324b"
+    },
+    {
+      "baseId": "unknown://src/core/async.ts#mapLimit",
+      "signatureHash": "081fe0829d6bd19f"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#buildDependenciesUnion",
+      "signatureHash": "b25a11b6f40be66b"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#buildDependenciesUnionWithDebug",
+      "signatureHash": "22453101c66906cb"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#buildPreviousDependenciesMap",
+      "signatureHash": "7c9137e906385a0c"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#buildSymbolsUnion",
+      "signatureHash": "2654dcfcd833ff74"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#buildUnionMap",
+      "signatureHash": "cf370a0bd578a59a"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#deduplicateAndSortDependencies",
+      "signatureHash": "3f5c64e09d011452"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#DependenciesUnionResult",
+      "signatureHash": "2a7b416e53ae2ed3"
+    },
+    {
+      "baseId": "unknown://src/core/consolidation.ts#UnionDebugInfo",
+      "signatureHash": "4dce643aa7150b3f"
+    },
+    {
+      "baseId": "unknown://src/core/git.ts#getChangedFiles",
+      "signatureHash": "22d4e5b0655b6c40"
+    },
+    {
+      "baseId": "unknown://src/core/git.ts#getDeletedFiles",
+      "signatureHash": "4223fc1339202919"
+    },
+    {
+      "baseId": "unknown://src/core/language-detection.ts#guessLanguageByShebang",
+      "signatureHash": "5fd198b9b415b4b7"
+    },
+    {
+      "baseId": "unknown://src/core/language-detection.ts#normalizeLineEndings",
+      "signatureHash": "043e1e42ee13a3f0"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#BACKUP_DIR_NAMES",
+      "signatureHash": "fb710c1220c8e022"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#BACKUP_FILE_SUFFIXES",
+      "signatureHash": "a3b58fe5e8ff494e"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#DEFAULT_EXCLUDES",
+      "signatureHash": "fc6b6e046d36b3dd"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#ScannedFile",
+      "signatureHash": "7c102c616459a20a"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#ScanOptions",
+      "signatureHash": "d2d336b1afc58b23"
+    },
+    {
+      "baseId": "unknown://src/core/scanner.ts#scanWorkspace",
+      "signatureHash": "606c9426b4f0d06a"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#CompareOptions",
+      "signatureHash": "16ee910574481193"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#CompareResult",
+      "signatureHash": "1086269ec56947d1"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter",
+      "signatureHash": "03fae82f2c10b6af"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.compare",
+      "signatureHash": "a426569ee58d9e9e"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatForDoc",
+      "signatureHash": "50eb060d3f9e0365"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatFunctionOrMethod",
+      "signatureHash": "8aa5dc0557c80601"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatFunctionParameter",
+      "signatureHash": "b0d16b209454e708"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatInterface",
+      "signatureHash": "c77030342d175786"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatInterfaceProperty",
+      "signatureHash": "788d99bf63b6e3cb"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.formatVariable",
+      "signatureHash": "d154b97f54ac17f7"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.isGenericTypeSimplification",
+      "signatureHash": "1cc57383741aa9b2"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.isOptionalFieldCompatible",
+      "signatureHash": "b2582e19de1bf763"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.normalize",
+      "signatureHash": "c2d02bf01ecf05bb"
+    },
+    {
+      "baseId": "unknown://src/core/signature-formatter.ts#SignatureFormatter.normalizeSignature",
+      "signatureHash": "19b6c6498a0ac18b"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#classifyPriority",
+      "signatureHash": "2c8231511acbf8ed"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#classifyRole",
+      "signatureHash": "71254b34f1a023fe"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#classifySymbol",
+      "signatureHash": "465ff78aff082a80"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#classifyVisibility",
+      "signatureHash": "45d5a1bc38a2cf02"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#filePathIncludes",
+      "signatureHash": "0cfd6145d1bcc1cd"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#hasAnySubstring",
+      "signatureHash": "d00c452b4157785e"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#hasAnySuffix",
+      "signatureHash": "cce34b292e1e2e7c"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#normalizePath",
+      "signatureHash": "f888e89c97a152ed"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#SymbolClassification",
+      "signatureHash": "04b4dd00bc9fbd7d"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#SymbolPriority",
+      "signatureHash": "318692766a7760f9"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#SymbolRole",
+      "signatureHash": "c6654ddf03e502b3"
+    },
+    {
+      "baseId": "unknown://src/core/symbol-classifier.ts#SymbolVisibility",
+      "signatureHash": "04dc0ccc575e49aa"
+    },
+    {
+      "baseId": "unknown://src/core/symbols.ts#computeSignatureHash",
+      "signatureHash": "df33bb64ce8f8940"
+    },
+    {
+      "baseId": "unknown://src/core/symbols.ts#makeStableSymbolId",
+      "signatureHash": "9dc21ededa1f99ef"
+    },
+    {
+      "baseId": "unknown://src/drift/index.ts#computeCacheEntries",
+      "signatureHash": "13c4fa1ad7ca1a86"
+    },
+    {
+      "baseId": "unknown://src/drift/index.ts#detectDrift",
+      "signatureHash": "0d3cac0345dceb56"
+    },
+    {
+      "baseId": "unknown://src/drift/index.ts#DriftResult",
+      "signatureHash": "dc2c759de8b79f11"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#activate",
+      "signatureHash": "f93629ec84e52398"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#checkDriftTs",
+      "signatureHash": "187384a4a55c20da"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#deactivate",
+      "signatureHash": "ce7129845f6ef766"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationItem",
+      "signatureHash": "a914717b43f1f1b1"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider",
+      "signatureHash": "51b2d950464e0095"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider._onDidChangeTreeData",
+      "signatureHash": "b5ec19ba34cc6c7e"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider.getChildren",
+      "signatureHash": "d42923bc1503f9b8"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider.getDocumentationFiles",
+      "signatureHash": "a92f6162c94efc1f"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider.getTreeItem",
+      "signatureHash": "a7ca4affa17aa1e1"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider.onDidChangeTreeData",
+      "signatureHash": "fca4431b3c64c422"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#DocumentationProvider.refresh",
+      "signatureHash": "a07983b4817333ec"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#escapeHtml",
+      "signatureHash": "e68842432a67f079"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#findSourceDirectories",
+      "signatureHash": "59e0bcb8d4a08662"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#generateDocumentationTs",
+      "signatureHash": "cb193fd07c44a24a"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#getConfig",
+      "signatureHash": "37dda7739c698bd2"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#globalOutput",
+      "signatureHash": "7c6036f666b77880"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#globalStatusBar",
+      "signatureHash": "e20f3896cee8f951"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#loadEnv",
+      "signatureHash": "ff97963bd19f618f"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#openDocumentationFile",
+      "signatureHash": "e8758dd86d64391b"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#registerCommand",
+      "signatureHash": "95785ed9bb6223d5"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#scanSystemTs",
+      "signatureHash": "4cd083705e430adb"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#searchDocumentation",
+      "signatureHash": "3a759a80c6fa1d50"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#SearchResult",
+      "signatureHash": "2c5dc25e2e4d6c2d"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#showSearchResults",
+      "signatureHash": "162939aa5b913e8c"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#showSystemOverview",
+      "signatureHash": "7c9f7f63ab41bc72"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#showValidationResults",
+      "signatureHash": "225b8332b62d3883"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#syncDocumentation",
+      "signatureHash": "1acc8fe768feb55d"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#validateDocumentationTs",
+      "signatureHash": "464d7ca8123d6b8a"
+    },
+    {
+      "baseId": "unknown://src/extension.ts#ValidationResult",
+      "signatureHash": "781ea5d761a9bb92"
+    },
+    {
+      "baseId": "unknown://src/generator/change-report.ts#ChangeData",
+      "signatureHash": "e9758f62344fb723"
+    },
+    {
+      "baseId": "unknown://src/generator/change-report.ts#extractChangesFromModuleDocs",
+      "signatureHash": "d47563b84ae09a92"
+    },
+    {
+      "baseId": "unknown://src/generator/change-report.ts#generateChangeReport",
+      "signatureHash": "65235a6a7052deba"
+    },
+    {
+      "baseId": "unknown://src/generator/dependency-graph.ts#appendDependencySection",
+      "signatureHash": "0a0e5aa00775aca4"
+    },
+    {
+      "baseId": "unknown://src/generator/dependency-graph.ts#generateDependencyOverview",
+      "signatureHash": "45556c1fd48c7c5a"
+    },
+    {
+      "baseId": "unknown://src/generator/dependency-graph.ts#generateMermaidGraph",
+      "signatureHash": "8d456bec91d98bba"
+    },
+    {
+      "baseId": "unknown://src/generator/dependency-graph.ts#groupDependenciesByFrom",
+      "signatureHash": "7712255566aa3cb6"
+    },
+    {
+      "baseId": "unknown://src/generator/index.ts#generatePerFileDocs",
+      "signatureHash": "7896bf436e864bf4"
+    },
+    {
+      "baseId": "unknown://src/generator/index.ts#makeSafeFileName",
+      "signatureHash": "3625474f8dbf7635"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#buildModuleDocWithChanges",
+      "signatureHash": "a77408e193f866b3"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#compareBlocks",
+      "signatureHash": "c3effe4379058062"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#isFormatterMigration",
+      "signatureHash": "ae021e5f8774c7fb"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#isTrivialNormalizedSignature",
+      "signatureHash": "96be1ab87c2c0b59"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#ModuleDoc",
+      "signatureHash": "b39e1dda4040c673"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#ModuleDocBlock",
+      "signatureHash": "a6604056434875cb"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#normalizeSignature",
+      "signatureHash": "19b6c6498a0ac18b"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#ParsedBlock",
+      "signatureHash": "c147ac618975b6d0"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#ParsedModuleDoc",
+      "signatureHash": "ba2e606c066e97c6"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#parseModuleDoc",
+      "signatureHash": "a4cc698140f7e143"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#parseSignatureFromCode",
+      "signatureHash": "370c2c022ce517a0"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#renderModuleDoc",
+      "signatureHash": "4b110cf883155046"
+    },
+    {
+      "baseId": "unknown://src/generator/module-doc.ts#signatureChanged",
+      "signatureHash": "a6250a01572408c0"
+    },
+    {
+      "baseId": "unknown://src/index/index.ts#buildIndexFromSymbols",
+      "signatureHash": "da5f5cdf52240c12"
+    },
+    {
+      "baseId": "unknown://src/index/index.ts#IndexRow",
+      "signatureHash": "6c8f5b31e838a88e"
+    },
+    {
+      "baseId": "unknown://src/index/index.ts#writeJsonlIndex",
+      "signatureHash": "e95bdd53c0d4b6f8"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#Logger",
+      "signatureHash": "9488bef7fafa5b6a"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#Logger.component",
+      "signatureHash": "9e6f79a86de8723f"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#Logger.error",
+      "signatureHash": "fc1647dd220a98fe"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#Logger.info",
+      "signatureHash": "b33e5f4587135ffe"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#Logger.warn",
+      "signatureHash": "79328438a6d9cad2"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#LoggerOptions",
+      "signatureHash": "584eb8ecb88790d7"
+    },
+    {
+      "baseId": "unknown://src/logging/index.ts#LogLevel",
+      "signatureHash": "59f6c109dbf39318"
+    },
+    {
+      "baseId": "unknown://src/parsers/dependencies.ts#extractPythonDependencies",
+      "signatureHash": "6139e6bbbd854d17"
+    },
+    {
+      "baseId": "unknown://src/parsers/dependencies.ts#extractTsJsDependencies",
+      "signatureHash": "6af4b8f0b0dd1059"
+    },
+    {
+      "baseId": "unknown://src/parsers/dependencies.ts#ModuleDependency",
+      "signatureHash": "e8a0d51d5d94ddf0"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#asRepoRel",
+      "signatureHash": "b4257ebe440ba31b"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#JsonYamlParser",
+      "signatureHash": "10445888500045e7"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#JsonYamlParser.collectFromObject",
+      "signatureHash": "124af879908e810f"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#JsonYamlParser.extractFrontMatter",
+      "signatureHash": "1c5c9aa31d00ce0a"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#JsonYamlParser.language",
+      "signatureHash": "1377df0dffb38b51"
+    },
+    {
+      "baseId": "unknown://src/parsers/json-yaml.ts#JsonYamlParser.parse",
+      "signatureHash": "7fb4e4727025247b"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser",
+      "signatureHash": "c5d2691e0c981247"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser.extractParameters",
+      "signatureHash": "b95dc15d0d88c9c5"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser.getNodeText",
+      "signatureHash": "dd0e0aa04d04a350"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser.language",
+      "signatureHash": "1377df0dffb38b51"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser.parse",
+      "signatureHash": "7fb4e4727025247b"
+    },
+    {
+      "baseId": "unknown://src/parsers/python.ts#PythonParser.parser",
+      "signatureHash": "2068694a576334a4"
+    },
+    {
+      "baseId": "unknown://src/parsers/ts-js.ts#TsJsParser",
+      "signatureHash": "dd8a24b11c830c3b"
+    },
+    {
+      "baseId": "unknown://src/parsers/ts-js.ts#TsJsParser.language",
+      "signatureHash": "1377df0dffb38b51"
+    },
+    {
+      "baseId": "unknown://src/parsers/ts-js.ts#TsJsParser.parse",
+      "signatureHash": "7fb4e4727025247b"
+    },
+    {
+      "baseId": "unknown://src/parsers/ts-js.ts#TsJsParser.project",
+      "signatureHash": "1a87c27f9d3a392e"
+    },
+    {
+      "baseId": "unknown://src/parsers/types.ts#ParsedSymbol",
+      "signatureHash": "57091c0724e2a9d3"
+    },
+    {
+      "baseId": "unknown://src/parsers/types.ts#ParserAdapter",
+      "signatureHash": "22a85d5921b70363"
+    },
+    {
+      "baseId": "unknown://src/parsers/types.ts#SymbolParameter",
+      "signatureHash": "304e22302d658578"
+    },
+    {
+      "baseId": "unknown://src/parsers/types.ts#SymbolSignature",
+      "signatureHash": "098c27e5b6bf5a6b"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandItem",
+      "signatureHash": "95af1dc432ab3cfe"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider",
+      "signatureHash": "7c783b0e33dced45"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider._onDidChangeTreeData",
+      "signatureHash": "979069a898260778"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider.getChildren",
+      "signatureHash": "6b41e14d70844a05"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider.getTreeItem",
+      "signatureHash": "bcd317bde5e58469"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider.onDidChangeTreeData",
+      "signatureHash": "9ca7973e3ccce27e"
+    },
+    {
+      "baseId": "unknown://src/ui/commands-provider.ts#CommandsProvider.refresh",
+      "signatureHash": "a07983b4817333ec"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager",
+      "signatureHash": "9309c3cd085c51bc"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.generateButton",
+      "signatureHash": "4ded3b3895280ca9"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.hideProgress",
+      "signatureHash": "aea4407be1c357ee"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.scanButton",
+      "signatureHash": "0475033cbf2e8117"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.showProgress",
+      "signatureHash": "445d5dc7c2513449"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.statusIndicator",
+      "signatureHash": "50d846060ae0bf50"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.updateStatus",
+      "signatureHash": "820707444a60f0f8"
+    },
+    {
+      "baseId": "unknown://src/ui/status-bar.ts#StatusBarManager.validateButton",
+      "signatureHash": "9a0f56880b8221ed"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#computeCoverage",
+      "signatureHash": "d5f43a349f420f9b"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#CoverageMetrics",
+      "signatureHash": "2900cb5add46f417"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#CoverageReport",
+      "signatureHash": "dcbca3ef274b987c"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#CoverageThresholds",
+      "signatureHash": "7f7dcd35d4e92589"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#MarkdownDirReport",
+      "signatureHash": "932109a5edc3c204"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#validateMarkdownContent",
+      "signatureHash": "bd880e49ba840ffd"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#validateMarkdownDir",
+      "signatureHash": "d6efd94036f4ae1d"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#validateSymbols",
+      "signatureHash": "c5833b419ccb1672"
+    },
+    {
+      "baseId": "unknown://src/validator/index.ts#ValidationReport",
+      "signatureHash": "49ff4507760af2f5"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#escapeRegex",
+      "signatureHash": "a1a545550aad1064"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#isArchitecturallyValid",
+      "signatureHash": "8835eedbd9610158"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#isResponseWrapperPattern",
+      "signatureHash": "4b483eab7f01f460"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#SignatureMatchingOptions",
+      "signatureHash": "6977154e55b402dc"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#SignatureMismatch",
+      "signatureHash": "6a5fdad40012f368"
+    },
+    {
+      "baseId": "unknown://src/validator/signature-matching.ts#validateSignatureMatching",
+      "signatureHash": "9302d7b8e74b486d"
+    },
+    {
+      "baseId": "unknown://src/validator/status.ts#computeValidationStatus",
+      "signatureHash": "5d43c78fe1050f6e"
+    },
+    {
+      "baseId": "unknown://src/validator/status.ts#StatusReport",
+      "signatureHash": "66bfcae896841e14"
+    },
+    {
+      "baseId": "unknown://src/validator/status.ts#ValidationStatus",
+      "signatureHash": "e28d659ec343eba0"
+    },
+    {
+      "baseId": "unknown://tsconfig.json#compilerOptions",
+      "signatureHash": "23ac1b44264744c9"
+    },
+    {
+      "baseId": "unknown://tsconfig.json#exclude",
+      "signatureHash": "e6507e32b37c078b"
+    },
+    {
+      "baseId": "unknown://website/package.json#dependencies",
+      "signatureHash": "426fc6696dafd097"
+    },
+    {
+      "baseId": "unknown://website/package.json#name",
+      "signatureHash": "839dd08a16863e54"
+    },
+    {
+      "baseId": "unknown://website/package.json#private",
+      "signatureHash": "d09eb6bd053db5e3"
+    },
+    {
+      "baseId": "unknown://website/package.json#scripts",
+      "signatureHash": "7b9e9346e8c10e4d"
+    },
+    {
+      "baseId": "unknown://website/package.json#type",
+      "signatureHash": "f8ca4f8c31ca9b6e"
+    },
+    {
+      "baseId": "unknown://website/package.json#version",
+      "signatureHash": "323c7ea46033e806"
+    },
+    {
+      "baseId": "unknown://website/tsconfig.json#compilerOptions",
+      "signatureHash": "23ac1b44264744c9"
+    },
+    {
+      "baseId": "unknown://website/tsconfig.json#extends",
+      "signatureHash": "4540b22503b6dc08"
+    },
+    {
+      "baseId": "unknown://website/vercel.json#buildCommand",
+      "signatureHash": "8ce0cfe4135e0959"
+    },
+    {
+      "baseId": "unknown://website/vercel.json#framework",
+      "signatureHash": "92ec5bd33737f868"
+    },
+    {
+      "baseId": "unknown://website/vercel.json#installCommand",
+      "signatureHash": "fe3613e48a89e7de"
+    },
+    {
+      "baseId": "unknown://website/vercel.json#outputDirectory",
+      "signatureHash": "8e8d77d726b74850"
     }
   ]
 }

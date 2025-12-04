@@ -3,267 +3,283 @@
   "entries": [
     {
       "path": "action__action.yml.md",
-      "hash": "c4a6330d7842ba88"
+      "hash": "e4449d0b68c26c53"
     },
     {
       "path": "demo__docguard.config.json.md",
-      "hash": "52c49d50091ad793"
+      "hash": "7675a19e066cc3c7"
     },
     {
       "path": "demo__package.json.md",
-      "hash": "26cf79d74f776ebc"
+      "hash": "5edb70d10eb9c213"
     },
     {
       "path": "demo__src__calculator.ts.md",
-      "hash": "75194a787f43c997"
+      "hash": "ee832235d4be6958"
     },
     {
       "path": "demo__src__types.ts.md",
-      "hash": "d89ec7184698675b"
+      "hash": "a70f8a19a41f4f8c"
     },
     {
       "path": "demo__src__user-service.ts.md",
-      "hash": "3d63cb7e519b8785"
+      "hash": "e01d59a0113e5b1b"
     },
     {
       "path": "documentation.config.schema.json.md",
-      "hash": "268413ed31b85b00"
+      "hash": "02952949787f3cae"
     },
     {
       "path": "mcp__package.json.md",
-      "hash": "0054d3b95b584ea3"
+      "hash": "188e3bf2f8de7aba"
     },
     {
       "path": "mcp__src__resources__docs.ts.md",
-      "hash": "ed0fe524472dc2da"
+      "hash": "d19b61136b7a67cf"
     },
     {
       "path": "mcp__src__server.ts.md",
-      "hash": "751615ba43b2f80d"
+      "hash": "f6fbb68600a8207b"
     },
     {
       "path": "mcp__src__tools__drift.ts.md",
-      "hash": "c92b707082cd6aa4"
+      "hash": "32d8423be582b838"
     },
     {
       "path": "mcp__src__tools__impact.ts.md",
-      "hash": "25e18150d9a78bca"
+      "hash": "3772c083d1fe044c"
     },
     {
       "path": "mcp__src__tools__scan.ts.md",
-      "hash": "125f24a5af802b98"
+      "hash": "1bbd156c3e8eb87e"
     },
     {
       "path": "mcp__src__tools__validate.ts.md",
-      "hash": "a651febea4641c36"
+      "hash": "25fab343fb3730d8"
     },
     {
       "path": "mcp__tsconfig.json.md",
-      "hash": "3b64d9d472d9998d"
+      "hash": "953b77668503a5db"
     },
     {
       "path": "package.json.md",
-      "hash": "c3a5eecc4f1543fb"
+      "hash": "6939c526eba8aaba"
     },
     {
       "path": "packages__doc-system-agent__examples__basic-project__package.json.md",
-      "hash": "e1cd15f2deef13c5"
+      "hash": "2d0e5cc4819bb0bf"
     },
     {
       "path": "packages__doc-system-agent__examples__basic-project__src__calculator.ts.md",
-      "hash": "5758ac73a0060231"
+      "hash": "23ac03954938385d"
     },
     {
       "path": "packages__doc-system-agent__package.json.md",
-      "hash": "e797f11b68feb344"
+      "hash": "2d4a027f2957dec8"
     },
     {
       "path": "packages__doc-system-agent__src__cli__index.ts.md",
-      "hash": "a9eb0a58bc930887"
+      "hash": "6c435c061ad2685a"
     },
     {
       "path": "packages__doc-system-agent__src__cli__init.ts.md",
-      "hash": "c274ff85da933816"
+      "hash": "d51081164734ac83"
     },
     {
       "path": "packages__doc-system-agent__src__cli__update.ts.md",
-      "hash": "dabbfd90c5cb54f6"
+      "hash": "44492efb0eacc6a1"
     },
     {
       "path": "packages__doc-system-agent__src__constants.ts.md",
-      "hash": "dc64e4b959294b56"
+      "hash": "3523bb1fcc7cfd8e"
     },
     {
       "path": "packages__doc-system-agent__src__index.ts.md",
-      "hash": "1298fa8500531f72"
+      "hash": "285e363d13ad8b6d"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__resources__docs.ts.md",
-      "hash": "86b021399f4c04f6"
+      "hash": "c82b80c6494aa7b1"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__server.ts.md",
-      "hash": "be594eee3acff5e5"
+      "hash": "8992d96b22a15296"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__tools__drift.ts.md",
-      "hash": "b448afc91049d214"
+      "hash": "1762f06c4b469daa"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__tools__impact.ts.md",
-      "hash": "6bc35bf402daeffe"
+      "hash": "e7649da5245e9516"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__tools__scan.ts.md",
-      "hash": "4c8924ae900be0be"
+      "hash": "5a4ffe6f22326680"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__tools__validate.ts.md",
-      "hash": "5d0ae8944cc1b751"
+      "hash": "7ad711bf762bb208"
     },
     {
       "path": "packages__doc-system-agent__src__mcp__types.ts.md",
-      "hash": "5215164ef2f6d771"
+      "hash": "7aeaf2beb713d819"
     },
     {
       "path": "packages__doc-system-agent__tsconfig.json.md",
-      "hash": "e2587bbb0c133d62"
+      "hash": "bf26f9f5ed02e992"
     },
     {
       "path": "src____tests____setup.ts.md",
-      "hash": "f3b0d6b9be9f5314"
+      "hash": "cdf818cbba92ec39"
+    },
+    {
+      "path": "src____tests____signature-formatter.test.ts.md",
+      "hash": "4ac983c5da1299d6"
+    },
+    {
+      "path": "src____tests____snapshot-doc-generation.test.ts.md",
+      "hash": "1a3eccc0f32f00a3"
+    },
+    {
+      "path": "src____tests____symbol-classifier.test.ts.md",
+      "hash": "ae509d6cdae9fe94"
     },
     {
       "path": "src__cache__ast-cache.ts.md",
-      "hash": "f02ce543356bb7e1"
+      "hash": "842deab6ec0250d4"
     },
     {
       "path": "src__cache__dependencies-cache.ts.md",
-      "hash": "e64761f3b08020c8"
+      "hash": "7561129dd871074d"
     },
     {
       "path": "src__cache__output-cache.ts.md",
-      "hash": "35aab25af4d9f332"
+      "hash": "689a92a857945a56"
     },
     {
       "path": "src__cache__signature-cache.ts.md",
-      "hash": "6478767efc2b742d"
+      "hash": "dcd294c6b6ad6be5"
     },
     {
       "path": "src__core__async.ts.md",
-      "hash": "62fc63da8c6915bf"
+      "hash": "33aa41ac824aaa19"
     },
     {
       "path": "src__core__consolidation.ts.md",
-      "hash": "adc6d17b7af164e6"
+      "hash": "d2a7c18b69e587b9"
     },
     {
       "path": "src__core__git.ts.md",
-      "hash": "35ef8d42b87991d9"
+      "hash": "20ed50e128b269c1"
     },
     {
       "path": "src__core__language-detection.ts.md",
-      "hash": "1ed4fa252ad40f54"
+      "hash": "3840b480c55907a8"
     },
     {
       "path": "src__core__scanner.ts.md",
-      "hash": "7a9daafdfc9db246"
+      "hash": "73c796afe3f14b38"
     },
     {
       "path": "src__core__signature-formatter.ts.md",
-      "hash": "1bdd75b0ebd7c3b5"
+      "hash": "4afbf73efc76508e"
+    },
+    {
+      "path": "src__core__symbol-classifier.ts.md",
+      "hash": "0507614f23a25a0b"
     },
     {
       "path": "src__core__symbols.ts.md",
-      "hash": "2c5ca775a6047b72"
+      "hash": "df4cc97e941fa14c"
     },
     {
       "path": "src__drift__index.ts.md",
-      "hash": "3367c261837bb9b9"
+      "hash": "b74732e0668b5a41"
     },
     {
       "path": "src__extension.ts.md",
-      "hash": "815a9b7b87d1c4a8"
+      "hash": "5cfcbb5a79f246f9"
     },
     {
       "path": "src__generator__change-report.ts.md",
-      "hash": "76e39fd84bdecea1"
+      "hash": "8957dc7f2a357f85"
     },
     {
       "path": "src__generator__dependency-graph.ts.md",
-      "hash": "bd2970faf24ca85f"
+      "hash": "cefb84e65e8896ff"
     },
     {
       "path": "src__generator__index.ts.md",
-      "hash": "5c84b6a0105f03f4"
+      "hash": "397aa4e42af306f7"
     },
     {
       "path": "src__generator__module-doc.ts.md",
-      "hash": "47e1b876adb5d497"
+      "hash": "25a23b79d2091e80"
     },
     {
       "path": "src__index__index.ts.md",
-      "hash": "0dba80ad0f077f27"
+      "hash": "83beee237b85f080"
     },
     {
       "path": "src__logging__index.ts.md",
-      "hash": "e540b984a1e8d9d8"
+      "hash": "766ec856664da55a"
     },
     {
       "path": "src__parsers__dependencies.ts.md",
-      "hash": "d86d5d9ab16a87ed"
+      "hash": "27edb883abcdf36e"
     },
     {
       "path": "src__parsers__json-yaml.ts.md",
-      "hash": "da0c8f1d06d7d8e7"
+      "hash": "aa0fd8def4360935"
     },
     {
       "path": "src__parsers__python.ts.md",
-      "hash": "b416f5033a1f03d2"
+      "hash": "1d263ff36ead19b3"
     },
     {
       "path": "src__parsers__ts-js.ts.md",
-      "hash": "96561962931255b6"
+      "hash": "fa8b9220e913da81"
     },
     {
       "path": "src__parsers__types.ts.md",
-      "hash": "220fdcc6bd3beaa9"
+      "hash": "c3084d9c2d509210"
     },
     {
       "path": "src__ui__commands-provider.ts.md",
-      "hash": "ed0e018d9d818d41"
+      "hash": "36adf9255b3b7df1"
     },
     {
       "path": "src__ui__status-bar.ts.md",
-      "hash": "d936f1284b4fba78"
+      "hash": "2640e87d62b6eeba"
     },
     {
       "path": "src__validator__index.ts.md",
-      "hash": "fd47895782a41b06"
+      "hash": "999a0ab4c325a6db"
     },
     {
       "path": "src__validator__signature-matching.ts.md",
-      "hash": "6063bebc6f5417a1"
+      "hash": "19403ffb25d2e136"
     },
     {
       "path": "src__validator__status.ts.md",
-      "hash": "5696c5401a996ff7"
+      "hash": "b535b83a4ea965f2"
     },
     {
       "path": "tsconfig.json.md",
-      "hash": "11f93067a81bc9d1"
+      "hash": "dcb0a9baedb8a24e"
     },
     {
       "path": "website__package.json.md",
-      "hash": "73282fceb6ce043c"
+      "hash": "1e1a400154af637f"
     },
     {
       "path": "website__tsconfig.json.md",
-      "hash": "c528c58bbf510ea6"
+      "hash": "70a8cde8e19c1744"
     },
     {
       "path": "website__vercel.json.md",
-      "hash": "69f61dd2a0621ed5"
+      "hash": "de6bd2875c6e6ebf"
     }
   ]
 }

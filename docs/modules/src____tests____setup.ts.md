@@ -1,7 +1,8 @@
 # Modul: src/__tests__/setup.ts
 
-<!-- change: symbol-added name="mockDate" kind="variable" -->
 ### variable: mockDate
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `mockDate: any`
 ```ts
 mockDate: any
 ```

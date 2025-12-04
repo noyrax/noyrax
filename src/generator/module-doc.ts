@@ -1,4 +1,6 @@
 import { ParsedSymbol, SymbolSignature } from '../parsers/types';
+import { SignatureFormatter } from '../core/signature-formatter';
+import { classifySymbol } from '../core/symbol-classifier';
 
 /**
  * @public
@@ -219,8 +221,24 @@ export function normalizeSignature(sig: SymbolSignature): string {
 }
 
 /**
+ * Heuristik: Triviale Platzhalter-Signatur aus der alten Welt?
+ * Beispiel: "Snapshot():" (keine Parameter, kein Rückgabewert)
+ */
+function isTrivialNormalizedSignature(sig: string): boolean {
+    return /^[A-Za-z0-9_]+\(\):?$/.test(sig) || /^[A-Za-z0-9_]+\(\):$/.test(sig);
+}
+
+/**
+ * Heuristik: Handelt es sich um eine reine Formatter-Migration
+ * von einer Platzhalter-Signatur zu einer „tiefen“ Signatur?
+ */
+function isFormatterMigration(oldSig: string, newSig: string): boolean {
+    return isTrivialNormalizedSignature(oldSig) && !isTrivialNormalizedSignature(newSig);
+}
+
+/**
  * @public
- * Check if signature changed between two symbols
+ * Check if signature changed zwischen zwei Symbolen
  */
 export function signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean {
     return normalizeSignature(a.signature) !== normalizeSignature(b.signature);
@@ -250,15 +268,26 @@ export function buildModuleDocWithChanges(
                 symbol: sym
             });
         } else if (signatureChanged(sym, existingBlock.symbol)) {
-            // Signature changed
+            // Signature geändert – prüfen, ob es sich nur um eine
+            // Migration von Platzhalter- zu Tiefensignaturen handelt.
             const oldSig = normalizeSignature(existingBlock.symbol.signature);
             const newSig = normalizeSignature(sym.signature);
-            blocks.push({
-                comment: `<!-- change: signature-changed old="${oldSig}" new="${newSig}" -->`,
-                symbol: sym
-            });
+
+            if (isFormatterMigration(oldSig, newSig)) {
+                // Nur Formatter-Migration – nicht als semantische Änderung melden
+                blocks.push({
+                    comment: existingBlock.comment || '',
+                    symbol: sym
+                });
+            } else {
+                // Echte Signatur-Änderung
+                blocks.push({
+                    comment: `<!-- change: signature-changed old="${oldSig}" new="${newSig}" -->`,
+                    symbol: sym
+                });
+            }
         } else {
-            // Unchanged - keep existing comment
+            // Unverändert – bestehenden Kommentar übernehmen
             blocks.push({
                 comment: existingBlock.comment || '',
                 symbol: sym
@@ -291,10 +320,40 @@ function compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number {
         module: 0, class: 1, interface: 2, enum: 3, method: 4, function: 5, variable: 6, type: 7
     };
     const to = (k: string) => (typeOrder[k] ?? 99);
-    
+
+    const ca = classifySymbol(a.symbol);
+    const cb = classifySymbol(b.symbol);
+
+    const roleOrder: Record<string, number> = {
+        'service-api': 0,
+        'domain-model': 1,
+        config: 2,
+        other: 3,
+        infra: 4
+    };
+
+    const priorityOrder: Record<string, number> = {
+        high: 0,
+        normal: 1,
+        low: 2
+    };
+
     if (to(a.symbol.kind) !== to(b.symbol.kind)) {
         return to(a.symbol.kind) - to(b.symbol.kind);
     }
+
+    const roleA = roleOrder[ca.role] ?? 99;
+    const roleB = roleOrder[cb.role] ?? 99;
+    if (roleA !== roleB) {
+        return roleA - roleB;
+    }
+
+    const prioA = priorityOrder[ca.priority] ?? 99;
+    const prioB = priorityOrder[cb.priority] ?? 99;
+    if (prioA !== prioB) {
+        return prioA - prioB;
+    }
+
     return a.symbol.fullyQualifiedName.localeCompare(b.symbol.fullyQualifiedName);
 }
 
@@ -306,53 +365,127 @@ export function renderModuleDoc(doc: ModuleDoc, filePath: string): string {
     const lines: string[] = [];
     lines.push(`# Modul: ${filePath}`);
     lines.push('');
-    
+
+    // Hilfsindex: Wie viele Methoden gehören (per Namensschema) zu welcher Klasse?
+    const methodsPerClass = new Map<string, number>();
     for (const block of doc.blocks) {
+        if (block.symbol.kind === 'method') {
+            const parts = block.symbol.fullyQualifiedName.split('.');
+            if (parts.length > 1) {
+                const className = parts[0];
+                methodsPerClass.set(className, (methodsPerClass.get(className) ?? 0) + 1);
+            }
+        }
+    }
+
+    for (const block of doc.blocks) {
+        const classification = classifySymbol(block.symbol);
+
         if (block.comment) {
             lines.push(block.comment);
         }
         lines.push(`### ${block.symbol.kind}: ${block.symbol.fullyQualifiedName}`);
+
+        // Rolle / Sichtbarkeit zur Einordnung des Symbols
+        lines.push(
+            `Rolle: ${classification.role} (Sichtbarkeit: ${classification.visibility}, Priorität: ${classification.priority})`
+        );
+
+        // Kurze, einzeilige Signatur-Zusammenfassung
+        const inlineSignature = SignatureFormatter.formatForDoc(block.symbol);
+        lines.push(`Signatur: \`${inlineSignature}\``);
+
+        // Vollständige Signatur im Codeblock
         lines.push('```ts');
-        
-        // Render signature based on kind
-        switch (block.symbol.kind) {
-            case 'interface':
-                if (block.symbol.signature.parameters.length > 0) {
-                    const props = block.symbol.signature.parameters
-                        .map(p => `  ${p.name}${p.optional ? '?' : ''}${p.type ? `: ${p.type}` : ''};`)
-                        .join('\n');
-                    lines.push(`interface ${block.symbol.signature.name} {\n${props}\n}`);
-                } else {
-                    lines.push(`interface ${block.symbol.signature.name} {}`);
-                }
-                break;
-            case 'class':
-                lines.push(`class ${block.symbol.signature.name}`);
-                break;
-            case 'type':
-                lines.push(`type ${block.symbol.signature.name}`);
-                break;
-            case 'enum':
-                lines.push(`enum ${block.symbol.signature.name}`);
-                break;
-            case 'function':
-            case 'method':
-                const params = block.symbol.signature.parameters
-                    .map(p => `${p.name}${p.optional ? '?' : ''}${p.type ? `: ${p.type}` : ''}${p.hasDefault ? ' = …' : ''}`)
-                    .join(', ');
-                const ret = block.symbol.signature.returnType ? `: ${block.symbol.signature.returnType}` : '';
-                lines.push(`${block.symbol.signature.name}(${params})${ret}`);
-                break;
-            case 'variable':
-                const varType = block.symbol.signature.returnType ? `: ${block.symbol.signature.returnType}` : '';
-                lines.push(`${block.symbol.signature.name}${varType}`);
-                break;
-            default:
-                lines.push(block.symbol.signature.name);
-        }
-        
+        lines.push(inlineSignature);
         lines.push('```');
-        lines.push('');
+
+        // Zusätzliche, strukturierte API-Doku
+        if (block.symbol.kind === 'function' || block.symbol.kind === 'method') {
+            const params = [...block.symbol.signature.parameters].sort((a, b) =>
+                (a.name || '').localeCompare(b.name || '')
+            );
+            if (params.length > 0) {
+                lines.push('');
+                lines.push('Parameter:');
+                lines.push('');
+                lines.push('| Name | Typ | Optional | Default |');
+                lines.push('|------|-----|----------|---------|');
+                for (const p of params) {
+                    const type = p.type ?? '';
+                    const optional = p.optional ? 'ja' : 'nein';
+                    const hasDefault = p.hasDefault ? 'ja' : 'nein';
+                    lines.push(`| \`${p.name}\` | \`${type}\` | ${optional} | ${hasDefault} |`);
+                }
+            }
+            if (block.symbol.signature.returnType) {
+                lines.push('');
+                lines.push(`Rückgabewert: \`${block.symbol.signature.returnType}\``);
+            }
+            lines.push('');
+        } else if (block.symbol.kind === 'interface') {
+            const props = [...block.symbol.signature.parameters].sort((a, b) =>
+                (a.name || '').localeCompare(b.name || '')
+            );
+            if (props.length > 0) {
+                lines.push('');
+                lines.push('Eigenschaften:');
+                lines.push('');
+                lines.push('| Name | Typ | Optional |');
+                lines.push('|------|-----|----------|');
+                for (const p of props) {
+                    const type = p.type ?? '';
+                    const optional = p.optional ? 'ja' : 'nein';
+                    lines.push(`| \`${p.name}\` | \`${type}\` | ${optional} |`);
+                }
+                lines.push('');
+            }
+        } else if (block.symbol.kind === 'class') {
+            const simpleName = block.symbol.fullyQualifiedName.split('.').pop() || block.symbol.fullyQualifiedName;
+            const methodCount = methodsPerClass.get(simpleName) ?? 0;
+            const hasOwnSignature =
+                (block.symbol.signature.parameters && block.symbol.signature.parameters.length > 0) ||
+                !!block.symbol.signature.returnType;
+
+            if (methodCount > 0 && !hasOwnSignature) {
+                lines.push('');
+                lines.push(
+                    `Diese Klasse bündelt ${methodCount} Methoden. ` +
+                    'Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.'
+                );
+                lines.push('');
+            } else {
+                lines.push('');
+            }
+        } else if (block.symbol.kind === 'variable' && block.symbol.fullyQualifiedName.endsWith('SNAPSHOT_CONSTANTS')) {
+            // Spezielle, strukturierte Darstellung für SNAPSHOT_CONSTANTS
+            const snapshotKeys: string[] = [];
+            const signature = inlineSignature;
+            const objectBodyMatch = signature.match(/\{\s*([^}]*)\s*\}$/);
+            if (objectBodyMatch) {
+                const body = objectBodyMatch[1];
+                const keyRegex = /readonly\s+([A-Z_]+)\s*:/g;
+                let m: RegExpExecArray | null;
+                while ((m = keyRegex.exec(body)) !== null) {
+                    snapshotKeys.push(m[1]);
+                }
+            }
+
+            if (snapshotKeys.length > 0) {
+                snapshotKeys.sort();
+                lines.push('');
+                lines.push('Struktur:');
+                lines.push('');
+                for (const key of snapshotKeys) {
+                    lines.push(`- \`${key}\`: Konfigurationsbereich innerhalb von \`SNAPSHOT_CONSTANTS\`.`);
+                }
+                lines.push('');
+            } else {
+                lines.push('');
+            }
+        } else {
+            lines.push('');
+        }
     }
     
     return lines.join('\n');

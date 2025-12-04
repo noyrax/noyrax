@@ -15,3 +15,12 @@ mcp/package-lock.json
 package-lock.json
 packages/doc-system-agent/package-lock.json
 website/package-lock.json
+
+# Editor-/Agent-Metadaten und interne Planungsdateien nicht in GitHub veröffentlichen
+.cursor/
+plans-archive/
+
+# Lokale Demo-/Website-Build-Artefakte (Quellcode bleibt im Repo)
+demo/docs/
+website/.astro/
+website/.vercel/

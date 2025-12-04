@@ -1,0 +1,22 @@
+node_modules/**
+out/**
+dist/**
+test-corpus/**
+
+# Demo-Projekt nicht ins VSIX packen
+demo/**
+
+# Website / Marketing
+website/**
+
+# Interne Pläne und Editor-/Agent-Metadaten
+plans-archive/**
+.cursor/**
+.ai-agent-context/**
+.ai-agent-rules.json
+
+# Lokale Build-/Cache-Artefakte
+*.vsix
+*.log
+
+

@@ -112,6 +112,7 @@ program
     console.log('     - 000-orchestrator.mdc (Zentrale Steuerung)');
     console.log('     - 001-pre-check.mdc (Pflichtschritte vor Änderungen)');
     console.log('     - 002-system-context.mdc (Mehrdimensionaler Navigationsraum)');
+    console.log('     - 026-reality-driven-verification.mdc (Verification-Loop Protocol)');
     console.log('     - 030-constraints.mdc (Architektur-Constraints)');
     console.log('   Auto-Attached:');
     console.log('     - 010-parsers.mdc (src/parsers/**)');
@@ -122,6 +123,8 @@ program
     console.log('     - 020-validate-workflow.mdc');
     console.log('     - 021-impact-analysis.mdc');
     console.log('     - 022-adr-workflow.mdc');
+    console.log('   Pre-Planning:');
+    console.log('     - 023-pre-planning.mdc (Proaktive Fehlervorbeugung)');
     console.log('\n🔧 MCP-Server Tools:');
     console.log('     - validation/runScan ⚠️  (benötigt npm-Script)');
     console.log('     - validation/runValidate ⚠️  (benötigt npm-Script)');

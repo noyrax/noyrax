@@ -21,8 +21,15 @@
   <a href="#quick-start">Quick Start</a> •
   <a href="#usage">Usage</a> •
   <a href="#ai-integration">AI Integration</a> •
+  <a href="#mehrdimensionaler-navigationsraum">Navigationsraum</a> •
   <a href="#pricing">Pricing</a> •
   <a href="#contributing">Contributing</a>
+</p>
+
+<p align="center">
+  <strong>Version 1.0.4</strong> • 
+  <a href="docs/adr/">27 Architecture Decision Records</a> • 
+  <a href="docs/system/SYSTEM_ANALYSIS.md">Systemanalyse</a>
 </p>
 
 ---
@@ -79,10 +86,48 @@ Erkennt automatisch, wenn Code und Dokumentation auseinanderlaufen.
 
 Built for Cursor, Copilot & Claude mit MCP-Server und strukturierten Workflows.
 
-- MCP-Server Integration
+- MCP-Server Integration (99 Resources)
 - Impact-Analyse
 - ADR-Generierung
 - Cursor Rules
+
+</td>
+</tr>
+<tr>
+<td width="33%">
+
+### 🧠 Semantische Intelligenz
+
+Rollenbasierte Dokumentationstiefe und intelligente Signatur-Formatierung.
+
+- **SignatureFormatter** ([ADR-020](docs/adr/020-api-doc-tiefe-und-signatureformatter.md)): Zentrale Signatur-Formatierung
+- **SymbolClassifier** ([ADR-021](docs/adr/021-semantic-api-docs-and-symbol-classifier.md)): Rollenbasierte Klassifizierung (service-api, domain-model, config, infra, other)
+- **Semantisches Rendering** ([ADR-022](docs/adr/022-semantic-class-and-constants-rendering.md)): Strukturierte Klassen- und Konstanten-Darstellung
+
+</td>
+<td width="33%">
+
+### 🗺️ Mehrdimensionaler Navigationsraum
+
+Koordinaten-System mit 5 Dimensionen für KI-Agenten-Navigation.
+
+- **Modul-Raum (X)**: API-Dokumentation pro Datei
+- **Symbol-Raum (Y)**: Symbole mit Dependencies
+- **Beziehungs-Raum (Z)**: Modul-Abhängigkeiten
+- **Wissens-Raum (W)**: Architektur-Entscheidungen (ADRs)
+- **Zeit-Raum (T)**: Änderungen über die Zeit ([ADR-024](docs/adr/024-cursor-rules-mehrdimensionaler-raum.md))
+
+</td>
+<td width="33%">
+
+### ✅ Reality-Driven Development
+
+Verification-Loops verhindern AI-Agent-Halluzinationen.
+
+- **Verification-Scripts** ([ADR-026](docs/adr/026-reality-driven-development-system.md)): Architektur, ADRs, Imports
+- **Pre-Commit Hooks**: Automatische Verification
+- **CI/CD Integration**: GitHub Actions für Reality-Checks
+- **Evidence-basierte Claims**: Code ist die einzige Wahrheitsquelle
 
 </td>
 </tr>
@@ -198,16 +243,21 @@ Erstelle `noyrax.config.json` im Projekt-Root:
 
 Noyrax ist **AI-native** – designed für die Zusammenarbeit mit Cursor, Copilot und anderen AI-Assistenten.
 
-### MCP-Server
+### MCP-Server ([ADR-025](docs/adr/025-mcp-tools-scan-validate-cli-bridge.md))
 
 Der MCP-Server ermöglicht strukturierte Kommunikation zwischen AI-Agent und Noyrax:
 
+**99 Resources verfügbar:**
+- **4 System-Resources**: `docs://system/graph`, `docs://system/dependencies`, `docs://system/changes`, `docs://index/symbols.jsonl`
+- **71 Modul-Resources**: `docs://modules/{path}` (dynamisch geladen)
+- **24 ADR-Resources**: `docs://adr/{name}` (dynamisch geladen)
+
+**Tools (CLI-Bridge-Pattern):**
 ```typescript
-// Verfügbare MCP-Tools
-validation/runScan        // Projekt scannen
-validation/runValidate    // Dokumentation validieren
+validation/runScan        // Scan via npm run scan:cli
+validation/runValidate    // Validate via npm run validate:cli
 validation/runDriftCheck  // Drift erkennen
-validation/analyzeImpact  // Impact-Analyse
+validation/analyzeImpact  // Impact-Analyse via Symbol-Index
 ```
 
 ### Cursor Rules
@@ -217,20 +267,84 @@ Noyrax liefert vorgefertigte `.cursor/rules/` für strukturierte Workflows:
 ```
 ├── 000-orchestrator.mdc      # Zentrale Workflow-Steuerung
 ├── 001-pre-check.mdc         # Pflichtschritte vor Änderungen
+├── 002-system-context.mdc    # Mehrdimensionaler Navigationsraum
 ├── 020-validate-workflow.mdc # Validierungs-Workflow
 ├── 021-impact-analysis.mdc   # Impact-Analyse
+├── 026-reality-driven-verification.mdc # Verification-Loops
 └── 030-constraints.mdc       # Architektur-Constraints
 ```
 
 ### Workflow-Beispiel
 
 ```
-1. Agent liest Docs vor Änderung (Pre-Check)
+1. Agent liest Docs vor Änderung (Pre-Check, Systemkontext)
 2. Agent ändert max. 3 Dateien
 3. Agent ruft validation/runValidate auf
 4. Bei Drift → Agent korrigiert
 5. Bei signifikanter Änderung → ADR generieren
+6. Verification-Scripts prüfen Reality (Pre-Commit Hook)
 ```
+
+### Reality-Driven Development ([ADR-026](docs/adr/026-reality-driven-development-system.md))
+
+**Grundprinzip:** Code ist die einzige Wahrheitsquelle. Dokumentation und ADRs können veraltet sein.
+
+**Verification-Loops:**
+- **Vor Implementierung:** Reality-Check (Dateien, Funktionen, Imports verifizieren)
+- **Während Implementierung:** Incremental Verification (sofort kompilieren, sofort testen)
+- **Nach Implementierung:** End-to-End Verification (`npm run verify:all`)
+
+**Verification-Scripts:**
+- `scripts/verify-architecture.js` - Architektur-Regeln prüfen
+- `scripts/verify-adrs.js` - ADR-Claims gegen Code prüfen
+- `scripts/verify-imports.js` - Import-Verfügbarkeit prüfen
+
+**Automation:**
+- Pre-Commit Hook (`.husky/pre-commit`)
+- GitHub Actions (`.github/workflows/verification.yml`)
+- VS Code Tasks (`.vscode/tasks.json`)
+
+---
+
+## Mehrdimensionaler Navigationsraum ([ADR-024](docs/adr/024-cursor-rules-mehrdimensionaler-raum.md))
+
+Noyrax generiert ein **Koordinaten-System** mit 5 Dimensionen, das KI-Agenten ermöglicht, sich im Code-Raum zu bewegen:
+
+| Dimension | Artefakt | Funktion | MCP-Server Resource |
+|-----------|----------|----------|---------------------|
+| **Modul-Raum (X)** | `docs/modules/*.md` | API-Dokumentation pro Datei | `docs://modules/{path}` |
+| **Symbol-Raum (Y)** | `docs/index/symbols.jsonl` | Symbole mit Dependencies | `docs://index/symbols.jsonl` |
+| **Beziehungs-Raum (Z)** | `docs/system/DEPENDENCY_GRAPH.md` | Modul-Abhängigkeiten | `docs://system/graph` |
+| **Wissens-Raum (W)** | `docs/adr/*.md` | Architektur-Entscheidungen (Landkarte) | `docs://adr/{name}` |
+| **Zeit-Raum (T)** | `docs/system/CHANGE_REPORT.md` | Änderungen über die Zeit | `docs://system/changes` |
+
+### Navigation-Beispiel für KI-Agenten
+
+```typescript
+// 1. Modul-Dokumentation lesen (Modul-Raum)
+const moduleDoc = await readDocsResource('docs://modules/src__parsers__ts-js.ts.md');
+
+// 2. Dependency-Graph abrufen (Beziehungs-Raum)
+const graph = await readDocsResource('docs://system/graph');
+
+// 3. Change Report abrufen (Zeit-Raum)
+const changes = await readDocsResource('docs://system/changes');
+
+// 4. ADRs lesen (Wissens-Raum)
+const adrs = await readDocsResource('docs://adr/020-api-doc-tiefe-und-signatureformatter.md');
+
+// 5. Impact-Analyse durchführen
+const impact = await analyzeImpact({
+  file: 'src/parsers/ts-js.ts',
+  symbol: 'TsJsParser'
+});
+```
+
+### ADR-Verknüpfung ([ADR-023](docs/adr/023-adr-verknuepfung-modul-doku.md))
+
+Module zeigen automatisch relevante ADRs:
+- **Module → ADR**: Welche Architektur-Entscheidungen betreffen dieses Modul?
+- **ADR → Module**: Welche Module implementieren diese Entscheidung?
 
 ---
 
@@ -240,20 +354,45 @@ Noyrax generiert eine deterministische Dokumentationsstruktur:
 
 ```
 docs/
-├── modules/           # Pro-Datei Dokumentation
+├── modules/           # Pro-Datei Dokumentation (Modul-Raum)
 │   ├── src__core__scanner.ts.md
 │   ├── src__parser__typescript.ts.md
 │   └── ...
+│   # Enthält: API-Signaturen, ADR-Links, semantisches Rendering
 ├── system/            # System-weite Übersichten
-│   ├── DEPENDENCIES.md
-│   ├── DEPENDENCY_GRAPH.md
-│   └── CHANGE_REPORT.md
-├── index/             # Schneller Symbol-Index
-│   └── symbols.jsonl
-└── adr/               # Architecture Decision Records
-    ├── 001-initial-architecture.md
+│   ├── DEPENDENCIES.md        # Import-Übersicht pro Modul
+│   ├── DEPENDENCY_GRAPH.md    # Mermaid-Graph (Beziehungs-Raum)
+│   └── CHANGE_REPORT.md       # Änderungsprotokoll (Zeit-Raum)
+├── index/             # Schneller Symbol-Index (Symbol-Raum)
+│   └── symbols.jsonl  # Symbole mit Dependencies (JSONL-Format)
+└── adr/               # Architecture Decision Records (Wissens-Raum)
+    ├── 020-api-doc-tiefe-und-signatureformatter.md
+    ├── 021-semantic-api-docs-and-symbol-classifier.md
+    ├── 022-semantic-class-and-constants-rendering.md
+    ├── 023-adr-verknuepfung-modul-doku.md
+    ├── 024-cursor-rules-mehrdimensionaler-raum.md
+    ├── 025-mcp-tools-scan-validate-cli-bridge.md
+    ├── 026-reality-driven-development-system.md
+    ├── 027-scanner-excludes-and-union-logic-fix.md
     └── ...
 ```
+
+### Modul-Dokumentation Features
+
+Jede Modul-Dokumentation (`docs/modules/*.md`) enthält:
+
+- **API-Signaturen**: Formatierung via SignatureFormatter ([ADR-020](docs/adr/020-api-doc-tiefe-und-signatureformatter.md))
+- **Semantische Klassifizierung**: Rollenbasierte Doku-Tiefe via SymbolClassifier ([ADR-021](docs/adr/021-semantic-api-docs-and-symbol-classifier.md))
+- **Semantisches Rendering**: Strukturierte Klassen- und Konstanten-Darstellung ([ADR-022](docs/adr/022-semantic-class-and-constants-rendering.md))
+- **ADR-Verknüpfungen**: Automatische Links zu relevanten Architektur-Entscheidungen ([ADR-023](docs/adr/023-adr-verknuepfung-modul-doku.md))
+
+### Change Report (Zeit-Raum)
+
+Der Change Report (`docs/system/CHANGE_REPORT.md`) zeigt:
+- Neu hinzugefügte Symbole
+- Geänderte Signaturen
+- Dependency-Änderungen
+- Ermöglicht Änderungsmuster zu erkennen
 
 ---
 
@@ -410,6 +549,14 @@ npm test
 - [x] **v1.0** – Core: Scan, Generate, Validate
 - [x] **v1.1** – Inkrementelle Generierung
 - [x] **v1.2** – MCP-Server & Cursor Rules
+- [x] **v1.0.4** – Semantische Intelligenz & Mehrdimensionaler Raum
+  - SignatureFormatter & SymbolClassifier ([ADR-020](docs/adr/020-api-doc-tiefe-und-signatureformatter.md), [ADR-021](docs/adr/021-semantic-api-docs-and-symbol-classifier.md))
+  - Semantisches Rendering ([ADR-022](docs/adr/022-semantic-class-and-constants-rendering.md))
+  - ADR-Linking ([ADR-023](docs/adr/023-adr-verknuepfung-modul-doku.md))
+  - Mehrdimensionaler Navigationsraum ([ADR-024](docs/adr/024-cursor-rules-mehrdimensionaler-raum.md))
+  - MCP-Server CLI-Bridge ([ADR-025](docs/adr/025-mcp-tools-scan-validate-cli-bridge.md))
+  - Reality-Driven Development ([ADR-026](docs/adr/026-reality-driven-development-system.md))
+  - Scanner-Excludes Fix ([ADR-027](docs/adr/027-scanner-excludes-and-union-logic-fix.md))
 - [ ] **v1.3** – GitHub Action (Q1 2026)
 - [ ] **v1.4** – Cloud Dashboard (Q2 2026)
 - [ ] **v2.0** – Team Features (Q3 2026)
@@ -438,10 +585,26 @@ npm test
 │                    │  - AST       │                         │
 │                    │  - Signatures│                         │
 │                    │  - Output    │                         │
+│                    │  - Dependencies│                       │
+│                    └──────────────┘                         │
+│                           │                                 │
+│                    ┌──────────────┐                         │
+│                    │     Core     │                         │
+│                    │  - Signature │                         │
+│                    │    Formatter │                         │
+│                    │  - Symbol    │                         │
+│                    │    Classifier│                         │
+│                    │  - ADR       │                         │
+│                    │    Linker    │                         │
 │                    └──────────────┘                         │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
+│  Mehrdimensionaler Navigationsraum (5 Dimensionen)        │
+│  Modul-Raum │ Symbol-Raum │ Beziehungs-Raum │             │
+│  Wissens-Raum │ Zeit-Raum                                  │
+├─────────────────────────────────────────────────────────────┤
 │  Integrations:  VS Code │ CLI │ MCP Server │ GitHub Action │
+│  Verification: Pre-Commit │ CI/CD │ VS Code Tasks         │
 └─────────────────────────────────────────────────────────────┘
 ```
 

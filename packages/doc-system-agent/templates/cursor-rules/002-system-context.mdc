@@ -1,0 +1,119 @@
+---
+description: System-Verständnis: Mehrdimensionaler Navigationsraum. Erklärt wie Cursor im System navigiert und welche Docs als Koordinaten dienen.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# System-Verständnis – Mehrdimensionaler Navigationsraum
+
+## Das System als mehrdimensionaler Raum
+
+Das Documentation-System-Plugin generiert ein **Koordinaten-System**, das Cursor ermöglicht, sich im Code-Raum zu bewegen:
+
+| Dimension | Artefakt | Funktion | Zugriff |
+|-----------|----------|----------|---------|
+| **Modul-Raum (X)** | `docs/modules/*.md` | API-Dokumentation pro Datei | `docs://modules/{path}` |
+| **Symbol-Raum (Y)** | `docs/index/symbols.jsonl` | Symbole mit Dependencies | `docs://index/symbols.jsonl` |
+| **Beziehungs-Raum (Z)** | `docs/system/DEPENDENCY_GRAPH.md` | Modul-Abhängigkeiten | `docs://system/graph` |
+| **Wissens-Raum (W)** | `docs/adr/*.md` | Architektur-Entscheidungen (Landkarte) | `docs://adr/{name}` |
+| **Zeit-Raum (T)** | `docs/system/CHANGE_REPORT.md` | Änderungen über die Zeit | `docs://system/changes` |
+
+## Navigation im Raum
+
+### Bei Code-Änderungen:
+1. **Modul-Raum**: Relevante Modul-Doku aus `docs/modules/` lesen
+2. **Beziehungs-Raum**: Dependencies aus `docs/system/DEPENDENCIES.md` prüfen
+3. **Zeit-Raum**: Change Report konsultieren, um letzte Änderungen zu verstehen
+4. **Wissens-Raum**: Relevante ADRs aus Modul-Doku konsultieren (ADR-023 Verknüpfung)
+
+### Bei Problemen:
+1. **System-Docs**: `DEPENDENCIES.md`, `DEPENDENCY_GRAPH.md` konsultieren
+2. **Zeit-Raum**: Change Report prüfen - welche Änderungen wurden kürzlich gemacht?
+3. **Impact-Analyse**: Via MCP-Server `validation/analyzeImpact` oder Symbol-Index
+4. **ADRs**: Architektur-Entscheidungen als Kontext nutzen
+
+### Bei neuen Dateien:
+1. **Systemkontext besorgen**:
+   - Ähnliche Module in `docs/modules/` finden
+   - Import-Richtungen aus `docs/system/DEPENDENCIES.md` prüfen
+   - **Zeit-Raum**: Change Report für Änderungsmuster und Trends analysieren
+   - Relevante ADRs aus ähnlichen Modulen konsultieren
+   - Architektur-Patterns aus ADRs verstehen
+
+## MCP-Server Zugriff
+
+Der MCP-Server bietet strukturierten Zugriff auf alle Koordinaten:
+- `docs://modules/{path}` - Modul-Dokumentation
+- `docs://system/graph` - Dependency-Graph
+- `docs://system/dependencies` - Dependency-Übersicht
+- `docs://system/changes` - Change Report (Zeit-Dimension)
+- `docs://adr/{name}` - ADRs
+- `docs://index/symbols.jsonl` - Symbol-Index
+- `validation/analyzeImpact` - Impact-Analyse
+
+## ADRs als Landkarte
+
+ADRs dokumentieren Architektur-Entscheidungen und sind automatisch mit Modulen verknüpft (ADR-023):
+- Module zeigen relevante ADRs automatisch
+- ADRs erklären **warum** bestimmte Entscheidungen getroffen wurden
+- Bei Unsicherheit: Relevante ADRs konsultieren, nicht raten
+
+## Change Report als Zeit-Dimension
+
+Der Change Report (`docs/system/CHANGE_REPORT.md`) ist die **Zeit-Dimension** des Systems:
+- Zeigt **neu hinzugefügte Symbole** - was wurde kürzlich erstellt?
+- Zeigt **geänderte Symbole** - welche Signaturen haben sich geändert?
+- Zeigt **Dependency-Änderungen** - welche Abhängigkeiten wurden hinzugefügt/entfernt?
+- Ermöglicht **Änderungsmuster** zu erkennen - wie entwickelt sich das System?
+- Bei Problemen: Change Report konsultieren, um zu verstehen, welche Änderungen kürzlich gemacht wurden
+
+## Koordinaten-System Nutzung
+
+### Beispiel: Neues Modul erstellen
+
+```typescript
+// 1. Modul-Raum: Ähnliche Module finden
+// docs://modules/src__parsers__ts-js.ts.md lesen
+
+// 2. Beziehungs-Raum: Import-Richtungen verstehen
+// docs://system/dependencies konsultieren
+
+// 3. Zeit-Raum: Änderungsmuster analysieren
+// docs://system/changes - welche Module wurden kürzlich erstellt?
+
+// 4. Wissens-Raum: Architektur-Entscheidungen verstehen
+// ADRs aus ähnlichen Modulen konsultieren
+```
+
+### Beispiel: Problem-Diagnose
+
+```typescript
+// 1. System-Docs: Abhängigkeiten prüfen
+// docs://system/graph - Dependency-Graph analysieren
+
+// 2. Zeit-Raum: Kürzliche Änderungen prüfen
+// docs://system/changes - welche Änderungen könnten das Problem verursacht haben?
+
+// 3. Impact-Analyse: Auswirkungen verstehen
+// validation/analyzeImpact - welche Module sind betroffen?
+
+// 4. Wissens-Raum: Architektur-Kontext
+// Relevante ADRs konsultieren
+```
+
+## Wichtige Prinzipien
+
+1. **Koordinaten nutzen, nicht raten** - Immer die entsprechenden Docs konsultieren
+2. **Mehrdimensional denken** - Nicht nur eine Dimension betrachten, sondern den gesamten Raum
+3. **ADRs als Landkarte** - Architektur-Entscheidungen verstehen, bevor man ändert
+4. **Zeit berücksichtigen** - Change Report zeigt, wie sich das System entwickelt
+5. **Systemkontext bei neuen Dateien** - Immer ähnliche Module und Patterns finden
+
+## Verweise
+
+- Siehe `001-pre-check.mdc` für die Checkliste vor Code-Änderungen
+- Siehe `000-orchestrator.mdc` für die Workflow-Übersicht
+- Siehe `021-impact-analysis.mdc` für Impact-Analysen
+- Siehe `docs/system/NAVIGATION_SPACE_ANALYSIS.md` für detaillierte Analyse
+- Siehe `docs/system/PLUGIN_ECOSYSTEM_STATUS.md` für Plugin-Ecosystem Status

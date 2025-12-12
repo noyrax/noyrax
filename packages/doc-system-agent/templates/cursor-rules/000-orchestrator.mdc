@@ -15,14 +15,18 @@ Dieses Projekt ist eine **VS Code Extension** zur automatischen Dokumentationsge
 ┌─────────────────────────────────────────────────────────────┐
 │                    AGENT WORKFLOW                           │
 ├─────────────────────────────────────────────────────────────┤
+│  0. Reality-Check VOR Implementierung (026-reality-driven)  │
 │  1. Plan-Erkennung (*.plan.md im Projekt-Root)              │
-│  2. Pre-Check (001-pre-check.mdc)                           │
-│  3. Modul-spezifische Rules (010-013)                       │
-│  4. Implementierung (max. 3 Dateien)                        │
-│  5. Validierung (npm run scan && npm run validate)          │
-│  6. ADR bei signifikanten Änderungen                        │
+│  2. Systemkontext verstehen (002-system-context.mdc)         │
+│  3. Pre-Check mit Verification (001-pre-check.mdc)           │
+│  4. Modul-spezifische Rules (010-013)                       │
+│  5. Implementierung mit Incremental Verification            │
+│  6. End-to-End Verification (npm run verify:all)            │
+│  7. ADR bei signifikanten Änderungen                        │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+**KRITISCH:** Siehe `026-reality-driven-verification.mdc` für das Verification-Loop Protocol. **Code ist die einzige Wahrheitsquelle** – Dokumentation und ADRs können veraltet sein.
 
 ## 1. Dynamische Plan-Erkennung
 
@@ -36,7 +40,19 @@ Vor jeder größeren Implementierung:
 3. **Kein Plan gefunden**: Arbeite nach Standard-Constraints (siehe `030-constraints.mdc`)
 4. **Plan-Abweichungen**: Müssen begründet und als ADR dokumentiert werden
 
-## 2. Generierte Dokumentation als Wissensbasis
+## 2. Mehrdimensionaler Navigationsraum
+
+Das System funktioniert als **mehrdimensionaler Raum**, in dem die Docs die Koordinaten und die ADRs die Landkarte sind. Siehe `002-system-context.mdc` für Details.
+
+| Dimension | Artefakt | Funktion |
+|-----------|----------|----------|
+| **Modul-Raum (X)** | `docs/modules/*.md` | API-Dokumentation pro Datei |
+| **Symbol-Raum (Y)** | `docs/index/symbols.jsonl` | Symbole mit Dependencies |
+| **Beziehungs-Raum (Z)** | `docs/system/DEPENDENCY_GRAPH.md` | Modul-Abhängigkeiten |
+| **Wissens-Raum (W)** | `docs/adr/*.md` | Architektur-Entscheidungen (Landkarte) |
+| **Zeit-Raum (T)** | `docs/system/CHANGE_REPORT.md` | Änderungen über die Zeit |
+
+## 2a. Generierte Dokumentation als Wissensbasis
 
 Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
 
@@ -46,28 +62,77 @@ Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
 | `docs/index/symbols.jsonl` | Symbol-Index | Dependencies pro Datei |
 | `docs/system/DEPENDENCIES.md` | Import-Übersicht | Module-Abhängigkeiten |
 | `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Abhängigkeiten |
-| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Letzte Änderungen |
-| `docs/adr/*.md` | ADRs | Architektur-Entscheidungen |
+| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Letzte Änderungen (Zeit-Dimension) |
+| `docs/adr/*.md` | ADRs | Architektur-Entscheidungen (Landkarte) |
 
 ## 3. Rule-Hierarchie
 
 | Priorität | Rule-Typ | Beschreibung |
 |-----------|----------|--------------|
-| 1 (höchste) | Always-Apply | `000-orchestrator`, `001-pre-check`, `030-constraints` |
+| 1 (höchste) | Always-Apply | `000-orchestrator`, `001-pre-check`, `002-system-context`, `026-reality-driven-verification`, `030-constraints` |
 | 2 | Auto-Attached | `010-013` – Aktiviert bei Arbeit in spezifischen Modulen |
 | 3 | Agent-Requested | `020-022` – Aktiviert bei expliziten Anfragen |
+| 4 | Pre-Planning | `023-pre-planning`, `024-api-doc-depth` – Aktiviert bei Planungs-Anfragen |
 
 ## 4. Verbindliche Arbeitsweise
 
+### 4.1 Reality-Driven Development (KRITISCH)
+
+**Grundprinzip:** Code ist die einzige Wahrheitsquelle. Siehe `026-reality-driven-verification.mdc` für Details.
+
+- **Reality-Check VOR Implementierung** – Dateien, Funktionen, Imports verifizieren (grep, ls, cat)
+- **Incremental Verification WÄHREND Implementierung** – Sofort kompilieren, sofort testen
+- **End-to-End Verification NACH Implementierung** – `npm run verify:all` ausführen (falls verfügbar)
+- **Evidence-basierte Claims** – Nie "Ich habe X implementiert" ohne Beweis sagen
+- **Verification-Scripts nutzen** – `verify:architecture`, `verify:adrs`, `verify:imports` (falls verfügbar)
+
+### 4.2 Systemkontext und Navigation
+
+- **Systemkontext verstehen** – Mehrdimensionalen Raum nutzen (siehe `002-system-context.mdc`)
 - **Maximal 3 Dateien** gleichzeitig ändern
-- **Docs lesen** vor jeder Code-Änderung
-- **Dependency-Graph prüfen** vor neuen Imports
-- **Validierung ausführen** nach relevanten Änderungen
+- **Docs lesen** vor jeder Code-Änderung (alle relevanten Dimensionen konsultieren)
+- **Dependency-Graph prüfen** vor neuen Imports (Beziehungs-Raum)
+- **Change Report prüfen** bei Problemen (Zeit-Raum)
+- **ADRs konsultieren** für Architektur-Kontext (Wissens-Raum)
+
+### 4.3 Qualität und Dokumentation
+
+- **Validierung ausführen** nach relevanten Änderungen (`npm run scan:cli && npm run validate:cli` oder `npm run scan && npm run validate`)
 - **ADR schreiben** bei signifikanten Architektur-Änderungen
 - **Keine Duplikate** – bestehende Artefakte nutzen, nicht neu erstellen
 - **Nicht raten** – bei Unklarheit fragen oder Docs lesen
 
-## 5. Memories-Integration
+## 5. Verification-Tools und Automation
+
+Das System bietet automatisierte Verification-Tools, die **vor, während und nach** der Implementierung genutzt werden sollten (falls verfügbar):
+
+### 5.1 Verification-Scripts
+
+```bash
+# Alle Checks ausführen (falls verfügbar)
+npm run verify:all
+
+# Einzelne Checks (falls verfügbar)
+npm run verify:architecture  # Architektur-Regeln prüfen
+npm run verify:adrs          # ADR-Claims gegen Code prüfen
+npm run verify:imports      # Import-Verfügbarkeit prüfen
+```
+
+### 5.2 Automation
+
+- **Pre-Commit Hook** (`.husky/pre-commit`) – Automatische Verification vor jedem Commit (falls vorhanden)
+- **GitHub Actions** (`.github/workflows/verification.yml`) – CI/CD Reality-Checks (falls vorhanden)
+- **VS Code Tasks** (`.vscode/tasks.json`) – Development-Workflow Verification (falls vorhanden)
+
+### 5.3 Verification-Workflow
+
+1. **VOR Implementierung:** Reality-Check durchführen (Dateien, Funktionen, Imports verifizieren)
+2. **WÄHREND Implementierung:** `npm run compile` (sofort kompilieren)
+3. **NACH Implementierung:** `npm run verify:all` oder manuelle Checks (falls verfügbar)
+
+Siehe `026-reality-driven-verification.mdc` für detaillierte Verification-Patterns (falls vorhanden).
+
+## 6. Memories-Integration
 
 Der Agent soll Memories nutzen, um projektspezifisches Wissen persistent zu speichern:
 

@@ -3,9 +3,9 @@
  * CLI Entry Point für doc-system-agent.
  * 
  * Verwendung:
- *   npx @benni/doc-system-agent init [--force] [--merge] [--verbose]
- *   npx @benni/doc-system-agent update [--safe] [--verbose]
- *   npx @benni/doc-system-agent info
+ *   npx @noyrax/cli init [--force] [--merge] [--verbose]
+ *   npx @noyrax/cli update-rules [--safe] [--verbose]
+ *   npx @noyrax/cli info
  */
 
 import { Command } from 'commander';
@@ -58,7 +58,8 @@ program
   });
 
 program
-  .command('update')
+  .command('update-rules')
+  .alias('update')
   .description('Aktualisiert Rules auf die neueste Version')
   .option('-s, --safe', 'Neue Versionen als .new-Dateien ablegen')
   .option('-v, --verbose', 'Ausführliche Ausgabe')
@@ -103,13 +104,14 @@ program
   .command('info')
   .description('Zeigt Informationen über die aktuelle Installation')
   .action(() => {
-    console.log('📦 @benni/doc-system-agent');
+    console.log('📦 @noyrax/cli');
     console.log(`   Package-Version: ${PACKAGE_VERSION}`);
     console.log(`   Rules-Version: ${RULES_VERSION}`);
     console.log('\n📁 Enthaltene Rules:');
     console.log('   Always-Apply:');
     console.log('     - 000-orchestrator.mdc (Zentrale Steuerung)');
     console.log('     - 001-pre-check.mdc (Pflichtschritte vor Änderungen)');
+    console.log('     - 002-system-context.mdc (Mehrdimensionaler Navigationsraum)');
     console.log('     - 030-constraints.mdc (Architektur-Constraints)');
     console.log('   Auto-Attached:');
     console.log('     - 010-parsers.mdc (src/parsers/**)');
@@ -121,10 +123,10 @@ program
     console.log('     - 021-impact-analysis.mdc');
     console.log('     - 022-adr-workflow.mdc');
     console.log('\n🔧 MCP-Server Tools:');
-    console.log('     - validation/runScan');
-    console.log('     - validation/runValidate');
-    console.log('     - validation/runDriftCheck');
-    console.log('     - validation/analyzeImpact');
+    console.log('     - validation/runScan ⚠️  (benötigt npm-Script)');
+    console.log('     - validation/runValidate ⚠️  (benötigt npm-Script)');
+    console.log('     - validation/runDriftCheck ✅');
+    console.log('     - validation/analyzeImpact ✅');
   });
 
 program.parse();

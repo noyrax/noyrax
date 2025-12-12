@@ -19,31 +19,58 @@ Diese Rule wird aktiviert bei Anfragen zu Abhängigkeiten und Auswirkungen.
 
 ## Datenquellen
 
-| Quelle | Inhalt | Nutzen |
-|--------|--------|--------|
-| `docs/system/DEPENDENCIES.md` | Import/Export pro Modul | Direkte Abhängigkeiten |
-| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Übersicht |
-| `docs/index/symbols.jsonl` | Symbol-Index | Symbol-Level Dependencies |
+| Quelle | Inhalt | Nutzen | Dimension |
+|--------|--------|--------|-----------|
+| `docs/system/DEPENDENCIES.md` | Import/Export pro Modul | Direkte Abhängigkeiten | Beziehungs-Raum (Z) |
+| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Übersicht | Beziehungs-Raum (Z) |
+| `docs/index/symbols.jsonl` | Symbol-Index | Symbol-Level Dependencies | Symbol-Raum (Y) |
+| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Kürzliche Änderungen | Zeit-Raum (T) |
+| MCP-Server `validation/analyzeImpact` | Impact-Analyse | Automatische Analyse | - |
+
+**Hinweis:** Siehe `002-system-context.mdc` für das Verständnis des mehrdimensionalen Raums.
 
 ## Analyse-Workflow
 
-### 1. Direkte Abhängigkeiten finden
+### 1. Impact-Analyse via MCP-Server (empfohlen)
 
+```typescript
+// Via MCP-Server - automatische Impact-Analyse
+const impact = await analyzeImpact({
+  file: 'src/parsers/ts-js.ts',
+  symbol: 'TsJsParser'
+});
+// Zeigt: directDependents, transitiveDependents, impactLevel
+```
+
+### 2. Direkte Abhängigkeiten finden
+
+**Via MCP-Server:**
+```typescript
+// docs://system/dependencies lesen
+readDocsResource('docs://system/dependencies')
+```
+
+**Oder direkt:**
 ```bash
 # In DEPENDENCIES.md nach Modul suchen
 grep -A 20 "src/parsers/ts-js.ts" docs/system/DEPENDENCIES.md
 ```
 
-Oder aus `symbols.jsonl`:
-
+**Oder aus Symbol-Index:**
 ```bash
 # Alle Dateien die ts-js.ts importieren
 grep "src/parsers/ts-js" docs/index/symbols.jsonl | jq '.dependents'
 ```
 
-### 2. Transitive Abhängigkeiten
+### 3. Transitive Abhängigkeiten
 
-Für tiefere Analyse den Dependency-Graph nutzen:
+Für tiefere Analyse den Dependency-Graph nutzen (Beziehungs-Raum):
+
+**Via MCP-Server:**
+```typescript
+// docs://system/graph lesen
+readDocsResource('docs://system/graph')
+```
 
 ```mermaid
 graph TD
@@ -52,7 +79,17 @@ graph TD
     D[src/generator/index.ts] --> B
 ```
 
-### 3. Impact-Bewertung
+### 4. Zeit-Dimension berücksichtigen
+
+**Change Report konsultieren** (Zeit-Raum):
+```typescript
+// docs://system/changes lesen
+readDocsResource('docs://system/changes')
+// Prüfen: Welche Änderungen wurden kürzlich gemacht?
+// Könnten diese das Problem verursacht haben?
+```
+
+### 5. Impact-Bewertung
 
 | Änderungstyp | Impact | Aktion |
 |--------------|--------|--------|
@@ -73,22 +110,41 @@ graph TD
 
 **Analyse**:
 
-1. **Direkte Nutzer** (aus DEPENDENCIES.md):
+1. **Impact-Analyse via MCP-Server**:
+   ```typescript
+   const impact = await analyzeImpact({
+     file: 'src/validator/signature-matching.ts',
+     symbol: 'normalizeSignature'
+   });
+   ```
+
+2. **Direkte Nutzer** (aus DEPENDENCIES.md, Beziehungs-Raum):
    - `src/validator/index.ts` – Haupt-Validator
    
-2. **Transitive Nutzer**:
+3. **Transitive Nutzer** (aus Dependency-Graph):
    - `src/extension.ts` – VS Code Extension Entry
    - CLI-Commands (falls vorhanden)
 
-3. **Impact-Bewertung**:
+4. **Zeit-Dimension** (Change Report):
+   - Wurde `normalizeSignature` kürzlich geändert?
+   - Gibt es ähnliche Änderungen, die Probleme verursacht haben?
+
+5. **Impact-Bewertung**:
    - Signatur-Normalisierung ist kritisch für Validierung
    - Änderung kann false positives/negatives verursachen
    - **Empfehlung**: Ausführliche Tests, ggf. ADR
 
 ## Zyklus-Erkennung
 
-Vor neuen Imports prüfen:
+Vor neuen Imports prüfen (Beziehungs-Raum):
 
+**Via MCP-Server:**
+```typescript
+// docs://system/graph lesen und auf Zyklen prüfen
+const graph = await readDocsResource('docs://system/graph');
+```
+
+**Oder direkt:**
 ```bash
 # Dependency-Graph auf Zyklen prüfen
 grep -E "^\s+[A-Z].*-->.*[A-Z]" docs/system/DEPENDENCY_GRAPH.md
@@ -104,3 +160,14 @@ Verboten:
 parsers → core  # Rückwärts-Import!
 validator → parsers → validator  # Zyklus!
 ```
+
+## Navigation im mehrdimensionalen Raum
+
+Bei Impact-Analysen alle relevanten Dimensionen berücksichtigen:
+
+1. **Beziehungs-Raum (Z)**: Dependencies und Dependency-Graph
+2. **Symbol-Raum (Y)**: Symbol-Level Dependencies aus `symbols.jsonl`
+3. **Zeit-Raum (T)**: Change Report für kürzliche Änderungen
+4. **Wissens-Raum (W)**: Relevante ADRs für Architektur-Kontext
+
+Siehe `002-system-context.mdc` für Details zum mehrdimensionalen Navigationsraum.

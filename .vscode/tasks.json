@@ -2,30 +2,55 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "watch",
-      "label": "watch",
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch"],
+      "label": "Verify Before Commit",
+      "type": "shell",
+      "command": "npm run verify:all",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "presentation": {
-        "reveal": "never"
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Quick Verification",
+      "type": "shell",
+      "command": "npm run compile && npm run scan:cli && npm run validate:cli",
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Verify ADR Claims",
+      "type": "shell",
+      "command": "node scripts/verify-adrs.js --verbose",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Verify Architecture",
+      "type": "shell",
+      "command": "node scripts/verify-architecture.js",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Verify Imports",
+      "type": "shell",
+      "command": "node scripts/verify-imports.js",
+      "group": "test",
+      "presentation": {
+        "reveal": "always"
       }
     }
   ]
-}
-
-{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "script": "compile",
-            "group": "build",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "never"
-            },
-            "problemMatcher": "$tsc"
-        }
-    ]
 }

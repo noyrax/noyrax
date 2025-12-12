@@ -9,7 +9,27 @@ alwaysApply: true
 
 Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 
+**Wichtig:** Siehe `002-system-context.mdc` für das Verständnis des Systems als mehrdimensionalen Navigationsraum.
+
 ## Checkliste (in dieser Reihenfolge)
+
+### 0. Reality-Check vor Implementierung (KRITISCH)
+
+**WICHTIG:** Siehe `026-reality-driven-verification.mdc` für detaillierte Verification-Patterns.
+
+#### 0.1 Dateien und Funktionen verifizieren
+- [ ] Datei existiert prüfen: `Test-Path path/to/file.ts` (PowerShell) oder `ls -la path/to/file.ts`
+- [ ] Funktion existiert prüfen: `Select-String -Path path/to/file.ts -Pattern "functionName"` (PowerShell) oder `grep "functionName" path/to/file.ts`
+- [ ] Export existiert prüfen: `Select-String -Path path/to/file.ts -Pattern "export.*functionName"` (PowerShell) oder `grep "export.*functionName" path/to/file.ts`
+
+#### 0.2 Architektur verifizieren
+- [ ] `package.json` type prüfen: `Get-Content package.json | Select-String '"type"'` (PowerShell) oder `cat package.json | grep "\"type\""`
+- [ ] `tsconfig.json` module prüfen: `Get-Content tsconfig.json | Select-String "module"` (PowerShell) oder `cat tsconfig.json | grep "module"`
+- [ ] Dependencies prüfen: `Get-Content package.json | Select-String -Context 0,20 "dependencies"` (PowerShell) oder `cat package.json | grep -A 20 "dependencies"`
+
+#### 0.3 Precedents finden
+- [ ] Ähnliche Features finden: `Select-String -Path src/ -Pattern "similar_pattern" -Recurse` (PowerShell) oder `grep -r "similar_pattern" src/`
+- [ ] Bestehende Patterns finden: `Get-ChildItem -Recurse -Filter "*.ts" | Select-String "pattern"` (PowerShell) oder `find . -name "*.ts" | xargs grep "pattern"`
 
 ### 1. Plan prüfen
 - [ ] Existiert ein `*.plan.md` im Projekt-Root?
@@ -17,28 +37,49 @@ Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 - [ ] Falls nein: Standard-Constraints anwenden
 
 ### 2. Dokumentation lesen
-- [ ] Relevante Modul-Doku aus `docs/modules/` gelesen
-- [ ] `docs/system/DEPENDENCIES.md` für betroffene Module geprüft
+- [ ] Relevante Modul-Doku aus `docs/modules/` gelesen (Modul-Raum)
+- [ ] `docs/system/DEPENDENCIES.md` für betroffene Module geprüft (Beziehungs-Raum)
+- [ ] Relevante ADRs aus Modul-Doku konsultiert (Wissens-Raum, ADR-023 Verknüpfung)
 - [ ] Bei Unsicherheit: Weitere Docs konsultieren, NICHT raten
 
 ### 3. Abhängigkeiten prüfen
-- [ ] `docs/system/DEPENDENCY_GRAPH.md` geprüft
+- [ ] `docs/system/DEPENDENCY_GRAPH.md` geprüft (Beziehungs-Raum)
 - [ ] Keine neuen zirkulären Abhängigkeiten eingeführt
 - [ ] Import-Richtung respektiert: `core → parsers → symbols → generator/validator → cli`
+
+### 3a. Bei neuen Dateien: Systemkontext besorgen
+- [ ] Ähnliche Module in `docs/modules/` gefunden (Modul-Raum)
+- [ ] Import-Richtungen aus `docs/system/DEPENDENCIES.md` geprüft (Beziehungs-Raum)
+- [ ] Change Report (`docs://system/changes`) für Änderungsmuster konsultiert (Zeit-Raum)
+- [ ] Relevante ADRs aus ähnlichen Modulen konsultiert (Wissens-Raum)
+- [ ] Architektur-Patterns aus ADRs verstanden
 
 ### 4. Scope begrenzen
 - [ ] **Maximal 3 Dateien** in diesem Änderungsschritt
 - [ ] Änderungen sind fokussiert und zusammenhängend
 - [ ] Keine unnötigen Refactorings "nebenbei"
 
-### 5. Implementierung
+### 5. Implementierung mit Incremental Verification
+
+**WICHTIG:** Siehe `026-reality-driven-verification.mdc` für Verification-Patterns während der Implementierung.
+
 - [ ] Code gemäß Plan/Constraints implementiert
 - [ ] TypeScript für neue Module (kein Python)
 - [ ] Öffentliche APIs klar typisiert (kein `any`)
 - [ ] Frühe Guard-Clauses, keine stillen Catches
+- [ ] **SOFORT nach Änderungen kompilieren:** `npm run compile`
+- [ ] **Fehler VOR Fortfahren beheben**
+- [ ] **SOFORT testen:** `node dist/file.js` oder `npm run scan:cli`
 
-### 6. Nach der Änderung
-- [ ] `npm run scan && npm run validate` ausführen
+### 6. Nach der Änderung: End-to-End Verification
+
+**WICHTIG:** Siehe `026-reality-driven-verification.mdc` für vollständige Verification-Checkliste.
+
+- [ ] `npm run scan:cli` ausführen (PowerShell: `npm run scan:cli; npm run validate:cli`)
+- [ ] `npm run validate:cli` ausführen
+- [ ] Change Report (`docs://system/changes`) prüfen - wurden Änderungen korrekt erfasst? (Zeit-Raum)
+- [ ] **Evidence sammeln:** Nie "Ich habe X implementiert" ohne Beweis sagen
+- [ ] **Beweis bereitstellen:** grep-Output, compile-Output, test-Output
 - [ ] Bei Fehlern: Korrigieren bevor fortfahren
 - [ ] Bei signifikanter Änderung: ADR in `docs/adr/` erstellen
 
@@ -47,12 +88,16 @@ Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 ```
 Modul: src/parsers/ts-js.ts
 Doku:  docs/modules/src__parsers__ts-js.ts.md
+MCP:   docs://modules/src__parsers__ts-js.ts.md
 
 Modul: src/validator/index.ts
 Doku:  docs/modules/src__validator__index.ts.md
+MCP:   docs://modules/src__validator__index.ts.md
 ```
 
 Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
+
+**Hinweis:** MCP-Server bietet strukturierten Zugriff via `docs://` URIs (siehe `002-system-context.mdc`).
 
 ## Wann ist eine Änderung "signifikant" (ADR-Pflicht)?
 
@@ -64,6 +109,39 @@ Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
 
 ## Bei Unklarheit
 
-1. **Mehr Docs lesen** – nicht raten
-2. **Fragen stellen** – lieber nachfragen als falsch implementieren
-3. **Kleiner anfangen** – lieber weniger ändern und validieren
+1. **Reality-Check durchführen** – Code prüfen, nicht raten (siehe `026-reality-driven-verification.mdc`)
+2. **Mehr Docs lesen** – nicht raten
+3. **Fragen stellen** – lieber nachfragen als falsch implementieren
+4. **Kleiner anfangen** – lieber weniger ändern und validieren
+
+## Verification-Commands Quick-Reference
+
+### PowerShell (Windows)
+```powershell
+# Datei existiert
+Test-Path path/to/file.ts
+
+# Pattern suchen
+Select-String -Path path/to/file.ts -Pattern "functionName"
+
+# Rekursiv suchen
+Select-String -Path src/ -Pattern "pattern" -Recurse
+
+# JSON-Feld prüfen
+Get-Content package.json | Select-String '"type"'
+```
+
+### Bash (Linux/Mac)
+```bash
+# Datei existiert
+ls -la path/to/file.ts
+
+# Pattern suchen
+grep "functionName" path/to/file.ts
+
+# Rekursiv suchen
+grep -r "pattern" src/
+
+# JSON-Feld prüfen
+cat package.json | grep "\"type\""
+```

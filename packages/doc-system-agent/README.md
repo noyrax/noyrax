@@ -123,15 +123,46 @@ npx noyrax impact <file> [symbol]
 
 ### Rules
 
-Noyrax liefert vorgefertigte `.cursor/rules/`:
+Noyrax liefert vorgefertigte `.cursor/rules/` (Version 2):
 
 | Rule | Beschreibung |
 |------|--------------|
 | `000-orchestrator.mdc` | Zentrale Workflow-Steuerung |
 | `001-pre-check.mdc` | Pflichtschritte vor Änderungen |
+| `002-system-context.mdc` | **NEU:** Mehrdimensionaler Navigationsraum |
+| `010-parsers.mdc` | Parser-spezifische Rules |
+| `011-validators.mdc` | Validator-spezifische Rules |
+| `012-cache.mdc` | Cache-spezifische Rules |
+| `013-generator.mdc` | Generator-spezifische Rules |
 | `020-validate-workflow.mdc` | Validierungs-Workflow |
-| `021-impact-analysis.mdc` | Impact-Analyse |
+| `021-impact-analysis.mdc` | Impact-Analyse (aktualisiert) |
+| `022-adr-workflow.mdc` | ADR-Workflow |
 | `030-constraints.mdc` | Architektur-Constraints |
+
+### Mehrdimensionaler Navigationsraum
+
+Die Rules erklären das System als **mehrdimensionalen Raum** mit 5 Dimensionen:
+
+- **Modul-Raum (X)**: `docs/modules/*.md` - API-Dokumentation
+- **Symbol-Raum (Y)**: `docs/index/symbols.jsonl` - Symbole mit Dependencies
+- **Beziehungs-Raum (Z)**: `docs/system/DEPENDENCY_GRAPH.md` - Modul-Abhängigkeiten
+- **Wissens-Raum (W)**: `docs/adr/*.md` - Architektur-Entscheidungen (Landkarte)
+- **Zeit-Raum (T)**: `docs/system/CHANGE_REPORT.md` - Änderungen über die Zeit
+
+Siehe `002-system-context.mdc` für Details.
+
+### Rules aktualisieren
+
+```bash
+# Rules auf neueste Version aktualisieren
+npx @noyrax/cli update-rules
+
+# Mit verbose-Ausgabe
+npx @noyrax/cli update-rules --verbose
+
+# Alias (auch möglich)
+npx @noyrax/cli update --verbose
+```
 
 ### MCP-Server
 
@@ -157,6 +188,33 @@ Der MCP-Server ermöglicht strukturierte AI-Agent-Kommunikation:
 | `validation/runValidate` | Dokumentation validieren |
 | `validation/runDriftCheck` | Drift erkennen |
 | `validation/analyzeImpact` | Impact-Analyse |
+
+**Verfügbare Resources (99 insgesamt):**
+
+- **System-Resources (4):**
+  - `docs://system/dependencies` - Dependencies Overview
+  - `docs://system/graph` - Dependency Graph
+  - `docs://system/changes` - Change Report (Zeit-Dimension)
+  - `docs://index/symbols.jsonl` - Symbol Index (Symbol-Raum)
+
+- **Modul-Resources (~71):** Dynamisch geladen aus `docs/modules/`
+  - `docs://modules/src__parsers__ts-js.ts.md`
+  - `docs://modules/src__validator__index.ts.md`
+  - ... (alle Module)
+
+- **ADR-Resources (~24):** Dynamisch geladen aus `docs/adr/`
+  - `docs://adr/001-signatur-abweichung-fix.md`
+  - `docs://adr/024-cursor-rules-mehrdimensionaler-raum.md`
+  - ... (alle ADRs)
+
+**Beispiel-Nutzung:**
+
+```typescript
+// Via MCP-Server
+const moduleDoc = await readDocsResource('docs://modules/src__parsers__ts-js.ts.md');
+const impact = await analyzeImpact({ file: 'src/parsers/ts-js.ts', symbol: 'TsJsParser' });
+const changeReport = await readDocsResource('docs://system/changes');
+```
 
 ## Programmatic API
 

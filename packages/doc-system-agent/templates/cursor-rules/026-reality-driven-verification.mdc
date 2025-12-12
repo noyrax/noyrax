@@ -1,0 +1,275 @@
+---
+description: Reality-Driven Development Protocol. Erzwingt Verification-Loops und verhindert Halluzinationen durch systematische Reality-Checks.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Reality-Driven Verification – Verification-Loop Protocol
+
+**KRITISCH:** Diese Rule ist **PFLICHT** und wird bei jeder Code-Änderung angewendet. Sie verhindert Halluzinationen durch systematische Reality-Checks.
+
+## Grundprinzip: Code ist Wahrheit
+
+In diesem selbst-dokumentierenden System:
+- **Dokumentation KANN veraltet sein**
+- **ADRs KÖNNEN Pläne beschreiben, nicht die Realität**
+- **Code ist die EINZIGE Wahrheitsquelle**
+
+## MANDATORY Verification Steps
+
+### 0. BEFORE ANY Implementation: Reality-Check
+
+**NIEMALS** Code implementieren ohne vorherige Verification des aktuellen Zustands.
+
+#### 0.1 Dateien und Funktionen verifizieren
+
+```bash
+# Datei existiert prüfen
+ls -la path/to/file.ts
+# ODER in PowerShell:
+Test-Path path/to/file.ts
+
+# Funktion existiert prüfen
+grep "functionName" path/to/file.ts
+# ODER in PowerShell:
+Select-String -Path path/to/file.ts -Pattern "functionName"
+
+# Export existiert prüfen
+grep "export.*functionName" path/to/file.ts
+```
+
+#### 0.2 Architektur verifizieren
+
+```bash
+# package.json type prüfen
+cat package.json | grep "\"type\""
+# ODER in PowerShell:
+Get-Content package.json | Select-String '"type"'
+
+# tsconfig.json module prüfen
+cat tsconfig.json | grep "module"
+# ODER in PowerShell:
+Get-Content tsconfig.json | Select-String "module"
+
+# Dependencies prüfen
+cat package.json | grep -A 20 "dependencies"
+# ODER in PowerShell:
+Get-Content package.json | Select-String -Context 0,20 "dependencies"
+```
+
+#### 0.3 Precedents finden
+
+```bash
+# Wie funktionieren ähnliche Features?
+grep -r "similar_pattern" src/
+# ODER in PowerShell:
+Select-String -Path src/ -Pattern "similar_pattern" -Recurse
+
+# Was ist das bestehende Pattern?
+find . -name "*.ts" | xargs grep "pattern"
+# ODER in PowerShell:
+Get-ChildItem -Recurse -Filter "*.ts" | Select-String "pattern"
+```
+
+### 1. DURING Implementation: Incremental Verification
+
+**NIEMALS** Code schreiben ohne sofortige Verification.
+
+#### 1.1 Compile sofort nach Änderungen
+
+```bash
+# Kompiliert es?
+npm run compile
+
+# TypeScript-Fehler?
+tsc --noEmit
+```
+
+#### 1.2 Runtime-Verification
+
+```bash
+# Läuft es?
+node dist/file.js
+
+# Produziert es erwartete Ausgabe?
+npm run command | grep "expected"
+# ODER in PowerShell:
+npm run command | Select-String "expected"
+```
+
+#### 1.3 Schrittweise Verification
+
+- Code schreiben
+- **SOFORT kompilieren**
+- Fehler **VOR** Fortfahren beheben
+- **SOFORT testen**
+- Ausgabe verifizieren
+
+### 2. AFTER Implementation: End-to-End Verification
+
+**NIEMALS** "Fertig!" sagen ohne vollständige Verification.
+
+#### 2.1 Vollständiger Workflow-Test
+
+```bash
+# Vollständiger Scan
+npm run scan:cli
+
+# Vollständige Validierung
+npm run validate:cli
+
+# Tests ausführen
+npm test
+```
+
+#### 2.2 Side-Effects prüfen
+
+- Wurden alle TODOs erledigt?
+- Gibt es unerwartete Änderungen?
+- Funktioniert alles zusammen?
+
+#### 2.3 Evidence sammeln
+
+- **NIEMALS** sagen "Ich habe X implementiert" ohne Beweis
+- **IMMER** sagen "Ich habe X implementiert, verifiziert durch [Beweis]"
+- Beweis = grep-Output, compile-Output, test-Output, etc.
+
+## Rules for Claims
+
+### ❌ VERBOTEN
+
+- ❌ **NIEMALS** sagen "Ich habe X implementiert" ohne Verification
+- ❌ **NIEMALS** Dokumentation vertrauen ohne Code-Check
+- ❌ **NIEMALS** annehmen, dass Imports funktionieren
+- ❌ **NIEMALS** sagen "Sollte funktionieren" ohne Test
+
+### ✅ ERFORDERLICH
+
+- ✅ **IMMER** sagen "Ich habe X implementiert, verifiziert durch [Beweis]"
+- ✅ **IMMER** Dokumentation gegen Code prüfen
+- ✅ **IMMER** grep verwenden, um Exports zu verifizieren
+- ✅ **IMMER** Signaturen prüfen, bevor Funktionen aufgerufen werden
+
+## Patterns to Follow
+
+### Pattern 1: Architecture Verification
+
+```typescript
+// BEFORE implementing cross-package import:
+// 1. Check if packages are compatible
+//    cat package.json | grep "type"
+//    cat tsconfig.json | grep "module"
+// 2. Check for existing patterns (precedents)
+//    grep -r "import.*from.*mcp" src/
+// 3. Use shell boundary if needed (npm scripts)
+//    See ADR-025: CLI-Bridge-Pattern
+```
+
+### Pattern 2: Function Existence
+
+```typescript
+// BEFORE calling a function:
+// 1. grep to verify it exists
+//    grep "functionName" src/path/to/file.ts
+// 2. grep to verify it's exported
+//    grep "export.*functionName" src/path/to/file.ts
+// 3. Check the signature matches
+//    Read docs/modules/src__path__to__file.ts.md
+```
+
+### Pattern 3: ADR Claims
+
+```typescript
+// WHEN ADR says "X is implemented":
+// 1. grep to verify X exists in code
+//    grep "X" src/
+// 2. If not found, document the gap
+//    "ADR claims X exists, but grep found no matches"
+// 3. Implement OR update ADR to match reality
+```
+
+### Pattern 4: Import Verification
+
+```typescript
+// BEFORE importing:
+// 1. Verify export exists
+//    grep "export.*exportedName" source/file.ts
+// 2. Verify path is correct
+//    ls -la source/file.ts
+// 3. Verify module system compatibility
+//    Check package.json "type" field
+```
+
+## Error Recovery
+
+Wenn ein Fehler auftritt:
+
+1. ✅ **Adaptieren, nicht aufgeben**
+   - Fehler analysieren (grep, compile-output)
+   - Alternative finden (z.B. ts-node → compiled)
+2. ✅ **Dokumentieren, was nicht funktioniert**
+   - In ADR oder Kommentar festhalten
+3. ✅ **Mit funktionierender Lösung fortfahren**
+   - Nicht bei Fehler stehen bleiben
+
+## Success Criteria
+
+Eine Aufgabe ist **NUR** dann abgeschlossen, wenn:
+
+- ✅ Code kompiliert ohne Fehler (`npm run compile`)
+- ✅ Code läuft ohne Fehler (`node dist/file.js`)
+- ✅ Ausgabe entspricht Spezifikation (`grep "expected" output`)
+- ✅ Alle TODOs verifiziert als erledigt (`grep "TODO" file.ts` → leer)
+- ✅ Tests bestehen (`npm test`)
+
+**NICHT** wenn:
+
+- ❌ Code sieht richtig aus
+- ❌ Dokumentation sagt, es ist fertig
+- ❌ "Sollte funktionieren in der Theorie"
+
+## Verification Commands Reference
+
+### Datei-Operationen
+
+```bash
+# PowerShell
+Test-Path path/to/file.ts
+Get-Content path/to/file.ts | Select-String "pattern"
+Get-ChildItem -Recurse -Filter "*.ts" | Select-String "pattern"
+```
+
+### Build-Verification
+
+```bash
+npm run compile
+npm run scan:cli
+npm run validate:cli
+npm test
+```
+
+### Code-Analyse
+
+```bash
+# PowerShell
+Select-String -Path src/ -Pattern "functionName" -Recurse
+Get-Content package.json | Select-String '"type"'
+Get-Content tsconfig.json | Select-String "module"
+```
+
+## Integration mit anderen Rules
+
+Diese Rule ergänzt:
+
+- **`001-pre-check.mdc`**: Fügt explizite Verification-Schritte hinzu
+- **`023-pre-planning.mdc`**: Fügt Verification-Commands zu Checklisten hinzu
+- **`030-constraints.mdc`**: Fügt Verification-Workflow hinzu
+
+## Remember
+
+**Code is truth. Everything else is opinion.**
+
+- ✅ **Verify. Don't assume.**
+- ✅ **Test. Don't hope.**
+- ✅ **Reality. Not documentation.**

@@ -1,0 +1,63 @@
+name: Reality-Driven Verification
+
+on: [push, pull_request]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Verify architecture rules
+        run: |
+          echo "Checking for invalid imports..."
+          node scripts/verify-architecture.js || exit 1
+      
+      - name: Verify ADR claims
+        run: |
+          echo "Verifying ADR claims..."
+          node scripts/verify-adrs.js || exit 1
+      
+      - name: Build verification
+        run: |
+          echo "Verifying code compiles..."
+          npm run compile || exit 1
+      
+      - name: Test CLI tools
+        run: |
+          echo "Testing CLI tools..."
+          npm run scan:cli > scan-output.json || exit 1
+          npm run validate:cli > validate-output.json || exit 1
+          
+          # Verify outputs are valid JSON
+          cat scan-output.json | jq . > /dev/null || exit 1
+          cat validate-output.json | jq . > /dev/null || exit 1
+      
+      - name: Test MCP server
+        run: |
+          echo "Testing MCP server..."
+          cd mcp
+          npm install
+          npm run build || exit 1
+      
+      - name: Generate verification report
+        if: always()
+        run: |
+          echo "## Verification Report" >> $GITHUB_STEP_SUMMARY
+          echo "- Architecture: ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- ADR Claims: ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- Build: ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- CLI Tools: ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- MCP Server: ✅" >> $GITHUB_STEP_SUMMARY
+

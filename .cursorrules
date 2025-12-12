@@ -1,0 +1,159 @@
+# Cursor Verification Protocol
+
+## CRITICAL: Reality-Driven Development
+
+You are working in a self-documenting system where:
+- Documentation MAY be outdated
+- ADRs MAY describe plans, not reality
+- Code is the ONLY source of truth
+
+## MANDATORY Verification Steps
+
+### Before ANY implementation:
+
+1. **Verify Current State**
+```bash
+   # Check if files exist
+   Test-Path path/to/file.ts  # PowerShell
+   ls -la path/to/file.ts      # Bash
+   
+   # Check if functions exist
+   Select-String -Path path/to/file.ts -Pattern "function_name"  # PowerShell
+   grep "function_name" path/to/file.ts                           # Bash
+   
+   # Check if imports work
+   Select-String -Path path/to/file.ts -Pattern "import.*from"  # PowerShell
+   grep "import.*from" path/to/file.ts                           # Bash
+```
+
+2. **Verify Architecture**
+```bash
+   # Check package.json
+   Get-Content package.json | Select-String '"type"'  # PowerShell
+   cat package.json | grep "\"type\""                  # Bash
+   
+   # Check tsconfig.json
+   Get-Content tsconfig.json | Select-String "module"  # PowerShell
+   cat tsconfig.json | grep "module"                    # Bash
+   
+   # Check dependencies
+   Get-Content package.json | Select-String -Context 0,20 "dependencies"  # PowerShell
+   cat package.json | grep "dependencies" -A 20                            # Bash
+```
+
+3. **Find Precedents**
+```bash
+   # How do similar features work?
+   Select-String -Path src/ -Pattern "similar_pattern" -Recurse  # PowerShell
+   grep -r "similar_pattern" src/                                # Bash
+   
+   # What's the existing pattern?
+   Get-ChildItem -Recurse -Filter "*.ts" | Select-String "pattern"  # PowerShell
+   find . -name "*.ts" | xargs grep "pattern"                       # Bash
+```
+
+### During implementation:
+
+1. **Incremental Verification**
+   - Write code
+   - Compile immediately (`npm run compile`)
+   - Fix errors before proceeding
+   - Test immediately (`npm run scan:cli`)
+   - Verify output
+
+2. **Runtime Verification**
+```bash
+   # Does it compile?
+   npm run compile
+   
+   # Does it run?
+   node dist/file.js
+   
+   # Does it produce expected output?
+   npm run scan:cli | Select-String "expected"  # PowerShell
+   npm run scan:cli | grep "expected"            # Bash
+```
+
+### After implementation:
+
+1. **End-to-End Verification**
+   - Test the full workflow (`npm run verify:all`)
+   - Verify all TODOs completed
+   - Check for side effects
+   - Document what was actually done
+
+## Rules for Claims
+
+- ❌ NEVER say "I implemented X" without verification
+- ✅ ALWAYS say "I implemented X, verified by [evidence]"
+
+- ❌ NEVER trust documentation without checking code
+- ✅ ALWAYS verify documentation against code
+
+- ❌ NEVER assume imports work
+- ✅ ALWAYS grep to verify exports exist
+
+## Patterns to Follow
+
+### Pattern 1: Architecture Verification
+```typescript
+// Before implementing cross-package import:
+// 1. Check if packages are compatible
+//    Get-Content package.json | Select-String '"type"'
+// 2. Check for existing patterns (precedents)
+//    Select-String -Path src/ -Pattern "import.*from.*mcp" -Recurse
+// 3. Use shell boundary if needed (npm scripts)
+//    See ADR-025: CLI-Bridge-Pattern
+```
+
+### Pattern 2: Function Existence
+```typescript
+// Before calling a function:
+// 1. grep to verify it exists
+//    Select-String -Path src/path/to/file.ts -Pattern "functionName"
+// 2. grep to verify it's exported
+//    Select-String -Path src/path/to/file.ts -Pattern "export.*functionName"
+// 3. Check the signature matches
+//    Read docs/modules/src__path__to__file.ts.md
+```
+
+### Pattern 3: ADR Claims
+```typescript
+// When ADR says "X is implemented":
+// 1. grep to verify X exists in code
+//    Select-String -Path src/ -Pattern "X" -Recurse
+// 2. If not found, document the gap
+//    "ADR claims X exists, but grep found no matches"
+// 3. Implement OR update ADR to match reality
+```
+
+## Error Recovery
+
+When you encounter an error:
+1. ✅ Adapt, don't give up
+2. ✅ Find alternatives (e.g., ts-node → compiled)
+3. ✅ Document what didn't work
+4. ✅ Continue with working solution
+
+## Success Criteria
+
+A task is complete when:
+- ✅ Code compiles without errors (`npm run compile`)
+- ✅ Code runs without errors (`node dist/file.js`)
+- ✅ Output matches specification (`Select-String "expected" output`)
+- ✅ All TODOs verified as done
+- ✅ Tests pass (`npm test`)
+
+NOT when:
+- ❌ Code looks right
+- ❌ Documentation says it's done
+- ❌ "Should work in theory"
+
+## Remember
+
+**Code is truth. Everything else is opinion.**
+
+Verify. Don't assume.
+Test. Don't hope.
+Reality. Not documentation.
+

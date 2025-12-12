@@ -1,6 +1,6 @@
 {
   "name": "@noyrax/cli",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Noyrax CLI - Documentation that never drifts. Automatische Dokumentationsgenerierung, Validierung und AI-Agent Integration.",
   "type": "module",
   "main": "dist/index.js",

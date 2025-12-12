@@ -44,6 +44,7 @@
     "onCommand:noyrax.drift",
     "onCommand:noyrax.open",
     "onCommand:noyrax.overview",
+    "onCommand:noyrax.sync",
     "onCommand:noyrax.fullCycle",
     "onCommand:noyrax.refresh"
   ],
@@ -90,6 +91,12 @@
         "title": "Noyrax: Show System Overview",
         "category": "Noyrax",
         "icon": "$(graph)"
+      },
+      {
+        "command": "noyrax.sync",
+        "title": "Noyrax: Sync Documentation",
+        "category": "Noyrax",
+        "icon": "$(sync)"
       },
       {
         "command": "noyrax.fullCycle",
@@ -271,7 +278,13 @@
     "sonar:cloud": "sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}",
     "quality": "npm run test && npm run sonar:cloud",
     "package": "vsce package",
-    "publish": "vsce publish"
+    "publish": "vsce publish",
+    "scan:cli": "node out/cli/scan-cli.js",
+    "validate:cli": "node out/cli/validate-cli.js",
+    "verify:all": "node scripts/verify-architecture.js && node scripts/verify-adrs.js && node scripts/verify-imports.js",
+    "verify:architecture": "node scripts/verify-architecture.js",
+    "verify:adrs": "node scripts/verify-adrs.js",
+    "verify:imports": "node scripts/verify-imports.js"
   },
   "devDependencies": {
     "@types/node": "16.x",

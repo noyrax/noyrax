@@ -8,7 +8,7 @@
  * @public
  */
 
-import { Server } from '@modelcontextprotocol/sdk/server';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   CallToolRequestSchema,
@@ -29,7 +29,7 @@ import type { ScanRequest, ValidateRequest, DriftRequest, ImpactRequest } from '
  * @public
  */
 export async function startMcpServer(): Promise<void> {
-  const server = new Server(
+  const server = new McpServer(
     {
       name: 'doc-validation-server',
       version: '1.0.0',
@@ -42,8 +42,8 @@ export async function startMcpServer(): Promise<void> {
     }
   );
 
-  // Tool-Definitionen
-  server.setRequestHandler(ListToolsRequestSchema, async () => ({
+  // Tool-Definitionen (verwende die zugrunde liegende Server-Instanz für Kompatibilität)
+  server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: [
       {
         name: 'validation/runScan',
@@ -116,7 +116,7 @@ export async function startMcpServer(): Promise<void> {
   }));
 
   // Tool-Ausführung
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
 
     try {
@@ -134,7 +134,7 @@ export async function startMcpServer(): Promise<void> {
           return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
         }
         case 'validation/analyzeImpact': {
-          const typedArgs = (args ?? {}) as Record<string, unknown>;
+          const typedArgs = args ?? {};
           if (!typedArgs.file || typeof typedArgs.file !== 'string') {
             throw new Error('Missing required parameter: file');
           }
@@ -158,8 +158,12 @@ export async function startMcpServer(): Promise<void> {
   });
 
   // Resource-Definitionen
-  server.setRequestHandler(ListResourcesRequestSchema, async () => ({
-    resources: [
+  server.server.setRequestHandler(ListResourcesRequestSchema, async () => {
+    const { listModuleDocs, listADRs } = await import('./resources/docs.js');
+    const modules = await listModuleDocs();
+    const adrs = await listADRs();
+    
+    const resources = [
       {
         uri: 'docs://system/dependencies',
         name: 'Dependencies Overview',
@@ -175,14 +179,42 @@ export async function startMcpServer(): Promise<void> {
       {
         uri: 'docs://system/changes',
         name: 'Change Report',
-        description: 'Protokoll der letzten Änderungen',
+        description: 'Protokoll der letzten Änderungen (Zeit-Dimension)',
         mimeType: 'text/markdown',
       },
-    ],
-  }));
+      {
+        uri: 'docs://index/symbols.jsonl',
+        name: 'Symbol Index',
+        description: 'Symbol-Index mit Dependencies (Symbol-Raum)',
+        mimeType: 'application/jsonl',
+      },
+    ];
+    
+    // Module als Resources hinzufügen
+    for (const module of modules) {
+      resources.push({
+        uri: `docs://modules/${module}`,
+        name: `Module: ${module}`,
+        description: `API-Dokumentation für ${module}`,
+        mimeType: 'text/markdown',
+      });
+    }
+    
+    // ADRs als Resources hinzufügen
+    for (const adr of adrs) {
+      resources.push({
+        uri: `docs://adr/${adr}`,
+        name: `ADR: ${adr}`,
+        description: `Architecture Decision Record: ${adr}`,
+        mimeType: 'text/markdown',
+      });
+    }
+    
+    return { resources };
+  });
 
   // Resource-Lesen
-  server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+  server.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
     const { uri } = request.params;
     const content = await readDocsResource(uri);
     return {

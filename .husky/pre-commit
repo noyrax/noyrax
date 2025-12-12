@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running verification checks..."
+
+# 1. Check for common issues
+echo "Checking for direct imports between mcp/ and src/..."
+if node scripts/verify-architecture.js 2>/dev/null; then
+  echo "✅ Architecture verification passed"
+else
+  echo "❌ ERROR: Architecture verification failed"
+  echo "   Run: npm run verify:architecture"
+  exit 1
+fi
+
+# 2. Verify ADR claims (non-blocking, only warnings)
+echo "Verifying ADR claims against code..."
+if node scripts/verify-adrs.js 2>/dev/null; then
+  echo "✅ ADR verification passed"
+else
+  echo "⚠️  WARNING: Some ADR claims could not be verified"
+  echo "   Run: npm run verify:adrs --verbose for details"
+  # Don't block commit for ADR warnings
+fi
+
+# 3. Compile check
+echo "Verifying code compiles..."
+if npm run compile > /dev/null 2>&1; then
+  echo "✅ Code compiles successfully"
+else
+  echo "❌ ERROR: Code does not compile"
+  echo "   Run: npm run compile"
+  exit 1
+fi
+
+echo "✅ All verification checks passed"
+

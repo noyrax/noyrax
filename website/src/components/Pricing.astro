@@ -4,19 +4,20 @@
 <section id="pricing" class="py-20 bg-slate-50">
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-headline font-bold text-doc-navy mb-4">
+      <h2 class="text-4xl md:text-5xl font-headline font-bold text-doc-navy mb-4">
         Pricing
       </h2>
       <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-        Wähle den Plan, der zu dir passt
+        Wähle den Plan, der zu dir passt. Alle Pläne enthalten eine 14-tägige kostenlose Testphase.
       </p>
     </div>
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
       <!-- Free -->
-      <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-slate-200">
+      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
         <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Free</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-6">$0</div>
+        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€0</div>
+        <p class="text-sm text-slate-500 mb-6">Für immer kostenlos</p>
         <ul class="space-y-3 mb-8 text-slate-600">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
@@ -30,19 +31,24 @@
             <span class="text-success-green mr-2">✓</span>
             <span>Local Drift-Detection</span>
           </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>Single User</span>
+          </li>
         </ul>
         <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-slate-100 text-doc-navy rounded-lg hover:bg-slate-200 transition-colors font-semibold">
           Get Started
         </a>
       </div>
       
-      <!-- Pro -->
-      <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-noyrax-blue relative">
-        <div class="absolute top-0 right-0 bg-noyrax-blue text-white px-3 py-1 rounded-bl-lg text-sm font-semibold">
+      <!-- Team -->
+      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-noyrax-blue relative hover:shadow-xl transition-all hover:-translate-y-1 hover:scale-105">
+        <div class="absolute top-0 right-0 bg-noyrax-blue text-white px-4 py-1 rounded-bl-xl text-sm font-semibold">
           Popular
         </div>
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Pro</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-6">$19<span class="text-lg text-slate-600">/mo</span></div>
+        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Team</h3>
+        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€29<span class="text-lg text-slate-600">/seat</span></div>
+        <p class="text-sm text-slate-500 mb-6">Monatlich abgerechnet</p>
         <ul class="space-y-3 mb-8 text-slate-600">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
@@ -50,49 +56,35 @@
           </li>
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
-            <span>Cloud Dashboard</span>
+            <span>Bis 10 Repos</span>
           </li>
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
-            <span>Email Alerts</span>
+            <span>Shared Index + Search</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>CI/PR Checks</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>30 Tage Retention</span>
           </li>
         </ul>
-        <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold">
+        <button 
+          id="stripe-checkout-team"
+          class="w-full px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl"
+        >
           Start Free Trial
-        </a>
+        </button>
+        <p class="text-xs text-slate-500 text-center mt-2">14 Tage kostenlos testen</p>
       </div>
       
-      <!-- Team -->
-      <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-slate-200">
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Team</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-6">$49<span class="text-lg text-slate-600">/seat</span></div>
-        <ul class="space-y-3 mb-8 text-slate-600">
-          <li class="flex items-start">
-            <span class="text-success-green mr-2">✓</span>
-            <span>Alles aus Pro</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-success-green mr-2">✓</span>
-            <span>Analytics</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-success-green mr-2">✓</span>
-            <span>Slack/Teams Integration</span>
-          </li>
-          <li class="flex items-start">
-            <span class="text-success-green mr-2">✓</span>
-            <span>RBAC</span>
-          </li>
-        </ul>
-        <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold">
-          Contact Sales
-        </a>
-      </div>
-      
-      <!-- Enterprise -->
-      <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-slate-200">
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Enterprise</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-6">Custom</div>
+      <!-- Business -->
+      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
+        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Business</h3>
+        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€59<span class="text-lg text-slate-600">/seat</span></div>
+        <p class="text-sm text-slate-500 mb-6">Monatlich abgerechnet</p>
         <ul class="space-y-3 mb-8 text-slate-600">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
@@ -100,7 +92,47 @@
           </li>
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
-            <span>SSO</span>
+            <span>Bis 50 Repos</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>Rollen & Permissions</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>Team Analytics</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>180 Tage Retention</span>
+          </li>
+        </ul>
+        <button 
+          id="stripe-checkout-business"
+          class="w-full px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl"
+        >
+          Start Free Trial
+        </button>
+        <p class="text-xs text-slate-500 text-center mt-2">14 Tage kostenlos testen</p>
+      </div>
+      
+      <!-- Enterprise -->
+      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
+        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Enterprise</h3>
+        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">Custom</div>
+        <p class="text-sm text-slate-500 mb-6">Individuell angepasst</p>
+        <ul class="space-y-3 mb-8 text-slate-600">
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>Alles aus Business</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>Unbegrenzte Repos</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>SSO/SAML</span>
           </li>
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
@@ -108,14 +140,77 @@
           </li>
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
-            <span>Compliance</span>
+            <span>SLA & Compliance</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-success-green mr-2">✓</span>
+            <span>On-Prem/Hybrid Option</span>
           </li>
         </ul>
-        <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold">
+        <a href="mailto:sales@noyrax.dev?subject=Enterprise Inquiry" class="block w-full text-center px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl">
           Contact Sales
         </a>
       </div>
     </div>
+    
+    <div class="text-center mt-12 text-slate-600">
+      <p>Alle Preise exkl. MwSt. • <a href="#beta-testers" class="text-noyrax-blue hover:underline">Beta-Tester erhalten 50% Rabatt</a></p>
+    </div>
   </div>
 </section>
+
+<script>
+  // Stripe Checkout Integration
+  // WICHTIG: Ersetze STRIPE_PUBLISHABLE_KEY mit deinem Stripe Publishable Key
+  const STRIPE_PUBLISHABLE_KEY = import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_YOUR_KEY_HERE';
+  
+  // Stripe Checkout Session erstellen (Backend-Endpoint erforderlich)
+  async function createCheckoutSession(priceId: string) {
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ priceId }),
+      });
+      
+      const { sessionId } = await response.json();
+      
+      // Stripe Checkout öffnen
+      if (window.Stripe && sessionId) {
+        const stripe = window.Stripe(STRIPE_PUBLISHABLE_KEY);
+        await stripe.redirectToCheckout({ sessionId });
+      } else {
+        // Fallback: Direkt zu Stripe Checkout (wenn Session-ID in URL)
+        window.location.href = `/checkout?price=${priceId}`;
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      // Fallback: Email-Kontakt
+      window.location.href = `mailto:sales@noyrax.dev?subject=Checkout Request&body=Price ID: ${priceId}`;
+    }
+  }
+  
+  // Event Listeners für Checkout-Buttons
+  const teamButton = document.getElementById('stripe-checkout-team');
+  const businessButton = document.getElementById('stripe-checkout-business');
+  
+  if (teamButton) {
+    teamButton.addEventListener('click', () => {
+      // Ersetze mit deinem Stripe Price ID für Team Plan
+      createCheckoutSession('price_TEAM_PRICE_ID');
+    });
+  }
+  
+  if (businessButton) {
+    businessButton.addEventListener('click', () => {
+      // Ersetze mit deinem Stripe Price ID für Business Plan
+      createCheckoutSession('price_BUSINESS_PRICE_ID');
+    });
+  }
+</script>
+
+<!-- Stripe.js laden (immer, da es harmlos ist wenn kein Key gesetzt ist) -->
+<script src="https://js.stripe.com/v3/"></script>
 

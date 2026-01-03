@@ -10,6 +10,8 @@ import Metrics from '../components/Metrics.astro';
 import Pricing from '../components/Pricing.astro';
 import Demo from '../components/Demo.astro';
 import QuickStart from '../components/QuickStart.astro';
+import Investors from '../components/Investors.astro';
+import BetaTesters from '../components/BetaTesters.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -25,6 +27,8 @@ import Footer from '../components/Footer.astro';
     <Pricing />
     <Demo />
     <QuickStart />
+    <Investors />
+    <BetaTesters />
   </main>
   <Footer />
 </Layout>
@@ -37,5 +41,85 @@ import Footer from '../components/Footer.astro';
   section {
     scroll-margin-top: 80px;
   }
+  
+  /* Fade-in Animation beim Scrollen */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  /* Hover-Effekte für Cards */
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Gradient Animation */
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .gradient-animated {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  /* Pulse Animation für CTAs */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  .pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+  }
 </style>
+
+<script>
+  // Intersection Observer für Scroll-Animationen
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-on-scroll');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    // Alle Sections beobachten
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
 

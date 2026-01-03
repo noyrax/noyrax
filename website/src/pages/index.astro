@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import UseCases from '../components/UseCases.astro';
+import Workflows from '../components/Workflows.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Metrics from '../components/Metrics.astro';
+import Pricing from '../components/Pricing.astro';
+import Demo from '../components/Demo.astro';
+import QuickStart from '../components/QuickStart.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Noyrax - Semantic Brain für KI-gesteuerte Softwareentwicklung" description="Automatische Dokumentation die nie veraltet - KI-Agenten verstehen deine Codebase sofort">
+  <Header />
+  <main>
+    <Hero />
+    <Features />
+    <UseCases />
+    <Workflows />
+    <HowItWorks />
+    <Metrics />
+    <Pricing />
+    <Demo />
+    <QuickStart />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  section {
+    scroll-margin-top: 80px;
+  }
+</style>
+

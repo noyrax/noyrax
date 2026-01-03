@@ -1,0 +1,74 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Noyrax - Semantic Brain für KI-gesteuerte Softwareentwicklung", description = "Automatische Dokumentation die nie veraltet - KI-Agenten verstehen deine Codebase sofort" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/logo.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="/logo.png" />
+    
+    <title>{title}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --nx-primary: #2563EB;
+        --nx-navy: #1E3A5F;
+        --nx-success: #10B981;
+        --nx-warning: #F59E0B;
+        --nx-error: #EF4444;
+        --nx-bg-dark: #0F172A;
+        --nx-bg-light: #F1F5F9;
+        --nx-text-secondary: #64748B;
+        --logo-accent: #00D9FF;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        color: var(--nx-bg-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+

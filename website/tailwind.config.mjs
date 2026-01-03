@@ -4,19 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Noyrax Branding Colors (angepasst an Logo)
-        'noyrax-blue': '#00D9FF', // Logo-Akzent: Leuchtendes Hellblau/Cyan
-        'doc-navy': '#1E3A5F', // Logo-Hintergrund: Dunkelgrau
-        'logo-accent': '#00D9FF', // Logo-Akzent (Alias für noyrax-blue)
-        'logo-bg': '#1E3A5F', // Logo-Hintergrund (Alias für doc-navy)
-        // Status Colors
+        // Noyrax Logo Colors (exakt)
+        'logo-bg': '#2F3237', // Dunkles Anthrazit (Hintergrund)
+        'logo-bg-alt': '#3A3D42', // Graphitgrau (Alternative)
+        'logo-white': '#FFFFFF', // Reines Weiß (Text, große Knoten)
+        'logo-cyan': '#1FD1D1', // Türkis/Cyan (Knoten, Linien)
+        'logo-cyan-bright': '#2EE6E6', // Helles Türkis
+        'logo-glow': '#00E5E5', // Neon-Cyan (Glow)
+        'logo-glow-bright': '#3CF2F2', // Helles Neon-Cyan
+        'logo-gray': '#BFC3C8', // Gedämpftes Hellgrau (dünne Linien)
+        // Aliases für Kompatibilität
+        'noyrax-blue': '#1FD1D1', // Haupt-Akzent
+        'doc-navy': '#2F3237', // Haupt-Hintergrund
+        // Status Colors (angepasst für dunklen Hintergrund)
         'success-green': '#10B981',
         'drift-orange': '#F59E0B',
         'error-red': '#EF4444',
-        // Neutral Colors
-        'slate-900': '#0F172A',
-        'slate-100': '#F1F5F9',
-        'slate-500': '#64748B',
+        // Neutral Colors (angepasst)
+        'slate-900': '#2F3237',
+        'slate-800': '#3A3D42',
+        'slate-700': '#4A4D52',
+        'slate-100': '#FFFFFF',
+        'slate-500': '#BFC3C8',
       },
       fontFamily: {
         'headline': ['JetBrains Mono', 'Fira Code', 'monospace'],

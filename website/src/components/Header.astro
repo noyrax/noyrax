@@ -1,25 +1,28 @@
 ---
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+<header class="fixed top-0 left-0 right-0 z-50 bg-logo-bg/95 backdrop-blur-sm border-b border-logo-cyan/20 shadow-lg">
   <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-      <img src="/logo.png" alt="Noyrax Logo" class="h-8 w-8" />
-      <span class="text-xl font-headline font-semibold text-doc-navy">NOYRAX</span>
+    <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity group">
+      <div class="relative">
+        <img src="/logo.png" alt="Noyrax Logo" class="h-8 w-8 relative z-10" />
+        <div class="absolute inset-0 bg-logo-glow rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity"></div>
+      </div>
+      <span class="text-xl font-headline font-semibold text-logo-white">NOYRAX</span>
     </a>
     
     <div class="hidden md:flex items-center space-x-8">
-      <a href="#features" class="text-slate-700 hover:text-noyrax-blue transition-colors">Features</a>
-      <a href="#use-cases" class="text-slate-700 hover:text-noyrax-blue transition-colors">Use Cases</a>
-      <a href="#workflows" class="text-slate-700 hover:text-noyrax-blue transition-colors">Workflows</a>
-      <a href="#pricing" class="text-slate-700 hover:text-noyrax-blue transition-colors">Pricing</a>
-      <a href="#investors" class="text-slate-700 hover:text-noyrax-blue transition-colors">Investors</a>
-      <a href="#beta-testers" class="text-slate-700 hover:text-noyrax-blue transition-colors">Beta</a>
-      <a href="#quick-start" class="text-slate-700 hover:text-noyrax-blue transition-colors">Quick Start</a>
+      <a href="#features" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Features</a>
+      <a href="#use-cases" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Use Cases</a>
+      <a href="#workflows" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Workflows</a>
+      <a href="#pricing" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Pricing</a>
+      <a href="#investors" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Investors</a>
+      <a href="#beta-testers" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Beta</a>
+      <a href="#quick-start" class="text-logo-gray hover:text-logo-cyan transition-colors hover:text-glow">Quick Start</a>
     </div>
     
     <div class="flex items-center space-x-4">
-      <a href="#quick-start" class="px-4 py-2 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+      <a href="#quick-start" class="px-4 py-2 bg-logo-cyan text-logo-bg rounded-lg hover:bg-logo-cyan-bright transition-all font-medium glow-cyan hover:glow-cyan-bright">
         Get Started Free
       </a>
       <button class="md:hidden p-2" id="mobile-menu-button" aria-label="Toggle menu">
@@ -31,15 +34,15 @@
   </nav>
   
   <!-- Mobile Menu -->
-  <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+  <div class="md:hidden hidden bg-logo-bg-alt border-t border-logo-cyan/20" id="mobile-menu">
     <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-      <a href="#features" class="text-slate-700 hover:text-noyrax-blue transition-colors">Features</a>
-      <a href="#use-cases" class="text-slate-700 hover:text-noyrax-blue transition-colors">Use Cases</a>
-      <a href="#workflows" class="text-slate-700 hover:text-noyrax-blue transition-colors">Workflows</a>
-      <a href="#pricing" class="text-slate-700 hover:text-noyrax-blue transition-colors">Pricing</a>
-      <a href="#investors" class="text-slate-700 hover:text-noyrax-blue transition-colors">Investors</a>
-      <a href="#beta-testers" class="text-slate-700 hover:text-noyrax-blue transition-colors">Beta Testers</a>
-      <a href="#quick-start" class="text-slate-700 hover:text-noyrax-blue transition-colors">Quick Start</a>
+      <a href="#features" class="text-logo-gray hover:text-logo-cyan transition-colors">Features</a>
+      <a href="#use-cases" class="text-logo-gray hover:text-logo-cyan transition-colors">Use Cases</a>
+      <a href="#workflows" class="text-logo-gray hover:text-logo-cyan transition-colors">Workflows</a>
+      <a href="#pricing" class="text-logo-gray hover:text-logo-cyan transition-colors">Pricing</a>
+      <a href="#investors" class="text-logo-gray hover:text-logo-cyan transition-colors">Investors</a>
+      <a href="#beta-testers" class="text-logo-gray hover:text-logo-cyan transition-colors">Beta Testers</a>
+      <a href="#quick-start" class="text-logo-gray hover:text-logo-cyan transition-colors">Quick Start</a>
     </div>
   </div>
 </header>

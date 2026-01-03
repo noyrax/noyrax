@@ -1,24 +1,26 @@
 ---
 ---
 
-<section id="pricing" class="py-20 bg-slate-50">
+<section id="pricing" class="py-20 bg-logo-bg">
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-headline font-bold text-doc-navy mb-4">
+      <h2 class="text-4xl md:text-5xl font-headline font-bold text-logo-white mb-4 text-glow">
         Pricing
       </h2>
-      <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+      <p class="text-xl text-logo-gray max-w-2xl mx-auto">
         Wähle den Plan, der zu dir passt. Alle Pläne enthalten eine 14-tägige kostenlose Testphase.
       </p>
     </div>
     
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
       <!-- Free -->
-      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Free</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€0</div>
-        <p class="text-sm text-slate-500 mb-6">Für immer kostenlos</p>
-        <ul class="space-y-3 mb-8 text-slate-600">
+      <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border-2 border-logo-cyan/20 hover:shadow-xl transition-all hover:-translate-y-1 glow-cyan relative overflow-hidden">
+        <div class="absolute inset-0 shimmer opacity-5"></div>
+        <div class="relative z-10">
+          <h3 class="text-2xl font-headline font-semibold text-logo-white mb-2">Free</h3>
+          <div class="text-4xl font-headline font-bold text-logo-white mb-2">€0</div>
+          <p class="text-sm text-logo-gray mb-6">Für immer kostenlos</p>
+          <ul class="space-y-3 mb-8 text-logo-gray">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
             <span>VS Code Extension</span>
@@ -36,20 +38,23 @@
             <span>Single User</span>
           </li>
         </ul>
-        <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-slate-100 text-doc-navy rounded-lg hover:bg-slate-200 transition-colors font-semibold">
-          Get Started
-        </a>
+          <a href="#quick-start" class="block w-full text-center px-6 py-3 bg-logo-bg text-logo-cyan border border-logo-cyan/30 rounded-lg hover:bg-logo-cyan/10 transition-all font-semibold">
+            Get Started
+          </a>
+        </div>
       </div>
       
       <!-- Team -->
-      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-noyrax-blue relative hover:shadow-xl transition-all hover:-translate-y-1 hover:scale-105">
-        <div class="absolute top-0 right-0 bg-noyrax-blue text-white px-4 py-1 rounded-bl-xl text-sm font-semibold">
-          Popular
-        </div>
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Team</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€29<span class="text-lg text-slate-600">/seat</span></div>
-        <p class="text-sm text-slate-500 mb-6">Monatlich abgerechnet</p>
-        <ul class="space-y-3 mb-8 text-slate-600">
+      <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border-2 border-logo-cyan relative hover:shadow-xl transition-all hover:-translate-y-1 hover:scale-105 glow-cyan-bright relative overflow-hidden">
+        <div class="absolute inset-0 shimmer opacity-10"></div>
+        <div class="relative z-10">
+          <div class="absolute top-0 right-0 bg-logo-cyan text-logo-bg px-4 py-1 rounded-bl-xl text-sm font-semibold glow-cyan">
+            Popular
+          </div>
+          <h3 class="text-2xl font-headline font-semibold text-logo-white mb-2">Team</h3>
+          <div class="text-4xl font-headline font-bold text-logo-white mb-2">€29<span class="text-lg text-logo-gray">/seat</span></div>
+          <p class="text-sm text-logo-gray mb-6">Monatlich abgerechnet</p>
+          <ul class="space-y-3 mb-8 text-logo-gray">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
             <span>Alles aus Free</span>
@@ -71,21 +76,25 @@
             <span>30 Tage Retention</span>
           </li>
         </ul>
-        <button 
-          id="stripe-checkout-team"
-          class="w-full px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl"
-        >
-          Start Free Trial
-        </button>
-        <p class="text-xs text-slate-500 text-center mt-2">14 Tage kostenlos testen</p>
+            <button 
+              id="stripe-checkout-team"
+              class="w-full px-6 py-3 bg-logo-cyan text-logo-bg rounded-lg hover:bg-logo-cyan-bright transition-all font-semibold shadow-lg hover:shadow-xl glow-cyan hover:glow-cyan-bright"
+            >
+              Start Free Trial
+            </button>
+            <p class="text-xs text-logo-gray text-center mt-2">14 Tage kostenlos testen</p>
+          </div>
+        </div>
       </div>
       
       <!-- Business -->
-      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Business</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">€59<span class="text-lg text-slate-600">/seat</span></div>
-        <p class="text-sm text-slate-500 mb-6">Monatlich abgerechnet</p>
-        <ul class="space-y-3 mb-8 text-slate-600">
+      <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border-2 border-logo-cyan/20 hover:shadow-xl transition-all hover:-translate-y-1 glow-cyan relative overflow-hidden">
+        <div class="absolute inset-0 shimmer opacity-5"></div>
+        <div class="relative z-10">
+          <h3 class="text-2xl font-headline font-semibold text-logo-white mb-2">Business</h3>
+          <div class="text-4xl font-headline font-bold text-logo-white mb-2">€59<span class="text-lg text-logo-gray">/seat</span></div>
+          <p class="text-sm text-logo-gray mb-6">Monatlich abgerechnet</p>
+          <ul class="space-y-3 mb-8 text-logo-gray">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
             <span>Alles aus Team</span>
@@ -107,21 +116,25 @@
             <span>180 Tage Retention</span>
           </li>
         </ul>
-        <button 
-          id="stripe-checkout-business"
-          class="w-full px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl"
-        >
-          Start Free Trial
-        </button>
-        <p class="text-xs text-slate-500 text-center mt-2">14 Tage kostenlos testen</p>
+            <button 
+              id="stripe-checkout-business"
+              class="w-full px-6 py-3 bg-logo-cyan text-logo-bg rounded-lg hover:bg-logo-cyan-bright transition-all font-semibold shadow-lg hover:shadow-xl glow-cyan hover:glow-cyan-bright"
+            >
+              Start Free Trial
+            </button>
+            <p class="text-xs text-logo-gray text-center mt-2">14 Tage kostenlos testen</p>
+          </div>
+        </div>
       </div>
       
       <!-- Enterprise -->
-      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-2">Enterprise</h3>
-        <div class="text-4xl font-headline font-bold text-doc-navy mb-2">Custom</div>
-        <p class="text-sm text-slate-500 mb-6">Individuell angepasst</p>
-        <ul class="space-y-3 mb-8 text-slate-600">
+      <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border-2 border-logo-cyan/20 hover:shadow-xl transition-all hover:-translate-y-1 glow-cyan relative overflow-hidden">
+        <div class="absolute inset-0 shimmer opacity-5"></div>
+        <div class="relative z-10">
+          <h3 class="text-2xl font-headline font-semibold text-logo-white mb-2">Enterprise</h3>
+          <div class="text-4xl font-headline font-bold text-logo-white mb-2">Custom</div>
+          <p class="text-sm text-logo-gray mb-6">Individuell angepasst</p>
+          <ul class="space-y-3 mb-8 text-logo-gray">
           <li class="flex items-start">
             <span class="text-success-green mr-2">✓</span>
             <span>Alles aus Business</span>
@@ -147,14 +160,16 @@
             <span>On-Prem/Hybrid Option</span>
           </li>
         </ul>
-        <a href="mailto:sales@noyrax.dev?subject=Enterprise Inquiry" class="block w-full text-center px-6 py-3 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold shadow-lg hover:shadow-xl">
-          Contact Sales
-        </a>
+            <a href="mailto:sales@noyrax.dev?subject=Enterprise Inquiry" class="block w-full text-center px-6 py-3 bg-logo-cyan text-logo-bg rounded-lg hover:bg-logo-cyan-bright transition-all font-semibold shadow-lg hover:shadow-xl glow-cyan hover:glow-cyan-bright">
+              Contact Sales
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     
-    <div class="text-center mt-12 text-slate-600">
-      <p>Alle Preise exkl. MwSt. • <a href="#beta-testers" class="text-noyrax-blue hover:underline">Beta-Tester erhalten 50% Rabatt</a></p>
+    <div class="text-center mt-12 text-logo-gray">
+      <p>Alle Preise exkl. MwSt. • <a href="#beta-testers" class="text-logo-cyan hover:text-logo-cyan-bright hover:underline text-glow">Beta-Tester erhalten 50% Rabatt</a></p>
     </div>
   </div>
 </section>

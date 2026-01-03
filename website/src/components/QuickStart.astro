@@ -1,13 +1,13 @@
 ---
 ---
 
-<section id="quick-start" class="py-20 bg-slate-50">
+<section id="quick-start" class="py-20 bg-logo-bg">
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-headline font-bold text-doc-navy mb-4">
+      <h2 class="text-4xl font-headline font-bold text-logo-white mb-4 text-glow">
         Quick Start
       </h2>
-      <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+      <p class="text-xl text-logo-gray max-w-2xl mx-auto">
         In 3 Schritten loslegen
       </p>
     </div>
@@ -15,70 +15,79 @@
     <div class="max-w-3xl mx-auto">
       <div class="space-y-8">
         <!-- Step 1 -->
-        <div class="bg-white rounded-lg p-8 shadow-lg">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-noyrax-blue rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-              1
-            </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-3">
-                Install
-              </h3>
-              <p class="text-slate-600 mb-4">
-                Installiere den Noyrax MCP-Server global:
-              </p>
-              <div class="bg-slate-900 rounded-lg p-4 font-code text-sm text-green-400">
-                <div>$ npm install -g @noyrax/mcp-server</div>
+        <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border border-logo-cyan/20 glow-cyan hover:glow-cyan-bright transition-all hover:-translate-y-1 relative overflow-hidden">
+          <div class="absolute inset-0 shimmer opacity-5"></div>
+          <div class="relative z-10">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-logo-cyan rounded-lg flex items-center justify-center text-logo-bg font-bold text-xl flex-shrink-0 glow-cyan">
+                1
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-headline font-semibold text-logo-white mb-3">
+                  Install
+                </h3>
+                <p class="text-logo-gray mb-4">
+                  Installiere den Noyrax MCP-Server global:
+                </p>
+                <div class="bg-logo-bg rounded-lg p-4 font-code text-sm text-logo-cyan border border-logo-cyan/20">
+                  <div class="text-logo-white">$ npm install -g @noyrax/mcp-server</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
         <!-- Step 2 -->
-        <div class="bg-white rounded-lg p-8 shadow-lg">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-noyrax-blue rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-              2
-            </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-3">
-                Configure
-              </h3>
-              <p class="text-slate-600 mb-4">
-                Erstelle MCP-Config für Cursor oder VS Code:
-              </p>
-              <div class="bg-slate-900 rounded-lg p-4 font-code text-sm text-green-400">
-                <div>// .cursor/mcp-config.json</div>
-                <div>{'{'}</div>
-                <div>  "mcpServers": {'{'}</div>
-                <div>    "noyrax": {'{'}</div>
-                <div>      "command": "noyrax-mcp-server",</div>
-                <div>      "args": ["$&#123;workspaceFolder&#125;"]</div>
-                <div>    {'}'}</div>
-                <div>  {'}'}</div>
-                <div>{'}'}</div>
+        <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border border-logo-cyan/20 glow-cyan hover:glow-cyan-bright transition-all hover:-translate-y-1 relative overflow-hidden">
+          <div class="absolute inset-0 shimmer opacity-5"></div>
+          <div class="relative z-10">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-logo-cyan rounded-lg flex items-center justify-center text-logo-bg font-bold text-xl flex-shrink-0 glow-cyan">
+                2
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-headline font-semibold text-logo-white mb-3">
+                  Configure
+                </h3>
+                <p class="text-logo-gray mb-4">
+                  Erstelle MCP-Config für Cursor oder VS Code:
+                </p>
+                <div class="bg-logo-bg rounded-lg p-4 font-code text-sm text-logo-cyan border border-logo-cyan/20">
+                  <div class="text-logo-gray">// .cursor/mcp-config.json</div>
+                  <div class="text-logo-white">{'{'}</div>
+                  <div class="text-logo-white">  "mcpServers": {'{'}</div>
+                  <div class="text-logo-white">    "noyrax": {'{'}</div>
+                  <div class="text-logo-white">      "command": "noyrax-mcp-server",</div>
+                  <div class="text-logo-white">      "args": ["$&#123;workspaceFolder&#125;"]</div>
+                  <div class="text-logo-white">    {'}'}</div>
+                  <div class="text-logo-white">  {'}'}</div>
+                  <div class="text-logo-white">{'}'}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
         <!-- Step 3 -->
-        <div class="bg-white rounded-lg p-8 shadow-lg">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-noyrax-blue rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-              3
-            </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-headline font-semibold text-doc-navy mb-3">
-                Use
-              </h3>
-              <p class="text-slate-600 mb-4">
-                Starte Cursor/VS Code neu und frage im Chat:
-              </p>
-              <div class="bg-slate-900 rounded-lg p-4 font-code text-sm text-green-400">
-                <div>"System-Status prüfen"</div>
-                <div class="mt-2 text-slate-400">// Oder nutze workflow/onboard für</div>
-                <div class="text-slate-400">// vollständiges System-Verständnis</div>
+        <div class="bg-logo-bg-alt rounded-xl p-8 shadow-lg border border-logo-cyan/20 glow-cyan hover:glow-cyan-bright transition-all hover:-translate-y-1 relative overflow-hidden">
+          <div class="absolute inset-0 shimmer opacity-5"></div>
+          <div class="relative z-10">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-logo-cyan rounded-lg flex items-center justify-center text-logo-bg font-bold text-xl flex-shrink-0 glow-cyan">
+                3
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-headline font-semibold text-logo-white mb-3">
+                  Use
+                </h3>
+                <p class="text-logo-gray mb-4">
+                  Starte Cursor/VS Code neu und frage im Chat:
+                </p>
+                <div class="bg-logo-bg rounded-lg p-4 font-code text-sm text-logo-cyan border border-logo-cyan/20">
+                  <div class="text-logo-white">"System-Status prüfen"</div>
+                  <div class="mt-2 text-logo-gray">// Oder nutze workflow/onboard für</div>
+                  <div class="text-logo-gray">// vollständiges System-Verständnis</div>
+                </div>
               </div>
             </div>
           </div>

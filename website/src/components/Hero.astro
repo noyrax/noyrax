@@ -1,48 +1,60 @@
 ---
 ---
 
-<section class="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
-  <div class="container mx-auto px-4">
+<section class="pt-32 pb-20 bg-gradient-to-b from-logo-bg to-logo-bg-alt relative overflow-hidden">
+  <!-- Glanz-Effekt Hintergrund -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-logo-glow rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-logo-cyan rounded-full blur-3xl"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 relative z-10">
     <div class="max-w-4xl mx-auto text-center">
-      <!-- Logo -->
+      <!-- Logo mit Glanz -->
       <div class="mb-8 flex justify-center">
-        <img src="/logo.png" alt="Noyrax Logo" class="h-24 w-24" />
+        <div class="relative">
+          <img src="/logo.png" alt="Noyrax Logo" class="h-24 w-24 relative z-10 glow-cyan" />
+          <div class="absolute inset-0 bg-logo-glow rounded-full blur-xl opacity-50"></div>
+        </div>
       </div>
       
-      <!-- Headline -->
-      <h1 class="text-5xl md:text-6xl font-headline font-bold text-doc-navy mb-6">
+      <!-- Headline mit Glanz -->
+      <h1 class="text-5xl md:text-6xl font-headline font-bold text-logo-white mb-6 text-glow">
         Noyrax
       </h1>
-      <p class="text-2xl md:text-3xl font-headline text-slate-700 mb-4">
+      <p class="text-2xl md:text-3xl font-headline text-logo-white mb-4">
         Semantic Brain für KI-gesteuerte Softwareentwicklung
       </p>
-      <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+      <p class="text-xl text-logo-gray mb-8 max-w-2xl mx-auto">
         Automatische Dokumentation die nie veraltet - KI-Agenten verstehen deine Codebase sofort
       </p>
       
-      <!-- CTAs -->
+      <!-- CTAs mit Glanz -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-        <a href="#quick-start" class="px-8 py-4 bg-noyrax-blue text-white rounded-lg hover:bg-opacity-90 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl">
+        <a href="#quick-start" class="px-8 py-4 bg-logo-cyan text-logo-bg rounded-lg hover:bg-logo-cyan-bright transition-all font-semibold text-lg glow-cyan hover:glow-cyan-bright transform hover:scale-105">
           Get Started Free
         </a>
-        <a href="#demo" class="px-8 py-4 bg-white text-noyrax-blue border-2 border-noyrax-blue rounded-lg hover:bg-slate-50 transition-colors font-semibold text-lg">
+        <a href="#demo" class="px-8 py-4 bg-transparent text-logo-cyan border-2 border-logo-cyan rounded-lg hover:bg-logo-cyan/10 transition-all font-semibold text-lg glow-cyan hover:border-logo-cyan-bright">
           Watch Demo
         </a>
       </div>
       
-      <!-- Terminal Demo Placeholder -->
-      <div class="bg-doc-navy rounded-lg p-6 shadow-2xl max-w-3xl mx-auto border border-noyrax-blue/20">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-        </div>
-        <div class="font-code text-noyrax-blue text-sm">
-          <div class="text-white">$ npm install -g @noyrax/mcp-server</div>
-          <div class="mt-2 text-noyrax-blue/70">✓ Installation erfolgreich</div>
-          <div class="mt-2 text-white">$ noyrax-mcp-server .</div>
-          <div class="mt-2 text-noyrax-blue/70">✓ MCP Server gestartet</div>
-          <div class="mt-2 text-noyrax-blue">→ System bereit für AI-Agenten</div>
+      <!-- Terminal Demo mit Glanz -->
+      <div class="bg-logo-bg-alt rounded-lg p-6 shadow-2xl max-w-3xl mx-auto border border-logo-cyan/30 glow-cyan relative overflow-hidden">
+        <div class="absolute inset-0 shimmer opacity-20"></div>
+        <div class="relative z-10">
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <div class="font-code text-logo-cyan text-sm">
+            <div class="text-logo-white">$ npm install -g @noyrax/mcp-server</div>
+            <div class="mt-2 text-logo-cyan/70">✓ Installation erfolgreich</div>
+            <div class="mt-2 text-logo-white">$ noyrax-mcp-server .</div>
+            <div class="mt-2 text-logo-cyan/70">✓ MCP Server gestartet</div>
+            <div class="mt-2 text-logo-cyan text-glow">→ System bereit für AI-Agenten</div>
+          </div>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ Diese Rule wird aktiviert bei Anfragen zu Abhängigkeiten und Auswirkungen.
 | `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Kürzliche Änderungen | Zeit-Raum (T) |
 | MCP-Server `validation/analyzeImpact` | Impact-Analyse | Automatische Analyse | - |
 
-**Hinweis:** Siehe `000-orchestrator.mdc` Abschnitt "2a. Mehrdimensionaler Navigationsraum (FALLBACK)" für das Verständnis des mehrdimensionalen Raums.
+**Hinweis:** Siehe `002-system-context.mdc` für das Verständnis des mehrdimensionalen Raums.
 
 ## Analyse-Workflow
 
@@ -170,4 +170,4 @@ Bei Impact-Analysen alle relevanten Dimensionen berücksichtigen:
 3. **Zeit-Raum (T)**: Change Report für kürzliche Änderungen
 4. **Wissens-Raum (W)**: Relevante ADRs für Architektur-Kontext
 
-Siehe `000-orchestrator.mdc` Abschnitt "2a. Mehrdimensionaler Navigationsraum (FALLBACK)" für Details zum mehrdimensionalen Navigationsraum.
+Siehe `002-system-context.mdc` für Details zum mehrdimensionalen Navigationsraum.

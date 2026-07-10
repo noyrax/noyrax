@@ -1,0 +1,507 @@
+---
+description: Tool-basierte System-Analyse statt manuelles Lesen von docs/. Nutzung der CLI-Tools für effiziente System-Analyse.
+globs: []
+alwaysApply: true
+---
+
+# Tool-basierte System-Analyse – Installierter MCP Server + CLI-Tools statt manuelle Suche
+
+**KRITISCH:** Statt manuell in `docs/` zu suchen, nutze den installierten MCP Server (via MCP-Protokoll oder npm-Package) primär oder CLI-Tools (Fallback) für strukturierte, effiziente System-Analyse.
+
+## Grundprinzip
+
+**VORHER:** Manuell `docs/` lesen, Markdown parsen, Informationen zusammenfügen
+**NACHHER:** Installierter MCP Server via MCP-Protokoll (primär) oder CLI-Tools (Fallback) nutzen, JSON-Output erhalten, strukturierte Daten nutzen
+
+## Zugriffswege-Hierarchie
+
+1. **PRIMÄR:** Installierter MCP Server (via MCP-Protokoll ODER npm-Package `@noyrax/mcp-server`) - Alle Tools über MCP-Protokoll
+2. **SEKUNDÄR:** CLI-Tools (nur wenn MCP Server nicht verfügbar) - Direkter Zugriff auf Plugins
+3. **FALLBACK:** Dokumentation lesen (nur wenn beide Tools nicht verfügbar)
+
+Siehe **ADR-040** für Unified MCP Server Architektur.
+
+## Verfügbare Tools
+
+### PRIMÄR: Installierter MCP Server (via MCP-Protokoll oder npm-Package)
+
+**MCP Server:** Der MCP Server wird als installiertes npm-Package (`@noyrax/mcp-server`) genutzt oder via MCP-Protokoll (wenn Cursor/IDE MCP-Tools bereitstellt). Alle Tools über MCP-Protokoll verfügbar:
+
+**Verfügbare MCP-Tools:**
+- Database Tools: `query_modules`, `query_symbols`, `query_dependencies`, `query_adrs`, `query_changes`
+- Semantic Search: `semantic_discovery`
+- System-Analyse: `system_explanation`, `bootstrap`, `learning_path`
+- Advanced: `cross_analysis`, `gap_analysis`, `architecture_mining`
+- Validation Tools: `validation/runScan`, `validation/runValidate`, `validation/runDriftCheck`
+- Orchestration Tools: `workflow/full_cycle`, `workflow/generate_and_ingest`, `workflow/check_status`
+
+**Vorteil:** Einheitlicher Zugriff, Orchestrierung beider Plugins, Workflows über beide Plugins hinweg, keine CLI-Aufrufe nötig
+
+**WICHTIG:** MCP-Tools werden direkt über das MCP-Protokoll genutzt (wenn Cursor/IDE MCP-Tools bereitstellt) oder via installiertes npm-Package. Keine manuellen CLI-Aufrufe nötig.
+
+**KRITISCH: Server-Name-Ermittlung in Cursor**
+
+Cursor normalisiert Workspace-Namen unterschiedlich:
+- **Ordner-Name** (Tool-Deskriptoren): `project-0-Datenbank_fuer_Noyrax-noyrax` (Leerzeichen → Unterstriche)
+- **Server-Name** (tatsächliche Verbindung): `project-0-Datenbank fuer Noyrax-noyrax` (Leerzeichen bleiben)
+
+**Korrekte Server-Name-Ermittlung:**
+1. Prüfe Cursor MCP Logs: `anysphere.cursor-mcp.MCP project-0-Datenbank fuer Noyrax-noyrax` (mit Leerzeichen)
+2. ODER liste verfügbare MCP-Server: `list_mcp_resources` zeigt Server-Namen
+3. ODER prüfe Tool-Deskriptoren-Pfad: `c:\Users\...\.cursor\projects\d-Datenbank-fuer-Noyrax\mcps\project-0-Datenbank_fuer_Noyrax-noyrax\` (Ordner hat Unterstriche, aber Server-Name hat Leerzeichen)
+4. **IMMER den Server-Namen mit Leerzeichen verwenden** (nicht mit Unterstrichen)
+
+**Beispiel:**
+```typescript
+// RICHTIG: Server-Name mit Leerzeichen
+call_mcp_tool(
+  server: "project-0-Datenbank fuer Noyrax-noyrax",
+  toolName: "system_explanation",
+  arguments: { pluginId: "workspace" }
+)
+
+// FALSCH: Server-Name mit Unterstrichen (funktioniert nicht)
+call_mcp_tool(
+  server: "project-0-Datenbank_fuer_Noyrax-noyrax",  // ❌ Falsch!
+  toolName: "system_explanation",
+  arguments: { pluginId: "workspace" }
+)
+```
+
+**Troubleshooting:**
+- Wenn Tools nicht gefunden werden: Prüfe Server-Name in Cursor MCP Logs (mit Leerzeichen, nicht Unterstrichen)
+- Wenn Server-Name unklar: Nutze `list_mcp_resources` um verfügbare Server zu sehen
+- Wenn weiterhin Probleme: Cursor vollständig neu starten
+
+Siehe **ADR-040** für Unified MCP Server Architektur.
+
+### SEKUNDÄR: CLI-Tools (Fallback)
+
+**Query-CLI:** Strukturierte Abfragen zu allen Dimensionen
+
+```bash
+# Modules (X-Dimension)
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> modules <filePath>
+
+# Symbols (Y-Dimension)
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> symbols <path|symbolId>
+
+# Dependencies (Z-Dimension)
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> dependencies --from <modulePath>
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> dependencies --to <modulePath>
+
+# ADRs (W-Dimension) - WICHTIG: Korrekte Syntax
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> adrs --number <adrNumber>
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> adrs --path <filePath>
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> adrs  # Alle ADRs
+
+# Changes (T-Dimension)
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> changes
+```
+
+**WICHTIG:** Korrekte Syntax für `adrs`:
+- `adrs --number 040` (nicht `adrs 040`)
+- `adrs --path docs/adr/040-*.md` (für Dateipfad)
+- Ohne Flag: `adrs` gibt alle ADRs zurück
+
+**Output:** JSON-Format, direkt verwendbar
+
+**Tool-CLI:** Höhere Abstraktion für komplexe Analysen
+
+```bash
+# System-Übersicht
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> bootstrap
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> system_explanation
+
+# Semantic Discovery (natürliche Sprache)
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> semantic_discovery <query> [limit]
+
+# Cross-Dimension-Analyse
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> cross_analysis <filePath>
+
+# Dokumentationslücken
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> gap_analysis [--min-deps N] [--limit N]
+
+# Architektur-Patterns
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> architecture_mining [filePath]
+
+# Lernpfade
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> learning_path <topic>
+```
+
+**Output:** JSON-Format mit strukturierten Ergebnissen
+
+**Search-CLI:** Vector-basierte semantische Suche
+
+```bash
+node 5d-database-plugin/out/cli/search-cli.js <workspace-root> <query> [--limit N] [--dimensions X,Y,Z,W,T]
+```
+
+**Output:** JSON-Format mit Relevanz-Scores
+
+## Tool-Mapping: Welches Tool wofür?
+
+### System-Verständnis
+
+**Ziel:** Erste Übersicht über das System
+
+**Tools:**
+- `bootstrap` - First-Contact für Agenten ohne Vorwissen
+- `system_explanation` - System-Übersicht, Entry Points, Architecture ADRs
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tool `system_explanation` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# System-Übersicht erhalten
+node 5d-database-plugin/out/cli/tool-cli.js . system_explanation
+```
+
+**Statt:** `docs/system/` manuell durchsuchen
+
+### Module-Informationen
+
+**Ziel:** Details zu einem spezifischen Modul
+
+**Tools:**
+- `query modules <filePath>` - Module-Details aus Datenbank
+- `cross_analysis <filePath>` - Module + ADRs + Symbols + Dependencies
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tools `query_modules` und `cross_analysis` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Module-Details
+node 5d-database-plugin/out/cli/query-cli.js . modules 5d-database-plugin/src/api/context-builder.ts
+
+# Cross-Dimension-Analyse (Module + ADRs + Symbols)
+node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis 5d-database-plugin/src/api/context-builder.ts
+```
+
+**Statt:** `docs/modules/5d-database-plugin__src__api__context-builder.ts.md` lesen
+
+### ADR-Informationen
+
+**Ziel:** Architektur-Entscheidungen finden
+
+**Tools:**
+- `query adrs <adrNumber|filePath>` - Spezifisches ADR
+- `semantic_discovery "ADR about X"` - Semantische Suche nach ADRs
+- `cross_analysis <filePath>` - ADRs für ein Modul
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tools `query_adrs`, `cross_analysis` und `semantic_discovery` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Spezifisches ADR (korrekte Syntax)
+node 5d-database-plugin/out/cli/query-cli.js . adrs --number 025
+
+# ADRs für ein Modul finden
+node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis 5d-database-plugin/src/api/context-builder.ts
+
+# Semantische Suche nach ADRs
+node 5d-database-plugin/out/cli/tool-cli.js . semantic_discovery "Welche Architektur-Entscheidungen wurden für ContextBuilder getroffen?"
+```
+
+**WICHTIG:** Korrekte Syntax für `query-cli.js adrs`:
+- `adrs --number 025` (nicht `adrs 025`)
+- `adrs --path docs/adr/025-*.md` (für Dateipfad)
+
+**Statt:** `docs/adr/025-deterministic-context-builder.md` manuell suchen und lesen
+
+### Dependencies-Analyse
+
+**Ziel:** Abhängigkeiten verstehen
+
+**Tools:**
+- `query dependencies --from <modulePath>` - Ausgehende Dependencies
+- `query dependencies --to <modulePath>` - Eingehende Dependencies
+- `cross_analysis <filePath>` - Dependencies im Kontext
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tools `query_dependencies` und `cross_analysis` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Ausgehende Dependencies
+node 5d-database-plugin/out/cli/query-cli.js . dependencies --from 5d-database-plugin/src/api/context-builder.ts
+
+# Eingehende Dependencies
+node 5d-database-plugin/out/cli/query-cli.js . dependencies --to 5d-database-plugin/src/core/multi-db-manager.ts
+
+# Dependencies im Kontext
+node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis 5d-database-plugin/src/api/context-builder.ts
+```
+
+**Statt:** `docs/system/DEPENDENCY_GRAPH.md` oder `docs/system/DEPENDENCIES.md` manuell durchsuchen
+
+### Semantic Search (natürliche Sprache)
+
+**Ziel:** Natürliche Sprache → relevante Entities
+
+**Tools:**
+- `semantic_discovery <query>` - Semantic Search mit Context
+- `search <query>` - Vector-basierte Suche
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tool `semantic_discovery` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Natürliche Sprache → Entities
+node 5d-database-plugin/out/cli/tool-cli.js . semantic_discovery "Wie funktioniert der ContextBuilder? Warum wurde er so implementiert?" 5
+
+# Vector-Suche
+node 5d-database-plugin/out/cli/search-cli.js . "ContextBuilder implementation" --limit 10 --dimensions X,Y,W
+```
+
+**Statt:** `docs/` manuell durchsuchen, Keywords raten
+
+### Dokumentationslücken finden
+
+**Ziel:** Systematische Identifikation von fehlender Dokumentation
+
+**Tools:**
+- `gap_analysis` - Module mit vielen Dependencies aber ohne/wenigen ADRs
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tool `gap_analysis` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Dokumentationslücken finden
+node 5d-database-plugin/out/cli/tool-cli.js . gap_analysis --min-deps 5 --limit 20
+```
+
+**Statt:** Manuell Dependencies und ADRs vergleichen
+
+### Architektur-Patterns erkennen
+
+**Ziel:** Rückwirkende Architektur-Analyse
+
+**Tools:**
+- `architecture_mining` - Architektur-Patterns aus Code ableiten
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+- MCP-Tool `architecture_mining` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+- ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+```bash
+# Systemweite Patterns
+node 5d-database-plugin/out/cli/tool-cli.js . architecture_mining
+
+# Spezifische Datei
+node 5d-database-plugin/out/cli/tool-cli.js . architecture_mining 5d-database-plugin/src/api/context-builder.ts
+```
+
+**Statt:** Manuell Code-Struktur analysieren
+
+## Workflow-Beispiele
+
+### Beispiel 1: System verstehen (statt docs/ lesen)
+
+**Vorher:**
+```typescript
+// Manuell docs/ durchsuchen
+read_file('docs/system/DEPENDENCY_GRAPH.md')
+read_file('docs/adr/001-phase-1-1-projekt-setup.md')
+// Informationen zusammenfügen
+```
+
+**Nachher:**
+```bash
+# PRIMÄR: Installierter MCP Server via MCP-Protokoll
+# MCP-Tools bootstrap und system_explanation nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+# ODER npm-Package @noyrax/mcp-server nutzen
+
+# SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+node 5d-database-plugin/out/cli/tool-cli.js . bootstrap
+node 5d-database-plugin/out/cli/tool-cli.js . system_explanation
+```
+
+**Vorteil:** Strukturierte JSON-Output, vollständige Übersicht, keine manuelle Suche
+
+### Beispiel 2: Spezifische Frage (statt manuell suchen)
+
+**Vorher:**
+```typescript
+// Welche ADRs erwähnen ContextBuilder?
+// Manuell docs/adr/*.md durchsuchen
+grep -r "context-builder" docs/adr/
+// Dateien lesen
+read_file('docs/adr/025-deterministic-context-builder.md')
+```
+
+**Nachher:**
+```bash
+# PRIMÄR: Installierter MCP Server via MCP-Protokoll
+# MCP-Tools semantic_discovery und cross_analysis nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+# ODER npm-Package @noyrax/mcp-server nutzen
+
+# SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+node 5d-database-plugin/out/cli/tool-cli.js . semantic_discovery "Welche Architektur-Entscheidungen wurden für ContextBuilder getroffen?" 5
+node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis 5d-database-plugin/src/api/context-builder.ts
+```
+
+**Vorteil:** Direkte Antwort, strukturierte Daten, relevante ADRs automatisch gefunden
+
+### Beispiel 3: Cross-Dimension-Analyse (statt mehrere docs/ lesen)
+
+**Vorher:**
+```typescript
+// Module lesen
+read_file('docs/modules/5d-database-plugin__src__api__context-builder.ts.md')
+// ADRs suchen
+grep -r "context-builder" docs/adr/
+read_file('docs/adr/025-deterministic-context-builder.md')
+// Dependencies prüfen
+grep "context-builder" docs/system/DEPENDENCIES.md
+// Informationen zusammenfügen
+```
+
+**Nachher:**
+```bash
+# PRIMÄR: Installierter MCP Server via MCP-Protokoll
+# MCP-Tool cross_analysis nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+# ODER npm-Package @noyrax/mcp-server nutzen
+
+# SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis 5d-database-plugin/src/api/context-builder.ts
+```
+
+**Vorteil:** Ein Command, alle Dimensionen, strukturierte JSON-Output
+
+### Beispiel 4: Dokumentationslücken finden
+
+**Vorher:**
+```typescript
+// Manuell alle Module durchgehen
+// Dependencies zählen
+// ADRs zählen
+// Vergleichen
+// Priorisieren
+```
+
+**Nachher:**
+```bash
+# PRIMÄR: Installierter MCP Server via MCP-Protokoll
+# MCP-Tool gap_analysis nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+# ODER npm-Package @noyrax/mcp-server nutzen
+
+# SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+node 5d-database-plugin/out/cli/tool-cli.js . gap_analysis --min-deps 5 --limit 20
+```
+
+**Vorteil:** Automatisiert, quantifiziert (Gap-Score), priorisiert
+
+## JSON-Output nutzen
+
+### Output-Struktur
+
+**Query-CLI Output:**
+```json
+{
+  "id": "...",
+  "plugin_id": "...",
+  "file_path": "...",
+  "content_markdown": "...",
+  ...
+}
+```
+
+**Tool-CLI Output:**
+```json
+{
+  "summary": {...},
+  "modules": [...],
+  "adrs": [...],
+  "recommendations": [...]
+}
+```
+
+**Verwendung:**
+```bash
+# PRIMÄR: Installierter MCP Server via MCP-Protokoll (JSON-RPC 2.0 Output)
+# MCP-Tools geben strukturiertes JSON zurück (wenn Cursor/IDE MCP-Tools bereitstellt)
+# ODER npm-Package @noyrax/mcp-server nutzen
+
+# SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+# Output in Variable speichern (PowerShell)
+$result = node 5d-database-plugin/out/cli/tool-cli.js . system_explanation | ConvertFrom-Json
+
+# Output filtern (PowerShell) - WICHTIG: Korrekte Syntax
+node 5d-database-plugin/out/cli/query-cli.js . adrs --number 025 | ConvertFrom-Json | Select-Object -ExpandProperty title
+
+# Output in Datei speichern
+node 5d-database-plugin/out/cli/tool-cli.js . gap_analysis > gap-analysis-results.json
+```
+
+## Fallback-Strategie
+
+**Wenn installierter MCP Server nicht verfügbar ist (weder via MCP-Protokoll noch als npm-Package):**
+
+1. **CLI-Tools nutzen** (SEKUNDÄR) - Direkter Zugriff auf Plugins
+2. **Korrekte Syntax verwenden** (z.B. `adrs --number 040`, nicht `adrs 040`)
+3. **Hinweis geben:** "MCP Server nicht verfügbar, verwende CLI-Tools als Fallback"
+
+**Wenn CLI-Tools nicht verfügbar sind:**
+
+1. **Dokumentation lesen** (FALLBACK) - Fallback auf manuelle Methode
+2. **Hinweis geben:** "CLI-Tools nicht verfügbar, verwende Dokumentation als Fallback"
+3. **Siehe Rule 002** für mehrdimensionalen Navigationsraum
+
+**Wenn `docs/` fehlt:**
+
+1. **Fehler melden:** "ERROR: docs/ directory not found"
+2. **Lösung vorschlagen:** "Please run Noyrax first: noyrax-documentation generate <workspace-root>"
+3. **Siehe Rule 034** für gekoppeltes System Workflow
+
+## Best Practices
+
+### DO (Richtige Nutzung)
+
+- ✅ **Installierter MCP Server via MCP-Protokoll als primäre Methode** für System-Analyse (wenn verfügbar)
+- ✅ **npm-Package @noyrax/mcp-server als Alternative** (wenn MCP-Protokoll nicht verfügbar, aber Package installiert)
+- ✅ **CLI-Tools als Fallback** für direkten Zugriff (nur wenn MCP Server weder via Protokoll noch als Package verfügbar)
+- ✅ **Korrekte Syntax für CLI-Tools** verwenden (z.B. `adrs --number 040`, nicht `adrs 040`)
+- ✅ **JSON-Output nutzen** für strukturierte Daten
+- ✅ **Semantic Search** für natürliche Sprache-Queries
+- ✅ **Cross-Analysis** für vollständigen Kontext
+- ✅ **Gap Analysis** für systematische Dokumentationslücken-Identifikation
+- ✅ **Orchestrierungs-Tools** für Workflows über beide Plugins (`workflow/full_cycle`)
+
+### DON'T (Falsche Nutzung)
+
+- ❌ **Nicht manuell `docs/` durchsuchen** wenn Tools verfügbar sind
+- ❌ **Nicht Markdown parsen** wenn JSON verfügbar ist
+- ❌ **Nicht mehrere `docs/` Dateien lesen** wenn Cross-Analysis verfügbar ist
+- ❌ **Nicht manuell Dependencies analysieren** wenn Query-Tools verfügbar sind
+- ❌ **Nicht falsche CLI-Syntax verwenden** (z.B. `adrs 040` statt `adrs --number 040`)
+
+## Integration mit anderen Rules
+
+- **Rule 001**: Pre-Check Checkliste nutzt Tools statt manuelles Lesen
+- **Rule 002**: Mehrdimensionaler Raum bleibt relevant, aber Tools als primärer Zugriff
+- **Rule 034**: Gekoppeltes System Workflow stellt sicher, dass Tools verfügbar sind
+- **Rule 036**: Systematische Fehlersuche nutzt Tools für Diagnose
+
+## Verweise
+
+- **ADR-040**: Unified MCP Server Root-Architektur (neue Architektur)
+- **Rule 033**: AI-Agent System Integration (Zugriffswege)
+- **Rule 034**: Gekoppeltes System Workflow (Voraussetzungen)
+- **Rule 036**: Systematische Fehlersuche (Tool-basierte Diagnose)
+- **mcp-server/README.md**: Unified MCP Server Dokumentation
+- **README.md**: Verfügbare CLI-Tools Liste
+- **ADR-034**: Gap Analysis Tool
+- **ADR-035**: Architecture Mining Tool

@@ -1,0 +1,535 @@
+---
+description: Test-Writing-Protocol für database-plugin. Erzwingt Reality-Checks, Test-Architecture-Principles und Verification-Loops für alle Tests.
+globs:
+  - "**/__tests__/**/*.test.ts"
+  - "**/__tests__/**/*.spec.ts"
+alwaysApply: false
+---
+
+# Test-Writing-Protocol – Reality-Driven Testing
+
+**KRITISCH:** Diese Rule ist **PFLICHT** beim Erstellen oder Ändern von Tests. Sie verhindert fehlerhafte Tests durch systematische Reality-Checks und klare Test-Architecture-Principles.
+
+## Grundprinzip: Tests testen die Realität
+
+In diesem System:
+- **Tests verwenden echte Instanzen** (keine Mocks für DatabaseManager, Repositories)
+- **Tests sind deterministisch** (kein Date.now(), kein random)
+- **Tests sind isoliert** (Cleanup in beforeEach/afterEach)
+- **Code ist die Wahrheitsquelle** – Reality-Checks VOR jedem Test
+
+## Test-Architecture-Principles
+
+### Test-Pyramid
+
+```
+┌─────────────────────────────────────┐
+│   Integration-Tests (wenige)       │
+│   - Temporäre Dateien               │
+│   - Vollständiges System            │
+├─────────────────────────────────────┤
+│   Unit-Tests (viele)                │
+│   - In-Memory SQLite (:memory:)     │
+│   - Echte Instanzen, keine Mocks    │
+└─────────────────────────────────────┘
+```
+
+### AAA-Pattern (Arrange, Act, Assert)
+
+**JEDER Test folgt diesem Pattern:**
+
+```typescript
+it('should do something', async () => {
+    // Arrange: Setup test data and dependencies
+    const testData = createTestData();
+    
+    // Act: Execute the code under test
+    const result = await repository.create(testData);
+    
+    // Assert: Verify the result
+    expect(result).toBeDefined();
+    expect(result.id).toBe(testData.id);
+});
+```
+
+### Isolation-Prinzip
+
+- **Jeder Test ist unabhängig** – keine Abhängigkeiten zwischen Tests
+- **Cleanup in beforeEach/afterEach** – Datenbank wird vor/nach jedem Test geleert
+- **Keine Shared State** – Tests teilen keine Variablen außer Setup-Instanzen
+
+## MANDATORY Reality-Checks für Tests
+
+### 0. BEFORE Writing Tests: Reality-Check
+
+**NIEMALS** Tests schreiben ohne vorherige Verification des zu testenden Codes.
+
+#### 0.1 Zu testende Klasse/Funktion verifizieren
+
+```bash
+# Klasse existiert prüfen
+grep "export class ClassName" src/path/to/file.ts
+# ODER in PowerShell:
+Select-String -Path src/path/to/file.ts -Pattern "export class ClassName"
+
+# Funktion existiert prüfen
+grep "async.*functionName" src/path/to/file.ts
+# ODER in PowerShell:
+Select-String -Path src/path/to/file.ts -Pattern "async.*functionName"
+
+# Export existiert prüfen
+grep "export.*functionName" src/path/to/file.ts
+# ODER in PowerShell:
+Select-String -Path src/path/to/file.ts -Pattern "export.*functionName"
+```
+
+#### 0.2 Signatur verifizieren
+
+```bash
+# Methoden-Signatur prüfen
+grep -A 5 "async.*methodName" src/path/to/file.ts
+# ODER in PowerShell:
+Get-Content src/path/to/file.ts | Select-String -Pattern "async.*methodName" -Context 0,5
+```
+
+#### 0.3 Dependencies verifizieren
+
+```bash
+# Welche Dependencies hat die Klasse?
+grep "import.*from" src/path/to/file.ts
+# ODER in PowerShell:
+Select-String -Path src/path/to/file.ts -Pattern "import.*from"
+```
+
+### 1. DURING Writing Tests: Incremental Verification
+
+**NIEMALS** Tests schreiben ohne sofortige Verification.
+
+#### 1.1 Compile sofort nach Test-Änderungen
+
+```bash
+# Kompiliert es?
+npm run compile
+
+# TypeScript-Fehler?
+tsc --noEmit
+```
+
+#### 1.2 Test sofort ausführen
+
+```bash
+# Test ausführen
+npm run test:unit -- <test-file>
+
+# Watch-Mode für kontinuierliche Tests
+npm run test:unit -- --watch <test-file>
+```
+
+#### 1.3 Schrittweise Verification
+
+- Test schreiben
+- **SOFORT kompilieren**
+- Fehler **VOR** Fortfahren beheben
+- **SOFORT testen**
+- Test-Output verifizieren
+
+### 2. AFTER Writing Tests: End-to-End Verification
+
+**NIEMALS** "Fertig!" sagen ohne vollständige Verification.
+
+#### 2.1 Vollständiger Test-Lauf
+
+```bash
+# Alle Tests ausführen
+npm run test:unit
+
+# Coverage prüfen
+npm run test:coverage
+
+# Spezifische Test-Datei
+npm run test:unit -- <test-file>
+```
+
+#### 2.2 Evidence sammeln
+
+- **NIEMALS** sagen "Ich habe Tests geschrieben" ohne Beweis
+- **IMMER** sagen "Ich habe Tests geschrieben, verifiziert durch [Beweis]"
+- Beweis = Test-Output, Coverage-Report, grep-Output
+
+## Test-spezifische Constraints
+
+### MUST (Pflicht)
+
+- ✅ **In-Memory SQLite (`:memory:`) für Unit-Tests**
+  ```typescript
+  const databaseManager = new DatabaseManager({ path: ':memory:' });
+  await databaseManager.initialize();
+  ```
+
+- ✅ **Echte DatabaseManager-Instanz** (keine Mocks)
+  ```typescript
+  // ✅ RICHTIG
+  const databaseManager = new DatabaseManager({ path: ':memory:' });
+  await databaseManager.initialize();
+  
+  // ❌ FALSCH
+  const mockDatabaseManager = new MockDatabaseManager();
+  ```
+
+- ✅ **Echte MigrationManager-Instanz** (Migrations ausführen)
+  ```typescript
+  const migrationManager = new MigrationManager(databaseManager);
+  await migrationManager.runMigrations();
+  ```
+
+- ✅ **Deterministische Test-Daten** (kein Date.now(), kein random)
+  ```typescript
+  // ✅ RICHTIG
+  const testDate = new Date('2024-01-01T00:00:00Z');
+  const testId = 'test-id-123';
+  
+  // ❌ FALSCH
+  const testDate = new Date(); // Nicht-deterministisch!
+  const testId = uuid(); // Nicht-deterministisch!
+  ```
+
+- ✅ **Isolierte Tests** (Cleanup in beforeEach/afterEach)
+  ```typescript
+  beforeEach(async () => {
+      // Clean database state
+      await databaseManager.executeQuery('DELETE FROM plugins');
+  });
+  
+  afterAll(async () => {
+      // Cleanup
+      await databaseManager.close();
+  });
+  ```
+
+- ✅ **AAA-Pattern** (Arrange, Act, Assert)
+- ✅ **Reality-Checks VOR Implementierung**
+
+### MUST NOT (Verboten)
+
+- ❌ **Mock-Daten für DatabaseManager**
+- ❌ **Mock-Daten für Repositories**
+- ❌ **Nicht-deterministische Test-Daten**
+- ❌ **Tests ohne Cleanup**
+- ❌ **Tests ohne Reality-Check**
+- ❌ **Shared State zwischen Tests**
+
+## Database-Setup-Patterns
+
+### Pattern 1: In-Memory Database Setup
+
+```typescript
+import { DatabaseManager } from '../../src/core/database-manager';
+import { MigrationManager } from '../../src/core/migration-manager';
+
+describe('Repository Tests', () => {
+    let databaseManager: DatabaseManager;
+    let migrationManager: MigrationManager;
+
+    beforeAll(async () => {
+        // Reality-Check: Verify DatabaseManager exists
+        // grep "export class DatabaseManager" src/core/database-manager.ts
+        
+        // Create In-Memory DB
+        databaseManager = new DatabaseManager({ path: ':memory:' });
+        await databaseManager.initialize();
+
+        // Run migrations
+        migrationManager = new MigrationManager(databaseManager);
+        await migrationManager.runMigrations();
+    });
+
+    beforeEach(async () => {
+        // Clean database state
+        await databaseManager.executeQuery('DELETE FROM plugins');
+        await databaseManager.executeQuery('DELETE FROM snapshots');
+        // ... weitere Tabellen
+    });
+
+    afterAll(async () => {
+        // Cleanup
+        await databaseManager.close();
+    });
+
+    it('should create entity', async () => {
+        // Arrange
+        const testData = {
+            name: 'test-plugin',
+            version: '1.0.0',
+            workspaceRoot: '/test/workspace',
+            docsPath: 'docs'
+        };
+
+        // Act
+        const result = await repository.create(testData);
+
+        // Assert
+        expect(result).toBeDefined();
+        expect(result.id).toBeDefined();
+        expect(result.name).toBe('test-plugin');
+    });
+});
+```
+
+### Pattern 2: Test-Fixtures (Factory-Funktionen)
+
+```typescript
+// __tests__/helpers/test-fixtures.ts
+
+export function createTestPlugin(overrides?: Partial<PluginCreateRequest>): PluginCreateRequest {
+    return {
+        name: 'test-plugin',
+        version: '1.0.0',
+        workspaceRoot: '/test/workspace',
+        docsPath: 'docs',
+        status: 'active',
+        ...overrides
+    };
+}
+
+export function createTestSnapshot(pluginId: string, overrides?: Partial<SnapshotCreateRequest>): SnapshotCreateRequest {
+    return {
+        pluginId,
+        timestamp: new Date('2024-01-01T00:00:00Z'),
+        status: 'completed',
+        ...overrides
+    };
+}
+```
+
+### Pattern 3: Test-Helper-Setup
+
+```typescript
+// __tests__/helpers/test-database-setup.ts
+
+import { DatabaseManager } from '../../src/core/database-manager';
+import { MigrationManager } from '../../src/core/migration-manager';
+
+export async function createTestDatabaseManager(): Promise<DatabaseManager> {
+    const databaseManager = new DatabaseManager({ path: ':memory:' });
+    await databaseManager.initialize();
+    return databaseManager;
+}
+
+export async function createTestMigrationManager(databaseManager: DatabaseManager): Promise<MigrationManager> {
+    const migrationManager = new MigrationManager(databaseManager);
+    await migrationManager.runMigrations();
+    return migrationManager;
+}
+
+export async function cleanupTestDatabase(databaseManager: DatabaseManager): Promise<void> {
+    await databaseManager.close();
+}
+```
+
+## Verification-Loops für Tests
+
+### Loop 1: Watch-Mode (WÄHREND Entwicklung)
+
+```bash
+# Watch-Mode für kontinuierliche Tests
+npm run test:unit -- --watch
+
+# Watch-Mode für spezifische Datei
+npm run test:unit -- --watch <test-file>
+```
+
+### Loop 2: Coverage-Verification (NACH Implementierung)
+
+```bash
+# Coverage prüfen
+npm run test:coverage
+
+# Coverage-Threshold prüfen (90% wie in package.json definiert)
+npm run test:coverage -- --coverageThreshold='{"global":{"branches":90,"functions":90,"lines":90,"statements":90}}'
+```
+
+### Loop 3: CI/CD-Verification
+
+```bash
+# Alle Tests ausführen (wie in CI/CD)
+npm run test:unit
+
+# Compile + Test (wie in CI/CD)
+npm run test
+```
+
+## Good vs. Bad Test Examples
+
+### ✅ GOOD: Echte Instanzen, deterministische Daten
+
+```typescript
+describe('PluginRepository Tests', () => {
+    let databaseManager: DatabaseManager;
+    let repository: PluginRepository;
+
+    beforeAll(async () => {
+        databaseManager = new DatabaseManager({ path: ':memory:' });
+        await databaseManager.initialize();
+        
+        const migrationManager = new MigrationManager(databaseManager);
+        await migrationManager.runMigrations();
+        
+        repository = new PluginRepository(databaseManager);
+    });
+
+    beforeEach(async () => {
+        await databaseManager.executeQuery('DELETE FROM plugins');
+    });
+
+    afterAll(async () => {
+        await databaseManager.close();
+    });
+
+    it('should create plugin', async () => {
+        // Arrange: Deterministische Test-Daten
+        const testData = {
+            name: 'test-plugin',
+            version: '1.0.0',
+            workspaceRoot: '/test/workspace',
+            docsPath: 'docs'
+        };
+
+        // Act: Echte Repository-Methode
+        const result = await repository.create(testData);
+
+        // Assert: Verifizieren mit echter DB-Query
+        expect(result).toBeDefined();
+        expect(result.id).toBeDefined();
+        
+        const dbResult = await databaseManager.executeQuerySingle(
+            'SELECT * FROM plugins WHERE id = ?',
+            [result.id]
+        );
+        expect(dbResult).toBeDefined();
+        expect(dbResult.name).toBe('test-plugin');
+    });
+});
+```
+
+### ❌ BAD: Mocks, nicht-deterministische Daten
+
+```typescript
+// ❌ FALSCH: Mock-Daten
+class MockDatabaseManager extends DatabaseManager {
+    // Mock-Implementierung
+}
+
+describe('PluginRepository Tests', () => {
+    let mockDatabaseManager: MockDatabaseManager;
+    
+    beforeAll(() => {
+        mockDatabaseManager = new MockDatabaseManager();
+    });
+
+    it('should create plugin', async () => {
+        // ❌ FALSCH: Nicht-deterministische Daten
+        const testData = {
+            name: 'test-plugin',
+            version: '1.0.0',
+            workspaceRoot: `/test/workspace-${Date.now()}`, // Nicht-deterministisch!
+            docsPath: 'docs'
+        };
+        
+        // ❌ FALSCH: Mock wird verwendet
+        const result = await repository.create(testData);
+        
+        // ❌ FALSCH: Keine echte DB-Verification
+        expect(result).toBeDefined();
+    });
+});
+```
+
+## Test-File-Struktur
+
+### Standard-Struktur für jeden Test-File
+
+```typescript
+/**
+ * [Module] Tests
+ * 
+ * Tests [Beschreibung] with real In-Memory SQLite database.
+ * No mocks - tests use real DatabaseManager and Repository instances.
+ */
+
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@jest/globals';
+import { DatabaseManager } from '../../src/core/database-manager';
+import { MigrationManager } from '../../src/core/migration-manager';
+// ... weitere Imports
+
+describe('[Module] Tests', () => {
+    let databaseManager: DatabaseManager;
+    let migrationManager: MigrationManager;
+    // ... weitere Test-Variablen
+
+    beforeAll(async () => {
+        // Reality-Check: Verify classes exist
+        // Create In-Memory DB
+        // Run migrations
+    });
+
+    beforeEach(async () => {
+        // Clean database state
+    });
+
+    afterAll(async () => {
+        // Cleanup
+    });
+
+    describe('CRUD Operations', () => {
+        it('should create entity', async () => {
+            // Arrange, Act, Assert
+        });
+
+        it('should find entity by id', async () => {
+            // Arrange, Act, Assert
+        });
+
+        // ... weitere Tests
+    });
+
+    describe('Business Logic', () => {
+        // ... weitere Test-Gruppen
+    });
+});
+```
+
+## Integration mit anderen Rules
+
+Diese Rule ergänzt:
+
+- **`001-pre-check.mdc`**: Fügt Test-spezifische Reality-Checks hinzu
+- **`026-reality-driven-verification.mdc`**: Fügt Test-Verification-Loops hinzu
+- **`030-constraints.mdc`**: Fügt Test-spezifische Constraints hinzu
+
+## Success Criteria für Tests
+
+Ein Test ist **NUR** dann abgeschlossen, wenn:
+
+- ✅ Test kompiliert ohne Fehler (`npm run compile`)
+- ✅ Test läuft ohne Fehler (`npm run test:unit -- <test-file>`)
+- ✅ Test verwendet echte Instanzen (keine Mocks)
+- ✅ Test ist deterministisch (gleiche Eingabe → gleiche Ausgabe)
+- ✅ Test ist isoliert (Cleanup vorhanden)
+- ✅ Test folgt AAA-Pattern
+- ✅ Reality-Check wurde durchgeführt
+
+**NICHT** wenn:
+
+- ❌ Test sieht richtig aus
+- ❌ Test verwendet Mocks
+- ❌ Test ist nicht-deterministisch
+- ❌ "Sollte funktionieren in der Theorie"
+
+## Remember
+
+**Tests testen die Realität. Mocks testen die Fantasie.**
+
+- ✅ **Echte Instanzen. Keine Mocks.**
+- ✅ **Deterministisch. Kein random.**
+- ✅ **Isoliert. Kein Shared State.**
+- ✅ **Reality-Check. Immer.**

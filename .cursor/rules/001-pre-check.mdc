@@ -9,7 +9,9 @@ alwaysApply: true
 
 Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 
-**Wichtig:** Siehe `002-system-context.mdc` für das Verständnis des Systems als mehrdimensionalen Navigationsraum.
+**Wichtig:** 
+- Siehe `034-coupled-system-workflow.mdc` für gekoppeltes System Workflow (Noyrax → docs/ → 5D Database Plugin)
+- Siehe `000-orchestrator.mdc` für Tool-Hierarchie (MCP Server primär, CLI-Tools Fallback, Dokumentation letzter Fallback)
 
 ## Checkliste (in dieser Reihenfolge)
 
@@ -36,30 +38,82 @@ Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 - [ ] Falls ja: Relevanten Plan lesen und befolgen
 - [ ] Falls nein: Standard-Constraints anwenden
 
-### 2. Dokumentation lesen
-- [ ] Relevante Modul-Doku aus `docs/modules/` gelesen (Modul-Raum)
-- [ ] `docs/system/DEPENDENCIES.md` für betroffene Module geprüft (Beziehungs-Raum)
-- [ ] Relevante ADRs aus Modul-Doku konsultiert (Wissens-Raum, ADR-023 Verknüpfung)
-- [ ] Bei Unsicherheit: Weitere Docs konsultieren, NICHT raten
+### 2. System-Status prüfen (Tool-basiert)
 
-### 3. Abhängigkeiten prüfen
-- [ ] `docs/system/DEPENDENCY_GRAPH.md` geprüft (Beziehungs-Raum)
+**WICHTIG:** Siehe `034-coupled-system-workflow.mdc` für gekoppeltes System Workflow.
+
+**PRIMÄR: MCP-Tool `workflow/check_status` (wenn Cursor/IDE MCP-Tools bereitstellt)**
+- [ ] System-Status prüfen: MCP-Tool `workflow/check_status` nutzen
+- [ ] ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+- [ ] System-Status prüfen: `noyrax-5d-database-tool . system_explanation`
+- [ ] `docs/` existiert: `Test-Path docs/modules` (PowerShell) oder `ls -la docs/modules`
+- [ ] SQLite-DBs existieren: `Test-Path .database-plugin/modules.db` (PowerShell) oder `ls -la .database-plugin/modules.db`
+- [ ] Falls `docs/` fehlt: Noyrax ausführen (siehe Rule 034)
+- [ ] Falls SQLite-DBs fehlen: Ingestion ausführen: `noyrax-5d-database ingest .`
+
+### 3. System-Verständnis (Tool-basiert)
+
+**WICHTIG:** Siehe `000-orchestrator.mdc` für detaillierte Tool-Hierarchie und Tool-Nutzung.
+
+**PRIMÄR: MCP-Tools (wenn Cursor/IDE MCP-Tools bereitstellt)**
+- [ ] System-Übersicht erhalten: MCP-Tools `bootstrap` oder `system_explanation` nutzen
+- [ ] Relevante Module finden: MCP-Tool `semantic_discovery` nutzen
+- [ ] Cross-Dimension-Analyse: MCP-Tool `cross_analysis` nutzen (Module + ADRs + Symbols + Dependencies)
+- [ ] ADRs finden: MCP-Tools `query_adrs` oder `semantic_discovery` nutzen
+- [ ] ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+- [ ] System-Übersicht erhalten: `noyrax-5d-database-tool . bootstrap` oder `noyrax-5d-database-tool . system_explanation`
+- [ ] Relevante Module finden: `noyrax-5d-database-tool . semantic_discovery "query" [limit]`
+- [ ] Cross-Dimension-Analyse: `noyrax-5d-database-tool . cross_analysis <filePath>` (Module + ADRs + Symbols + Dependencies)
+- [ ] ADRs finden: `noyrax-5d-database-query . adrs <filePath>` oder `noyrax-5d-database-tool . semantic_discovery "ADR about X"`
+- [ ] Bei Unsicherheit: Weitere Tools nutzen, NICHT raten
+
+**FALLBACK:** Wenn beide Tools nicht verfügbar sind, siehe `000-orchestrator.mdc` Abschnitt "2a. Mehrdimensionaler Navigationsraum (FALLBACK)" für Dokumentation-basierte Navigation.
+
+### 4. Abhängigkeiten prüfen (Tool-basiert)
+
+**PRIMÄR: MCP-Tools (wenn Cursor/IDE MCP-Tools bereitstellt)**
+- [ ] Dependencies abfragen: MCP-Tool `query_dependencies` nutzen (ausgehende und eingehende Dependencies)
+- [ ] Cross-Dimension-Analyse nutzen: MCP-Tool `cross_analysis` nutzen (zeigt Dependencies im Kontext)
+- [ ] ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+- [ ] Dependencies abfragen: `noyrax-5d-database-query . dependencies --from <modulePath>` (ausgehende Dependencies)
+- [ ] Dependencies abfragen: `noyrax-5d-database-query . dependencies --to <modulePath>` (eingehende Dependencies)
+- [ ] Cross-Dimension-Analyse nutzen: `noyrax-5d-database-tool . cross_analysis <filePath>` (zeigt Dependencies im Kontext)
+
+**Allgemein:**
 - [ ] Keine neuen zirkulären Abhängigkeiten eingeführt
 - [ ] Import-Richtung respektiert: `core → parsers → symbols → generator/validator → cli`
 
-### 3a. Bei neuen Dateien: Systemkontext besorgen
-- [ ] Ähnliche Module in `docs/modules/` gefunden (Modul-Raum)
-- [ ] Import-Richtungen aus `docs/system/DEPENDENCIES.md` geprüft (Beziehungs-Raum)
-- [ ] Change Report (`docs://system/changes`) für Änderungsmuster konsultiert (Zeit-Raum)
-- [ ] Relevante ADRs aus ähnlichen Modulen konsultiert (Wissens-Raum)
-- [ ] Architektur-Patterns aus ADRs verstanden
+**FALLBACK:** Wenn beide Tools nicht verfügbar sind, siehe `000-orchestrator.mdc` Abschnitt "2a. Mehrdimensionaler Navigationsraum (FALLBACK)" für Dokumentation-basierte Navigation.
 
-### 4. Scope begrenzen
+### 4a. Bei neuen Dateien: Systemkontext besorgen (Tool-basiert)
+
+**PRIMÄR: MCP-Tools (wenn Cursor/IDE MCP-Tools bereitstellt)**
+- [ ] Ähnliche Module finden: MCP-Tools `semantic_discovery` oder `architecture_mining` nutzen
+- [ ] Import-Richtungen prüfen: MCP-Tool `query_dependencies` nutzen (Beziehungs-Raum)
+- [ ] Architektur-Patterns erkennen: MCP-Tool `architecture_mining` nutzen
+- [ ] Relevante ADRs finden: MCP-Tool `cross_analysis` nutzen (zeigt ADRs im Kontext)
+- [ ] ODER npm-Package `@noyrax/mcp-server` nutzen
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+- [ ] Ähnliche Module finden: `noyrax-5d-database-tool . semantic_discovery "similar to <description>"` oder `noyrax-5d-database-tool . architecture_mining`
+- [ ] Import-Richtungen prüfen: `noyrax-5d-database-query . dependencies --from <similar-module>` (Beziehungs-Raum)
+- [ ] Architektur-Patterns erkennen: `noyrax-5d-database-tool . architecture_mining <similar-filePath>`
+- [ ] Relevante ADRs finden: `noyrax-5d-database-tool . cross_analysis <similar-filePath>` (zeigt ADRs im Kontext)
+
+**FALLBACK:** Wenn beide Tools nicht verfügbar sind, siehe `000-orchestrator.mdc` Abschnitt "2a. Mehrdimensionaler Navigationsraum (FALLBACK)" für Dokumentation-basierte Navigation.
+
+### 5. Scope begrenzen
 - [ ] **Maximal 3 Dateien** in diesem Änderungsschritt
 - [ ] Änderungen sind fokussiert und zusammenhängend
 - [ ] Keine unnötigen Refactorings "nebenbei"
 
-### 5. Implementierung mit Incremental Verification
+### 6. Implementierung mit Incremental Verification
 
 **WICHTIG:** Siehe `026-reality-driven-verification.mdc` für Verification-Patterns während der Implementierung.
 
@@ -69,35 +123,28 @@ Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 - [ ] Frühe Guard-Clauses, keine stillen Catches
 - [ ] **SOFORT nach Änderungen kompilieren:** `npm run compile`
 - [ ] **Fehler VOR Fortfahren beheben**
-- [ ] **SOFORT testen:** `node dist/file.js` oder `npm run scan:cli`
 
-### 6. Nach der Änderung: End-to-End Verification
+### 7. Nach der Änderung: End-to-End Verification
 
-**WICHTIG:** Siehe `026-reality-driven-verification.mdc` für vollständige Verification-Checkliste.
+**AUTOMATISIERT:** Der `postcompile` Hook führt automatisch `scan-cli`, `validate-cli` und `verify:adrs` aus.
 
-- [ ] `npm run scan:cli` ausführen (PowerShell: `npm run scan:cli; npm run validate:cli`)
-- [ ] `npm run validate:cli` ausführen
-- [ ] Change Report (`docs://system/changes`) prüfen - wurden Änderungen korrekt erfasst? (Zeit-Raum)
+Siehe `docs/adr/001-postcompile-workflow-chain.md` für Details.
+
+- [ ] `npm run compile` ausführen (triggert automatisch: scan → validate → verify:adrs)
+- [ ] Auf Fehler in der Ausgabe achten
 - [ ] **Evidence sammeln:** Nie "Ich habe X implementiert" ohne Beweis sagen
 - [ ] **Beweis bereitstellen:** grep-Output, compile-Output, test-Output
 - [ ] Bei Fehlern: Korrigieren bevor fortfahren
 - [ ] Bei signifikanter Änderung: ADR in `docs/adr/` erstellen
 
-## Quick-Reference: Modul-Dokumentation finden
+## Quick-Reference: Tool-basierte System-Analyse
 
-```
-Modul: src/parsers/ts-js.ts
-Doku:  docs/modules/src__parsers__ts-js.ts.md
-MCP:   docs://modules/src__parsers__ts-js.ts.md
+**WICHTIG:** Siehe `000-orchestrator.mdc` Abschnitt "2. Tool-basierte System-Navigation" für vollständige Tool-Referenz und Hierarchie.
 
-Modul: src/validator/index.ts
-Doku:  docs/modules/src__validator__index.ts.md
-MCP:   docs://modules/src__validator__index.ts.md
-```
-
-Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
-
-**Hinweis:** MCP-Server bietet strukturierten Zugriff via `docs://` URIs (siehe `002-system-context.mdc`).
+**Kurzfassung:**
+- **PRIMÄR:** Installierter MCP Server via MCP-Protokoll (wenn verfügbar)
+- **SEKUNDÄR:** CLI-Tools (nur wenn MCP Server nicht verfügbar)
+- **FALLBACK:** Dokumentation lesen (nur wenn beide Tools nicht verfügbar)
 
 ## Wann ist eine Änderung "signifikant" (ADR-Pflicht)?
 
@@ -110,11 +157,50 @@ Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
 ## Bei Unklarheit
 
 1. **Reality-Check durchführen** – Code prüfen, nicht raten (siehe `026-reality-driven-verification.mdc`)
-2. **Mehr Docs lesen** – nicht raten
-3. **Fragen stellen** – lieber nachfragen als falsch implementieren
-4. **Kleiner anfangen** – lieber weniger ändern und validieren
+2. **Tool-basierte Analyse nutzen** – `semantic_discovery`, `cross_analysis`, `system_explanation` (siehe Rule 035)
+3. **System-Status prüfen** – `system_explanation` für Übersicht (siehe Rule 036)
+4. **Fragen stellen** – lieber nachfragen als falsch implementieren
+5. **Kleiner anfangen** – lieber weniger ändern und validieren
+6. **Fallback: Dokumentation lesen** – wenn Tools nicht verfügbar (siehe Rule 002)
 
 ## Verification-Commands Quick-Reference
+
+### Standalone CLI (nach Installation von @noyrax/doc-cli)
+
+```bash
+# Dokumentation generieren
+noyrax-scan
+
+# Dokumentation validieren
+noyrax-validate
+
+# Dokumentation generieren (nur Generate, kein Scan)
+noyrax-generate
+
+# ADR-Claims prüfen
+noyrax-verify-adrs
+
+# Architektur-Regeln prüfen
+noyrax-verify-architecture
+
+# Import-Verfügbarkeit prüfen
+noyrax-verify-imports
+
+# Alle Verification-Checks
+noyrax-verify-all
+```
+
+### Lokal (mit documentation-system-plugin)
+
+```bash
+npm run scan:cli
+npm run validate:cli
+npm run generate:cli
+npm run verify:adrs
+npm run verify:architecture
+npm run verify:imports
+npm run verify:all
+```
 
 ### PowerShell (Windows)
 ```powershell

@@ -8,6 +8,8 @@ alwaysApply: false
 
 Diese Checklisten helfen dem Agent, Fehler zu vermeiden, BEVOR sie implementiert werden. Basierend auf historischen Fixes (ADR-001 bis ADR-017).
 
+**WICHTIG:** Vor der Planung sollte die System-Roadmap (`ROADMAP.md`) konsultiert werden, um sicherzustellen, dass geplante Änderungen mit der aktuellen Entwicklungsrichtung, Prioritäten und dem Zeitplan übereinstimmen.
+
 ## 1. Vor Scanner-Änderungen
 
 **Datei:** `src/core/scanner.ts`

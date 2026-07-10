@@ -1,30 +1,87 @@
-node_modules
-.npmrc
-*.vsix
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
 out/
 dist/
+build/
+*.tsbuildinfo
+
+# VS Code Extension
+*.vsix
+*.tgz
+
+# Environment variables
 .env
 .env.local
-.ai-agent-context/
-.ai-agent-rules.json
-.vscode/guidelines.json
-analyze-actual-documentation.js
-demo/src/*.js
-demo/src/*.js.map
-mcp/package-lock.json
-package-lock.json
-packages/doc-system-agent/package-lock.json
-website/package-lock.json
+.env.*.local
 
-# Editor-/Agent-Metadaten und interne Planungsdateien nicht in GitHub veröffentlichen
-.cursor/
-plans-archive/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Demo- und Website-Projekte nicht im Kern-Repo versionieren
-demo/
-website/
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Lokale Build-/Analyse-Artefakte
-docs/.cache/
-.scannerwork/
-.coverage/
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database files (local development)
+*.db
+*.sqlite
+*.sqlite3
+.database-plugin/
+chroma/
+
+# Documentation (generated - wird von Noyrax generiert)
+# docs/ wird NICHT ignoriert, da es Teil des Systems ist
+
+# Cache
+.cache/
+.parcel-cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+*.bak
+*.backup
+*.old
+
+# Local artifacts & Junk (nicht versionieren)
+snapshot_full_*.json
+ingest-log.txt
+*.pdf
+claude_desktop_config.json
+.mcp.json
+
+# Interne Outputs / sensible Bundles (nicht ins öffentliche Repo)
+linkedin-output/
+baserow-export/
+.linkedin-agent-*.json
+

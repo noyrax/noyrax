@@ -17,16 +17,20 @@ Dieses Projekt ist eine **VS Code Extension** zur automatischen Dokumentationsge
 ├─────────────────────────────────────────────────────────────┤
 │  0. Reality-Check VOR Implementierung (026-reality-driven)  │
 │  1. Plan-Erkennung (*.plan.md im Projekt-Root)              │
-│  2. Systemkontext verstehen (002-system-context.mdc)         │
-│  3. Pre-Check mit Verification (001-pre-check.mdc)           │
-│  4. Modul-spezifische Rules (010-013)                       │
-│  5. Implementierung mit Incremental Verification            │
-│  6. End-to-End Verification (npm run verify:all)            │
-│  7. ADR bei signifikanten Änderungen                        │
+│  2. System-Status prüfen (034-coupled-system-workflow)      │
+│  3. System-Verständnis via Tools (siehe Tool-Hierarchie)    │
+│  4. Pre-Check mit Verification (001-pre-check.mdc)          │
+│  5. Modul-spezifische Rules (010-013)                       │
+│  6. Implementierung mit Incremental Verification            │
+│  7. End-to-End Verification (npm run verify:all)            │
+│  8. ADR bei signifikanten Änderungen                        │
+│  9. API-Dokumentation prüfen/aktualisieren (038-api-docs)   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 **KRITISCH:** Siehe `026-reality-driven-verification.mdc` für das Verification-Loop Protocol. **Code ist die einzige Wahrheitsquelle** – Dokumentation und ADRs können veraltet sein.
+
+**WICHTIG:** Installierter MCP Server (via MCP-Protokoll oder npm-Package) ist primär für Kontextbeschaffung. CLI-Tools sind Fallback. Dokumentation lesen ist letzter Fallback.
 
 ## 1. Dynamische Plan-Erkennung
 
@@ -37,42 +41,189 @@ Vor jeder größeren Implementierung:
    - Spezifische Pläne (z.B. `feature-x.plan.md`) haben Vorrang
    - Allgemeine Pläne (z.B. `MVP_PLAN.md`) als Fallback
    - Bei mehreren Plänen: Den thematisch passendsten wählen
-3. **Kein Plan gefunden**: Arbeite nach Standard-Constraints (siehe `030-constraints.mdc`)
-4. **Plan-Abweichungen**: Müssen begründet und als ADR dokumentiert werden
+3. **Roadmap konsultieren**: Siehe `ROADMAP.md` für aktuelle Entwicklungsrichtung, Prioritäten und Zeitplan
+4. **Kein Plan gefunden**: Arbeite nach Standard-Constraints (siehe `030-constraints.mdc`)
+5. **Plan-Abweichungen**: Müssen begründet und als ADR dokumentiert werden
 
-## 2. Mehrdimensionaler Navigationsraum
+**WICHTIG:** Die System-Roadmap (`ROADMAP.md`) dokumentiert die aktuelle Entwicklungsrichtung, Prioritäten und den Zeitplan. Bei Planungsentscheidungen sollte die Roadmap konsultiert werden, um sicherzustellen, dass Änderungen mit der Gesamtstrategie übereinstimmen.
 
-Das System funktioniert als **mehrdimensionaler Raum**, in dem die Docs die Koordinaten und die ADRs die Landkarte sind. Siehe `002-system-context.mdc` für Details.
+## 2. Tool-basierte System-Navigation
 
-| Dimension | Artefakt | Funktion |
-|-----------|----------|----------|
-| **Modul-Raum (X)** | `docs/modules/*.md` | API-Dokumentation pro Datei |
-| **Symbol-Raum (Y)** | `docs/index/symbols.jsonl` | Symbole mit Dependencies |
-| **Beziehungs-Raum (Z)** | `docs/system/DEPENDENCY_GRAPH.md` | Modul-Abhängigkeiten |
-| **Wissens-Raum (W)** | `docs/adr/*.md` | Architektur-Entscheidungen (Landkarte) |
-| **Zeit-Raum (T)** | `docs/system/CHANGE_REPORT.md` | Änderungen über die Zeit |
+**WICHTIG:** Installierter MCP Server (via MCP-Protokoll oder npm-Package `@noyrax/mcp-server`) ist der primäre Zugriff für System-Analyse. CLI-Tools sind Fallback. Dokumentation lesen ist letzter Fallback.
 
-## 2a. Generierte Dokumentation als Wissensbasis
+### Zugriffswege-Hierarchie
 
-Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
+1. **PRIMÄR:** Installierter MCP Server (via MCP-Protokoll ODER npm-Package `@noyrax/mcp-server`) - Alle Tools über MCP-Protokoll
+2. **SEKUNDÄR:** CLI-Tools (nur wenn MCP Server nicht verfügbar) - Direkter Zugriff auf Plugins
+3. **FALLBACK:** Dokumentation lesen (nur wenn beide Tools nicht verfügbar)
 
-| Artefakt | Inhalt | Nutzen |
-|----------|--------|--------|
-| `docs/modules/*.md` | API-Dokumentation | Funktionen, Interfaces, Signaturen |
-| `docs/index/symbols.jsonl` | Symbol-Index | Dependencies pro Datei |
-| `docs/system/DEPENDENCIES.md` | Import-Übersicht | Module-Abhängigkeiten |
-| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Abhängigkeiten |
-| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Letzte Änderungen (Zeit-Dimension) |
-| `docs/adr/*.md` | ADRs | Architektur-Entscheidungen (Landkarte) |
+Siehe **ADR-040** für Unified MCP Server Architektur.
+
+### Verfügbare Tools
+
+**PRIMÄR: Installierter MCP Server (via MCP-Protokoll oder npm-Package)**
+
+Der MCP Server wird als installiertes npm-Package (`@noyrax/mcp-server`) genutzt oder via MCP-Protokoll (wenn Cursor/IDE MCP-Tools bereitstellt). Alle Tools über MCP-Protokoll verfügbar:
+
+**System-Verständnis:**
+- `bootstrap` - First-Contact für Agenten ohne Vorwissen
+- `system_explanation` - System-Übersicht, Entry Points, Architecture ADRs
+- `learning_path <topic>` - Geführter Lernpfad für ein Thema
+
+**Datenbank-Queries:**
+- `query_modules <filePath>` - Module-Details (X-Dimension)
+- `query_symbols <path|symbolId>` - Symbol-Details (Y-Dimension)
+- `query_dependencies --from <modulePath>` - Dependencies (Z-Dimension)
+- `query_adrs --number <adrNumber>` oder `query_adrs --path <filePath>` - ADR-Details (W-Dimension)
+- `query_changes` - Change Reports (T-Dimension)
+
+**System-Analyse:**
+- `cross_analysis <filePath>` - Cross-Dimension-Analyse (Module + ADRs + Symbols + Dependencies)
+- `semantic_discovery <query> [limit]` - Semantic Search in natürlicher Sprache
+- `gap_analysis [--min-deps N] [--limit N]` - Dokumentationslücken identifizieren
+- `architecture_mining [filePath]` - Architektur-Patterns erkennen
+
+**Validation Tools:**
+- `validation/runScan` - Dokumentations-Scan
+- `validation/runValidate` - Dokumentations-Validierung
+- `validation/runDriftCheck` - Drift-Detection
+- `validation/analyzeImpact` - Impact-Analyse
+- `validation/verifyAdrs` - ADR-Verification
+
+**Orchestrierungs-Tools:**
+- `workflow/full_cycle` - Vollständiger Workflow (Scan → Generate → Validate → Ingest → Embeddings)
+- `workflow/generate_and_ingest` - Generate Docs + Ingest
+- `workflow/check_status` - System-Status prüfen
+
+**Vorteil:** Einheitlicher Zugriff, Orchestrierung beider Plugins, Workflows über beide Plugins hinweg, keine CLI-Aufrufe nötig
+
+**WICHTIG:** MCP-Tools werden direkt über das MCP-Protokoll genutzt (wenn Cursor/IDE MCP-Tools bereitstellt) oder via installiertes npm-Package. Keine manuellen CLI-Aufrufe nötig.
+
+**KRITISCH: Server-Name-Ermittlung in Cursor**
+
+Cursor normalisiert Workspace-Namen unterschiedlich:
+- **Ordner-Name** (Tool-Deskriptoren): `project-0-Datenbank_fuer_Noyrax-noyrax` (Leerzeichen → Unterstriche)
+- **Server-Name** (tatsächliche Verbindung): `project-0-Datenbank fuer Noyrax-noyrax` (Leerzeichen bleiben)
+
+**Korrekte Server-Name-Ermittlung:**
+1. Prüfe Cursor MCP Logs: `anysphere.cursor-mcp.MCP project-0-Datenbank fuer Noyrax-noyrax` (mit Leerzeichen)
+2. ODER liste verfügbare MCP-Server: `list_mcp_resources` zeigt Server-Namen
+3. ODER prüfe Tool-Deskriptoren-Pfad: `c:\Users\...\.cursor\projects\d-Datenbank-fuer-Noyrax\mcps\project-0-Datenbank_fuer_Noyrax-noyrax\` (Ordner hat Unterstriche, aber Server-Name hat Leerzeichen)
+4. **IMMER den Server-Namen mit Leerzeichen verwenden** (nicht mit Unterstrichen)
+
+**Beispiel:**
+```typescript
+// RICHTIG: Server-Name mit Leerzeichen
+call_mcp_tool(
+  server: "project-0-Datenbank fuer Noyrax-noyrax",
+  toolName: "workflow_check_status",
+  arguments: {}
+)
+
+// FALSCH: Server-Name mit Unterstrichen (funktioniert nicht)
+call_mcp_tool(
+  server: "project-0-Datenbank_fuer_Noyrax-noyrax",  // ❌ Falsch!
+  toolName: "workflow_check_status",
+  arguments: {}
+)
+```
+
+**Troubleshooting:**
+- Wenn Tools nicht gefunden werden: Prüfe Server-Name in Cursor MCP Logs (mit Leerzeichen, nicht Unterstrichen)
+- Wenn Server-Name unklar: Nutze `list_mcp_resources` um verfügbare Server zu sehen
+- Wenn weiterhin Probleme: Cursor vollständig neu starten
+
+**SEKUNDÄR: CLI-Tools (Fallback, nur wenn MCP Server nicht verfügbar)**
+
+**WICHTIG:** CLI-Tools werden nur genutzt, wenn der MCP Server weder via MCP-Protokoll noch als npm-Package verfügbar ist.
+
+**System-Verständnis:**
+- `node 5d-database-plugin/out/cli/tool-cli.js . bootstrap` - First-Contact für Agenten ohne Vorwissen
+- `node 5d-database-plugin/out/cli/tool-cli.js . system_explanation` - System-Übersicht, Entry Points, Architecture ADRs
+
+**Datenbank-Queries:**
+- `node 5d-database-plugin/out/cli/query-cli.js . modules <filePath>` - Module-Details (X-Dimension)
+- `node 5d-database-plugin/out/cli/query-cli.js . symbols <path|symbolId>` - Symbol-Details (Y-Dimension)
+- `node 5d-database-plugin/out/cli/query-cli.js . dependencies --from <modulePath>` - Dependencies (Z-Dimension)
+- `node 5d-database-plugin/out/cli/query-cli.js . adrs --number <adrNumber>` - ADR-Details (W-Dimension, korrekte Syntax)
+- `node 5d-database-plugin/out/cli/query-cli.js . adrs --path <filePath>` - ADR-Details (W-Dimension, nach Dateipfad)
+- `node 5d-database-plugin/out/cli/query-cli.js . changes` - Change Reports (T-Dimension)
+
+**System-Analyse:**
+- `node 5d-database-plugin/out/cli/tool-cli.js . cross_analysis <filePath>` - Cross-Dimension-Analyse
+- `node 5d-database-plugin/out/cli/tool-cli.js . semantic_discovery <query> [limit]` - Semantic Search
+- `node 5d-database-plugin/out/cli/tool-cli.js . gap_analysis` - Dokumentationslücken identifizieren
+- `node 5d-database-plugin/out/cli/tool-cli.js . architecture_mining [filePath]` - Architektur-Patterns erkennen
+
+**Gekoppeltes System:**
+- `node 5d-database-plugin/out/cli/ingest-cli.js . [--full]` - Ingestion ausführen (Noyrax → docs/ → SQLite-DBs)
+- `node 5d-database-plugin/out/cli/embedding-cli.js .` - Embedding-Pipeline ausführen (V-Dimension)
+
+**WICHTIG:** Korrekte Syntax für `query-cli.js adrs`:
+- `adrs --number 040` (nicht `adrs 040`)
+- `adrs --path docs/adr/040-*.md` (für Dateipfad)
+
+Siehe **Rule 034** für gekoppeltes System Workflow (Noyrax → docs/ → 5D Database Plugin).
+Siehe **ADR-040** für Unified MCP Server Architektur.
+
+## 2a. Mehrdimensionaler Navigationsraum (FALLBACK)
+
+Das System funktioniert als **mehrdimensionaler Raum**, in dem die Docs die Koordinaten und die ADRs die Landkarte sind.
+
+**HINWEIS:** Diese Navigation ist **letzter Fallback** wenn MCP Server und CLI-Tools nicht verfügbar sind. Primär sollte der installierte MCP Server via MCP-Protokoll genutzt werden.
+
+| Dimension | Artefakt | Funktion | Tool-Zugriff |
+|-----------|----------|----------|--------------|
+| **Modul-Raum (X)** | `docs/modules/*.md` | API-Dokumentation pro Datei | `query modules` |
+| **Symbol-Raum (Y)** | `docs/index/symbols.jsonl` | Symbole mit Dependencies | `query symbols` |
+| **Beziehungs-Raum (Z)** | `docs/system/DEPENDENCY_GRAPH.md` | Modul-Abhängigkeiten | `query dependencies` |
+| **Wissens-Raum (W)** | `docs/adr/*.md` | Architektur-Entscheidungen (Landkarte) | `query_adrs --number <adrNumber>`, `semantic_discovery` |
+| **Zeit-Raum (T)** | `docs/system/CHANGE_REPORT.md` | Änderungen über die Zeit | `query changes` |
+| **Vector-Raum (V)** | Embeddings (ChromaDB/SQLite) | Semantic Search | `semantic_discovery`, `search` |
+
+**Bei Code-Änderungen (FALLBACK):**
+1. **Modul-Raum**: Relevante Modul-Doku aus `docs/modules/` lesen (nur wenn MCP-Tool `query_modules` nicht verfügbar)
+2. **Beziehungs-Raum**: Dependencies aus `docs/system/DEPENDENCIES.md` prüfen (nur wenn MCP-Tool `query_dependencies` nicht verfügbar)
+3. **Zeit-Raum**: Change Report konsultieren (nur wenn MCP-Tool `query_changes` nicht verfügbar)
+4. **Wissens-Raum**: Relevante ADRs konsultieren (nur wenn MCP-Tool `query_adrs` nicht verfügbar)
+
+**Bei Problemen (FALLBACK):**
+1. **System-Docs**: `DEPENDENCIES.md`, `DEPENDENCY_GRAPH.md` konsultieren (nur wenn MCP-Tools nicht verfügbar)
+2. **Zeit-Raum**: Change Report prüfen (nur wenn MCP-Tool `query_changes` nicht verfügbar)
+3. **Impact-Analyse**: Via MCP-Server `validation/analyzeImpact` (primär) oder Symbol-Index (Fallback)
+4. **ADRs**: Architektur-Entscheidungen als Kontext nutzen (nur wenn MCP-Tool `query_adrs` nicht verfügbar)
+
+**Bei neuen Dateien (FALLBACK):**
+1. **Systemkontext besorgen** (nur wenn MCP-Tools nicht verfügbar):
+   - Ähnliche Module in `docs/modules/` finden (nur wenn MCP-Tool `semantic_discovery` nicht verfügbar)
+   - Import-Richtungen aus `docs/system/DEPENDENCIES.md` prüfen (nur wenn MCP-Tool `query_dependencies` nicht verfügbar)
+   - Change Report für Änderungsmuster analysieren (nur wenn MCP-Tool `query_changes` nicht verfügbar)
+   - Relevante ADRs konsultieren (nur wenn MCP-Tool `cross_analysis` nicht verfügbar)
+
+## 2b. Generierte Dokumentation als Wissensbasis (FALLBACK)
+
+Die generierten Artefakte in `docs/` sind die **Single Source of Truth** für Noyrax. Die 5D-Datenbanken sind die **Single Source of Truth** für das 5D Database Plugin.
+
+**HINWEIS:** Primär sollte der installierte MCP Server via MCP-Protokoll genutzt werden. CLI-Tools sind Fallback. Diese Tabelle dient als letzter Fallback-Referenz.
+
+| Artefakt | Inhalt | Nutzen | Tool-Zugriff |
+|----------|--------|--------|--------------|
+| `docs/modules/*.md` | API-Dokumentation | Funktionen, Interfaces, Signaturen | `query modules`, `cross_analysis` |
+| `docs/index/symbols.jsonl` | Symbol-Index | Dependencies pro Datei | `query symbols`, `cross_analysis` |
+| `docs/system/DEPENDENCIES.md` | Import-Übersicht | Module-Abhängigkeiten | `query dependencies`, `cross_analysis` |
+| `docs/system/DEPENDENCY_GRAPH.md` | Mermaid-Graph | Visuelle Abhängigkeiten | `query dependencies`, `cross_analysis` |
+| `docs/system/CHANGE_REPORT.md` | Änderungsprotokoll | Letzte Änderungen (Zeit-Dimension) | `query changes` |
+| `docs/adr/*.md` | ADRs | Architektur-Entscheidungen (Landkarte) | `query adrs`, `semantic_discovery`, `cross_analysis` |
 
 ## 3. Rule-Hierarchie
 
 | Priorität | Rule-Typ | Beschreibung |
 |-----------|----------|--------------|
-| 1 (höchste) | Always-Apply | `000-orchestrator`, `001-pre-check`, `002-system-context`, `026-reality-driven-verification`, `030-constraints` |
+| 1 (höchste) | Always-Apply | `000-orchestrator`, `001-pre-check`, `026-reality-driven-verification`, `030-constraints`, `034-coupled-system-workflow`, `036-systematic-debugging` |
 | 2 | Auto-Attached | `010-013` – Aktiviert bei Arbeit in spezifischen Modulen |
-| 3 | Agent-Requested | `020-022` – Aktiviert bei expliziten Anfragen |
-| 4 | Pre-Planning | `023-pre-planning`, `024-api-doc-depth` – Aktiviert bei Planungs-Anfragen |
+| 3 | Agent-Requested | `020-022`, `038-api-documentation-maintenance` – Aktiviert bei expliziten Anfragen |
+| 4 | Pre-Planning | `023-pre-planning` – Aktiviert bei Planungs-Anfragen |
+| 5 | Test-spezifisch | `014-test-writing`, `037-test-environment-real-data` – Aktiviert bei Test-Arbeit |
 
 ## 4. Verbindliche Arbeitsweise
 
@@ -82,37 +233,57 @@ Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
 
 - **Reality-Check VOR Implementierung** – Dateien, Funktionen, Imports verifizieren (grep, ls, cat)
 - **Incremental Verification WÄHREND Implementierung** – Sofort kompilieren, sofort testen
-- **End-to-End Verification NACH Implementierung** – `npm run verify:all` ausführen
+- **End-to-End Verification NACH Implementierung** – `npm run verify:all` ausführen (falls verfügbar)
 - **Evidence-basierte Claims** – Nie "Ich habe X implementiert" ohne Beweis sagen
-- **Verification-Scripts nutzen** – `verify:architecture`, `verify:adrs`, `verify:imports`
+- **Verification-Scripts nutzen** – `verify:architecture`, `verify:adrs`, `verify:imports` (falls verfügbar)
 
-### 4.2 Systemkontext und Navigation
+### 4.2 Systemkontext und Navigation (Tool-basiert)
 
-- **Systemkontext verstehen** – Mehrdimensionalen Raum nutzen (siehe `002-system-context.mdc`)
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll**
+
+- **MCP-Protokoll nutzen** – Alle Tools über MCP-Protokoll (wenn Cursor/IDE MCP-Tools bereitstellt)
+- **npm-Package als Alternative** – Wenn MCP-Protokoll nicht verfügbar, aber `@noyrax/mcp-server` installiert ist
+- **System-Status prüfen** – MCP-Tool `workflow/check_status` für Übersicht (siehe Rule 034)
+- **System-Verständnis via MCP-Tools** – `bootstrap`, `system_explanation`, `semantic_discovery`, `cross_analysis`
+- **Dependencies prüfen** – MCP-Tools `query_dependencies`, `cross_analysis` statt manuell Dependency-Graph lesen
+- **ADRs finden** – MCP-Tools `query_adrs`, `semantic_discovery`, `cross_analysis` statt manuell suchen
 - **Maximal 3 Dateien** gleichzeitig ändern
-- **Docs lesen** vor jeder Code-Änderung (alle relevanten Dimensionen konsultieren)
-- **Dependency-Graph prüfen** vor neuen Imports (Beziehungs-Raum)
-- **Change Report prüfen** bei Problemen (Zeit-Raum)
-- **ADRs konsultieren** für Architektur-Kontext (Wissens-Raum)
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+
+- **CLI-Tools nutzen** – Nur wenn MCP Server weder via Protokoll noch als Package verfügbar ist
+- **Direkter Zugriff auf Plugins** – `node 5d-database-plugin/out/cli/tool-cli.js` etc.
+- **Korrekte Syntax verwenden** – Z.B. `adrs --number 040` (nicht `adrs 040`)
+
+**FALLBACK: Dokumentation-basierte Navigation**
+
+- **Mehrdimensionalen Raum nutzen** – Nur wenn MCP Server und CLI-Tools nicht verfügbar sind (siehe Abschnitt 2a)
+- **Docs lesen** – Nur als letzter Fallback
+- **Dependency-Graph prüfen** – Nur als letzter Fallback
+- **Change Report prüfen** – Nur als letzter Fallback
+- **ADRs konsultieren** – Nur als letzter Fallback
 
 ### 4.3 Qualität und Dokumentation
 
-- **Validierung ausführen** nach relevanten Änderungen (`npm run scan:cli && npm run validate:cli`)
+- **Kompilieren ausführen** nach relevanten Änderungen: `npm run compile` (triggert automatisch scan + validate + verify:adrs via postcompile Hook)
 - **ADR schreiben** bei signifikanten Architektur-Änderungen
+- **API-Dokumentation prüfen/aktualisieren** bei API-Änderungen (siehe Rule 038)
 - **Keine Duplikate** – bestehende Artefakte nutzen, nicht neu erstellen
 - **Nicht raten** – bei Unklarheit fragen oder Docs lesen
 
+**Hinweis:** Siehe `docs/adr/001-postcompile-workflow-chain.md` für die automatische Workflow-Chain.
+
 ## 5. Verification-Tools und Automation
 
-Das System bietet automatisierte Verification-Tools, die **vor, während und nach** der Implementierung genutzt werden müssen:
+Das System bietet automatisierte Verification-Tools, die **vor, während und nach** der Implementierung genutzt werden sollten (falls verfügbar):
 
 ### 5.1 Verification-Scripts
 
 ```bash
-# Alle Checks ausführen
+# Alle Checks ausführen (falls verfügbar)
 npm run verify:all
 
-# Einzelne Checks
+# Einzelne Checks (falls verfügbar)
 npm run verify:architecture  # Architektur-Regeln prüfen
 npm run verify:adrs          # ADR-Claims gegen Code prüfen
 npm run verify:imports      # Import-Verfügbarkeit prüfen
@@ -120,15 +291,19 @@ npm run verify:imports      # Import-Verfügbarkeit prüfen
 
 ### 5.2 Automation
 
-- **Pre-Commit Hook** (`.husky/pre-commit`) – Automatische Verification vor jedem Commit
-- **GitHub Actions** (`.github/workflows/verification.yml`) – CI/CD Reality-Checks
-- **VS Code Tasks** (`.vscode/tasks.json`) – Development-Workflow Verification
+- **Pre-Commit Hook** (`.husky/pre-commit`) – Automatische Verification vor jedem Commit (falls vorhanden)
+- **GitHub Actions** (`.github/workflows/verification.yml`) – CI/CD Reality-Checks (falls vorhanden)
+- **VS Code Tasks** (`.vscode/tasks.json`) – Development-Workflow Verification (falls vorhanden)
 
 ### 5.3 Verification-Workflow
 
-1. **VOR Implementierung:** `npm run verify:architecture` (Architektur-Regeln prüfen)
+1. **VOR Implementierung:** Reality-Check durchführen (Dateien, Funktionen, Imports verifizieren)
 2. **WÄHREND Implementierung:** `npm run compile` (sofort kompilieren)
-3. **NACH Implementierung:** `npm run verify:all` (alle Checks ausführen)
+3. **NACH Implementierung:** `npm run compile` (triggert automatisch scan → validate → verify:adrs)
+
+**Postcompile Workflow Chain (ADR-001):**
+- `npm run compile` führt automatisch `postcompile` Hook aus
+- `postcompile` ruft `scan-cli.js`, `validate-cli.js` und `verify:adrs` auf
 
 Siehe `026-reality-driven-verification.mdc` für detaillierte Verification-Patterns.
 

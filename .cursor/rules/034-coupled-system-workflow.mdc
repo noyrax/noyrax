@@ -1,0 +1,349 @@
+---
+description: Workflow für das gekoppelte System (Noyrax + 5D Database Plugin). Dokumentiert die System-Kopplung und den Workflow.
+globs: []
+alwaysApply: true
+---
+
+# Gekoppeltes System Workflow – Noyrax + 5D Database Plugin
+
+**KRITISCH:** Das Documentation System Plugin (Noyrax) und das 5D Database Plugin funktionieren nur gemeinsam. Diese Rule dokumentiert die System-Kopplung und den korrekten Workflow.
+
+## System-Kopplung
+
+Das System besteht aus zwei gekoppelten Plugins:
+
+```
+Noyrax (Documentation System) 
+  → generiert docs/ 
+  → 5D Database Plugin 
+  → SQLite-DBs (.database-plugin/) 
+  → Installierter MCP Server (via MCP-Protokoll oder npm-Package) 
+  → AI-Agent (Cursor)
+  
+Alternative (Fallback):
+  → CLI-Tools (direkt aus Plugins)
+  → AI-Agent (Cursor)
+```
+
+### Abhängigkeiten
+
+1. **Noyrax Plugin** generiert die `docs/` Ordnerstruktur:
+   - `docs/modules/*.md` (X-Dimension: Modul-Dokumentation)
+   - `docs/index/symbols.jsonl` (Y-Dimension: Symbol-Index)
+   - `docs/system/DEPENDENCY_GRAPH.md` (Z-Dimension: Dependency-Graph)
+   - `docs/adr/*.md` (W-Dimension: Architecture Decision Records)
+   - `docs/system/CHANGE_REPORT.md` (T-Dimension: Change Reports)
+
+2. **5D Database Plugin** liest `docs/` und speichert in SQLite-Datenbanken:
+   - `.database-plugin/modules.db` (X-Dimension)
+   - `.database-plugin/symbols.db` (Y-Dimension)
+   - `.database-plugin/dependencies.db` (Z-Dimension)
+   - `.database-plugin/adrs.db` (W-Dimension)
+   - `.database-plugin/changes.db` (T-Dimension)
+   - `.database-plugin/vectors.db` (V-Dimension: Embeddings)
+
+3. **Installierter MCP Server** (via MCP-Protokoll oder npm-Package `@noyrax/mcp-server`) orchestriert beide Plugins und ermöglicht Zugriff auf die Datenbanken
+4. **CLI-Tools** (nur wenn MCP Server nicht verfügbar) ermöglichen direkten Zugriff auf die Datenbanken
+
+## Workflow
+
+### Schritt 1: Noyrax – Dokumentation generieren
+
+**Voraussetzung:** Noyrax Plugin muss installiert sein.
+
+```bash
+# Via VS Code Command
+Ctrl+Shift+P → "Generate Documentation"
+
+# Via CLI (wenn verfügbar)
+noyrax-documentation generate <workspace-root>
+```
+
+**Ergebnis:** `docs/` Ordner wird erstellt mit allen 5 Dimensionen.
+
+### Schritt 2: Validierung – Prüfen ob docs/ existiert
+
+**Vor jeder Nutzung der 5D Database Plugin CLI-Tools:**
+
+```bash
+# Prüfen ob docs/ existiert
+Test-Path docs/modules
+Test-Path docs/index/symbols.jsonl
+Test-Path docs/system/DEPENDENCY_GRAPH.md
+Test-Path docs/adr
+Test-Path docs/system/CHANGE_REPORT.md
+```
+
+**Wenn `docs/` fehlt:**
+- Fehler: "ERROR: docs/ directory not found"
+- Lösung: Noyrax ausführen um `docs/` zu generieren
+- Hinweis: "Please run Documentation System Plugin (Noyrax) first to generate docs/ directory"
+
+### Schritt 3: 5D Database Plugin – Ingestion ausführen
+
+**Voraussetzung:** `docs/` muss existieren (Schritt 1).
+
+```bash
+# Via VS Code Command
+Ctrl+Shift+P → "Ingest Documentation"
+
+# Via CLI
+noyrax-5d-database ingest <workspace-root> [--full]
+
+# Oder lokal
+node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root> [--full]
+```
+
+**Ergebnis:** SQLite-Datenbanken werden erstellt/aktualisiert in `.database-plugin/`.
+
+**Vollständige Ingestion (`--full`):**
+- Alle Dimensionen werden neu ingestiert (X, Y, Z, W, T)
+- Embeddings werden generiert und synchronisiert (V-Dimension)
+- ChromaDB wird aktualisiert (falls verfügbar)
+
+**Inkrementelle Ingestion (Standard):**
+- Nur geänderte Dateien werden aktualisiert (Hash-basiert)
+- Embeddings werden nur für neue/geänderte Entities generiert
+
+### Schritt 4: Tools nutzen – Installierter MCP Server oder CLI-Tools
+
+**PRIMÄR: Installierter MCP Server via MCP-Protokoll (nach erfolgreicher Ingestion)**
+
+Der installierte MCP Server (via MCP-Protokoll oder npm-Package `@noyrax/mcp-server`) bietet alle Tools über MCP-Protokoll:
+
+**Verfügbare MCP-Tools:**
+- Database Tools: `query_modules`, `query_symbols`, `query_dependencies`, `query_adrs`, `query_changes`
+- Semantic Search: `semantic_discovery`
+- System-Analyse: `system_explanation`, `bootstrap`, `learning_path`
+- Advanced: `cross_analysis`, `gap_analysis`, `architecture_mining`
+- Validation Tools: `validation/runScan`, `validation/runValidate`, `validation/runDriftCheck`
+- Orchestration Tools: `workflow/full_cycle`, `workflow/generate_and_ingest`, `workflow/check_status`
+
+**WICHTIG:** MCP-Tools werden direkt über das MCP-Protokoll genutzt (wenn Cursor/IDE MCP-Tools bereitstellt) oder via installiertes npm-Package. Keine manuellen CLI-Aufrufe nötig.
+
+**SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)**
+
+```bash
+# System-Übersicht
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> bootstrap
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> system_explanation
+
+# Datenbank-Queries (korrekte Syntax)
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> modules <filePath>
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> adrs --number <adrNumber>
+node 5d-database-plugin/out/cli/query-cli.js <workspace-root> adrs --path <filePath>
+
+# System-Analyse
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> cross_analysis <filePath>
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> gap_analysis
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> architecture_mining
+
+# Semantic Search
+node 5d-database-plugin/out/cli/tool-cli.js <workspace-root> semantic_discovery "query" [limit]
+```
+
+**WICHTIG:** Korrekte Syntax für `query-cli.js`:
+- `adrs --number 040` (nicht `adrs 040`)
+- `adrs --path docs/adr/040-*.md` (für Dateipfad)
+
+Siehe **Rule 000** (Orchestrator) Abschnitt "2. Tool-basierte System-Navigation" für detaillierte Tool-Nutzung und Hierarchie.
+Siehe **ADR-040** für Unified MCP Server Architektur.
+
+## Validierung
+
+### Vor Ingestion prüfen
+
+**Checklist:**
+- [ ] `docs/` Ordner existiert
+- [ ] `docs/modules/` existiert (mindestens eine Datei)
+- [ ] `docs/index/symbols.jsonl` existiert
+- [ ] `docs/system/DEPENDENCY_GRAPH.md` existiert
+- [ ] `docs/adr/` existiert (mindestens ein ADR)
+- [ ] `docs/system/CHANGE_REPORT.md` existiert
+
+**Wenn eine Datei fehlt:**
+- Warnung: "WARNING: Required file missing: <path>"
+- Hinweis: "Please run Documentation System Plugin (Noyrax) to generate complete docs/ directory"
+
+### Nach Ingestion prüfen
+
+**Checklist:**
+- [ ] `.database-plugin/` Ordner existiert
+- [ ] `.database-plugin/modules.db` existiert
+- [ ] `.database-plugin/symbols.db` existiert
+- [ ] `.database-plugin/dependencies.db` existiert
+- [ ] `.database-plugin/adrs.db` existiert
+- [ ] `.database-plugin/changes.db` existiert
+- [ ] (Optional) `.database-plugin/vectors.db` existiert (für Semantic Search)
+
+**Wenn eine Datenbank fehlt:**
+- Lösung: Ingestion erneut ausführen
+- Hinweis: "Please run ingestion: noyrax-5d-database ingest <workspace-root>"
+
+## Fehlerbehandlung
+
+### Häufige Fehler
+
+**1. "ERROR: docs/ directory not found"**
+
+**Ursache:** Noyrax wurde nicht ausgeführt oder `docs/` wurde gelöscht.
+
+**Lösung:**
+```bash
+# Noyrax ausführen um docs/ zu generieren
+# Via VS Code: Ctrl+Shift+P → "Generate Documentation"
+# Oder via CLI: noyrax-documentation generate <workspace-root>
+```
+
+**2. "ERROR: SQLite-DBs not found"**
+
+**Ursache:** Ingestion wurde nicht ausgeführt.
+
+**Lösung:**
+```bash
+# Ingestion ausführen
+node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root>
+
+# Oder über installierten MCP Server (Orchestrierungs-Tool)
+# MCP-Tool workflow/generate_and_ingest nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+```
+
+**3. "ERROR: Embeddings not found"**
+
+**Ursache:** Embedding-Pipeline wurde nicht ausgeführt (oder ChromaDB nicht verfügbar).
+
+**Lösung:**
+```bash
+# Embedding-Pipeline ausführen
+node 5d-database-plugin/out/cli/embedding-cli.js <workspace-root>
+
+# Oder vollständige Ingestion (inkl. Embeddings)
+node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root> --full
+
+# Oder über installierten MCP Server (Orchestrierungs-Tool)
+# MCP-Tool workflow/full_cycle nutzen (wenn Cursor/IDE MCP-Tools bereitstellt, inkl. Embeddings)
+```
+
+**4. "ERROR: File mappings missing"**
+
+**Ursache:** Re-Ingestion erforderlich (z.B. nach Änderung der ADR-File-Mapping-Logik).
+
+**Lösung:**
+```bash
+# Re-Ingestion ausführen
+node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root> --full
+
+# Oder über installierten MCP Server (Orchestrierungs-Tool)
+# MCP-Tool workflow/full_cycle nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+```
+
+## Workflow-Diagramm
+
+```mermaid
+graph TD
+    A[Noyrax: Generate docs/] --> B{docs/ exists?}
+    B -->|Yes| C[5D Plugin: Ingest]
+    B -->|No| D[ERROR: Run Noyrax first]
+    C --> E{SQLite-DBs exist?}
+    E -->|Yes| F{Use Installierter MCP Server?}
+    E -->|No| G[Run Ingestion]
+    G --> F
+    F -->|Yes| H[Installierter MCP Server]
+    F -->|No| I[CLI-Tools Fallback]
+    H --> J[System Analysis via MCP]
+    I --> K[System Analysis via CLI]
+```
+
+## Sequence-Diagramm
+
+```mermaid
+sequenceDiagram
+    participant Noyrax as Noyrax Plugin
+    participant Docs as docs/ Directory
+    participant Plugin as 5D Database Plugin
+    participant DBs as SQLite-DBs
+    participant MCP as Installierter MCP Server
+    participant CLI as CLI-Tools (Fallback)
+    participant AI as AI-Agent
+
+    Noyrax->>Docs: Generate docs/
+    AI->>Docs: Check if exists
+    Docs-->>AI: docs/ exists
+    AI->>Plugin: Run Ingestion
+    Plugin->>DBs: Create SQLite-DBs
+    alt Installierter MCP Server verfügbar
+        AI->>MCP: Use MCP Server via MCP-Protokoll
+        MCP->>DBs: Query Data
+        DBs-->>MCP: Return JSON
+        MCP-->>AI: System Analysis
+    else CLI-Tools Fallback
+        AI->>CLI: Use CLI-Tools
+        CLI->>DBs: Query Data
+        DBs-->>CLI: Return JSON
+        CLI-->>AI: System Analysis
+    end
+```
+
+## Update-Workflow
+
+### Wenn Code geändert wurde
+
+1. **Noyrax ausführen** (generiert neue/aktualisierte `docs/`)
+2. **Ingestion ausführen** (aktualisiert SQLite-DBs)
+   - Via CLI: `node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root>`
+   - Via MCP: MCP-Tool `workflow/generate_and_ingest` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+3. **Tools nutzen** (für aktualisierte System-Analyse)
+   - PRIMÄR: Installierter MCP Server via MCP-Protokoll
+   - SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+
+### Wenn nur Dokumentation geändert wurde
+
+1. **Ingestion ausführen** (aktualisiert SQLite-DBs für geänderte ADRs/docs)
+   - Via CLI: `node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root>`
+   - Via MCP: MCP-Tool `workflow/generate_and_ingest` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt)
+2. **Tools nutzen** (für aktualisierte System-Analyse)
+   - PRIMÄR: Installierter MCP Server via MCP-Protokoll
+   - SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+
+### Wenn Embeddings fehlen/veraltet sind
+
+1. **Embedding-Pipeline ausführen** (oder vollständige Ingestion mit `--full`)
+   - Via CLI: `node 5d-database-plugin/out/cli/embedding-cli.js <workspace-root>`
+   - Via CLI: `node 5d-database-plugin/out/cli/ingest-cli.js <workspace-root> --full`
+   - Via MCP: MCP-Tool `workflow/full_cycle` nutzen (wenn Cursor/IDE MCP-Tools bereitstellt, inkl. Embeddings)
+2. **Semantic Search nutzen** (für aktualisierte Suchergebnisse)
+   - PRIMÄR: Installierter MCP Server via MCP-Protokoll (MCP-Tool `semantic_discovery`)
+   - SEKUNDÄR: CLI-Tools (nur wenn MCP Server nicht verfügbar)
+
+## Best Practices
+
+### DO (Richtige Nutzung)
+
+- ✅ **Immer zuerst Noyrax ausführen** wenn `docs/` fehlt
+- ✅ **Ingestion nach jeder Code-Änderung** ausführen
+- ✅ **Vollständige Ingestion (`--full`)** nach größeren Änderungen
+- ✅ **System-Status prüfen** vor Nutzung von Tools
+- ✅ **Installierter MCP Server via MCP-Protokoll als primären Zugriff** nutzen (wenn verfügbar)
+- ✅ **CLI-Tools als Fallback** nutzen (nur wenn MCP Server nicht verfügbar)
+- ✅ **Korrekte Syntax für CLI-Tools** verwenden (z.B. `adrs --number 040`)
+- ✅ **Orchestrierungs-Tools nutzen** für Workflows über beide Plugins (`workflow/full_cycle`)
+- ✅ **Fehlermeldungen beachten** und entsprechend handeln
+
+### DON'T (Falsche Nutzung)
+
+- ❌ **Nicht Tools nutzen** wenn `docs/` fehlt
+- ❌ **Nicht Tools nutzen** wenn Ingestion nicht ausgeführt wurde
+- ❌ **Nicht `docs/` manuell editieren** (wird von Noyrax überschrieben)
+- ❌ **Nicht SQLite-DBs manuell editieren** (werden von Ingestion verwaltet)
+- ❌ **Nicht Ingestion überspringen** wenn Code geändert wurde
+- ❌ **Nicht falsche CLI-Syntax verwenden** (z.B. `adrs 040` statt `adrs --number 040`)
+
+## Verweise
+
+- **ADR-040**: Installierter MCP Server Root-Architektur (neue Architektur)
+- **Rule 033**: AI-Agent System Integration (Zugriffswege)
+- **Rule 035**: Tool-basierte System-Analyse (MCP Server Tools + CLI-Tools als Fallback)
+- **Rule 036**: Systematische Fehlersuche (Debugging-Workflow)
+- **mcp-server/README.md**: Unified MCP Server Dokumentation
+- **SETUP_NEW_PROJECT.md**: Vollständige Setup-Anleitung
+- **README.md**: System-Übersicht

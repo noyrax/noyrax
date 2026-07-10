@@ -12,7 +12,6 @@ analyze-actual-documentation.js
 demo/src/*.js
 demo/src/*.js.map
 mcp/package-lock.json
-package-lock.json
 packages/doc-system-agent/package-lock.json
 website/package-lock.json
 

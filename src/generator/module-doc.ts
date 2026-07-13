@@ -1,6 +1,7 @@
 import { ParsedSymbol, SymbolSignature } from '../parsers/types';
 import { SignatureFormatter } from '../core/signature-formatter';
 import { classifySymbol } from '../core/symbol-classifier';
+import { AdrLinker } from './adr-linker';
 
 /**
  * @public
@@ -361,10 +362,41 @@ function compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number {
  * @public
  * Render module documentation to markdown
  */
-export function renderModuleDoc(doc: ModuleDoc, filePath: string): string {
+export function renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string {
     const lines: string[] = [];
     lines.push(`# Modul: ${filePath}`);
     lines.push('');
+
+    // Add relevant ADRs section if adrLinker is provided
+    if (adrLinker) {
+        try {
+            const relevantAdrs = adrLinker.getRelevantAdrs(filePath);
+            if (relevantAdrs.length > 0) {
+                lines.push('## Relevante ADRs');
+                lines.push('');
+                for (const adrNum of relevantAdrs) {
+                    const metadata = adrLinker.getAdrMetadata(adrNum);
+                    if (metadata) {
+                        const linkPath = `../adr/${metadata.fileName}`;
+                        lines.push(`- [ADR-${adrNum}: ${metadata.title}](${linkPath})`);
+                    }
+                }
+                lines.push('');
+            } else {
+                // Debug: Log when no ADRs found for a file
+                // WICHTIG: console.error() statt console.log(), damit stdout nur JSON enthält (siehe ADR-066)
+                console.error(`[ADR-Linker] No relevant ADRs found for ${filePath}`);
+            }
+        } catch (err) {
+            // If ADR linking fails, continue without it
+            // This ensures the documentation generation doesn't break
+            console.error(`[ADR-Linker] Error getting relevant ADRs for ${filePath}: ${err}`);
+        }
+    } else {
+        // Debug: Log when adrLinker is not provided
+        // WICHTIG: console.error() statt console.log(), damit stdout nur JSON enthält (siehe ADR-066)
+        console.error(`[ADR-Linker] No adrLinker provided for ${filePath}`);
+    }
 
     // Hilfsindex: Wie viele Methoden gehören (per Namensschema) zu welcher Klasse?
     const methodsPerClass = new Map<string, number>();

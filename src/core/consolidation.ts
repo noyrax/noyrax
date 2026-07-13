@@ -89,7 +89,9 @@ function buildUnionMap(
             from: dep.from,
             to: dep.to,
             type: dep.type,
-            symbols: dep.symbols && dep.symbols.length > 0 ? dep.symbols : undefined
+            symbols: dep.symbols && dep.symbols.length > 0 ? dep.symbols : undefined,
+            isTypeOnly: dep.isTypeOnly,
+            isReexport: dep.isReexport,
         });
     }
 
@@ -121,8 +123,9 @@ function buildUnionMap(
     };
     
     // Debug-Logging direkt hier (für sofortige Sichtbarkeit)
-    if (typeof console !== 'undefined' && console.log) {
-        console.log('[buildUnionMap]', {
+    // WICHTIG: console.error() statt console.log(), damit stdout nur JSON enthält (siehe ADR-066)
+    if (typeof console !== 'undefined' && console.error) {
+        console.error('[buildUnionMap]', {
             parsedFilesCount: parsedFiles.size,
             deletedFilesCount: deletedFiles.size,
             prevDepsCount: Array.from(depMapPrev.values()).reduce((sum, deps) => sum + deps.length, 0),
@@ -145,12 +148,16 @@ function buildUnionMap(
  * Algorithm (ADDITIVE_DOCUMENTATION_PLAN.md, Section 6.3):
  * 1. For parsed files: use new symbols
  * 2. For unparsed, non-deleted files: keep old symbols from index
+ * 
+ * IMPORTANT: Only keeps symbols from files that were scanned in the current run.
+ * Files that are no longer scanned (e.g., excluded directories) are treated as deleted.
  */
 export function buildSymbolsUnion(
     symbolsNew: ParsedSymbol[],
     symbolsPrev: ParsedSymbol[],
     parsedFiles: Set<string>,
-    deletedFiles: Set<string>
+    deletedFiles: Set<string>,
+    scannedFiles?: Set<string> // Optional: files that were scanned in this run
 ): ParsedSymbol[] {
     // Build map from previous symbols
     const symbolMapPrev = new Map<string, ParsedSymbol>();
@@ -169,11 +176,21 @@ export function buildSymbolsUnion(
     }
 
     // 2. For unparsed, non-deleted files: keep old symbols
+    // IMPORTANT: Only keep symbols from files that were scanned in this run
+    // This ensures that files excluded from scanning (e.g., demo/, website/) are removed
     for (const [key, sym] of symbolMapPrev.entries()) {
-        if (!parsedFiles.has(sym.filePath) && !deletedFiles.has(sym.filePath)) {
-            if (!symbolMapUnion.has(key)) {
-                symbolMapUnion.set(key, sym);
-            }
+        // Skip if file was parsed (new symbols already added above)
+        if (parsedFiles.has(sym.filePath)) continue;
+        
+        // Skip if file was deleted
+        if (deletedFiles.has(sym.filePath)) continue;
+        
+        // Skip if file was not scanned in this run (excluded directories)
+        if (scannedFiles && !scannedFiles.has(sym.filePath)) continue;
+        
+        // Keep old symbol
+        if (!symbolMapUnion.has(key)) {
+            symbolMapUnion.set(key, sym);
         }
     }
 
@@ -184,7 +201,7 @@ export function buildSymbolsUnion(
  * @private
  * Deduplicate and sort dependencies
  * 
- * Key: (from, to, type, symbols_sorted)
+ * Key: (from, to, type) - symbols, isTypeOnly, isReexport werden gemerged
  * Sort: from asc → to asc → type asc → symbols asc
  */
 function deduplicateAndSortDependencies(
@@ -195,21 +212,64 @@ function deduplicateAndSortDependencies(
         allDeps.push(...deps);
     }
 
-    // Deduplicate by key
+    // Deduplicate and merge by (from, to, type)
     const uniqueMap = new Map<string, DependencyCacheEntry>();
     for (const dep of allDeps) {
-        const symbolsStr = (dep.symbols || []).sort((a, b) => a.localeCompare(b)).join(',');
-        const key = `${dep.from}::${dep.to}::${dep.type}::${symbolsStr}`;
-        if (!uniqueMap.has(key)) {
+        const key = `${dep.from}::${dep.to}::${dep.type}`;
+        const existing = uniqueMap.get(key);
+        
+        if (existing) {
+            // Merge symbols
+            if (dep.symbols && dep.symbols.length > 0) {
+                existing.symbols = existing.symbols ?? [];
+                existing.symbols.push(...dep.symbols);
+            }
+            // isTypeOnly bleibt nur true, wenn ALLE Einträge type-only sind
+            if (!dep.isTypeOnly) {
+                existing.isTypeOnly = false;
+            }
+            // isReexport wird true, wenn mindestens ein Eintrag ein Re-Export ist
+            if (dep.isReexport) {
+                existing.isReexport = true;
+            }
+        } else {
             uniqueMap.set(key, {
-                ...dep,
-                symbols: dep.symbols ? [...dep.symbols].sort((a, b) => a.localeCompare(b)) : undefined
+                from: dep.from,
+                to: dep.to,
+                type: dep.type,
+                symbols: dep.symbols ? [...dep.symbols] : undefined,
+                isTypeOnly: dep.isTypeOnly,
+                isReexport: dep.isReexport,
             });
         }
     }
 
+    // Finalize: deduplicate and sort symbols, remove undefined flags
+    const finalized: DependencyCacheEntry[] = [];
+    for (const dep of uniqueMap.values()) {
+        const entry: DependencyCacheEntry = {
+            from: dep.from,
+            to: dep.to,
+            type: dep.type,
+        };
+        
+        if (dep.symbols && dep.symbols.length > 0) {
+            entry.symbols = Array.from(new Set(dep.symbols)).sort((a, b) => a.localeCompare(b));
+        }
+        
+        // Nur hinzufügen wenn true (spart Platz im JSON)
+        if (dep.isTypeOnly) {
+            entry.isTypeOnly = true;
+        }
+        if (dep.isReexport) {
+            entry.isReexport = true;
+        }
+        
+        finalized.push(entry);
+    }
+
     // Sort
-    const sorted = Array.from(uniqueMap.values()).sort((a, b) => {
+    const sorted = finalized.sort((a, b) => {
         if (a.from !== b.from) return a.from.localeCompare(b.from);
         if (a.to !== b.to) return a.to.localeCompare(b.to);
         if (a.type !== b.type) return a.type.localeCompare(b.type);

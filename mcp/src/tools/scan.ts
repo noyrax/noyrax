@@ -35,43 +35,62 @@ export async function runScan(request: ScanRequest): Promise<ScanResponse> {
 
   try {
     // Basis-Kommando
-    const command = 'npm run scan';
+    const command = 'npm run scan:cli';
     
-    // Bei spezifischen Dateien: Filter-Modus (falls unterstützt)
+    // Bei spezifischen Dateien: Filter-Modus
+    const args: string[] = [];
     if (request.files && request.files.length > 0) {
+      args.push('--files', request.files.join(','));
       logs.push(`Scanning specific files: ${request.files.join(', ')}`);
-      // Hinweis: Das aktuelle CLI unterstützt möglicherweise keine Datei-Filter
-      // In diesem Fall wird der vollständige Scan ausgeführt
+    }
+    if (request.incremental === false) {
+      // Full scan (include backups)
+      args.push('--include-backups');
     }
 
-    logs.push(`Executing: ${command}`);
+    const fullCommand = args.length > 0 ? `${command} ${args.join(' ')}` : command;
+    logs.push(`Executing: ${fullCommand}`);
     
-    const { stdout, stderr } = await execAsync(command, {
+    const { stdout, stderr } = await execAsync(fullCommand, {
       cwd: process.cwd(),
       timeout: 120000, // 2 Minuten Timeout
     });
 
-    if (stdout) {
-      logs.push(...stdout.split('\n').filter(Boolean));
-    }
     if (stderr) {
       // stderr kann auch Info-Logs enthalten
       logs.push(...stderr.split('\n').filter(Boolean));
     }
 
-    // Ergebnis parsen (vereinfacht)
-    const filesRegex = /(\d+)\s+files?\s+processed/i;
-    const symbolsRegex = /(\d+)\s+symbols?\s+extracted/i;
-    const filesMatch = filesRegex.exec(stdout);
-    const symbolsMatch = symbolsRegex.exec(stdout);
+    // Parse JSON output
+    let result: ScanResponse;
+    try {
+      const jsonOutput = stdout.trim();
+      const parsed = JSON.parse(jsonOutput);
+      result = {
+        status: parsed.status || 'success',
+        filesProcessed: parsed.filesProcessed || 0,
+        symbolsExtracted: parsed.symbolsExtracted || 0,
+        duration: parsed.duration || (Date.now() - startTime),
+        logs: parsed.logs || logs,
+        errors: parsed.errors,
+      };
+    } catch (parseError) {
+      // Fallback: Try to parse from text output
+      const filesRegex = /(\d+)\s+files?\s+processed/i;
+      const symbolsRegex = /(\d+)\s+symbols?\s+extracted/i;
+      const filesMatch = filesRegex.exec(stdout);
+      const symbolsMatch = symbolsRegex.exec(stdout);
 
-    return {
-      status: 'success',
-      filesProcessed: filesMatch ? Number.parseInt(filesMatch[1], 10) : 0,
-      symbolsExtracted: symbolsMatch ? Number.parseInt(symbolsMatch[1], 10) : 0,
-      duration: Date.now() - startTime,
-      logs,
-    };
+      result = {
+        status: 'success',
+        filesProcessed: filesMatch ? Number.parseInt(filesMatch[1], 10) : 0,
+        symbolsExtracted: symbolsMatch ? Number.parseInt(symbolsMatch[1], 10) : 0,
+        duration: Date.now() - startTime,
+        logs: [...logs, ...stdout.split('\n').filter(Boolean)],
+      };
+    }
+
+    return result;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     errors.push(message);

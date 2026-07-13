@@ -16,6 +16,69 @@ const errors = [];
 const warnings = [];
 
 /**
+ * Lädt die Path-Alias-Map aus .database-plugin/path-aliases.json
+ */
+function loadAliasMap(workspaceRoot) {
+  const aliasMapPath = path.join(workspaceRoot, '.database-plugin', 'path-aliases.json');
+  if (fs.existsSync(aliasMapPath)) {
+    try {
+      const content = fs.readFileSync(aliasMapPath, 'utf-8');
+      return JSON.parse(content);
+    } catch (error) {
+      // Ignore errors loading alias map
+      return {};
+    }
+  }
+  return {};
+}
+
+/**
+ * Resolved einen Pfad mit Hilfe der Alias-Map
+ */
+function resolvePathWithAlias(filePath, workspaceRoot, aliasMap) {
+  // Normalisiere den Pfad (forward slashes)
+  const normalized = filePath.replace(/\\/g, '/');
+  
+  // Prüfe ob es einen Alias gibt
+  if (aliasMap[normalized]) {
+    return path.join(workspaceRoot, aliasMap[normalized]);
+  }
+  
+  // Fallback: Original-Pfad
+  return path.join(workspaceRoot, filePath);
+}
+
+/**
+ * Findet src/ Verzeichnis mit Hilfe der Alias-Map
+ */
+function findSrcDirectoryWithAlias(startDir, workspaceRoot, aliasMap, maxDepth = 5) {
+  // Standard: src/ im Workspace-Root
+  const standardSrc = path.join(workspaceRoot, 'src');
+  if (fs.existsSync(standardSrc)) {
+    return standardSrc;
+  }
+  
+  // Suche in Alias-Map nach src/ Pfaden
+  for (const [alias, target] of Object.entries(aliasMap)) {
+    if (alias.startsWith('src/') || alias.includes('/src/')) {
+      // Extrahiere das Plugin-Root aus dem Target
+      const targetParts = target.split('/');
+      const srcIndex = targetParts.indexOf('src');
+      if (srcIndex > 0) {
+        const pluginRoot = targetParts.slice(0, srcIndex).join('/');
+        const srcDir = path.join(workspaceRoot, pluginRoot, 'src');
+        if (fs.existsSync(srcDir)) {
+          return srcDir;
+        }
+      }
+    }
+  }
+  
+  // Fallback: Original findSrcDirectory
+  return findSrcDirectory(startDir, maxDepth);
+}
+
+/**
  * Sammelt alle TypeScript-Dateien rekursiv
  */
 function getAllTsFiles(dir) {
@@ -89,10 +152,44 @@ function extractExports(filePath) {
 }
 
 /**
+ * Findet das src/ Verzeichnis durch intelligente Suche.
+ * Sucht im gegebenen Verzeichnis und in Parent-Verzeichnissen (max. 5 Ebenen).
+ * 
+ * @param startDir Das Verzeichnis, von dem aus gesucht werden soll
+ * @param maxDepth Maximale Anzahl von Parent-Ebenen, die durchsucht werden sollen (default: 5)
+ * @returns Der Pfad zum src/ Verzeichnis oder null, wenn nicht gefunden
+ */
+function findSrcDirectory(startDir, maxDepth = 5) {
+  let currentDir = path.resolve(startDir);
+  let depth = 0;
+
+  while (depth < maxDepth) {
+    const srcPath = path.join(currentDir, 'src');
+    if (fs.existsSync(srcPath)) {
+      const stats = fs.statSync(srcPath);
+      if (stats.isDirectory()) {
+        return srcPath;
+      }
+    }
+
+    const parentDir = path.dirname(currentDir);
+    
+    // Stop if we've reached the root (parent equals current)
+    if (parentDir === currentDir) {
+      break;
+    }
+
+    currentDir = parentDir;
+    depth++;
+  }
+
+  return null;
+}
+
+/**
  * Prüft ob ein Import verfügbar ist
  */
-function checkImport(importPath, importedName, fromFile) {
-  const workspaceRoot = path.join(__dirname, '..');
+function checkImport(importPath, importedName, fromFile, workspaceRoot, aliasMap) {
   
   // Resolve import path
   let targetFile;
@@ -112,6 +209,14 @@ function checkImport(importPath, importedName, fromFile) {
         targetFile = path.join(targetFile, 'index.ts');
       } else if (fs.existsSync(path.join(targetFile, 'index.js'))) {
         targetFile = path.join(targetFile, 'index.js');
+      }
+    }
+    
+    // Versuche mit Alias-Map, wenn Datei nicht gefunden wurde
+    if (!fs.existsSync(targetFile) && aliasMap) {
+      const relativePath = path.relative(workspaceRoot, targetFile).replace(/\\/g, '/');
+      if (aliasMap[relativePath]) {
+        targetFile = path.join(workspaceRoot, aliasMap[relativePath]);
       }
     }
   } else {
@@ -153,7 +258,7 @@ function checkImport(importPath, importedName, fromFile) {
 /**
  * Prüft alle Imports in einer Datei
  */
-function checkFileImports(filePath, workspaceRoot) {
+function checkFileImports(filePath, workspaceRoot, aliasMap) {
   const content = fs.readFileSync(filePath, 'utf8');
   const lines = content.split('\n');
   
@@ -196,7 +301,7 @@ function checkFileImports(filePath, workspaceRoot) {
     
     // Check each imported name
     importedNames.forEach(name => {
-      checkImport(importPath, name, filePath);
+      checkImport(importPath, name, filePath, workspaceRoot, aliasMap);
     });
   }
 }
@@ -205,23 +310,56 @@ function checkFileImports(filePath, workspaceRoot) {
  * Hauptfunktion
  */
 function main() {
-  const workspaceRoot = path.join(__dirname, '..');
+  // Workspace-Root bestimmen:
+  // 1. Falls als erstes Argument übergeben, verwenden
+  // 2. Sonst process.cwd() verwenden (wird vom MCP-Tool als cwd gesetzt)
+  // 3. Fallback: __dirname + '/..' (für Kompatibilität mit direktem Aufruf)
+  let workspaceRoot;
   
-  console.log('🚀 Starting import verification...\n');
+  if (process.argv.length >= 3 && process.argv[2] !== '--' && process.argv[2] !== '--verbose') {
+    // Erstes Argument ist Workspace-Root (vor -- oder --verbose)
+    workspaceRoot = path.resolve(process.argv[2]);
+    // Argument aus process.argv entfernen, damit --verbose weiterhin funktioniert
+    process.argv.splice(2, 1);
+  } else {
+    // Standard: process.cwd() (wird vom MCP-Tool als cwd gesetzt)
+    workspaceRoot = process.cwd();
+    
+    // Fallback: __dirname + '/..' (nur wenn process.cwd() nicht das richtige Verzeichnis ist)
+    // Prüfe, ob src/ in process.cwd() gefunden werden kann
+    const srcFromCwd = findSrcDirectory(workspaceRoot);
+    if (!srcFromCwd) {
+      // Fallback: Versuche __dirname + '/..'
+      const fallbackRoot = path.join(__dirname, '..');
+      const srcFromFallback = findSrcDirectory(fallbackRoot);
+      if (srcFromFallback) {
+        workspaceRoot = fallbackRoot;
+      }
+    }
+  }
+
+  // Lade Alias-Map
+  const aliasMap = loadAliasMap(workspaceRoot);
   
-  // Check src/ directory
-  const srcDir = path.join(workspaceRoot, 'src');
-  if (!fs.existsSync(srcDir)) {
+  // src/ Verzeichnis finden (intelligente Suche mit Alias-Map)
+  const srcDir = findSrcDirectoryWithAlias(workspaceRoot, workspaceRoot, aliasMap);
+  if (!srcDir) {
     console.log('⚠️  src/ directory not found, skipping verification');
+    console.log(`   Searched from: ${workspaceRoot}`);
     process.exit(0);
   }
+  
+  // workspaceRoot auf Basis des gefundenen src/ korrigieren
+  workspaceRoot = path.dirname(srcDir);
+  
+  console.log('🚀 Starting import verification...\n');
   
   const files = getAllTsFiles(srcDir);
   console.log(`📁 Found ${files.length} TypeScript files\n`);
   
   let checkedFiles = 0;
   for (const file of files) {
-    checkFileImports(file, workspaceRoot);
+    checkFileImports(file, workspaceRoot, aliasMap);
     checkedFiles++;
     
     if (checkedFiles % 10 === 0) {

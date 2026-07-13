@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Logger } from '../logging/index';
 import { validateSignatureMatching } from './signature-matching';
-import { computeValidationStatus, StatusReport } from './status';
+import { StatusReport } from './status';
 
 export interface ValidationReport {
     totalSymbols: number;

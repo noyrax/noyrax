@@ -9,7 +9,9 @@ export interface DependencyCacheEntry {
     from: string;      // repo-relative path
     to: string;        // import path
     type: 'import' | 'export' | 'require';
-    symbols?: string[]; // sorted
+    symbols?: string[]; // sorted (Format: "Name", "Name as Alias", "type Name", "* as Namespace")
+    isTypeOnly?: boolean; // true wenn alle Imports type-only sind
+    isReexport?: boolean; // true wenn Re-Export (Barrel-Pattern)
 }
 
 /**

@@ -17,13 +17,103 @@ const errors = [];
 const warnings = [];
 
 /**
+ * Lädt die Path-Alias-Map aus .database-plugin/path-aliases.json
+ */
+function loadAliasMap(workspaceRoot) {
+  const aliasMapPath = path.join(workspaceRoot, '.database-plugin', 'path-aliases.json');
+  if (fs.existsSync(aliasMapPath)) {
+    try {
+      const content = fs.readFileSync(aliasMapPath, 'utf-8');
+      return JSON.parse(content);
+    } catch (error) {
+      // Ignore errors loading alias map
+      return {};
+    }
+  }
+  return {};
+}
+
+/**
+ * Resolved einen Pfad mit Hilfe der Alias-Map
+ */
+function resolvePathWithAlias(filePath, workspaceRoot, aliasMap) {
+  // Normalisiere den Pfad (forward slashes)
+  const normalized = filePath.replace(/\\/g, '/');
+  
+  // Prüfe ob es einen Alias gibt
+  if (aliasMap[normalized]) {
+    return path.join(workspaceRoot, aliasMap[normalized]);
+  }
+  
+  // Fallback: Original-Pfad
+  return path.join(workspaceRoot, filePath);
+}
+
+/**
+ * Findet ein Verzeichnis durch intelligente Suche.
+ * Sucht im gegebenen Verzeichnis und in Parent-Verzeichnissen (max. 5 Ebenen).
+ * 
+ * @param startDir Das Verzeichnis, von dem aus gesucht werden soll
+ * @param targetPath Relativer Pfad zum gesuchten Verzeichnis (z.B. 'mcp/src' oder 'package.json')
+ * @param maxDepth Maximale Anzahl von Parent-Ebenen, die durchsucht werden sollen (default: 5)
+ * @returns Der Pfad zum Verzeichnis/File oder null, wenn nicht gefunden
+ */
+function findDirectoryOrFile(startDir, targetPath, maxDepth = 5) {
+  let currentDir = path.resolve(startDir);
+  let depth = 0;
+
+  while (depth < maxDepth) {
+    const targetFullPath = path.join(currentDir, targetPath);
+    if (fs.existsSync(targetFullPath)) {
+      return targetFullPath;
+    }
+
+    const parentDir = path.dirname(currentDir);
+    
+    // Stop if we've reached the root (parent equals current)
+    if (parentDir === currentDir) {
+      break;
+    }
+
+    currentDir = parentDir;
+    depth++;
+  }
+
+  return null;
+}
+
+/**
  * Prüft ob mcp/ direkt nach src/ importiert
  */
-function checkMcpToSrcImports() {
+function checkMcpToSrcImports(workspaceRoot) {
   console.log('🔍 Checking for invalid imports from mcp/ to src/...');
   
-  const mcpSrcDir = path.join(__dirname, '..', 'mcp', 'src');
-  if (!fs.existsSync(mcpSrcDir)) {
+  // Lade Alias-Map
+  const aliasMap = loadAliasMap(workspaceRoot);
+  
+  // Suche mcp/src relativ zu workspaceRoot
+  let mcpSrcDir = findDirectoryOrFile(workspaceRoot, 'mcp/src');
+  if (!mcpSrcDir) {
+    // Versuche mit Alias-Map
+    const aliasKeys = Object.keys(aliasMap);
+    for (const alias of aliasKeys) {
+      if (alias.includes('mcp/src') || alias.includes('/mcp/src')) {
+        const resolved = resolvePathWithAlias(alias, workspaceRoot, aliasMap);
+        if (fs.existsSync(resolved)) {
+          mcpSrcDir = resolved;
+          break;
+        }
+      }
+    }
+  }
+  
+  if (!mcpSrcDir) {
+    // Fallback: Versuche __dirname + '/..' (Plugin-interne Suche)
+    const fallbackRoot = path.join(__dirname, '..');
+    mcpSrcDir = findDirectoryOrFile(fallbackRoot, 'mcp/src');
+  }
+  
+  if (!mcpSrcDir) {
     console.log('⚠️  mcp/src directory not found, skipping check');
     return;
   }
@@ -82,13 +172,30 @@ function checkImportDirections() {
 /**
  * Prüft package.json type Feld
  */
-function checkPackageJsonType() {
+function checkPackageJsonType(workspaceRoot) {
   console.log('🔍 Checking package.json type fields...');
   
-  const rootPackageJson = path.join(__dirname, '..', 'package.json');
-  const mcpPackageJson = path.join(__dirname, '..', 'mcp', 'package.json');
+  // Suche package.json relativ zu workspaceRoot
+  let rootPackageJson = findDirectoryOrFile(workspaceRoot, 'package.json');
+  if (!rootPackageJson) {
+    // Fallback: Versuche __dirname + '/..' (Plugin-interne Suche)
+    const fallbackRoot = path.join(__dirname, '..');
+    rootPackageJson = findDirectoryOrFile(fallbackRoot, 'package.json');
+  }
   
-  if (fs.existsSync(rootPackageJson)) {
+  let mcpPackageJson = findDirectoryOrFile(workspaceRoot, 'mcp/package.json');
+  if (!mcpPackageJson && rootPackageJson) {
+    // Wenn rootPackageJson gefunden wurde, versuche mcp/package.json relativ dazu
+    const rootDir = path.dirname(rootPackageJson);
+    mcpPackageJson = findDirectoryOrFile(rootDir, 'mcp/package.json');
+  }
+  if (!mcpPackageJson) {
+    // Fallback: Versuche __dirname + '/..' (Plugin-interne Suche)
+    const fallbackRoot = path.join(__dirname, '..');
+    mcpPackageJson = findDirectoryOrFile(fallbackRoot, 'mcp/package.json');
+  }
+  
+  if (rootPackageJson && fs.existsSync(rootPackageJson)) {
     const rootPkg = JSON.parse(fs.readFileSync(rootPackageJson, 'utf8'));
     if (!rootPkg.type) {
       console.log('✅ Root package.json has no type field (defaults to CommonJS)');
@@ -141,11 +248,39 @@ function getAllTsFiles(dir) {
  * Hauptfunktion
  */
 function main() {
+  // Workspace-Root bestimmen:
+  // 1. Falls als erstes Argument übergeben, verwenden
+  // 2. Sonst process.cwd() verwenden (wird vom MCP-Tool als cwd gesetzt)
+  // 3. Fallback: __dirname + '/..' (für Kompatibilität mit direktem Aufruf)
+  let workspaceRoot;
+  
+  if (process.argv.length >= 3 && process.argv[2] !== '--' && process.argv[2] !== '--verbose') {
+    // Erstes Argument ist Workspace-Root (vor -- oder --verbose)
+    workspaceRoot = path.resolve(process.argv[2]);
+    // Argument aus process.argv entfernen, damit --verbose weiterhin funktioniert
+    process.argv.splice(2, 1);
+  } else {
+    // Standard: process.cwd() (wird vom MCP-Tool als cwd gesetzt)
+    workspaceRoot = process.cwd();
+    
+    // Fallback: __dirname + '/..' (nur wenn process.cwd() nicht das richtige Verzeichnis ist)
+    // Prüfe, ob package.json in process.cwd() gefunden werden kann
+    const packageJsonFromCwd = findDirectoryOrFile(workspaceRoot, 'package.json');
+    if (!packageJsonFromCwd) {
+      // Fallback: Versuche __dirname + '/..'
+      const fallbackRoot = path.join(__dirname, '..');
+      const packageJsonFromFallback = findDirectoryOrFile(fallbackRoot, 'package.json');
+      if (packageJsonFromFallback) {
+        workspaceRoot = fallbackRoot;
+      }
+    }
+  }
+
   console.log('🚀 Starting architecture verification...\n');
   
-  checkMcpToSrcImports();
+  checkMcpToSrcImports(workspaceRoot);
   checkImportDirections();
-  checkPackageJsonType();
+  checkPackageJsonType(workspaceRoot);
   
   console.log('\n📊 Verification Summary:');
   console.log(`   Errors: ${errors.length}`);

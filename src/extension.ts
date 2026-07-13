@@ -1,6 +1,28 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { CommandsProvider } from './ui/commands-provider';
+import { StatusBarManager } from './ui/status-bar';
+import { scanWorkspace } from './core/scanner';
+import { TsJsParser } from './parsers/ts-js';
+import { JsonYamlParser } from './parsers/json-yaml';
+import { PythonParser } from './parsers/python';
+import { generatePerFileDocs } from './generator/index';
+import { generateChangeReport, extractChangesFromModuleDocs } from './generator/change-report';
+import { generateMermaidGraph, generateDependencyOverview } from './generator/dependency-graph';
+import { computeCoverage, validateMarkdownDir } from './validator/index';
+import { computeValidationStatus } from './validator/status';
+import { ParserAdapter, ParsedSymbol } from './parsers/types';
+import { loadSignatureCache, saveSignatureCache } from './cache/signature-cache';
+import { computeCacheEntries, detectDrift } from './drift/index';
+import { computeContentHash, loadOutputHashCache, saveOutputHashCache } from './cache/output-cache';
+import { buildIndexFromSymbols, writeJsonlIndex, readSymbolsFromIndex } from './index/index';
+import { computeFileHash, loadAstHashCache, saveAstHashCache } from './cache/ast-cache';
+import { loadDependenciesCache, saveDependenciesCache } from './cache/dependencies-cache';
+import { buildDependenciesUnion, buildDependenciesUnionWithDebug, buildSymbolsUnion, UnionDebugInfo } from './core/consolidation';
+import { mapLimit } from './core/async';
+import { getChangedFiles, getDeletedFiles } from './core/git';
+import { ModuleDependency, extractTsJsDependencies, extractPythonDependencies } from './parsers/dependencies';
 
 interface SearchResult {
     file: string;
@@ -29,49 +51,162 @@ interface ValidationResult {
     }>;
 }
 
-export function activate(context: vscode.ExtensionContext) {
-    console.log('Documentation System Plugin wurde aktiviert');
-    if (!globalOutput) {
-        globalOutput = vscode.window.createOutputChannel('Documentation System');
-    }
-    globalOutput.appendLine('Extension aktiviert');
-    
-    // Status Bar Manager
-    const statusBarManager = new StatusBarManager(context);
-    globalStatusBar = statusBarManager;
-
-    // Commands registrieren (noyrax.* für Rebranding ADR-018)
-    registerCommand(context, 'noyrax.generate', 'Dokumentation generieren', async () => { globalOutput.show(true); await generateDocumentationTs(); });
-    registerCommand(context, 'noyrax.scan', 'System vollständig scannen', async () => { globalOutput.show(true); await scanSystemTs(); });
-    registerCommand(context, 'noyrax.search', 'In Dokumentation suchen', searchDocumentation);
-    registerCommand(context, 'noyrax.validate', 'Dokumentation validieren', async () => { globalOutput.show(true); await validateDocumentationTs(); });
-    registerCommand(context, 'noyrax.drift', 'Drift-Erkennung ausführen', async () => { globalOutput.show(true); await checkDriftTs(); });
-    registerCommand(context, 'noyrax.sync', 'Dokumentation synchronisieren', syncDocumentation);
-    registerCommand(context, 'noyrax.open', 'Dokumentationsdatei öffnen', openDocumentationFile);
-    registerCommand(context, 'noyrax.overview', 'Systemübersicht anzeigen', showSystemOverview);
-
-    // TreeView Provider registrieren
-    const docsProvider = new DocumentationProvider();
-    vscode.window.registerTreeDataProvider('noyraxExplorer', docsProvider);
-    
-    // Commands Panel Provider
-    const commandsProvider = new CommandsProvider();
-    vscode.window.registerTreeDataProvider('noyraxCommands', commandsProvider);
-
-    // Refresh-Command für TreeView
-    registerCommand(context, 'noyrax.refresh', 'Dokumentation aktualisieren', () => {
-        docsProvider.refresh();
-        commandsProvider.refresh();
-    });
-    registerCommand(context, 'noyrax.fullCycle', 'Vollständiger Lauf', async () => {
-        await scanSystemTs();
-        await generateDocumentationTs();
-        await validateDocumentationTs();
-    });
-}
-
 let globalOutput: vscode.OutputChannel;
 let globalStatusBar: StatusBarManager;
+
+function getConfig() {
+    const config = vscode.workspace.getConfiguration('noyrax');
+    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
+    
+    return {
+        workspaceRoot,
+        outputPath: config.get<string>('outputPath') || 'docs',
+    };
+}
+
+class DocumentationItem extends vscode.TreeItem {
+    constructor(
+        public readonly label: string,
+        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+        public readonly filePath?: string,
+        public readonly size?: number
+    ) {
+        super(label, collapsibleState);
+        
+        if (filePath) {
+            this.tooltip = `${this.label}\n${filePath}\n${size ? `Größe: ${size} Bytes` : ''}`;
+            this.command = {
+                command: 'vscode.open',
+                title: 'Datei öffnen',
+                arguments: [vscode.Uri.file(filePath)]
+            };
+            this.iconPath = new vscode.ThemeIcon('file-text');
+        } else {
+            this.iconPath = new vscode.ThemeIcon('info');
+        }
+    }
+}
+
+class DocumentationProvider implements vscode.TreeDataProvider<DocumentationItem> {
+    private _onDidChangeTreeData: vscode.EventEmitter<DocumentationItem | undefined | null | void> = new vscode.EventEmitter<DocumentationItem | undefined | null | void>();
+    readonly onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | null | void> = this._onDidChangeTreeData.event;
+
+    refresh(): void {
+        this._onDidChangeTreeData.fire();
+    }
+
+    getTreeItem(element: DocumentationItem): vscode.TreeItem {
+        return element;
+    }
+
+    getChildren(element?: DocumentationItem): Thenable<DocumentationItem[]> {
+        if (!element) {
+            return this.getDocumentationFiles();
+        }
+        return Promise.resolve([]);
+    }
+
+    private async getDocumentationFiles(): Promise<DocumentationItem[]> {
+        const config = getConfig();
+        const docsPath = path.join(config.workspaceRoot, config.outputPath, 'modules');
+        
+        if (!fs.existsSync(docsPath)) {
+            return [new DocumentationItem('Keine Dokumentation gefunden', vscode.TreeItemCollapsibleState.None)];
+        }
+
+        try {
+            const files = fs.readdirSync(docsPath)
+                .filter(f => f.endsWith('.md'))
+                .map(f => {
+                    const filePath = path.join(docsPath, f);
+                    const stat = fs.statSync(filePath);
+                    return new DocumentationItem(
+                        f.replace('.md', ''),
+                        vscode.TreeItemCollapsibleState.None,
+                        filePath,
+                        stat.size
+                    );
+                });
+
+            return files.length > 0 ? files : [new DocumentationItem('Keine Dokumentationsdateien', vscode.TreeItemCollapsibleState.None)];
+        } catch (error) {
+            return [new DocumentationItem('Fehler beim Lesen der Dokumentation', vscode.TreeItemCollapsibleState.None)];
+        }
+    }
+}
+
+export function activate(context: vscode.ExtensionContext) {
+    try {
+        console.log('Documentation System Plugin wurde aktiviert');
+        if (!globalOutput) {
+            globalOutput = vscode.window.createOutputChannel('Documentation System');
+        }
+        globalOutput.appendLine('Extension aktiviert');
+        
+        // Status Bar Manager
+        try {
+            const statusBarManager = new StatusBarManager(context);
+            globalStatusBar = statusBarManager;
+        } catch (error) {
+            globalOutput.appendLine(`[ERROR] Fehler beim Erstellen des Status Bar Managers: ${error}`);
+            console.error('Fehler beim Erstellen des Status Bar Managers:', error);
+        }
+
+        // Commands registrieren (noyrax.* für Rebranding ADR-018)
+        try {
+            registerCommand(context, 'noyrax.generate', 'Dokumentation generieren', async () => { globalOutput.show(true); await generateDocumentationTs(); });
+            registerCommand(context, 'noyrax.scan', 'System vollständig scannen', async () => { globalOutput.show(true); await scanSystemTs(); });
+            registerCommand(context, 'noyrax.search', 'In Dokumentation suchen', searchDocumentation);
+            registerCommand(context, 'noyrax.validate', 'Dokumentation validieren', async () => { globalOutput.show(true); await validateDocumentationTs(); });
+            registerCommand(context, 'noyrax.drift', 'Drift-Erkennung ausführen', async () => { globalOutput.show(true); await checkDriftTs(); });
+            registerCommand(context, 'noyrax.sync', 'Dokumentation synchronisieren', syncDocumentation);
+            registerCommand(context, 'noyrax.open', 'Dokumentationsdatei öffnen', openDocumentationFile);
+            registerCommand(context, 'noyrax.overview', 'Systemübersicht anzeigen', showSystemOverview);
+            registerCommand(context, 'noyrax.fullCycle', 'Vollständiger Lauf', async () => {
+                await scanSystemTs();
+                await generateDocumentationTs();
+                await validateDocumentationTs();
+            });
+            globalOutput.appendLine('[OK] Alle Commands registriert');
+        } catch (error) {
+            globalOutput.appendLine(`[ERROR] Fehler beim Registrieren der Commands: ${error}`);
+            console.error('Fehler beim Registrieren der Commands:', error);
+            vscode.window.showErrorMessage(`Fehler beim Registrieren der Noyrax Commands: ${error}`);
+        }
+
+        // TreeView Provider registrieren
+        try {
+            const docsProvider = new DocumentationProvider();
+            vscode.window.registerTreeDataProvider('noyraxExplorer', docsProvider);
+            
+            // Commands Panel Provider
+            const commandsProvider = new CommandsProvider();
+            vscode.window.registerTreeDataProvider('noyraxCommands', commandsProvider);
+
+            // Refresh-Command für TreeView
+            registerCommand(context, 'noyrax.refresh', 'Dokumentation aktualisieren', () => {
+                docsProvider.refresh();
+                commandsProvider.refresh();
+            });
+            globalOutput.appendLine('[OK] TreeView Provider registriert');
+        } catch (error) {
+            globalOutput.appendLine(`[ERROR] Fehler beim Registrieren der TreeView Provider: ${error}`);
+            console.error('Fehler beim Registrieren der TreeView Provider:', error);
+            vscode.window.showErrorMessage(`Fehler beim Registrieren der Noyrax TreeView Provider: ${error}`);
+        }
+
+        globalOutput.appendLine('[OK] Extension erfolgreich aktiviert');
+    } catch (error) {
+        const errorMessage = `Kritischer Fehler bei der Extension-Aktivierung: ${error}`;
+        console.error(errorMessage, error);
+        if (globalOutput) {
+            globalOutput.appendLine(`[CRITICAL ERROR] ${errorMessage}`);
+            globalOutput.show(true);
+        } else {
+            vscode.window.showErrorMessage(errorMessage);
+        }
+    }
+}
 
 function registerCommand(
     context: vscode.ExtensionContext,
@@ -82,29 +217,6 @@ function registerCommand(
     const disposable = vscode.commands.registerCommand(command, callback);
     context.subscriptions.push(disposable);
 }
-
-import { scanWorkspace } from './core/scanner';
-import { TsJsParser } from './parsers/ts-js';
-import { JsonYamlParser } from './parsers/json-yaml';
-import { PythonParser } from './parsers/python';
-import { generatePerFileDocs } from './generator/index';
-import { generateChangeReport, extractChangesFromModuleDocs } from './generator/change-report';
-import { generateMermaidGraph, generateDependencyOverview } from './generator/dependency-graph';
-import { computeCoverage, validateMarkdownDir } from './validator/index';
-import { computeValidationStatus } from './validator/status';
-import { ParserAdapter, ParsedSymbol } from './parsers/types';
-import { loadSignatureCache, saveSignatureCache } from './cache/signature-cache';
-import { computeCacheEntries, detectDrift } from './drift/index';
-import { computeContentHash, loadOutputHashCache, saveOutputHashCache } from './cache/output-cache';
-import { buildIndexFromSymbols, writeJsonlIndex } from './index/index';
-import { computeFileHash, loadAstHashCache, saveAstHashCache } from './cache/ast-cache';
-import { loadDependenciesCache, saveDependenciesCache } from './cache/dependencies-cache';
-import { buildDependenciesUnion, buildDependenciesUnionWithDebug, buildSymbolsUnion, UnionDebugInfo } from './core/consolidation';
-import { mapLimit } from './core/async';
-import { getChangedFiles, getDeletedFiles } from './core/git';
-import { ModuleDependency, extractTsJsDependencies, extractPythonDependencies } from './parsers/dependencies';
-import { CommandsProvider } from './ui/commands-provider';
-import { StatusBarManager } from './ui/status-bar';
 
 async function generateDocumentationTs() {
     const config = getConfig();
@@ -118,11 +230,11 @@ async function generateDocumentationTs() {
         if (!workspaceRoot) {
             throw new Error('Kein Workspace geöffnet');
         }
-        const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
+        const includeBackups = vscode.workspace.getConfiguration('noyrax').get<boolean>('includeBackups') ?? false;
         const scannedAll = scanWorkspace({ workspaceRoot }, includeBackups);
         let scanned = scannedAll;
         let changed: Set<string> | null = null;
-        const useGit = (vscode.workspace.getConfiguration('docs').get<boolean>('useGitDiff') ?? true);
+        const useGit = (vscode.workspace.getConfiguration('noyrax').get<boolean>('useGitDiff') ?? false);
         
         // Prüfe, ob AST-Cache existiert (für ersten Lauf)
         const cacheDir = path.join(workspaceRoot, config.outputPath, '.cache');
@@ -160,7 +272,7 @@ async function generateDocumentationTs() {
         // AST-Hash-Cache bereits oben geladen, hier nur Map erstellen
         const astMap = new Map((prevAst?.entries ?? []).map(e => [e.path, e.hash] as const));
         let nextAstEntries: { path: string; hash: string }[] = [];
-        const concurrency = (vscode.workspace.getConfiguration('docs').get<number>('concurrency') ?? 4);
+        const concurrency = (vscode.workspace.getConfiguration('noyrax').get<number>('concurrency') ?? 4);
         // Parallelisiertes Parsen mit Dependency-Extraktion
         // Track welche Dateien tatsächlich geparst wurden (nicht übersprungen)
         const actuallyParsedFiles = new Set<string>();
@@ -289,11 +401,20 @@ async function generateDocumentationTs() {
             }
         }
         
+        // Build set of all scanned files (for union logic to exclude non-scanned files)
+        // WICHTIG: Für die Union nehmen wir den vollen aktuellen Scan-Scope (scannedAll),
+        // nicht die ggf. durch Git/Cache gefilterte Teilmenge (scanned). Dadurch gelten
+        // produktive Dateien aus src/, die weiterhin vom Scanner gefunden werden, nicht
+        // fälschlich als „deleted“ und bleiben im Symbol-Index, in docs/modules und
+        // in den Dependency-Artefakten erhalten.
+        const scannedFilesSet = new Set<string>(scannedAll.map(f => f.repositoryRelativePath));
+        
         const symbolsUnion = buildSymbolsUnion(
             allSymbols,
             symbolsPrev,
             parsedFiles,
-            deletedFilesFromGit
+            deletedFilesFromGit,
+            scannedFilesSet
         );
         
         globalOutput.appendLine(`[union] Symbole: ${allSymbols.length} neu + ${symbolsPrev.length} gecacht → ${symbolsUnion.length} Union`);
@@ -431,7 +552,7 @@ async function scanSystemTs() {
         if (!workspaceRoot) {
             throw new Error('Kein Workspace geöffnet');
         }
-        const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
+        const includeBackups = vscode.workspace.getConfiguration('noyrax').get<boolean>('includeBackups') ?? false;
         const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
         statusBar.text = "$(check) System gescannt";
         const dt = Date.now() - t0;
@@ -524,7 +645,7 @@ async function checkDriftTs() {
         }
 
         // Scanne aktuelle Symbole
-        const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
+        const includeBackups = vscode.workspace.getConfiguration('noyrax').get<boolean>('includeBackups') ?? false;
         const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
         const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
         const allSymbols: ParsedSymbol[] = [];
@@ -588,26 +709,43 @@ async function validateDocumentationTs() {
         const fileCount = exists ? fs.readdirSync(modulesDir).filter(f => f.endsWith('.md')).length : 0;
         const cacheDir = path.join(vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '', config.outputPath, '.cache');
         const prev = loadSignatureCache(path.join(cacheDir, 'signatures.json'));
-        // Reparse für echte Coverage
-        const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
-        const includeBackups = vscode.workspace.getConfiguration('docs').get<boolean>('includeBackups') ?? false;
-        const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
-        const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
-        const allSymbols: ParsedSymbol[] = [];
-        for (const f of scanned) {
-            const content = fs.readFileSync(f.absolutePath, 'utf8');
-            if (f.language === 'ts' || f.language === 'js') {
-                const parsed = parsers[0].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                allSymbols.push(...parsed);
-            } else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
-                const parsed = parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                allSymbols.push(...parsed);
-            } else if (f.language === 'python') {
-                const parsed = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
-                allSymbols.push(...parsed);
+
+        // Versuch 1 (Sync-Modus): Symbole aus bestehendem Index lesen
+        const indexFile = path.join(root, config.outputPath, 'index', 'symbols.jsonl');
+        let allSymbols: ParsedSymbol[] = [];
+        if (fs.existsSync(indexFile)) {
+            try {
+                allSymbols = readSymbolsFromIndex(indexFile);
+                globalOutput.appendLine(`[validate] Verwende ${allSymbols.length} Symbole aus Index (Sync-Modus)`);
+            } catch (e) {
+                const msg = e instanceof Error ? e.message : String(e);
+                globalOutput.appendLine(`[validate] Konnte Index nicht lesen (${indexFile}), fallback auf Re-Parse: ${msg}`);
+                allSymbols = [];
             }
         }
-        const cfg = vscode.workspace.getConfiguration('docs');
+
+        // Fallback (Drift-Modus): Reparse für echte Coverage/Drift-Erkennung
+        if (allSymbols.length === 0) {
+            const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
+            const includeBackups = vscode.workspace.getConfiguration('noyrax').get<boolean>('includeBackups') ?? false;
+            const scanned = scanWorkspace({ workspaceRoot }, includeBackups);
+            const parsers: ParserAdapter[] = [new TsJsParser(), new JsonYamlParser(), new PythonParser()];
+            for (const f of scanned) {
+                const content = fs.readFileSync(f.absolutePath, 'utf8');
+                if (f.language === 'ts' || f.language === 'js') {
+                    const parsed = parsers[0].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                    allSymbols.push(...parsed);
+                } else if (f.language === 'json' || f.language === 'yaml' || f.language === 'markdown') {
+                    const parsed = parsers[1].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                    allSymbols.push(...parsed);
+                } else if (f.language === 'python') {
+                    const parsed = parsers[2].parse(f.absolutePath, content).map(s => ({ ...s, filePath: f.repositoryRelativePath }));
+                    allSymbols.push(...parsed);
+                }
+            }
+            globalOutput.appendLine(`[validate] Parsed ${allSymbols.length} Symbole im Drift-Modus`);
+        }
+        const cfg = vscode.workspace.getConfiguration('noyrax');
         const thresholds = {
             classes: cfg.get<number>('coverageThresholds.classes') ?? 0.9,
             interfaces: cfg.get<number>('coverageThresholds.interfaces') ?? 0.9,
@@ -764,16 +902,6 @@ function findSourceDirectories(workspaceRoot: string): string[] {
     
     findSrcDirs(workspaceRoot);
     return srcDirs;
-}
-
-function getConfig() {
-    const config = vscode.workspace.getConfiguration('docs');
-    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || '';
-    
-    return {
-        workspaceRoot,
-        outputPath: config.get<string>('outputPath') || 'docs',
-    };
 }
 
 function loadEnv(envFile: string): Record<string, string> {
@@ -984,77 +1112,6 @@ function escapeHtml(text: string): string {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
-}
-
-class DocumentationProvider implements vscode.TreeDataProvider<DocumentationItem> {
-    private _onDidChangeTreeData: vscode.EventEmitter<DocumentationItem | undefined | null | void> = new vscode.EventEmitter<DocumentationItem | undefined | null | void>();
-    readonly onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | null | void> = this._onDidChangeTreeData.event;
-
-    refresh(): void {
-        this._onDidChangeTreeData.fire();
-    }
-
-    getTreeItem(element: DocumentationItem): vscode.TreeItem {
-        return element;
-    }
-
-    getChildren(element?: DocumentationItem): Thenable<DocumentationItem[]> {
-        if (!element) {
-            return this.getDocumentationFiles();
-        }
-        return Promise.resolve([]);
-    }
-
-    private async getDocumentationFiles(): Promise<DocumentationItem[]> {
-        const config = getConfig();
-        const docsPath = path.join(config.workspaceRoot, config.outputPath, 'modules');
-        
-        if (!fs.existsSync(docsPath)) {
-            return [new DocumentationItem('Keine Dokumentation gefunden', vscode.TreeItemCollapsibleState.None)];
-        }
-
-        try {
-            const files = fs.readdirSync(docsPath)
-                .filter(f => f.endsWith('.md'))
-                .map(f => {
-                    const filePath = path.join(docsPath, f);
-                    const stat = fs.statSync(filePath);
-                    return new DocumentationItem(
-                        f.replace('.md', ''),
-                        vscode.TreeItemCollapsibleState.None,
-                        filePath,
-                        stat.size
-                    );
-                });
-
-            return files.length > 0 ? files : [new DocumentationItem('Keine Dokumentationsdateien', vscode.TreeItemCollapsibleState.None)];
-        } catch (error) {
-            return [new DocumentationItem('Fehler beim Lesen der Dokumentation', vscode.TreeItemCollapsibleState.None)];
-        }
-    }
-}
-
-class DocumentationItem extends vscode.TreeItem {
-    constructor(
-        public readonly label: string,
-        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-        public readonly filePath?: string,
-        public readonly size?: number
-    ) {
-        super(label, collapsibleState);
-        
-        if (filePath) {
-            this.tooltip = `${this.label}\n${filePath}\n${size ? `Größe: ${size} Bytes` : ''}`;
-            this.command = {
-                command: 'vscode.open',
-                title: 'Datei öffnen',
-                arguments: [vscode.Uri.file(filePath)]
-            };
-            this.iconPath = new vscode.ThemeIcon('file-text');
-        } else {
-            this.iconPath = new vscode.ThemeIcon('info');
-        }
-    }
 }
 
 export function deactivate() {}

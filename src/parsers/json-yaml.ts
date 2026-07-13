@@ -10,33 +10,99 @@ export class JsonYamlParser implements ParserAdapter {
     language = 'json-yaml';
 
     parse(filePath: string, fileContent: string): ParsedSymbol[] {
-        const repoRel = asRepoRel(filePath);
+        // ARCHITECTURE DECISION (ADR): JSON/YAML liefern keine Code-Symbole
+        // Diese Dateien enthalten Konfiguration, keine Code-Symbole.
+        // Root Cause Fix: Verhindert $schema, $ref und andere JSON-Keys als Symbole.
+        // 
+        // Option A (alt): Komplett deaktivieren - return []
+        // Option B (implementiert): Nur spezifische Config-Keys extrahieren (z.B. package.json, tsconfig.json)
+        //
+        // Begründung: JSON/YAML sind Konfigurationsdateien, keine Code-Quellen.
+        // Symbole sollten nur aus .ts/.tsx/.js/.jsx/.mjs extrahiert werden.
+        
         const ext = path.extname(filePath).toLowerCase();
-        const symbols: ParsedSymbol[] = [];
-
+        const base = path.basename(filePath).toLowerCase();
+        const repoRel = asRepoRel(filePath);
+        
+        // JSON/YAML: standardmäßig keine Symbole extrahieren (Konfiguration ≠ Code),
+        // aber für wenige, semantisch nützliche Standarddateien Top-Level-Keys extrahieren.
         if (ext === '.json') {
-            try {
-                const obj = JSON.parse(fileContent);
-                this.collectFromObject(obj, repoRel, symbols, 'json');
-            } catch {
-                // Ignorieren: ungültiges JSON wird upstream geloggt
+            // Spezielle JSON-Dateien: package.json, tsconfig.json, n8n-integrations.json
+            if (base === 'package.json' || base === 'tsconfig.json' || base === 'n8n-integrations.json') {
+                try {
+                    const parsed = JSON.parse(fileContent);
+                    const out: ParsedSymbol[] = [];
+                    
+                    // Für n8n-integrations.json: Extrahiere Top-Level-Keys (metadata, categories, integrations)
+                    if (base === 'n8n-integrations.json') {
+                        this.collectFromObject(
+                            this.filterConfigKeys(parsed),
+                            repoRel,
+                            out,
+                            this.language
+                        );
+                        // Zusätzlich: Extrahiere Integration-IDs als Symbole
+                        if (parsed.integrations && Array.isArray(parsed.integrations)) {
+                            for (const integration of parsed.integrations) {
+                                if (integration.id) {
+                                    const sig: SymbolSignature = {
+                                        name: integration.id,
+                                        parameters: [],
+                                        returnType: 'object',
+                                        visibility: 'public'
+                                    };
+                                    out.push({
+                                        language: this.language,
+                                        filePath: repoRel,
+                                        fullyQualifiedName: integration.id,
+                                        signature: sig,
+                                        kind: 'variable',
+                                    });
+                                }
+                            }
+                        }
+                    } else {
+                        // Für package.json und tsconfig.json: Standard-Verhalten
+                        this.collectFromObject(
+                            this.filterConfigKeys(parsed),
+                            repoRel,
+                            out,
+                            this.language
+                        );
+                    }
+                    return out;
+                } catch {
+                    // Invalid JSON → keine Symbole
+                    return [];
+                }
             }
-        } else if (ext === '.yaml' || ext === '.yml') {
-            try {
-                const obj = YAML.parse(fileContent);
-                this.collectFromObject(obj, repoRel, symbols, 'yaml');
-            } catch {
-                // Ignorieren
-            }
-        } else if (ext === '.md') {
-            const fm = this.extractFrontMatter(fileContent);
-            if (fm) {
-                this.collectFromObject(fm, repoRel, symbols, 'frontmatter');
-            }
+
+            return [];
         }
 
-        symbols.sort((a, b) => a.fullyQualifiedName.localeCompare(b.fullyQualifiedName));
-        return symbols;
+        if (ext === '.yaml' || ext === '.yml') {
+            return [];
+        }
+        
+        // Markdown Front-Matter: Auch keine Symbole (nur Metadaten)
+        if (ext === '.md') {
+            return [];
+        }
+
+        return [];
+    }
+
+    private filterConfigKeys(obj: unknown): Record<string, unknown> {
+        if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return {};
+
+        const record = obj as Record<string, unknown>;
+        const out: Record<string, unknown> = {};
+        for (const k of Object.keys(record)) {
+            // Schutz gegen Noise: $schema, $ref, etc. nie als „Symbol“ behandeln
+            if (k.startsWith('$')) continue;
+            out[k] = record[k];
+        }
+        return out;
     }
 
     private collectFromObject(obj: any, repoRel: string, out: ParsedSymbol[], lang: string) {

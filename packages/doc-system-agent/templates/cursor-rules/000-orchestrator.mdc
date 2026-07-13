@@ -97,10 +97,12 @@ Die generierten Artefakte in `docs/` sind die **Single Source of Truth**:
 
 ### 4.3 Qualität und Dokumentation
 
-- **Validierung ausführen** nach relevanten Änderungen (`npm run scan:cli && npm run validate:cli` oder `npm run scan && npm run validate`)
+- **Kompilieren ausführen** nach relevanten Änderungen: `npm run compile` (triggert automatisch scan + validate + db-sync via postcompile Hook)
 - **ADR schreiben** bei signifikanten Architektur-Änderungen
 - **Keine Duplikate** – bestehende Artefakte nutzen, nicht neu erstellen
 - **Nicht raten** – bei Unklarheit fragen oder Docs lesen
+
+**Hinweis:** Siehe `docs/adr/001-postcompile-workflow-chain.md` für die automatische Workflow-Chain.
 
 ## 5. Verification-Tools und Automation
 
@@ -128,9 +130,14 @@ npm run verify:imports      # Import-Verfügbarkeit prüfen
 
 1. **VOR Implementierung:** Reality-Check durchführen (Dateien, Funktionen, Imports verifizieren)
 2. **WÄHREND Implementierung:** `npm run compile` (sofort kompilieren)
-3. **NACH Implementierung:** `npm run verify:all` oder manuelle Checks (falls verfügbar)
+3. **NACH Implementierung:** `npm run compile` (triggert automatisch scan → validate → db-sync)
 
-Siehe `026-reality-driven-verification.mdc` für detaillierte Verification-Patterns (falls vorhanden).
+**Postcompile Workflow Chain (ADR-001):**
+- `npm run compile` führt automatisch `postcompile` Hook aus
+- `postcompile` ruft `scan-cli.js` und `validate-cli.js` auf
+- FileSystemWatcher erkennt docs/ Änderungen und triggert DB-Ingestion
+
+Siehe `026-reality-driven-verification.mdc` für detaillierte Verification-Patterns.
 
 ## 6. Memories-Integration
 

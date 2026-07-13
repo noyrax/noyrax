@@ -76,3 +76,24 @@ export interface ImpactResponse {
   recommendation: string;
 }
 
+export interface VerifyAdrsRequest {
+  verbose?: boolean;
+}
+
+export interface AdrClaim {
+  adr: string;
+  line: number;
+  claim: string;
+  type: 'file-exists' | 'function-exists';
+}
+
+export interface VerifyAdrsResponse {
+  status: 'success' | 'warnings' | 'errors';
+  totalClaims: number;
+  verifiedClaims: number;
+  errors: AdrClaim[];
+  warnings: AdrClaim[];
+  duration: number;
+  logs: string[];
+}
+

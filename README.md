@@ -137,6 +137,38 @@ Verification-Loops verhindern AI-Agent-Halluzinationen.
 
 ## Quick Start
 
+### Via npm (Recommended for CLI Tools)
+
+```bash
+npm install -g @noyrax/documentation-system-plugin
+```
+
+**Available CLI Tools:**
+- `noyrax-scan` - Scan codebase for documentation
+- `noyrax-validate` - Validate documentation consistency
+- `noyrax-generate` - Generate documentation
+- `noyrax-verify-adrs` - Verify ADR claims against code
+- `noyrax-verify-architecture` - Verify architecture rules
+- `noyrax-verify-imports` - Verify import availability
+- `noyrax-verify-all` - Run all verification checks
+
+**Example:**
+```bash
+# Scan codebase
+noyrax-scan
+
+# Generate documentation
+noyrax-generate
+
+# Validate documentation
+noyrax-validate
+
+# Verify ADRs
+noyrax-verify-adrs
+```
+
+### Via VS Code Extension
+
 ### Option 1: VS Code Extension
 
 ```bash
@@ -511,6 +543,16 @@ Everything in Team, plus:<br><br>
 | Java/Kotlin | 📋 Planned | Coming Q2 2026 |
 
 ---
+
+## Strategische Vision
+
+- **[`../../VISION.md`](../../VISION.md)** - Vision: Autonome KI-gesteuerte Softwareentwicklung
+- **[`../../INNOVATION_ANALYSIS.md`](../../INNOVATION_ANALYSIS.md)** - Innovations-Analyse: Was macht das System besonders?
+- **[`../../PROBLEM_SOLUTION_MAPPING.md`](../../PROBLEM_SOLUTION_MAPPING.md)** - Problem-Lösung-Mapping
+- **[`../../AI_CODING_IMPLICATIONS.md`](../../AI_CODING_IMPLICATIONS.md)** - AI-Coding Implications
+- **[`../../BUSINESS_IMPACT.md`](../../BUSINESS_IMPACT.md)** - Business Impact: Kosteneinsparungen
+- **[`../../QUALITY_IMPROVEMENT.md`](../../QUALITY_IMPROVEMENT.md)** - Qualitätsverbesserung
+- **[`../../DOMAIN_TRANSFERABILITY.md`](../../DOMAIN_TRANSFERABILITY.md)** - Domänen-Transferfähigkeit
 
 ## Contributing
 

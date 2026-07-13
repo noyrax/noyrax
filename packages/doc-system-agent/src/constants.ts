@@ -4,7 +4,7 @@
  */
 
 /** Aktuelle Version der Rules-Struktur */
-export const RULES_VERSION = 3;
+export const RULES_VERSION = 4;
 
 /** Package-Version (sollte mit package.json synchron sein) */
 export const PACKAGE_VERSION = '1.2.0';
@@ -18,6 +18,7 @@ export const RULE_FILES = [
   '011-validators.mdc',
   '012-cache.mdc',
   '013-generator.mdc',
+  '014-test-writing.mdc',
   '020-validate-workflow.mdc',
   '021-impact-analysis.mdc',
   '022-adr-workflow.mdc',

@@ -1,8 +1,7 @@
 import Parser from 'tree-sitter';
 import Python from 'tree-sitter-python';
 import * as path from 'path';
-import { ParserAdapter, ParsedSymbol, SymbolSignature } from './types';
-import { extractPythonDependencies } from './dependencies';
+import { ParserAdapter, ParsedSymbol } from './types';
 
 export class PythonParser implements ParserAdapter {
     language = 'python';

@@ -12,6 +12,7 @@ import { createReadStream } from 'node:fs';
 export interface ImpactRequest {
   file: string;
   symbol?: string;
+  workspaceRoot?: string; // Optional: Workspace root directory (defaults to process.cwd())
 }
 
 export interface ImpactResponse {
@@ -37,12 +38,14 @@ interface SymbolEntry {
  */
 export async function analyzeImpact(request: ImpactRequest): Promise<ImpactResponse> {
   const { file, symbol } = request;
+  const workspaceRoot = request.workspaceRoot || process.cwd();
   const directDependents: Set<string> = new Set();
   const transitiveDependents: Set<string> = new Set();
 
   try {
     // Symbol-Index lesen
-    const symbolsPath = path.join('docs', 'index', 'symbols.jsonl');
+    // WICHTIG: docs/ muss im Workspace-Root sein (wird von Noyrax generiert)
+    const symbolsPath = path.join(workspaceRoot, 'docs', 'index', 'symbols.jsonl');
     const dependencyMap = await buildDependencyMap(symbolsPath);
 
     // Direkte Abhängige finden

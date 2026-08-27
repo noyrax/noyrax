@@ -2,9 +2,9 @@
 
 ### function: generatePerFileDocs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>`
+Signatur: `export generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>`
 ```ts
-generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>
+export generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>
 ```
 
 Parameter:
@@ -18,7 +18,7 @@ Parameter:
 Rückgabewert: `Map<string, string>`
 
 ### function: makeSafeFileName
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `makeSafeFileName(filePath: string): string`
 ```ts
 makeSafeFileName(filePath: string): string

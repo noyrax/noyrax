@@ -1,9 +1,8 @@
 # Modul: src/validator/status.ts
 
-<!-- change: symbol-added name="ValidationStatus" kind="type" -->
 ### interface: StatusReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface StatusReport {
+Signatur: `export interface StatusReport {
   status: ValidationStatus;
   message: string;
   details: {
@@ -15,7 +14,7 @@ Signatur: `interface StatusReport {
     };
 }`
 ```ts
-interface StatusReport {
+export interface StatusReport {
   status: ValidationStatus;
   message: string;
   details: {
@@ -44,9 +43,9 @@ Eigenschaften:
 
 ### function: computeValidationStatus
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `computeValidationStatus(errors: string[], warnings: string[], coverageErrors: string[], signatureMismatches: number, markdownErrors: string[]): StatusReport`
+Signatur: `export computeValidationStatus(errors: string[], warnings: string[], coverageErrors: string[], signatureMismatches: number, markdownErrors: string[]): StatusReport`
 ```ts
-computeValidationStatus(errors: string[], warnings: string[], coverageErrors: string[], signatureMismatches: number, markdownErrors: string[]): StatusReport
+export computeValidationStatus(errors: string[], warnings: string[], coverageErrors: string[], signatureMismatches: number, markdownErrors: string[]): StatusReport
 ```
 
 Parameter:
@@ -63,7 +62,7 @@ Rückgabewert: `StatusReport`
 
 ### type: ValidationStatus
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `type ValidationStatus`
+Signatur: `export type ValidationStatus`
 ```ts
-type ValidationStatus
+export type ValidationStatus
 ```

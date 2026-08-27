@@ -1,9 +1,9 @@
 # Modul: src/parsers/types.ts
 
-<!-- change: symbol-added name="SymbolParameter" kind="interface" -->
+<!-- change: symbol-added name="SymbolSignature" kind="interface" -->
 ### interface: ParsedSymbol
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ParsedSymbol {
+Signatur: `export interface ParsedSymbol {
   language: string;
   filePath: string;
   fullyQualifiedName: string;
@@ -17,7 +17,7 @@ Signatur: `interface ParsedSymbol {
   byte_offset_end?: number;
 }`
 ```ts
-interface ParsedSymbol {
+export interface ParsedSymbol {
   language: string;
   filePath: string;
   fullyQualifiedName: string;
@@ -48,14 +48,13 @@ Eigenschaften:
 | `start_col` | `number` | ja |
 | `start_line` | `number` | ja |
 
-<!-- change: symbol-added name="SymbolSignature" kind="interface" -->
 ### interface: ParserAdapter
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ParserAdapter {
+Signatur: `export interface ParserAdapter {
   language: string;
 }`
 ```ts
-interface ParserAdapter {
+export interface ParserAdapter {
   language: string;
 }
 ```
@@ -68,14 +67,14 @@ Eigenschaften:
 
 ### interface: SymbolParameter
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface SymbolParameter {
+Signatur: `export interface SymbolParameter {
   name: string;
   type?: string;
   hasDefault?: boolean;
   optional?: boolean;
 }`
 ```ts
-interface SymbolParameter {
+export interface SymbolParameter {
   name: string;
   type?: string;
   hasDefault?: boolean;
@@ -94,18 +93,26 @@ Eigenschaften:
 
 ### interface: SymbolSignature
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface SymbolSignature {
+Signatur: `export interface SymbolSignature {
   name: string;
   parameters: SymbolParameter[];
   returnType?: string;
   visibility?: 'public' | 'protected' | 'private' | 'package';
+  isStatic?: boolean;
+  isExported?: boolean;
+  isAbstract?: boolean;
+  isAsync?: boolean;
 }`
 ```ts
-interface SymbolSignature {
+export interface SymbolSignature {
   name: string;
   parameters: SymbolParameter[];
   returnType?: string;
   visibility?: 'public' | 'protected' | 'private' | 'package';
+  isStatic?: boolean;
+  isExported?: boolean;
+  isAbstract?: boolean;
+  isAsync?: boolean;
 }
 ```
 
@@ -113,6 +120,10 @@ Eigenschaften:
 
 | Name | Typ | Optional |
 |------|-----|----------|
+| `isAbstract` | `boolean` | ja |
+| `isAsync` | `boolean` | ja |
+| `isExported` | `boolean` | ja |
+| `isStatic` | `boolean` | ja |
 | `name` | `string` | nein |
 | `parameters` | `SymbolParameter[]` | nein |
 | `returnType` | `string` | ja |

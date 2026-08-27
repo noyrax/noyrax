@@ -1,8 +1,38 @@
 # Modul: src/generator/dependency-graph.ts
 
-<!-- change: symbol-added name="generateMermaidGraph" kind="function" -->
-### function: appendDependencySection
+### function: generateDependencyOverview
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `export generateDependencyOverview(dependencies: ModuleDependency[]): string`
+```ts
+export generateDependencyOverview(dependencies: ModuleDependency[]): string
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `dependencies` | `ModuleDependency[]` | nein | nein |
+
+Rückgabewert: `string`
+
+### function: generateMermaidGraph
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `export generateMermaidGraph(dependencies: ModuleDependency[]): string`
+```ts
+export generateMermaidGraph(dependencies: ModuleDependency[]): string
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `dependencies` | `ModuleDependency[]` | nein | nein |
+
+Rückgabewert: `string`
+
+<!-- change: symbol-added name="groupDependenciesByFrom" kind="function" -->
+### function: appendDependencySection
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `appendDependencySection(lines: string[], title: string, deps: ModuleDependency[]): void`
 ```ts
 appendDependencySection(lines: string[], title: string, deps: ModuleDependency[]): void
@@ -18,39 +48,8 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="groupDependenciesByFrom" kind="function" -->
-### function: generateDependencyOverview
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generateDependencyOverview(dependencies: ModuleDependency[]): string`
-```ts
-generateDependencyOverview(dependencies: ModuleDependency[]): string
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `dependencies` | `ModuleDependency[]` | nein | nein |
-
-Rückgabewert: `string`
-
-### function: generateMermaidGraph
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generateMermaidGraph(dependencies: ModuleDependency[]): string`
-```ts
-generateMermaidGraph(dependencies: ModuleDependency[]): string
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `dependencies` | `ModuleDependency[]` | nein | nein |
-
-Rückgabewert: `string`
-
 ### function: groupDependenciesByFrom
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `groupDependenciesByFrom(dependencies: ModuleDependency[]): Map<string, ModuleDependency[]>`
 ```ts
 groupDependenciesByFrom(dependencies: ModuleDependency[]): Map<string, ModuleDependency[]>

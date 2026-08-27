@@ -1,15 +1,15 @@
 # Modul: mcp/src/tools/impact.ts
 
-<!-- change: symbol-added name="SymbolEntry" kind="interface" -->
+<!-- change: symbol-added name="analyzeImpact" kind="function" -->
 ### interface: ImpactRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ImpactRequest {
+Signatur: `export interface ImpactRequest {
   file: string;
   symbol?: string;
   workspaceRoot?: string;
 }`
 ```ts
-interface ImpactRequest {
+export interface ImpactRequest {
   file: string;
   symbol?: string;
   workspaceRoot?: string;
@@ -24,10 +24,10 @@ Eigenschaften:
 | `symbol` | `string` | ja |
 | `workspaceRoot` | `string` | ja |
 
-<!-- change: symbol-added name="analyzeImpact" kind="function" -->
+<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
 ### interface: ImpactResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ImpactResponse {
+Signatur: `export interface ImpactResponse {
   file: string;
   symbol?: string;
   directDependents: string[];
@@ -36,7 +36,7 @@ Signatur: `interface ImpactResponse {
   recommendation: string;
 }`
 ```ts
-interface ImpactResponse {
+export interface ImpactResponse {
   file: string;
   symbol?: string;
   directDependents: string[];
@@ -57,9 +57,9 @@ Eigenschaften:
 | `symbol` | `string` | ja |
 | `transitiveDependents` | `string[]` | nein |
 
-<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
+<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### interface: SymbolEntry
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `interface SymbolEntry {
   file: string;
   name: string;
@@ -87,12 +87,11 @@ Eigenschaften:
 | `name` | `string` | nein |
 | `type` | `string` | nein |
 
-<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### function: analyzeImpact
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>`
+Signatur: `export async analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>`
 ```ts
-analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>
+export async analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>
 ```
 
 Parameter:
@@ -104,10 +103,10 @@ Parameter:
 Rückgabewert: `Promise<ImpactResponse>`
 
 ### function: buildDependencyMap
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>`
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `async buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>`
 ```ts
-buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>
+async buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>
 ```
 
 Parameter:
@@ -119,7 +118,7 @@ Parameter:
 Rückgabewert: `Promise<Map<string, Set<string>>>`
 
 ### function: calculateImpact
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `calculateImpact(totalDependents: number): { impactLevel: 'low' | 'medium' | 'high' | 'critical'; recommendation: string; }`
 ```ts
 calculateImpact(totalDependents: number): { impactLevel: 'low' | 'medium' | 'high' | 'critical'; recommendation: string; }

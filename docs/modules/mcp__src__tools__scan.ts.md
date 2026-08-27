@@ -1,14 +1,14 @@
 # Modul: mcp/src/tools/scan.ts
 
-<!-- change: symbol-added name="runScan" kind="function" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ScanRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ScanRequest {
+Signatur: `export interface ScanRequest {
   files?: string[];
   incremental?: boolean;
 }`
 ```ts
-interface ScanRequest {
+export interface ScanRequest {
   files?: string[];
   incremental?: boolean;
 }
@@ -21,10 +21,9 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `incremental` | `boolean` | ja |
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ScanResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ScanResponse {
+Signatur: `export interface ScanResponse {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -33,7 +32,7 @@ Signatur: `interface ScanResponse {
   errors?: string[];
 }`
 ```ts
-interface ScanResponse {
+export interface ScanResponse {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -56,9 +55,9 @@ Eigenschaften:
 
 ### function: runScan
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runScan(request: ScanRequest): Promise<ScanResponse>`
+Signatur: `export async runScan(request: ScanRequest): Promise<ScanResponse>`
 ```ts
-runScan(request: ScanRequest): Promise<ScanResponse>
+export async runScan(request: ScanRequest): Promise<ScanResponse>
 ```
 
 Parameter:
@@ -70,7 +69,7 @@ Parameter:
 Rückgabewert: `Promise<ScanResponse>`
 
 ### variable: execAsync
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
 execAsync: typeof exec.__promisify__

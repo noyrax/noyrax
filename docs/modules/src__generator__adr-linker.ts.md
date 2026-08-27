@@ -1,25 +1,25 @@
 # Modul: src/generator/adr-linker.ts
 
-<!-- change: symbol-added name="AdrLinker" kind="class" -->
+<!-- change: symbol-added name="AdrMetadata" kind="interface" -->
 ### class: AdrLinker
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class AdrLinker`
+Signatur: `export class AdrLinker`
 ```ts
-class AdrLinker
+export class AdrLinker
 ```
 
 Diese Klasse bündelt 6 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="AdrMetadata" kind="interface" -->
+<!-- change: symbol-added name="AdrLinker.getAdrMetadata" kind="method" -->
 ### interface: AdrMetadata
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface AdrMetadata {
+Signatur: `export interface AdrMetadata {
   number: string;
   title: string;
   fileName: string;
 }`
 ```ts
-interface AdrMetadata {
+export interface AdrMetadata {
   number: string;
   title: string;
   fileName: string;
@@ -34,7 +34,7 @@ Eigenschaften:
 | `number` | `string` | nein |
 | `title` | `string` | nein |
 
-<!-- change: symbol-added name="AdrLinker.getAdrMetadata" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.getAllAdrMappings" kind="method" -->
 ### method: AdrLinker.getAdrMetadata
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getAdrMetadata(adrNumber: string): AdrMetadata | undefined`
@@ -50,7 +50,7 @@ Parameter:
 
 Rückgabewert: `AdrMetadata | undefined`
 
-<!-- change: symbol-added name="AdrLinker.getAllAdrMappings" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.getRelevantAdrs" kind="method" -->
 ### method: AdrLinker.getAllAdrMappings
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getAllAdrMappings(): Map<string, string[]>`
@@ -60,7 +60,7 @@ getAllAdrMappings(): Map<string, string[]>
 
 Rückgabewert: `Map<string, string[]>`
 
-<!-- change: symbol-added name="AdrLinker.getRelevantAdrs" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.loadAdrMappings" kind="method" -->
 ### method: AdrLinker.getRelevantAdrs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getRelevantAdrs(filePath: string): string[]`
@@ -76,7 +76,7 @@ Parameter:
 
 Rückgabewert: `string[]`
 
-<!-- change: symbol-added name="AdrLinker.loadAdrMappings" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.loadMetadataOverrides" kind="method" -->
 ### method: AdrLinker.loadAdrMappings
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `loadAdrMappings(adrDir: string): void`
@@ -92,7 +92,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="AdrLinker.loadMetadataOverrides" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.parseAdrFile" kind="method" -->
 ### method: AdrLinker.loadMetadataOverrides
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `loadMetadataOverrides(metadataPath: string): void`
@@ -108,7 +108,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="AdrLinker.parseAdrFile" kind="method" -->
+<!-- change: symbol-added name="AdrLinker.adrMetadata" kind="variable" -->
 ### method: AdrLinker.parseAdrFile
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `parseAdrFile(adrPath: string): { number: string; filePaths: string[]; metadata: AdrMetadata | null }`
@@ -124,7 +124,7 @@ Parameter:
 
 Rückgabewert: `{ number: string; filePaths: string[]; metadata: AdrMetadata | null }`
 
-<!-- change: symbol-added name="AdrLinker.adrMetadata" kind="variable" -->
+<!-- change: symbol-added name="AdrLinker.excludes" kind="variable" -->
 ### variable: AdrLinker.adrMetadata
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `adrMetadata: Map<string, AdrMetadata>`
@@ -132,7 +132,7 @@ Signatur: `adrMetadata: Map<string, AdrMetadata>`
 adrMetadata: Map<string, AdrMetadata>
 ```
 
-<!-- change: symbol-added name="AdrLinker.excludes" kind="variable" -->
+<!-- change: symbol-added name="AdrLinker.filePathToAdrs" kind="variable" -->
 ### variable: AdrLinker.excludes
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `excludes: Map<string, Set<string>>`
@@ -140,7 +140,7 @@ Signatur: `excludes: Map<string, Set<string>>`
 excludes: Map<string, Set<string>>
 ```
 
-<!-- change: symbol-added name="AdrLinker.filePathToAdrs" kind="variable" -->
+<!-- change: symbol-added name="AdrLinker.overrides" kind="variable" -->
 ### variable: AdrLinker.filePathToAdrs
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `filePathToAdrs: Map<string, string[]>`
@@ -148,7 +148,6 @@ Signatur: `filePathToAdrs: Map<string, string[]>`
 filePathToAdrs: Map<string, string[]>
 ```
 
-<!-- change: symbol-added name="AdrLinker.overrides" kind="variable" -->
 ### variable: AdrLinker.overrides
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `overrides: Map<string, string[]>`

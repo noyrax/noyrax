@@ -1,23 +1,23 @@
 # Modul: src/logging/index.ts
 
-<!-- change: symbol-added name="Logger.error" kind="method" -->
+<!-- change: symbol-added name="Logger.info" kind="method" -->
 ### class: Logger
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class Logger`
+Signatur: `export class Logger`
 ```ts
-class Logger
+export class Logger
 ```
 
 Diese Klasse bündelt 3 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="Logger.info" kind="method" -->
+<!-- change: symbol-added name="Logger.warn" kind="method" -->
 ### interface: LoggerOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface LoggerOptions {
+Signatur: `export interface LoggerOptions {
   component: string;
 }`
 ```ts
-interface LoggerOptions {
+export interface LoggerOptions {
   component: string;
 }
 ```
@@ -28,7 +28,7 @@ Eigenschaften:
 |------|-----|----------|
 | `component` | `string` | nein |
 
-<!-- change: symbol-added name="Logger.warn" kind="method" -->
+<!-- change: symbol-added name="Logger.component" kind="variable" -->
 ### method: Logger.error
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `error(message: string, err?: unknown): void`
@@ -45,7 +45,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="Logger.component" kind="variable" -->
+<!-- change: symbol-added name="LogLevel" kind="type" -->
 ### method: Logger.info
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `info(message: string): void`
@@ -61,7 +61,6 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="LogLevel" kind="type" -->
 ### method: Logger.warn
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `warn(message: string): void`
@@ -86,7 +85,7 @@ component: string
 
 ### type: LogLevel
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `type LogLevel`
+Signatur: `export type LogLevel`
 ```ts
-type LogLevel
+export type LogLevel
 ```

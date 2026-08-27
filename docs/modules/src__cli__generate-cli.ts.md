@@ -1,9 +1,9 @@
 # Modul: src/cli/generate-cli.ts
 
-<!-- change: symbol-added name="GenerateCliResult" kind="interface" -->
+<!-- change: symbol-added name="GenerateCliOptions" kind="interface" -->
 ### interface: GenerateCliResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface GenerateCliResult {
+Signatur: `export interface GenerateCliResult {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -14,7 +14,7 @@ Signatur: `interface GenerateCliResult {
   errors?: string[];
 }`
 ```ts
-interface GenerateCliResult {
+export interface GenerateCliResult {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -39,10 +39,10 @@ Eigenschaften:
 | `status` | `'success' | 'error' | 'partial'` | nein |
 | `symbolsExtracted` | `number` | nein |
 
-<!-- change: symbol-added name="GenerateCliOptions" kind="interface" -->
+<!-- change: symbol-added name="log" kind="function" -->
 ### interface: GenerateCliOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface GenerateCliOptions {
+Signatur: `export interface GenerateCliOptions {
   workspaceRoot?: string;
   outputPath?: string;
   incremental?: boolean;
@@ -50,7 +50,7 @@ Signatur: `interface GenerateCliOptions {
   resetCache?: boolean;
 }`
 ```ts
-interface GenerateCliOptions {
+export interface GenerateCliOptions {
   workspaceRoot?: string;
   outputPath?: string;
   incremental?: boolean;
@@ -69,9 +69,25 @@ Eigenschaften:
 | `verbose` | `boolean` | ja |
 | `workspaceRoot` | `string` | ja |
 
-<!-- change: symbol-added name="log" kind="function" -->
-### function: log
+<!-- change: symbol-added name="reexport:GenerateCliOptionsfrom:undefined" kind="variable" -->
+### function: runGenerateCli
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `export async runGenerateCli(options: GenerateCliOptions = …): Promise<GenerateCliResult>`
+```ts
+export async runGenerateCli(options: GenerateCliOptions = …): Promise<GenerateCliResult>
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `options` | `GenerateCliOptions` | nein | ja |
+
+Rückgabewert: `Promise<GenerateCliResult>`
+
+<!-- change: symbol-added name="runGenerateCli" kind="function" -->
+### function: log
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `log(logs: string[], message: string, verbose: boolean): void`
 ```ts
 log(logs: string[], message: string, verbose: boolean): void
@@ -87,23 +103,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="runGenerateCli" kind="function" -->
-### function: runGenerateCli
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runGenerateCli(options: GenerateCliOptions = …): Promise<GenerateCliResult>`
-```ts
-runGenerateCli(options: GenerateCliOptions = …): Promise<GenerateCliResult>
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `options` | `GenerateCliOptions` | nein | ja |
-
-Rückgabewert: `Promise<GenerateCliResult>`
-
-<!-- change: symbol-added name="reexport:GenerateCliOptionsfrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:GenerateCliResultfrom:undefined" kind="variable" -->
 ### variable: reexport:GenerateCliOptionsfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:GenerateCliOptionsfrom:undefined`
@@ -111,7 +111,7 @@ Signatur: `reexport:GenerateCliOptionsfrom:undefined`
 reexport:GenerateCliOptionsfrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:GenerateCliResultfrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:runGenerateClifrom:undefined" kind="variable" -->
 ### variable: reexport:GenerateCliResultfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:GenerateCliResultfrom:undefined`
@@ -119,7 +119,6 @@ Signatur: `reexport:GenerateCliResultfrom:undefined`
 reexport:GenerateCliResultfrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:runGenerateClifrom:undefined" kind="variable" -->
 ### variable: reexport:runGenerateClifrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:runGenerateClifrom:undefined`

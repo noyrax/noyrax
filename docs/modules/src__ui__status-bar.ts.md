@@ -1,16 +1,16 @@
 # Modul: src/ui/status-bar.ts
 
-<!-- change: symbol-added name="StatusBarManager.showProgress" kind="method" -->
+<!-- change: symbol-added name="StatusBarManager.updateStatus" kind="method" -->
 ### class: StatusBarManager
 Rolle: service-api (Sichtbarkeit: public, Priorität: high)
-Signatur: `class StatusBarManager`
+Signatur: `export class StatusBarManager`
 ```ts
-class StatusBarManager
+export class StatusBarManager
 ```
 
 Diese Klasse bündelt 3 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="StatusBarManager.updateStatus" kind="method" -->
+<!-- change: symbol-added name="StatusBarManager.generateButton" kind="variable" -->
 ### method: StatusBarManager.hideProgress
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `hideProgress(): void`
@@ -20,7 +20,7 @@ hideProgress(): void
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="StatusBarManager.generateButton" kind="variable" -->
+<!-- change: symbol-added name="StatusBarManager.scanButton" kind="variable" -->
 ### method: StatusBarManager.showProgress
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `showProgress(operation: string): void`
@@ -36,7 +36,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="StatusBarManager.scanButton" kind="variable" -->
+<!-- change: symbol-added name="StatusBarManager.statusIndicator" kind="variable" -->
 ### method: StatusBarManager.updateStatus
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `updateStatus(status: 'green' | 'yellow' | 'red' | 'unknown', message?: string): void`
@@ -53,7 +53,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="StatusBarManager.statusIndicator" kind="variable" -->
+<!-- change: symbol-added name="StatusBarManager.validateButton" kind="variable" -->
 ### variable: StatusBarManager.generateButton
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `generateButton: vscode.StatusBarItem`
@@ -61,7 +61,6 @@ Signatur: `generateButton: vscode.StatusBarItem`
 generateButton: vscode.StatusBarItem
 ```
 
-<!-- change: symbol-added name="StatusBarManager.validateButton" kind="variable" -->
 ### variable: StatusBarManager.scanButton
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `scanButton: vscode.StatusBarItem`

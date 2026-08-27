@@ -1,15 +1,15 @@
 # Modul: src/core/symbol-classifier.ts
 
-<!-- change: symbol-added name="classifyRole" kind="function" -->
+<!-- change: symbol-added name="classifySymbol" kind="function" -->
 ### interface: SymbolClassification
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface SymbolClassification {
+Signatur: `export interface SymbolClassification {
   visibility: SymbolVisibility;
   role: SymbolRole;
   priority: SymbolPriority;
 }`
 ```ts
-interface SymbolClassification {
+export interface SymbolClassification {
   visibility: SymbolVisibility;
   role: SymbolRole;
   priority: SymbolPriority;
@@ -24,9 +24,25 @@ Eigenschaften:
 | `role` | `SymbolRole` | nein |
 | `visibility` | `SymbolVisibility` | nein |
 
-<!-- change: symbol-added name="classifySymbol" kind="function" -->
-### function: classifyPriority
+<!-- change: symbol-added name="hasAnySubstring" kind="function" -->
+### function: classifySymbol
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `export classifySymbol(symbol: ParsedSymbol): SymbolClassification`
+```ts
+export classifySymbol(symbol: ParsedSymbol): SymbolClassification
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `symbol` | `ParsedSymbol` | nein | nein |
+
+Rückgabewert: `SymbolClassification`
+
+<!-- change: symbol-added name="classifyVisibility" kind="function" -->
+### function: classifyPriority
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `classifyPriority(role: SymbolRole, visibility: SymbolVisibility): SymbolPriority`
 ```ts
 classifyPriority(role: SymbolRole, visibility: SymbolVisibility): SymbolPriority
@@ -41,9 +57,9 @@ Parameter:
 
 Rückgabewert: `SymbolPriority`
 
-<!-- change: symbol-added name="classifyVisibility" kind="function" -->
+<!-- change: symbol-added name="filePathIncludes" kind="function" -->
 ### function: classifyRole
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `classifyRole(symbol: ParsedSymbol): SymbolRole`
 ```ts
 classifyRole(symbol: ParsedSymbol): SymbolRole
@@ -57,25 +73,9 @@ Parameter:
 
 Rückgabewert: `SymbolRole`
 
-<!-- change: symbol-added name="filePathIncludes" kind="function" -->
-### function: classifySymbol
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `classifySymbol(symbol: ParsedSymbol): SymbolClassification`
-```ts
-classifySymbol(symbol: ParsedSymbol): SymbolClassification
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `symbol` | `ParsedSymbol` | nein | nein |
-
-Rückgabewert: `SymbolClassification`
-
-<!-- change: symbol-added name="hasAnySubstring" kind="function" -->
+<!-- change: symbol-added name="hasAnySuffix" kind="function" -->
 ### function: classifyVisibility
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `classifyVisibility(symbol: ParsedSymbol): SymbolVisibility`
 ```ts
 classifyVisibility(symbol: ParsedSymbol): SymbolVisibility
@@ -89,9 +89,9 @@ Parameter:
 
 Rückgabewert: `SymbolVisibility`
 
-<!-- change: symbol-added name="hasAnySuffix" kind="function" -->
+<!-- change: symbol-added name="normalizePath" kind="function" -->
 ### function: filePathIncludes
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `filePathIncludes(path: string, segments: string[]): boolean`
 ```ts
 filePathIncludes(path: string, segments: string[]): boolean
@@ -106,9 +106,9 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="normalizePath" kind="function" -->
+<!-- change: symbol-added name="SymbolPriority" kind="type" -->
 ### function: hasAnySubstring
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `hasAnySubstring(name: string, parts: string[]): boolean`
 ```ts
 hasAnySubstring(name: string, parts: string[]): boolean
@@ -123,9 +123,9 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="SymbolPriority" kind="type" -->
+<!-- change: symbol-added name="SymbolRole" kind="type" -->
 ### function: hasAnySuffix
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `hasAnySuffix(name: string, suffixes: string[]): boolean`
 ```ts
 hasAnySuffix(name: string, suffixes: string[]): boolean
@@ -140,9 +140,9 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="SymbolRole" kind="type" -->
+<!-- change: symbol-added name="SymbolVisibility" kind="type" -->
 ### function: normalizePath
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `normalizePath(p: string): string`
 ```ts
 normalizePath(p: string): string
@@ -156,24 +156,23 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SymbolVisibility" kind="type" -->
 ### type: SymbolPriority
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `type SymbolPriority`
+Signatur: `export type SymbolPriority`
 ```ts
-type SymbolPriority
+export type SymbolPriority
 ```
 
 ### type: SymbolRole
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `type SymbolRole`
+Signatur: `export type SymbolRole`
 ```ts
-type SymbolRole
+export type SymbolRole
 ```
 
 ### type: SymbolVisibility
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `type SymbolVisibility`
+Signatur: `export type SymbolVisibility`
 ```ts
-type SymbolVisibility
+export type SymbolVisibility
 ```

@@ -1,11 +1,10 @@
 # Modul: src/core/language-detection.ts
 
-<!-- change: symbol-added name="detectLanguageByExtension" kind="function" -->
 ### function: detectLanguageByExtension
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `detectLanguageByExtension(filePath: string): string | null`
+Signatur: `export detectLanguageByExtension(filePath: string): string | null`
 ```ts
-detectLanguageByExtension(filePath: string): string | null
+export detectLanguageByExtension(filePath: string): string | null
 ```
 
 Parameter:
@@ -18,9 +17,9 @@ Rückgabewert: `string | null`
 
 ### function: guessLanguageByShebang
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `guessLanguageByShebang(firstLine: string | null): string | null`
+Signatur: `export guessLanguageByShebang(firstLine: string | null): string | null`
 ```ts
-guessLanguageByShebang(firstLine: string | null): string | null
+export guessLanguageByShebang(firstLine: string | null): string | null
 ```
 
 Parameter:
@@ -33,9 +32,9 @@ Rückgabewert: `string | null`
 
 ### function: normalizeLineEndings
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `normalizeLineEndings(content: string): string`
+Signatur: `export normalizeLineEndings(content: string): string`
 ```ts
-normalizeLineEndings(content: string): string
+export normalizeLineEndings(content: string): string
 ```
 
 Parameter:

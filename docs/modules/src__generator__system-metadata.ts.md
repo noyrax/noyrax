@@ -1,9 +1,9 @@
 # Modul: src/generator/system-metadata.ts
 
-<!-- change: symbol-added name="SystemMetadata" kind="interface" -->
+<!-- change: symbol-added name="generateSystemMetadata" kind="function" -->
 ### interface: SystemMetadata
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface SystemMetadata {
+Signatur: `export interface SystemMetadata {
   system_id: string;
   workspace_root: string;
   version: string;
@@ -30,7 +30,7 @@ Signatur: `interface SystemMetadata {
     };
 }`
 ```ts
-interface SystemMetadata {
+export interface SystemMetadata {
   system_id: string;
   workspace_root: string;
   version: string;
@@ -87,12 +87,12 @@ Eigenschaften:
 | `version` | `string` | nein |
 | `workspace_root` | `string` | nein |
 
-<!-- change: symbol-added name="generateSystemMetadata" kind="function" -->
+<!-- change: symbol-added name="writeSystemMetadata" kind="function" -->
 ### function: generateSystemMetadata
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generateSystemMetadata(workspaceRoot: string): SystemMetadata`
+Signatur: `export generateSystemMetadata(workspaceRoot: string): SystemMetadata`
 ```ts
-generateSystemMetadata(workspaceRoot: string): SystemMetadata
+export generateSystemMetadata(workspaceRoot: string): SystemMetadata
 ```
 
 Parameter:
@@ -103,12 +103,11 @@ Parameter:
 
 Rückgabewert: `SystemMetadata`
 
-<!-- change: symbol-added name="writeSystemMetadata" kind="function" -->
 ### function: writeSystemMetadata
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `writeSystemMetadata(workspaceRoot: string, outputPath?: string): void`
+Signatur: `export writeSystemMetadata(workspaceRoot: string, outputPath?: string): void`
 ```ts
-writeSystemMetadata(workspaceRoot: string, outputPath?: string): void
+export writeSystemMetadata(workspaceRoot: string, outputPath?: string): void
 ```
 
 Parameter:

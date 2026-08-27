@@ -1,16 +1,16 @@
 # Modul: src/parsers/json-yaml.ts
 
-<!-- change: symbol-added name="JsonYamlParser.collectFromObject" kind="method" -->
+<!-- change: symbol-added name="JsonYamlParser.extractFrontMatter" kind="method" -->
 ### class: JsonYamlParser
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class JsonYamlParser`
+Signatur: `export class JsonYamlParser`
 ```ts
-class JsonYamlParser
+export class JsonYamlParser
 ```
 
 Diese Klasse bündelt 4 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="JsonYamlParser.extractFrontMatter" kind="method" -->
+<!-- change: symbol-added name="asRepoRel" kind="function" -->
 ### method: JsonYamlParser.parse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parse(filePath: string, fileContent: string): ParsedSymbol[]`
@@ -27,7 +27,7 @@ Parameter:
 
 Rückgabewert: `ParsedSymbol[]`
 
-<!-- change: symbol-added name="asRepoRel" kind="function" -->
+<!-- change: symbol-added name="JsonYamlParser.language" kind="variable" -->
 ### method: JsonYamlParser.collectFromObject
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `collectFromObject(obj: any, repoRel: string, out: ParsedSymbol[], lang: string): void`
@@ -46,7 +46,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="JsonYamlParser.language" kind="variable" -->
+<!-- change: symbol-added name="JsonYamlParser.filterConfigKeys" kind="method" -->
 ### method: JsonYamlParser.extractFrontMatter
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `extractFrontMatter(content: string): any | null`
@@ -62,7 +62,6 @@ Parameter:
 
 Rückgabewert: `any | null`
 
-<!-- change: symbol-added name="JsonYamlParser.filterConfigKeys" kind="method" -->
 ### method: JsonYamlParser.filterConfigKeys
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `filterConfigKeys(obj: unknown): Record<string, unknown>`
@@ -79,7 +78,7 @@ Parameter:
 Rückgabewert: `Record<string, unknown>`
 
 ### function: asRepoRel
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `asRepoRel(p: string): string`
 ```ts
 asRepoRel(p: string): string

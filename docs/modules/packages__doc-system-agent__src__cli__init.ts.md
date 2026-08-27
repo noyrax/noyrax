@@ -1,9 +1,9 @@
 # Modul: packages/doc-system-agent/src/cli/init.ts
 
-<!-- change: symbol-added name="fileExists" kind="function" -->
+<!-- change: symbol-added name="initProject" kind="function" -->
 ### interface: InitResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface InitResult {
+Signatur: `export interface InitResult {
   success: boolean;
   rulesCreated: string[];
   rulesSkipped: string[];
@@ -11,7 +11,7 @@ Signatur: `interface InitResult {
   errors: string[];
 }`
 ```ts
-interface InitResult {
+export interface InitResult {
   success: boolean;
   rulesCreated: string[];
   rulesSkipped: string[];
@@ -30,17 +30,17 @@ Eigenschaften:
 | `rulesSkipped` | `string[]` | nein |
 | `success` | `boolean` | nein |
 
-<!-- change: symbol-added name="initProject" kind="function" -->
+<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### interface: InitOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface InitOptions {
+Signatur: `export interface InitOptions {
   targetDir?: string;
   force?: boolean;
   merge?: boolean;
   verbose?: boolean;
 }`
 ```ts
-interface InitOptions {
+export interface InitOptions {
   targetDir?: string;
   force?: boolean;
   merge?: boolean;
@@ -57,27 +57,11 @@ Eigenschaften:
 | `targetDir` | `string` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="__dirname" kind="variable" -->
-### function: fileExists
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `fileExists(filePath: string): Promise<boolean>`
-```ts
-fileExists(filePath: string): Promise<boolean>
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `filePath` | `string` | nein | nein |
-
-Rückgabewert: `Promise<boolean>`
-
 ### function: initProject
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `initProject(options: InitOptions = …): Promise<InitResult>`
+Signatur: `export async initProject(options: InitOptions = …): Promise<InitResult>`
 ```ts
-initProject(options: InitOptions = …): Promise<InitResult>
+export async initProject(options: InitOptions = …): Promise<InitResult>
 ```
 
 Parameter:
@@ -88,8 +72,23 @@ Parameter:
 
 Rückgabewert: `Promise<InitResult>`
 
+### function: fileExists
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `async fileExists(filePath: string): Promise<boolean>`
+```ts
+async fileExists(filePath: string): Promise<boolean>
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `filePath` | `string` | nein | nein |
+
+Rückgabewert: `Promise<boolean>`
+
 ### variable: __dirname
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `__dirname: string`
 ```ts
 __dirname: string

@@ -7,6 +7,7 @@ Signatur: `compilerOptions: object`
 compilerOptions: object
 ```
 
+<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: exclude
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `exclude: object`
@@ -14,7 +15,6 @@ Signatur: `exclude: object`
 exclude: object
 ```
 
-<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: include
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `include: object`

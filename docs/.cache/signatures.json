@@ -287,11 +287,11 @@
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#DOCS_BASE",
-      "signatureHash": "4805c2e1350bb67d"
+      "signatureHash": "3092a0f9dad0e3eb"
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#getSystemFilePath",
-      "signatureHash": "c14ea731b19010ef"
+      "signatureHash": "5f6838db07dabe9d"
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#listADRs",
@@ -303,11 +303,11 @@
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#parseDocsUri",
-      "signatureHash": "f68effe019747241"
+      "signatureHash": "a2272a95a33cbcf6"
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#ParsedUri",
-      "signatureHash": "d3a8f0bf8fee973f"
+      "signatureHash": "f617e17ffcb8d225"
     },
     {
       "baseId": "ts://mcp/src/resources/docs.ts#readDocsResource",
@@ -327,11 +327,11 @@
     },
     {
       "baseId": "ts://mcp/src/tools/drift.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://mcp/src/tools/drift.ts#getDocPath",
-      "signatureHash": "f97ef917658f1d3d"
+      "signatureHash": "84f388411af375ae"
     },
     {
       "baseId": "ts://mcp/src/tools/drift.ts#runDriftCheck",
@@ -343,11 +343,11 @@
     },
     {
       "baseId": "ts://mcp/src/tools/impact.ts#buildDependencyMap",
-      "signatureHash": "efacdaa520e95a60"
+      "signatureHash": "014f7c8b19f9c47d"
     },
     {
       "baseId": "ts://mcp/src/tools/impact.ts#calculateImpact",
-      "signatureHash": "5c2fe0a3f30995b6"
+      "signatureHash": "2a925df8511e07cb"
     },
     {
       "baseId": "ts://mcp/src/tools/impact.ts#ImpactRequest",
@@ -359,11 +359,11 @@
     },
     {
       "baseId": "ts://mcp/src/tools/impact.ts#SymbolEntry",
-      "signatureHash": "3ed94a20c10d2f59"
+      "signatureHash": "9868e992f9493f4b"
     },
     {
       "baseId": "ts://mcp/src/tools/scan.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://mcp/src/tools/scan.ts#runScan",
@@ -379,7 +379,7 @@
     },
     {
       "baseId": "ts://mcp/src/tools/validate.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://mcp/src/tools/validate.ts#runValidate",
@@ -391,7 +391,7 @@
     },
     {
       "baseId": "ts://mcp/src/tools/validate.ts#ValidateResponse",
-      "signatureHash": "17fcadeb60280944"
+      "signatureHash": "8abdd5687e94edfb"
     },
     {
       "baseId": "ts://mcp/src/tools/validate.ts#ValidationError",
@@ -419,15 +419,15 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/index.ts#program",
-      "signatureHash": "2df81a9db11b15a6"
+      "signatureHash": "2bc1e4ff9bf94f94"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#__dirname",
-      "signatureHash": "21095fdf89d37898"
+      "signatureHash": "8c679eecf0e75547"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#fileExists",
-      "signatureHash": "703102d9716fbdc1"
+      "signatureHash": "ebe85d5698ddce6c"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/init.ts#InitOptions",
@@ -443,15 +443,15 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#__dirname",
-      "signatureHash": "21095fdf89d37898"
+      "signatureHash": "8c679eecf0e75547"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#fileExists",
-      "signatureHash": "703102d9716fbdc1"
+      "signatureHash": "ebe85d5698ddce6c"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#RulesVersion",
-      "signatureHash": "e39706b9cb6be07d"
+      "signatureHash": "3b275ccc79a13749"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/cli/update.ts#UpdateOptions",
@@ -603,11 +603,11 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#DOCS_BASE",
-      "signatureHash": "4805c2e1350bb67d"
+      "signatureHash": "3092a0f9dad0e3eb"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#getSystemFilePath",
-      "signatureHash": "c14ea731b19010ef"
+      "signatureHash": "5f6838db07dabe9d"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#listADRs",
@@ -619,11 +619,11 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#parseDocsUri",
-      "signatureHash": "f68effe019747241"
+      "signatureHash": "a2272a95a33cbcf6"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#ParsedUri",
-      "signatureHash": "d3a8f0bf8fee973f"
+      "signatureHash": "f617e17ffcb8d225"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/resources/docs.ts#readDocsResource",
@@ -631,11 +631,11 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#getDocPath",
-      "signatureHash": "45b871e0a479305c"
+      "signatureHash": "688ad7c45952ac66"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/drift.ts#runDriftCheck",
@@ -647,19 +647,19 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#buildDependencyMap",
-      "signatureHash": "efacdaa520e95a60"
+      "signatureHash": "014f7c8b19f9c47d"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#calculateImpact",
-      "signatureHash": "5c2fe0a3f30995b6"
+      "signatureHash": "2a925df8511e07cb"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/impact.ts#SymbolEntry",
-      "signatureHash": "3ed94a20c10d2f59"
+      "signatureHash": "9868e992f9493f4b"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/scan.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/scan.ts#runScan",
@@ -667,7 +667,7 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/validate.ts#execAsync",
-      "signatureHash": "dfcffb6473e64c82"
+      "signatureHash": "eb865846e96d463b"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/tools/validate.ts#runValidate",
@@ -711,7 +711,7 @@
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ValidateResponse",
-      "signatureHash": "17fcadeb60280944"
+      "signatureHash": "8abdd5687e94edfb"
     },
     {
       "baseId": "ts://packages/doc-system-agent/src/mcp/types.ts#ValidationError",
@@ -727,175 +727,175 @@
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#errors",
-      "signatureHash": "996f9f475acb3f45"
+      "signatureHash": "08de45716d0751fc"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#extractClaimsFromAdr",
-      "signatureHash": "447b51c28f0bd91e"
+      "signatureHash": "02ef76336c44651a"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#findAllSourceDirectories",
-      "signatureHash": "0fec1944e5b2e95d"
+      "signatureHash": "4b4c056f99650522"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#findDocsDirectory",
-      "signatureHash": "14b366ae72f50251"
+      "signatureHash": "fbd966940ce85e4f"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#fs",
-      "signatureHash": "c207cf0b36600841"
+      "signatureHash": "c7adf2b9a08b6d06"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#loadAliasMap",
-      "signatureHash": "ee76ba2fe74c49da"
+      "signatureHash": "e6b646010a3198e7"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#main",
-      "signatureHash": "52b2a04bbb1d2e1e"
+      "signatureHash": "43d6e6bb96bed478"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#path",
-      "signatureHash": "189d81dcf9098593"
+      "signatureHash": "e395271698f19878"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#resolvePathWithAlias",
-      "signatureHash": "d9847ae2aab6b2e7"
+      "signatureHash": "5896408aa3859b28"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#searchInDirectory",
-      "signatureHash": "3167e9a17195965b"
+      "signatureHash": "71d1af5ae52d158c"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#verifyClaim",
-      "signatureHash": "dd0bf380b938d18b"
+      "signatureHash": "39c0f167f7a4bdb9"
     },
     {
       "baseId": "ts://scripts/verify-adrs.js#warnings",
-      "signatureHash": "6755e78d3fc5c6bb"
+      "signatureHash": "7b5baab327e5f884"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#{ execSync }",
-      "signatureHash": "a8efddb102b7f012"
+      "signatureHash": "a48d885ff3d5ac65"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#checkImportDirections",
-      "signatureHash": "1b444eea7ba71b27"
+      "signatureHash": "983e7973e184a66c"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#checkMcpToSrcImports",
-      "signatureHash": "3385fd581e058ea6"
+      "signatureHash": "10f9a8985cd9c962"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#checkPackageJsonType",
-      "signatureHash": "5f7192eb3d65db1b"
+      "signatureHash": "059b870716f70481"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#errors",
-      "signatureHash": "996f9f475acb3f45"
+      "signatureHash": "08de45716d0751fc"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#findDirectoryOrFile",
-      "signatureHash": "6131f5c1e11c8ddc"
+      "signatureHash": "b9555dcd95f1cac3"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#fs",
-      "signatureHash": "c207cf0b36600841"
+      "signatureHash": "c7adf2b9a08b6d06"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#getAllTsFiles",
-      "signatureHash": "cb4ba6c40cd7237c"
+      "signatureHash": "b365d949183e26f2"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#loadAliasMap",
-      "signatureHash": "ee76ba2fe74c49da"
+      "signatureHash": "e6b646010a3198e7"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#main",
-      "signatureHash": "52b2a04bbb1d2e1e"
+      "signatureHash": "43d6e6bb96bed478"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#path",
-      "signatureHash": "189d81dcf9098593"
+      "signatureHash": "e395271698f19878"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#resolvePathWithAlias",
-      "signatureHash": "d9847ae2aab6b2e7"
+      "signatureHash": "5896408aa3859b28"
     },
     {
       "baseId": "ts://scripts/verify-architecture.js#warnings",
-      "signatureHash": "6755e78d3fc5c6bb"
+      "signatureHash": "7b5baab327e5f884"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#{ execSync }",
-      "signatureHash": "a8efddb102b7f012"
+      "signatureHash": "a48d885ff3d5ac65"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#checkFileImports",
-      "signatureHash": "250ad5e56fb0857c"
+      "signatureHash": "d6d0477ec8ea721a"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#checkImport",
-      "signatureHash": "32c541acce0ce836"
+      "signatureHash": "2c8ed2d635fa41a0"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#errors",
-      "signatureHash": "996f9f475acb3f45"
+      "signatureHash": "08de45716d0751fc"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#extractExports",
-      "signatureHash": "05f265d5ccb4a85c"
+      "signatureHash": "c33543b05a95fffe"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#findSrcDirectory",
-      "signatureHash": "9257e96d5730abbe"
+      "signatureHash": "01d62c0768b287ab"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#findSrcDirectoryWithAlias",
-      "signatureHash": "319d80e4e9e7af9b"
+      "signatureHash": "7bd866241787e454"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#fs",
-      "signatureHash": "c207cf0b36600841"
+      "signatureHash": "c7adf2b9a08b6d06"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#getAllTsFiles",
-      "signatureHash": "cb4ba6c40cd7237c"
+      "signatureHash": "b365d949183e26f2"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#loadAliasMap",
-      "signatureHash": "ee76ba2fe74c49da"
+      "signatureHash": "e6b646010a3198e7"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#main",
-      "signatureHash": "52b2a04bbb1d2e1e"
+      "signatureHash": "43d6e6bb96bed478"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#path",
-      "signatureHash": "189d81dcf9098593"
+      "signatureHash": "e395271698f19878"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#resolvePathWithAlias",
-      "signatureHash": "d9847ae2aab6b2e7"
+      "signatureHash": "5896408aa3859b28"
     },
     {
       "baseId": "ts://scripts/verify-imports.js#warnings",
-      "signatureHash": "6755e78d3fc5c6bb"
+      "signatureHash": "7b5baab327e5f884"
     },
     {
       "baseId": "ts://src/__tests__/setup.ts#mockDate",
-      "signatureHash": "e57d2b7bf362ad06"
+      "signatureHash": "051fc4b752b10488"
     },
     {
       "baseId": "ts://src/__tests__/signature-formatter.test.ts#makeSymbol",
-      "signatureHash": "5c7c1beefb59d33b"
+      "signatureHash": "784af5af067690a5"
     },
     {
       "baseId": "ts://src/__tests__/snapshot-doc-generation.test.ts#SNAPSHOT_TS",
-      "signatureHash": "0b85ec19d09aee57"
+      "signatureHash": "a0b85cf7bb282b32"
     },
     {
       "baseId": "ts://src/__tests__/symbol-classifier.test.ts#makeSymbol",
-      "signatureHash": "5c7c1beefb59d33b"
+      "signatureHash": "784af5af067690a5"
     },
     {
       "baseId": "ts://src/cache/dependencies-cache.ts#DependenciesCacheData",
@@ -959,7 +959,7 @@
     },
     {
       "baseId": "ts://src/cli/generate-cli.ts#log",
-      "signatureHash": "9fd4e1cc8edce2a9"
+      "signatureHash": "776ad264a6597015"
     },
     {
       "baseId": "ts://src/cli/generate-cli.ts#reexport:GenerateCliOptionsfrom:undefined",
@@ -1023,11 +1023,11 @@
     },
     {
       "baseId": "ts://src/cli/validate-cli.ts#ValidateCliResult",
-      "signatureHash": "15b8fd98e095344f"
+      "signatureHash": "85eda2ea4864cbf3"
     },
     {
       "baseId": "ts://src/cli/validate-cli.ts#ValidationError",
-      "signatureHash": "516f6ca521e91d87"
+      "signatureHash": "8219b0fbe77b408f"
     },
     {
       "baseId": "ts://src/core/consolidation.ts#buildDependenciesUnion",
@@ -1039,7 +1039,7 @@
     },
     {
       "baseId": "ts://src/core/consolidation.ts#buildPreviousDependenciesMap",
-      "signatureHash": "7c9137e906385a0c"
+      "signatureHash": "b5c0bee9fb420bd3"
     },
     {
       "baseId": "ts://src/core/consolidation.ts#buildSymbolsUnion",
@@ -1047,11 +1047,11 @@
     },
     {
       "baseId": "ts://src/core/consolidation.ts#buildUnionMap",
-      "signatureHash": "cf370a0bd578a59a"
+      "signatureHash": "175f98bc497b5d20"
     },
     {
       "baseId": "ts://src/core/consolidation.ts#deduplicateAndSortDependencies",
-      "signatureHash": "3f5c64e09d011452"
+      "signatureHash": "8a409a1532c4bd6a"
     },
     {
       "baseId": "ts://src/core/consolidation.ts#DependenciesUnionResult",
@@ -1083,19 +1083,19 @@
     },
     {
       "baseId": "ts://src/core/scanner.ts#BACKUP_DIR_NAMES",
-      "signatureHash": "fb710c1220c8e022"
+      "signatureHash": "5936ae655a3acbc6"
     },
     {
       "baseId": "ts://src/core/scanner.ts#BACKUP_FILE_SUFFIXES",
-      "signatureHash": "a3b58fe5e8ff494e"
+      "signatureHash": "7cd7acb512bd2cf3"
     },
     {
       "baseId": "ts://src/core/scanner.ts#DEFAULT_EXCLUDES",
-      "signatureHash": "fc6b6e046d36b3dd"
+      "signatureHash": "d17766e35502460f"
     },
     {
       "baseId": "ts://src/core/scanner.ts#EXCLUDE_FILE_PATTERNS",
-      "signatureHash": "947c25eb007d96f0"
+      "signatureHash": "77e1c129722d4217"
     },
     {
       "baseId": "ts://src/core/scanner.ts#ScannedFile",
@@ -1124,6 +1124,10 @@
     {
       "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.compare",
       "signatureHash": "a426569ee58d9e9e"
+    },
+    {
+      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatBody",
+      "signatureHash": "47d66222eeb320b0"
     },
     {
       "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.formatForDoc",
@@ -1158,6 +1162,10 @@
       "signatureHash": "b2582e19de1bf763"
     },
     {
+      "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.modifierPrefix",
+      "signatureHash": "6f93972db67f3e51"
+    },
+    {
       "baseId": "ts://src/core/signature-formatter.ts#SignatureFormatter.normalize",
       "signatureHash": "c2d02bf01ecf05bb"
     },
@@ -1167,11 +1175,11 @@
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#classifyPriority",
-      "signatureHash": "2c8231511acbf8ed"
+      "signatureHash": "8f2636cd84b76ca6"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#classifyRole",
-      "signatureHash": "71254b34f1a023fe"
+      "signatureHash": "b0d39c506b65230c"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#classifySymbol",
@@ -1179,23 +1187,23 @@
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#classifyVisibility",
-      "signatureHash": "45d5a1bc38a2cf02"
+      "signatureHash": "786596d32833f3fe"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#filePathIncludes",
-      "signatureHash": "0cfd6145d1bcc1cd"
+      "signatureHash": "46072a4baf4238e7"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#hasAnySubstring",
-      "signatureHash": "d00c452b4157785e"
+      "signatureHash": "25a71acb1f0e03b5"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#hasAnySuffix",
-      "signatureHash": "cce34b292e1e2e7c"
+      "signatureHash": "80b1446da0800697"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#normalizePath",
-      "signatureHash": "f888e89c97a152ed"
+      "signatureHash": "e601a0472d7509e7"
     },
     {
       "baseId": "ts://src/core/symbol-classifier.ts#SymbolClassification",
@@ -1239,7 +1247,7 @@
     },
     {
       "baseId": "ts://src/extension.ts#checkDriftTs",
-      "signatureHash": "39baa1255621e5e8"
+      "signatureHash": "cd564adb2be3e949"
     },
     {
       "baseId": "ts://src/extension.ts#deactivate",
@@ -1247,11 +1255,11 @@
     },
     {
       "baseId": "ts://src/extension.ts#DocumentationItem",
-      "signatureHash": "a914717b43f1f1b1"
+      "signatureHash": "25b7041eb3c90b06"
     },
     {
       "baseId": "ts://src/extension.ts#DocumentationProvider",
-      "signatureHash": "51b2d950464e0095"
+      "signatureHash": "7ba27a17ce6d5033"
     },
     {
       "baseId": "ts://src/extension.ts#DocumentationProvider._onDidChangeTreeData",
@@ -1279,75 +1287,75 @@
     },
     {
       "baseId": "ts://src/extension.ts#escapeHtml",
-      "signatureHash": "e68842432a67f079"
+      "signatureHash": "ee5ff3536807890d"
     },
     {
       "baseId": "ts://src/extension.ts#findSourceDirectories",
-      "signatureHash": "59e0bcb8d4a08662"
+      "signatureHash": "bef0bbbb0b6bbe2d"
     },
     {
       "baseId": "ts://src/extension.ts#generateDocumentationTs",
-      "signatureHash": "49543a438b8042a2"
+      "signatureHash": "29f780e0fa050f0d"
     },
     {
       "baseId": "ts://src/extension.ts#getConfig",
-      "signatureHash": "a6b0e30fdc915257"
+      "signatureHash": "e94e07b92ad6e1a3"
     },
     {
       "baseId": "ts://src/extension.ts#globalOutput",
-      "signatureHash": "7c6036f666b77880"
+      "signatureHash": "a8b0822abd9186ac"
     },
     {
       "baseId": "ts://src/extension.ts#globalStatusBar",
-      "signatureHash": "e20f3896cee8f951"
+      "signatureHash": "40e8a7eb3d3631a5"
     },
     {
       "baseId": "ts://src/extension.ts#loadEnv",
-      "signatureHash": "ff97963bd19f618f"
+      "signatureHash": "6467eafb3abd4a44"
     },
     {
       "baseId": "ts://src/extension.ts#openDocumentationFile",
-      "signatureHash": "6c41a7b642f973c4"
+      "signatureHash": "31c5fb006106a867"
     },
     {
       "baseId": "ts://src/extension.ts#registerCommand",
-      "signatureHash": "95785ed9bb6223d5"
+      "signatureHash": "c333e9b97e43264e"
     },
     {
       "baseId": "ts://src/extension.ts#scanSystemTs",
-      "signatureHash": "30e996ac1af7f106"
+      "signatureHash": "47bf9753f8da9efe"
     },
     {
       "baseId": "ts://src/extension.ts#searchDocumentation",
-      "signatureHash": "9d55f2a2da0f7f15"
+      "signatureHash": "fb9517ce930c482e"
     },
     {
       "baseId": "ts://src/extension.ts#SearchResult",
-      "signatureHash": "2c5dc25e2e4d6c2d"
+      "signatureHash": "1cc2541fde8c65fc"
     },
     {
       "baseId": "ts://src/extension.ts#showSearchResults",
-      "signatureHash": "162939aa5b913e8c"
+      "signatureHash": "69fefd16eb09ae06"
     },
     {
       "baseId": "ts://src/extension.ts#showSystemOverview",
-      "signatureHash": "5d251f304f38a2d3"
+      "signatureHash": "e1cb8b5642d7acbf"
     },
     {
       "baseId": "ts://src/extension.ts#showValidationResults",
-      "signatureHash": "225b8332b62d3883"
+      "signatureHash": "150a457bb46a4332"
     },
     {
       "baseId": "ts://src/extension.ts#syncDocumentation",
-      "signatureHash": "1337e123854a1ca0"
+      "signatureHash": "8fcf914e5dcecf58"
     },
     {
       "baseId": "ts://src/extension.ts#validateDocumentationTs",
-      "signatureHash": "79ed85e0eb11ab3b"
+      "signatureHash": "476f976238514572"
     },
     {
       "baseId": "ts://src/extension.ts#ValidationResult",
-      "signatureHash": "781ea5d761a9bb92"
+      "signatureHash": "add757250d2189eb"
     },
     {
       "baseId": "ts://src/generator/adr-linker.ts#AdrLinker",
@@ -1411,7 +1419,7 @@
     },
     {
       "baseId": "ts://src/generator/dependency-graph.ts#appendDependencySection",
-      "signatureHash": "0a0e5aa00775aca4"
+      "signatureHash": "a56eac4a1e3c0286"
     },
     {
       "baseId": "ts://src/generator/dependency-graph.ts#generateDependencyOverview",
@@ -1423,7 +1431,7 @@
     },
     {
       "baseId": "ts://src/generator/dependency-graph.ts#groupDependenciesByFrom",
-      "signatureHash": "7712255566aa3cb6"
+      "signatureHash": "3db1135139bc2774"
     },
     {
       "baseId": "ts://src/generator/index.ts#generatePerFileDocs",
@@ -1431,7 +1439,7 @@
     },
     {
       "baseId": "ts://src/generator/index.ts#makeSafeFileName",
-      "signatureHash": "3625474f8dbf7635"
+      "signatureHash": "2a4eaad7c3f76d73"
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#buildModuleDocWithChanges",
@@ -1439,15 +1447,15 @@
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#compareBlocks",
-      "signatureHash": "c3effe4379058062"
+      "signatureHash": "f55f350e7ff66709"
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#isFormatterMigration",
-      "signatureHash": "ae021e5f8774c7fb"
+      "signatureHash": "9ef64c746c4ac6dc"
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#isTrivialNormalizedSignature",
-      "signatureHash": "96be1ab87c2c0b59"
+      "signatureHash": "a32f7ff08995544c"
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#ModuleDoc",
@@ -1475,7 +1483,7 @@
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#parseSignatureFromCode",
-      "signatureHash": "370c2c022ce517a0"
+      "signatureHash": "8eefb28cc49c27b2"
     },
     {
       "baseId": "ts://src/generator/module-doc.ts#renderModuleDoc",
@@ -1491,7 +1499,7 @@
     },
     {
       "baseId": "ts://src/generator/system-metadata.ts#SystemMetadata",
-      "signatureHash": "01da9a89de0db1ba"
+      "signatureHash": "d51d9a6b953eb7b5"
     },
     {
       "baseId": "ts://src/generator/system-metadata.ts#writeSystemMetadata",
@@ -1503,7 +1511,7 @@
     },
     {
       "baseId": "ts://src/index/index.ts#DependencyAccumulator",
-      "signatureHash": "6df5766f11bdb453"
+      "signatureHash": "255d7d7188097edd"
     },
     {
       "baseId": "ts://src/index/index.ts#DependencyEntry",
@@ -1563,7 +1571,7 @@
     },
     {
       "baseId": "ts://src/parsers/json-yaml.ts#asRepoRel",
-      "signatureHash": "b4257ebe440ba31b"
+      "signatureHash": "9a13143cde0e5304"
     },
     {
       "baseId": "ts://src/parsers/json-yaml.ts#JsonYamlParser",
@@ -1643,7 +1651,7 @@
     },
     {
       "baseId": "ts://src/parsers/types.ts#SymbolSignature",
-      "signatureHash": "098c27e5b6bf5a6b"
+      "signatureHash": "b569bded32ac5416"
     },
     {
       "baseId": "ts://src/ui/commands-provider.ts#CommandItem",
@@ -1743,35 +1751,35 @@
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#escapeRegex",
-      "signatureHash": "a1a545550aad1064"
+      "signatureHash": "76a32d23c9f725d1"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isApiConfigPattern",
-      "signatureHash": "4f4508aa5e3312fa"
+      "signatureHash": "fc69547c7695eb60"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isArchitecturallyValid",
-      "signatureHash": "8835eedbd9610158"
+      "signatureHash": "e3a86e43e038f94e"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isConfigSuffixPattern",
-      "signatureHash": "c654e801078d0337"
+      "signatureHash": "0750e5780855c285"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isManagerPattern",
-      "signatureHash": "c7c51b24d7b9aba4"
+      "signatureHash": "669da09b8e40b84c"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isRecommendationApiConfigPattern",
-      "signatureHash": "b0ba85cb887b06a4"
+      "signatureHash": "20ade851065a87fc"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isRecommendationPattern",
-      "signatureHash": "7d2c098a342bdabc"
+      "signatureHash": "b2bb9cf520e665de"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#isResponseWrapperPattern",
-      "signatureHash": "4b483eab7f01f460"
+      "signatureHash": "21c15265d076200c"
     },
     {
       "baseId": "ts://src/validator/signature-matching.ts#SignatureMatchingOptions",
@@ -1791,7 +1799,7 @@
     },
     {
       "baseId": "ts://src/validator/status.ts#StatusReport",
-      "signatureHash": "146057393e951dce"
+      "signatureHash": "66bfcae896841e14"
     },
     {
       "baseId": "ts://src/validator/status.ts#ValidationStatus",

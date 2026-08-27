@@ -1,24 +1,24 @@
 # Modul: src/ui/commands-provider.ts
 
-<!-- change: symbol-added name="CommandsProvider.getChildren" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.getTreeItem" kind="method" -->
 ### class: CommandItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class CommandItem`
+Signatur: `export class CommandItem`
 ```ts
-class CommandItem
+export class CommandItem
 ```
 
-<!-- change: symbol-added name="CommandsProvider.getTreeItem" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.refresh" kind="method" -->
 ### class: CommandsProvider
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class CommandsProvider`
+Signatur: `export class CommandsProvider`
 ```ts
-class CommandsProvider
+export class CommandsProvider
 ```
 
 Diese Klasse bündelt 3 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="CommandsProvider.refresh" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.onDidChangeTreeData" kind="variable" -->
 ### method: CommandsProvider.getChildren
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getChildren(element?: CommandItem): Thenable<CommandItem[]>`
@@ -34,7 +34,7 @@ Parameter:
 
 Rückgabewert: `Thenable<CommandItem[]>`
 
-<!-- change: symbol-added name="CommandsProvider.onDidChangeTreeData" kind="variable" -->
+<!-- change: symbol-added name="CommandsProvider._onDidChangeTreeData" kind="variable" -->
 ### method: CommandsProvider.getTreeItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getTreeItem(element: CommandItem): vscode.TreeItem`
@@ -50,7 +50,6 @@ Parameter:
 
 Rückgabewert: `vscode.TreeItem`
 
-<!-- change: symbol-added name="CommandsProvider._onDidChangeTreeData" kind="variable" -->
 ### method: CommandsProvider.refresh
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `refresh(): void`

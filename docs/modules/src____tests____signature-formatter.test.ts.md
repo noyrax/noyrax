@@ -1,7 +1,7 @@
 # Modul: src/__tests__/signature-formatter.test.ts
 
 ### function: makeSymbol
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `makeSymbol(partial: Partial<ParsedSymbol>): ParsedSymbol`
 ```ts
 makeSymbol(partial: Partial<ParsedSymbol>): ParsedSymbol

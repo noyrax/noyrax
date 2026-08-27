@@ -2,9 +2,9 @@
 
 ### function: runValidate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runValidate(request: ValidateRequest): Promise<ValidateResponse>`
+Signatur: `export async runValidate(request: ValidateRequest): Promise<ValidateResponse>`
 ```ts
-runValidate(request: ValidateRequest): Promise<ValidateResponse>
+export async runValidate(request: ValidateRequest): Promise<ValidateResponse>
 ```
 
 Parameter:
@@ -16,7 +16,7 @@ Parameter:
 Rückgabewert: `Promise<ValidateResponse>`
 
 ### variable: execAsync
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
 execAsync: typeof exec.__promisify__

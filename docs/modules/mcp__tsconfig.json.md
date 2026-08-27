@@ -1,6 +1,5 @@
 # Modul: mcp/tsconfig.json
 
-<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: compilerOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `compilerOptions: object`

@@ -1,9 +1,8 @@
 # Modul: src/generator/change-report.ts
 
-<!-- change: symbol-added name="generateChangeReport" kind="function" -->
 ### interface: ChangeData
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ChangeData {
+Signatur: `export interface ChangeData {
   runType: 'full' | 'incremental';
   parsedFiles: number;
   skippedFiles: number;
@@ -18,7 +17,7 @@ Signatur: `interface ChangeData {
   validationDetails?: string[];
 }`
 ```ts
-interface ChangeData {
+export interface ChangeData {
   runType: 'full' | 'incremental';
   parsedFiles: number;
   skippedFiles: number;
@@ -53,9 +52,9 @@ Eigenschaften:
 
 ### function: extractChangesFromModuleDocs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }`
+Signatur: `export extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }`
 ```ts
-extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }
+export extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }
 ```
 
 Parameter:
@@ -68,9 +67,9 @@ Rückgabewert: `{ symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: Chan
 
 ### function: generateChangeReport
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generateChangeReport(data: ChangeData): string`
+Signatur: `export generateChangeReport(data: ChangeData): string`
 ```ts
-generateChangeReport(data: ChangeData): string
+export generateChangeReport(data: ChangeData): string
 ```
 
 Parameter:

@@ -1,6 +1,6 @@
 # Modul: package.json
 
-<!-- change: symbol-added name="publishConfig" kind="variable" -->
+<!-- change: symbol-added name="categories" kind="variable" -->
 ### variable: publishConfig
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `publishConfig: object`
@@ -8,7 +8,7 @@ Signatur: `publishConfig: object`
 publishConfig: object
 ```
 
-<!-- change: symbol-added name="categories" kind="variable" -->
+<!-- change: symbol-added name="contributes" kind="variable" -->
 ### variable: activationEvents
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `activationEvents: object`
@@ -16,7 +16,7 @@ Signatur: `activationEvents: object`
 activationEvents: object
 ```
 
-<!-- change: symbol-added name="contributes" kind="variable" -->
+<!-- change: symbol-added name="dependencies" kind="variable" -->
 ### variable: bugs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `bugs: object`
@@ -24,7 +24,7 @@ Signatur: `bugs: object`
 bugs: object
 ```
 
-<!-- change: symbol-added name="dependencies" kind="variable" -->
+<!-- change: symbol-added name="description" kind="variable" -->
 ### variable: categories
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `categories: object`
@@ -32,7 +32,7 @@ Signatur: `categories: object`
 categories: object
 ```
 
-<!-- change: symbol-added name="description" kind="variable" -->
+<!-- change: symbol-added name="devDependencies" kind="variable" -->
 ### variable: contributes
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `contributes: object`
@@ -40,7 +40,7 @@ Signatur: `contributes: object`
 contributes: object
 ```
 
-<!-- change: symbol-added name="devDependencies" kind="variable" -->
+<!-- change: symbol-added name="displayName" kind="variable" -->
 ### variable: dependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `dependencies: object`
@@ -48,7 +48,7 @@ Signatur: `dependencies: object`
 dependencies: object
 ```
 
-<!-- change: symbol-added name="displayName" kind="variable" -->
+<!-- change: symbol-added name="engines" kind="variable" -->
 ### variable: description
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `description: string`
@@ -56,7 +56,7 @@ Signatur: `description: string`
 description: string
 ```
 
-<!-- change: symbol-added name="engines" kind="variable" -->
+<!-- change: symbol-added name="homepage" kind="variable" -->
 ### variable: devDependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `devDependencies: object`
@@ -64,7 +64,7 @@ Signatur: `devDependencies: object`
 devDependencies: object
 ```
 
-<!-- change: symbol-added name="homepage" kind="variable" -->
+<!-- change: symbol-added name="keywords" kind="variable" -->
 ### variable: displayName
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `displayName: string`
@@ -72,7 +72,7 @@ Signatur: `displayName: string`
 displayName: string
 ```
 
-<!-- change: symbol-added name="keywords" kind="variable" -->
+<!-- change: symbol-added name="files" kind="variable" -->
 ### variable: engines
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `engines: object`
@@ -80,7 +80,7 @@ Signatur: `engines: object`
 engines: object
 ```
 
-<!-- change: symbol-added name="files" kind="variable" -->
+<!-- change: symbol-added name="main" kind="variable" -->
 ### variable: files
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `files: object`
@@ -88,7 +88,7 @@ Signatur: `files: object`
 files: object
 ```
 
-<!-- change: symbol-added name="main" kind="variable" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: homepage
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `homepage: string`
@@ -96,7 +96,7 @@ Signatur: `homepage: string`
 homepage: string
 ```
 
-<!-- change: symbol-added name="name" kind="variable" -->
+<!-- change: symbol-added name="publisher" kind="variable" -->
 ### variable: keywords
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `keywords: object`
@@ -104,7 +104,7 @@ Signatur: `keywords: object`
 keywords: object
 ```
 
-<!-- change: symbol-added name="publisher" kind="variable" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: main
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `main: string`
@@ -112,7 +112,7 @@ Signatur: `main: string`
 main: string
 ```
 
-<!-- change: symbol-added name="scripts" kind="variable" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: name
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `name: string`
@@ -120,7 +120,7 @@ Signatur: `name: string`
 name: string
 ```
 
-<!-- change: symbol-added name="version" kind="variable" -->
+<!-- change: symbol-added name="repository" kind="variable" -->
 ### variable: publisher
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `publisher: string`
@@ -128,7 +128,6 @@ Signatur: `publisher: string`
 publisher: string
 ```
 
-<!-- change: symbol-added name="repository" kind="variable" -->
 ### variable: scripts
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `scripts: object`

@@ -1,15 +1,15 @@
 # Modul: src/core/scanner.ts
 
-<!-- change: symbol-added name="scanWorkspace" kind="function" -->
+<!-- change: symbol-added name="BACKUP_DIR_NAMES" kind="variable" -->
 ### interface: ScanOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ScanOptions {
+Signatur: `export interface ScanOptions {
   workspaceRoot: string;
   includeGlobs?: string[];
   excludeGlobs?: string[];
 }`
 ```ts
-interface ScanOptions {
+export interface ScanOptions {
   workspaceRoot: string;
   includeGlobs?: string[];
   excludeGlobs?: string[];
@@ -24,16 +24,16 @@ Eigenschaften:
 | `includeGlobs` | `string[]` | ja |
 | `workspaceRoot` | `string` | nein |
 
-<!-- change: symbol-added name="BACKUP_DIR_NAMES" kind="variable" -->
+<!-- change: symbol-added name="BACKUP_FILE_SUFFIXES" kind="variable" -->
 ### interface: ScannedFile
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ScannedFile {
+Signatur: `export interface ScannedFile {
   absolutePath: string;
   repositoryRelativePath: string;
   language: string | null;
 }`
 ```ts
-interface ScannedFile {
+export interface ScannedFile {
   absolutePath: string;
   repositoryRelativePath: string;
   language: string | null;
@@ -48,12 +48,12 @@ Eigenschaften:
 | `language` | `string | null` | nein |
 | `repositoryRelativePath` | `string` | nein |
 
-<!-- change: symbol-added name="BACKUP_FILE_SUFFIXES" kind="variable" -->
+<!-- change: symbol-added name="DEFAULT_EXCLUDES" kind="variable" -->
 ### function: scanWorkspace
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]`
+Signatur: `export scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]`
 ```ts
-scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]
+export scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]
 ```
 
 Parameter:
@@ -65,31 +65,30 @@ Parameter:
 
 Rückgabewert: `ScannedFile[]`
 
-<!-- change: symbol-added name="DEFAULT_EXCLUDES" kind="variable" -->
 ### variable: BACKUP_DIR_NAMES
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `BACKUP_DIR_NAMES: Set<string>`
 ```ts
 BACKUP_DIR_NAMES: Set<string>
 ```
 
 ### variable: BACKUP_FILE_SUFFIXES
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `BACKUP_FILE_SUFFIXES: string[]`
 ```ts
 BACKUP_FILE_SUFFIXES: string[]
 ```
 
+<!-- change: symbol-added name="EXCLUDE_FILE_PATTERNS" kind="variable" -->
 ### variable: DEFAULT_EXCLUDES
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `DEFAULT_EXCLUDES: Set<string>`
 ```ts
 DEFAULT_EXCLUDES: Set<string>
 ```
 
-<!-- change: symbol-added name="EXCLUDE_FILE_PATTERNS" kind="variable" -->
 ### variable: EXCLUDE_FILE_PATTERNS
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `EXCLUDE_FILE_PATTERNS: RegExp[]`
 ```ts
 EXCLUDE_FILE_PATTERNS: RegExp[]

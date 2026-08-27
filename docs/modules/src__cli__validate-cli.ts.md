@@ -1,9 +1,9 @@
 # Modul: src/cli/validate-cli.ts
 
-<!-- change: symbol-added name="ValidateCliResult" kind="interface" -->
+<!-- change: symbol-added name="ValidateCliOptions" kind="interface" -->
 ### interface: ValidateCliResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ValidateCliResult {
+Signatur: `export interface ValidateCliResult {
   status: 'success' | 'warnings' | 'errors';
   errors: ValidationError[];
   warnings: ValidationError[];
@@ -16,7 +16,7 @@ Signatur: `interface ValidateCliResult {
   logs: string[];
 }`
 ```ts
-interface ValidateCliResult {
+export interface ValidateCliResult {
   status: 'success' | 'warnings' | 'errors';
   errors: ValidationError[];
   warnings: ValidationError[];
@@ -45,10 +45,10 @@ Eigenschaften:
 | `status` | `'success' | 'warnings' | 'errors'` | nein |
 | `warnings` | `ValidationError[]` | nein |
 
-<!-- change: symbol-added name="ValidateCliOptions" kind="interface" -->
+<!-- change: symbol-added name="ValidationError" kind="interface" -->
 ### interface: ValidateCliOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ValidateCliOptions {
+Signatur: `export interface ValidateCliOptions {
   workspaceRoot?: string;
   outputPath?: string;
   files?: string[];
@@ -56,7 +56,7 @@ Signatur: `interface ValidateCliOptions {
   thresholds?: CoverageThresholds;
 }`
 ```ts
-interface ValidateCliOptions {
+export interface ValidateCliOptions {
   workspaceRoot?: string;
   outputPath?: string;
   files?: string[];
@@ -75,9 +75,9 @@ Eigenschaften:
 | `verbose` | `boolean` | ja |
 | `workspaceRoot` | `string` | ja |
 
-<!-- change: symbol-added name="ValidationError" kind="interface" -->
+<!-- change: symbol-added name="runValidateCli" kind="function" -->
 ### interface: ValidationError
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `interface ValidationError {
   file: string;
   type: 'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage';
@@ -105,12 +105,12 @@ Eigenschaften:
 | `message` | `string` | nein |
 | `type` | `'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage'` | nein |
 
-<!-- change: symbol-added name="runValidateCli" kind="function" -->
+<!-- change: symbol-added name="reexport:runValidateClifrom:undefined" kind="variable" -->
 ### function: runValidateCli
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runValidateCli(options: ValidateCliOptions = …): Promise<ValidateCliResult>`
+Signatur: `export async runValidateCli(options: ValidateCliOptions = …): Promise<ValidateCliResult>`
 ```ts
-runValidateCli(options: ValidateCliOptions = …): Promise<ValidateCliResult>
+export async runValidateCli(options: ValidateCliOptions = …): Promise<ValidateCliResult>
 ```
 
 Parameter:
@@ -121,7 +121,7 @@ Parameter:
 
 Rückgabewert: `Promise<ValidateCliResult>`
 
-<!-- change: symbol-added name="reexport:runValidateClifrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:ValidateCliOptionsfrom:undefined" kind="variable" -->
 ### variable: reexport:runValidateClifrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:runValidateClifrom:undefined`
@@ -129,7 +129,7 @@ Signatur: `reexport:runValidateClifrom:undefined`
 reexport:runValidateClifrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:ValidateCliOptionsfrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:ValidateCliResultfrom:undefined" kind="variable" -->
 ### variable: reexport:ValidateCliOptionsfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ValidateCliOptionsfrom:undefined`
@@ -137,7 +137,6 @@ Signatur: `reexport:ValidateCliOptionsfrom:undefined`
 reexport:ValidateCliOptionsfrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:ValidateCliResultfrom:undefined" kind="variable" -->
 ### variable: reexport:ValidateCliResultfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ValidateCliResultfrom:undefined`

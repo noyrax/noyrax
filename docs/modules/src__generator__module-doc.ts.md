@@ -1,13 +1,13 @@
 # Modul: src/generator/module-doc.ts
 
-<!-- change: symbol-added name="ParsedBlock" kind="interface" -->
+<!-- change: symbol-added name="ParsedModuleDoc" kind="interface" -->
 ### interface: ModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ModuleDoc {
+Signatur: `export interface ModuleDoc {
   blocks: ModuleDocBlock[];
 }`
 ```ts
-interface ModuleDoc {
+export interface ModuleDoc {
   blocks: ModuleDocBlock[];
 }
 ```
@@ -18,15 +18,15 @@ Eigenschaften:
 |------|-----|----------|
 | `blocks` | `ModuleDocBlock[]` | nein |
 
-<!-- change: symbol-added name="ParsedModuleDoc" kind="interface" -->
+<!-- change: symbol-added name="buildModuleDocWithChanges" kind="function" -->
 ### interface: ModuleDocBlock
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ModuleDocBlock {
+Signatur: `export interface ModuleDocBlock {
   comment: string;
   symbol: ParsedSymbol;
 }`
 ```ts
-interface ModuleDocBlock {
+export interface ModuleDocBlock {
   comment: string;
   symbol: ParsedSymbol;
 }
@@ -39,10 +39,10 @@ Eigenschaften:
 | `comment` | `string` | nein |
 | `symbol` | `ParsedSymbol` | nein |
 
-<!-- change: symbol-added name="buildModuleDocWithChanges" kind="function" -->
+<!-- change: symbol-added name="compareBlocks" kind="function" -->
 ### interface: ParsedBlock
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ParsedBlock {
+Signatur: `export interface ParsedBlock {
   fullyQualifiedName: string;
   kind: ParsedSymbol['kind'];
   signature: SymbolSignature;
@@ -50,7 +50,7 @@ Signatur: `interface ParsedBlock {
   symbol: ParsedSymbol;
 }`
 ```ts
-interface ParsedBlock {
+export interface ParsedBlock {
   fullyQualifiedName: string;
   kind: ParsedSymbol['kind'];
   signature: SymbolSignature;
@@ -69,14 +69,14 @@ Eigenschaften:
 | `signature` | `SymbolSignature` | nein |
 | `symbol` | `ParsedSymbol` | nein |
 
-<!-- change: symbol-added name="compareBlocks" kind="function" -->
+<!-- change: symbol-added name="isTrivialNormalizedSignature" kind="function" -->
 ### interface: ParsedModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ParsedModuleDoc {
+Signatur: `export interface ParsedModuleDoc {
   blocks: ParsedBlock[];
 }`
 ```ts
-interface ParsedModuleDoc {
+export interface ParsedModuleDoc {
   blocks: ParsedBlock[];
 }
 ```
@@ -87,12 +87,12 @@ Eigenschaften:
 |------|-----|----------|
 | `blocks` | `ParsedBlock[]` | nein |
 
-<!-- change: symbol-added name="isTrivialNormalizedSignature" kind="function" -->
+<!-- change: symbol-added name="normalizeSignature" kind="function" -->
 ### function: buildModuleDocWithChanges
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc`
+Signatur: `export buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc`
 ```ts
-buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc
+export buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc
 ```
 
 Parameter:
@@ -104,45 +104,12 @@ Parameter:
 
 Rückgabewert: `ModuleDoc`
 
-<!-- change: symbol-added name="normalizeSignature" kind="function" -->
-### function: compareBlocks
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number`
-```ts
-compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `a` | `ModuleDocBlock` | nein | nein |
-| `b` | `ModuleDocBlock` | nein | nein |
-
-Rückgabewert: `number`
-
-<!-- change: symbol-added name="parseModuleDoc" kind="function" -->
-### function: isTrivialNormalizedSignature
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `isTrivialNormalizedSignature(sig: string): boolean`
-```ts
-isTrivialNormalizedSignature(sig: string): boolean
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `sig` | `string` | nein | nein |
-
-Rückgabewert: `boolean`
-
-<!-- change: symbol-added name="parseSignatureFromCode" kind="function" -->
+<!-- change: symbol-added name="renderModuleDoc" kind="function" -->
 ### function: normalizeSignature
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `normalizeSignature(sig: SymbolSignature): string`
+Signatur: `export normalizeSignature(sig: SymbolSignature): string`
 ```ts
-normalizeSignature(sig: SymbolSignature): string
+export normalizeSignature(sig: SymbolSignature): string
 ```
 
 Parameter:
@@ -153,12 +120,12 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="renderModuleDoc" kind="function" -->
+<!-- change: symbol-added name="signatureChanged" kind="function" -->
 ### function: parseModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `parseModuleDoc(content: string): ParsedModuleDoc`
+Signatur: `export parseModuleDoc(content: string): ParsedModuleDoc`
 ```ts
-parseModuleDoc(content: string): ParsedModuleDoc
+export parseModuleDoc(content: string): ParsedModuleDoc
 ```
 
 Parameter:
@@ -169,29 +136,11 @@ Parameter:
 
 Rückgabewert: `ParsedModuleDoc`
 
-<!-- change: symbol-added name="signatureChanged" kind="function" -->
-### function: parseSignatureFromCode
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature`
-```ts
-parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `code` | `string` | nein | nein |
-| `kind` | `ParsedSymbol['kind']` | nein | nein |
-
-Rückgabewert: `SymbolSignature`
-
-<!-- change: symbol-added name="isFormatterMigration" kind="function" -->
 ### function: renderModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string`
+Signatur: `export renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string`
 ```ts
-renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string
+export renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string
 ```
 
 Parameter:
@@ -206,9 +155,9 @@ Rückgabewert: `string`
 
 ### function: signatureChanged
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean`
+Signatur: `export signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean`
 ```ts
-signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean
+export signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean
 ```
 
 Parameter:
@@ -220,8 +169,58 @@ Parameter:
 
 Rückgabewert: `boolean`
 
+<!-- change: symbol-added name="parseModuleDoc" kind="function" -->
+### function: compareBlocks
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number`
+```ts
+compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `a` | `ModuleDocBlock` | nein | nein |
+| `b` | `ModuleDocBlock` | nein | nein |
+
+Rückgabewert: `number`
+
+<!-- change: symbol-added name="parseSignatureFromCode" kind="function" -->
+### function: isTrivialNormalizedSignature
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `isTrivialNormalizedSignature(sig: string): boolean`
+```ts
+isTrivialNormalizedSignature(sig: string): boolean
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `sig` | `string` | nein | nein |
+
+Rückgabewert: `boolean`
+
+<!-- change: symbol-added name="isFormatterMigration" kind="function" -->
+### function: parseSignatureFromCode
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature`
+```ts
+parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `code` | `string` | nein | nein |
+| `kind` | `ParsedSymbol['kind']` | nein | nein |
+
+Rückgabewert: `SymbolSignature`
+
 ### function: isFormatterMigration
-Rolle: infra (Sichtbarkeit: public, Priorität: low)
+Rolle: infra (Sichtbarkeit: internal, Priorität: low)
 Signatur: `isFormatterMigration(oldSig: string, newSig: string): boolean`
 ```ts
 isFormatterMigration(oldSig: string, newSig: string): boolean

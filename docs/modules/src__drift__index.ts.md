@@ -1,13 +1,12 @@
 # Modul: src/drift/index.ts
 
-<!-- change: symbol-added name="computeCacheEntries" kind="function" -->
 ### interface: DriftResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface DriftResult {
+Signatur: `export interface DriftResult {
   staleSymbols: string[];
 }`
 ```ts
-interface DriftResult {
+export interface DriftResult {
   staleSymbols: string[];
 }
 ```
@@ -20,9 +19,9 @@ Eigenschaften:
 
 ### function: detectDrift
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult`
+Signatur: `export detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult`
 ```ts
-detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult
+export detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult
 ```
 
 Parameter:
@@ -36,9 +35,9 @@ Rückgabewert: `DriftResult`
 
 ### function: computeCacheEntries
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `computeCacheEntries(symbols: ParsedSymbol[]): CacheEntry[]`
+Signatur: `export computeCacheEntries(symbols: ParsedSymbol[]): CacheEntry[]`
 ```ts
-computeCacheEntries(symbols: ParsedSymbol[]): CacheEntry[]
+export computeCacheEntries(symbols: ParsedSymbol[]): CacheEntry[]
 ```
 
 Parameter:

@@ -1,43 +1,16 @@
 # Modul: src/index/index.ts
 
-<!-- change: symbol-added name="DependencyAccumulator" kind="interface" -->
-### interface: DependencyAccumulator
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface DependencyAccumulator {
-  module: string;
-  symbols: string[];
-  isTypeOnly: boolean;
-  isReexport: boolean;
-}`
-```ts
-interface DependencyAccumulator {
-  module: string;
-  symbols: string[];
-  isTypeOnly: boolean;
-  isReexport: boolean;
-}
-```
-
-Eigenschaften:
-
-| Name | Typ | Optional |
-|------|-----|----------|
-| `isReexport` | `boolean` | nein |
-| `isTypeOnly` | `boolean` | nein |
-| `module` | `string` | nein |
-| `symbols` | `string[]` | nein |
-
-<!-- change: symbol-added name="DependencyEntry" kind="interface" -->
+<!-- change: symbol-added name="writeJsonlIndex" kind="function" -->
 ### interface: DependencyEntry
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface DependencyEntry {
+Signatur: `export interface DependencyEntry {
   module: string;
   symbols?: string[];
   isTypeOnly?: boolean;
   isReexport?: boolean;
 }`
 ```ts
-interface DependencyEntry {
+export interface DependencyEntry {
   module: string;
   symbols?: string[];
   isTypeOnly?: boolean;
@@ -54,10 +27,9 @@ Eigenschaften:
 | `module` | `string` | nein |
 | `symbols` | `string[]` | ja |
 
-<!-- change: symbol-added name="writeJsonlIndex" kind="function" -->
 ### interface: IndexRow
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface IndexRow {
+Signatur: `export interface IndexRow {
   symbol_id: string;
   path: string;
   kind: string;
@@ -73,7 +45,7 @@ Signatur: `interface IndexRow {
   byte_offset_end?: number;
 }`
 ```ts
-interface IndexRow {
+export interface IndexRow {
   symbol_id: string;
   path: string;
   kind: string;
@@ -108,11 +80,39 @@ Eigenschaften:
 | `summary` | `string` | ja |
 | `symbol_id` | `string` | nein |
 
+<!-- change: symbol-added name="DependencyEntry" kind="interface" -->
+### interface: DependencyAccumulator
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `interface DependencyAccumulator {
+  module: string;
+  symbols: string[];
+  isTypeOnly: boolean;
+  isReexport: boolean;
+}`
+```ts
+interface DependencyAccumulator {
+  module: string;
+  symbols: string[];
+  isTypeOnly: boolean;
+  isReexport: boolean;
+}
+```
+
+Eigenschaften:
+
+| Name | Typ | Optional |
+|------|-----|----------|
+| `isReexport` | `boolean` | nein |
+| `isTypeOnly` | `boolean` | nein |
+| `module` | `string` | nein |
+| `symbols` | `string[]` | nein |
+
+<!-- change: symbol-added name="readSymbolsFromIndex" kind="function" -->
 ### function: buildIndexFromSymbols
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: DependencyCacheEntry[] = …): IndexRow[]`
+Signatur: `export buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: DependencyCacheEntry[] = …): IndexRow[]`
 ```ts
-buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: DependencyCacheEntry[] = …): IndexRow[]
+export buildIndexFromSymbols(symbols: ParsedSymbol[], dependencies: DependencyCacheEntry[] = …): IndexRow[]
 ```
 
 Parameter:
@@ -124,12 +124,11 @@ Parameter:
 
 Rückgabewert: `IndexRow[]`
 
-<!-- change: symbol-added name="readSymbolsFromIndex" kind="function" -->
 ### function: readSymbolsFromIndex
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `readSymbolsFromIndex(indexFile: string): ParsedSymbol[]`
+Signatur: `export readSymbolsFromIndex(indexFile: string): ParsedSymbol[]`
 ```ts
-readSymbolsFromIndex(indexFile: string): ParsedSymbol[]
+export readSymbolsFromIndex(indexFile: string): ParsedSymbol[]
 ```
 
 Parameter:
@@ -142,9 +141,9 @@ Rückgabewert: `ParsedSymbol[]`
 
 ### function: writeJsonlIndex
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `writeJsonlIndex(rows: IndexRow[], outFile: string): void`
+Signatur: `export writeJsonlIndex(rows: IndexRow[], outFile: string): void`
 ```ts
-writeJsonlIndex(rows: IndexRow[], outFile: string): void
+export writeJsonlIndex(rows: IndexRow[], outFile: string): void
 ```
 
 Parameter:

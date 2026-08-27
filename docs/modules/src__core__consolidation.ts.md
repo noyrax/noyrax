@@ -1,14 +1,14 @@
 # Modul: src/core/consolidation.ts
 
-<!-- change: symbol-added name="buildDependenciesUnion" kind="function" -->
+<!-- change: symbol-added name="buildDependenciesUnionWithDebug" kind="function" -->
 ### interface: DependenciesUnionResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface DependenciesUnionResult {
+Signatur: `export interface DependenciesUnionResult {
   dependencies: DependencyCacheEntry[];
   debug: UnionDebugInfo;
 }`
 ```ts
-interface DependenciesUnionResult {
+export interface DependenciesUnionResult {
   dependencies: DependencyCacheEntry[];
   debug: UnionDebugInfo;
 }
@@ -21,17 +21,17 @@ Eigenschaften:
 | `debug` | `UnionDebugInfo` | nein |
 | `dependencies` | `DependencyCacheEntry[]` | nein |
 
-<!-- change: symbol-added name="buildDependenciesUnionWithDebug" kind="function" -->
+<!-- change: symbol-added name="buildPreviousDependenciesMap" kind="function" -->
 ### interface: UnionDebugInfo
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface UnionDebugInfo {
+Signatur: `export interface UnionDebugInfo {
   keptFromUnparsed: number;
   skippedFromParsed: number;
   skippedFromDeleted: number;
   newDeps: number;
 }`
 ```ts
-interface UnionDebugInfo {
+export interface UnionDebugInfo {
   keptFromUnparsed: number;
   skippedFromParsed: number;
   skippedFromDeleted: number;
@@ -48,12 +48,12 @@ Eigenschaften:
 | `skippedFromDeleted` | `number` | nein |
 | `skippedFromParsed` | `number` | nein |
 
-<!-- change: symbol-added name="buildPreviousDependenciesMap" kind="function" -->
+<!-- change: symbol-added name="buildSymbolsUnion" kind="function" -->
 ### function: buildDependenciesUnion
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildDependenciesUnion(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependencyCacheEntry[]`
+Signatur: `export buildDependenciesUnion(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependencyCacheEntry[]`
 ```ts
-buildDependenciesUnion(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependencyCacheEntry[]
+export buildDependenciesUnion(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependencyCacheEntry[]
 ```
 
 Parameter:
@@ -67,12 +67,12 @@ Parameter:
 
 Rückgabewert: `DependencyCacheEntry[]`
 
-<!-- change: symbol-added name="buildSymbolsUnion" kind="function" -->
+<!-- change: symbol-added name="buildUnionMap" kind="function" -->
 ### function: buildDependenciesUnionWithDebug
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildDependenciesUnionWithDebug(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependenciesUnionResult`
+Signatur: `export buildDependenciesUnionWithDebug(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependenciesUnionResult`
 ```ts
-buildDependenciesUnionWithDebug(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependenciesUnionResult
+export buildDependenciesUnionWithDebug(dependenciesNew: ModuleDependency[], dependenciesCachePrev: DependencyCacheEntry[], parsedFiles: Set<string>, deletedFiles: Set<string>): DependenciesUnionResult
 ```
 
 Parameter:
@@ -86,28 +86,11 @@ Parameter:
 
 Rückgabewert: `DependenciesUnionResult`
 
-<!-- change: symbol-added name="buildUnionMap" kind="function" -->
-### function: buildPreviousDependenciesMap
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildPreviousDependenciesMap(entries: DependencyCacheEntry[]): Map<string, DependencyCacheEntry[]>`
-```ts
-buildPreviousDependenciesMap(entries: DependencyCacheEntry[]): Map<string, DependencyCacheEntry[]>
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `entries` | `DependencyCacheEntry[]` | nein | nein |
-
-Rückgabewert: `Map<string, DependencyCacheEntry[]>`
-
-<!-- change: symbol-added name="deduplicateAndSortDependencies" kind="function" -->
 ### function: buildSymbolsUnion
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `buildSymbolsUnion(symbolsNew: ParsedSymbol[], symbolsPrev: ParsedSymbol[], parsedFiles: Set<string>, deletedFiles: Set<string>, scannedFiles?: Set<string>): ParsedSymbol[]`
+Signatur: `export buildSymbolsUnion(symbolsNew: ParsedSymbol[], symbolsPrev: ParsedSymbol[], parsedFiles: Set<string>, deletedFiles: Set<string>, scannedFiles?: Set<string>): ParsedSymbol[]`
 ```ts
-buildSymbolsUnion(symbolsNew: ParsedSymbol[], symbolsPrev: ParsedSymbol[], parsedFiles: Set<string>, deletedFiles: Set<string>, scannedFiles?: Set<string>): ParsedSymbol[]
+export buildSymbolsUnion(symbolsNew: ParsedSymbol[], symbolsPrev: ParsedSymbol[], parsedFiles: Set<string>, deletedFiles: Set<string>, scannedFiles?: Set<string>): ParsedSymbol[]
 ```
 
 Parameter:
@@ -122,8 +105,24 @@ Parameter:
 
 Rückgabewert: `ParsedSymbol[]`
 
+<!-- change: symbol-added name="deduplicateAndSortDependencies" kind="function" -->
+### function: buildPreviousDependenciesMap
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `buildPreviousDependenciesMap(entries: DependencyCacheEntry[]): Map<string, DependencyCacheEntry[]>`
+```ts
+buildPreviousDependenciesMap(entries: DependencyCacheEntry[]): Map<string, DependencyCacheEntry[]>
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `entries` | `DependencyCacheEntry[]` | nein | nein |
+
+Rückgabewert: `Map<string, DependencyCacheEntry[]>`
+
 ### function: buildUnionMap
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `buildUnionMap(dependenciesNew: ModuleDependency[], depMapPrev: Map<string, DependencyCacheEntry[]>, parsedFiles: Set<string>, deletedFiles: Set<string>): { union: Map<string, DependencyCacheEntry[]>, debug: UnionDebugInfo }`
 ```ts
 buildUnionMap(dependenciesNew: ModuleDependency[], depMapPrev: Map<string, DependencyCacheEntry[]>, parsedFiles: Set<string>, deletedFiles: Set<string>): { union: Map<string, DependencyCacheEntry[]>, debug: UnionDebugInfo }
@@ -141,7 +140,7 @@ Parameter:
 Rückgabewert: `{ union: Map<string, DependencyCacheEntry[]>, debug: UnionDebugInfo }`
 
 ### function: deduplicateAndSortDependencies
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `deduplicateAndSortDependencies(depMap: Map<string, DependencyCacheEntry[]>): DependencyCacheEntry[]`
 ```ts
 deduplicateAndSortDependencies(depMap: Map<string, DependencyCacheEntry[]>): DependencyCacheEntry[]

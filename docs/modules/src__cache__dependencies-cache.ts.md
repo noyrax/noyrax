@@ -1,14 +1,14 @@
 # Modul: src/cache/dependencies-cache.ts
 
-<!-- change: symbol-added name="loadDependenciesCache" kind="function" -->
+<!-- change: symbol-added name="saveDependenciesCache" kind="function" -->
 ### interface: DependenciesCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface DependenciesCacheData {
+Signatur: `export interface DependenciesCacheData {
   version: 1;
   entries: DependencyCacheEntry[];
 }`
 ```ts
-interface DependenciesCacheData {
+export interface DependenciesCacheData {
   version: 1;
   entries: DependencyCacheEntry[];
 }
@@ -21,10 +21,9 @@ Eigenschaften:
 | `entries` | `DependencyCacheEntry[]` | nein |
 | `version` | `1` | nein |
 
-<!-- change: symbol-added name="saveDependenciesCache" kind="function" -->
 ### interface: DependencyCacheEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface DependencyCacheEntry {
+Signatur: `export interface DependencyCacheEntry {
   from: string;
   to: string;
   type: 'import' | 'export' | 'require';
@@ -33,7 +32,7 @@ Signatur: `interface DependencyCacheEntry {
   isReexport?: boolean;
 }`
 ```ts
-interface DependencyCacheEntry {
+export interface DependencyCacheEntry {
   from: string;
   to: string;
   type: 'import' | 'export' | 'require';
@@ -56,9 +55,9 @@ Eigenschaften:
 
 ### function: loadDependenciesCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `loadDependenciesCache(cacheFile: string): DependenciesCacheData | null`
+Signatur: `export loadDependenciesCache(cacheFile: string): DependenciesCacheData | null`
 ```ts
-loadDependenciesCache(cacheFile: string): DependenciesCacheData | null
+export loadDependenciesCache(cacheFile: string): DependenciesCacheData | null
 ```
 
 Parameter:
@@ -71,9 +70,9 @@ Rückgabewert: `DependenciesCacheData | null`
 
 ### function: saveDependenciesCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `saveDependenciesCache(cacheDir: string, data: DependenciesCacheData): void`
+Signatur: `export saveDependenciesCache(cacheDir: string, data: DependenciesCacheData): void`
 ```ts
-saveDependenciesCache(cacheDir: string, data: DependenciesCacheData): void
+export saveDependenciesCache(cacheDir: string, data: DependenciesCacheData): void
 ```
 
 Parameter:

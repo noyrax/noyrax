@@ -1,9 +1,8 @@
 # Modul: src/parsers/dependencies.ts
 
-<!-- change: symbol-added name="extractTsJsDependencies" kind="function" -->
 ### interface: ModuleDependency
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ModuleDependency {
+Signatur: `export interface ModuleDependency {
   from: string;
   to: string;
   type: 'import' | 'export' | 'require';
@@ -12,7 +11,7 @@ Signatur: `interface ModuleDependency {
   isReexport?: boolean;
 }`
 ```ts
-interface ModuleDependency {
+export interface ModuleDependency {
   from: string;
   to: string;
   type: 'import' | 'export' | 'require';
@@ -35,9 +34,9 @@ Eigenschaften:
 
 ### function: extractPythonDependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]`
+Signatur: `export extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]`
 ```ts
-extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]
+export extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]
 ```
 
 Parameter:
@@ -51,9 +50,9 @@ Rückgabewert: `ModuleDependency[]`
 
 ### function: extractTsJsDependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[]`
+Signatur: `export extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[]`
 ```ts
-extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[]
+export extractTsJsDependencies(sourceFile: SourceFile, repoRelPath: string): ModuleDependency[]
 ```
 
 Parameter:

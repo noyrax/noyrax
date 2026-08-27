@@ -1,9 +1,9 @@
 # Modul: src/validator/index.ts
 
-<!-- change: symbol-added name="CoverageThresholds" kind="interface" -->
+<!-- change: symbol-added name="MarkdownDirReport" kind="interface" -->
 ### interface: CoverageMetrics
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface CoverageMetrics {
+Signatur: `export interface CoverageMetrics {
   totalClasses: number;
   documentedClasses: number;
   totalInterfaces: number;
@@ -14,7 +14,7 @@ Signatur: `interface CoverageMetrics {
   documentedFunctions: number;
 }`
 ```ts
-interface CoverageMetrics {
+export interface CoverageMetrics {
   totalClasses: number;
   documentedClasses: number;
   totalInterfaces: number;
@@ -39,16 +39,16 @@ Eigenschaften:
 | `totalInterfaces` | `number` | nein |
 | `totalMethods` | `number` | nein |
 
-<!-- change: symbol-added name="MarkdownDirReport" kind="interface" -->
+<!-- change: symbol-added name="ValidationReport" kind="interface" -->
 ### interface: CoverageReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface CoverageReport {
+Signatur: `export interface CoverageReport {
   metrics: CoverageMetrics;
   errors: string[];
   warnings: string[];
 }`
 ```ts
-interface CoverageReport {
+export interface CoverageReport {
   metrics: CoverageMetrics;
   errors: string[];
   warnings: string[];
@@ -63,17 +63,17 @@ Eigenschaften:
 | `metrics` | `CoverageMetrics` | nein |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="ValidationReport" kind="interface" -->
+<!-- change: symbol-added name="computeCoverage" kind="function" -->
 ### interface: CoverageThresholds
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface CoverageThresholds {
+Signatur: `export interface CoverageThresholds {
   classes: number;
   interfaces: number;
   methods: number;
   functions: number;
 }`
 ```ts
-interface CoverageThresholds {
+export interface CoverageThresholds {
   classes: number;
   interfaces: number;
   methods: number;
@@ -90,17 +90,17 @@ Eigenschaften:
 | `interfaces` | `number` | nein |
 | `methods` | `number` | nein |
 
-<!-- change: symbol-added name="computeCoverage" kind="function" -->
+<!-- change: symbol-added name="validateMarkdownContent" kind="function" -->
 ### interface: MarkdownDirReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface MarkdownDirReport {
+Signatur: `export interface MarkdownDirReport {
   errors: string[];
   warnings: string[];
   files: Array<{ file: string; errors: string[]; warnings: string[] }>;
   mismatchesCount?: number;
 }`
 ```ts
-interface MarkdownDirReport {
+export interface MarkdownDirReport {
   errors: string[];
   warnings: string[];
   files: Array<{ file: string; errors: string[]; warnings: string[] }>;
@@ -117,17 +117,17 @@ Eigenschaften:
 | `mismatchesCount` | `number` | ja |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="validateMarkdownContent" kind="function" -->
+<!-- change: symbol-added name="validateMarkdownDir" kind="function" -->
 ### interface: ValidationReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface ValidationReport {
+Signatur: `export interface ValidationReport {
   totalSymbols: number;
   errors: string[];
   warnings: string[];
   status?: StatusReport;
 }`
 ```ts
-interface ValidationReport {
+export interface ValidationReport {
   totalSymbols: number;
   errors: string[];
   warnings: string[];
@@ -144,12 +144,12 @@ Eigenschaften:
 | `totalSymbols` | `number` | nein |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="validateMarkdownDir" kind="function" -->
+<!-- change: symbol-added name="validateSymbols" kind="function" -->
 ### function: computeCoverage
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport`
+Signatur: `export computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport`
 ```ts
-computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport
+export computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport
 ```
 
 Parameter:
@@ -162,12 +162,11 @@ Parameter:
 
 Rückgabewert: `CoverageReport`
 
-<!-- change: symbol-added name="validateSymbols" kind="function" -->
 ### function: validateMarkdownContent
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }`
+Signatur: `export validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }`
 ```ts
-validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }
+export validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }
 ```
 
 Parameter:
@@ -180,9 +179,9 @@ Rückgabewert: `{ errors: string[]; warnings: string[] }`
 
 ### function: validateMarkdownDir
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport`
+Signatur: `export validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport`
 ```ts
-validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport
+export validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport
 ```
 
 Parameter:
@@ -196,9 +195,9 @@ Rückgabewert: `MarkdownDirReport`
 
 ### function: validateSymbols
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `validateSymbols(symbols: ParsedSymbol[]): ValidationReport`
+Signatur: `export validateSymbols(symbols: ParsedSymbol[]): ValidationReport`
 ```ts
-validateSymbols(symbols: ParsedSymbol[]): ValidationReport
+export validateSymbols(symbols: ParsedSymbol[]): ValidationReport
 ```
 
 Parameter:

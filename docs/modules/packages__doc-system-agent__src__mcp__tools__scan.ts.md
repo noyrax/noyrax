@@ -2,9 +2,9 @@
 
 ### function: runScan
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runScan(request: ScanRequest): Promise<ScanResponse>`
+Signatur: `export async runScan(request: ScanRequest): Promise<ScanResponse>`
 ```ts
-runScan(request: ScanRequest): Promise<ScanResponse>
+export async runScan(request: ScanRequest): Promise<ScanResponse>
 ```
 
 Parameter:
@@ -16,7 +16,7 @@ Parameter:
 Rückgabewert: `Promise<ScanResponse>`
 
 ### variable: execAsync
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
 execAsync: typeof exec.__promisify__

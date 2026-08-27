@@ -1,8 +1,22 @@
 # Modul: packages/doc-system-agent/src/mcp/tools/drift.ts
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
-### function: getDocPath
+### function: runDriftCheck
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `export async runDriftCheck(request: DriftRequest): Promise<DriftResponse>`
+```ts
+export async runDriftCheck(request: DriftRequest): Promise<DriftResponse>
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `request` | `DriftRequest` | nein | nein |
+
+Rückgabewert: `Promise<DriftResponse>`
+
+### function: getDocPath
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `getDocPath(sourcePath: string): string`
 ```ts
 getDocPath(sourcePath: string): string
@@ -16,23 +30,8 @@ Parameter:
 
 Rückgabewert: `string`
 
-### function: runDriftCheck
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runDriftCheck(request: DriftRequest): Promise<DriftResponse>`
-```ts
-runDriftCheck(request: DriftRequest): Promise<DriftResponse>
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `request` | `DriftRequest` | nein | nein |
-
-Rückgabewert: `Promise<DriftResponse>`
-
 ### variable: execAsync
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
 execAsync: typeof exec.__promisify__

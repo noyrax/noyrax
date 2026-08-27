@@ -1,16 +1,15 @@
 # Modul: src/parsers/ts-js.ts
 
-<!-- change: symbol-added name="TsJsParser.language" kind="variable" -->
+<!-- change: symbol-added name="TsJsParser.project" kind="variable" -->
 ### class: TsJsParser
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `class TsJsParser`
+Signatur: `export class TsJsParser`
 ```ts
-class TsJsParser
+export class TsJsParser
 ```
 
 Diese Klasse bündelt 1 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="TsJsParser.project" kind="variable" -->
 ### method: TsJsParser.parse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parse(filePath: string, fileContent: string): ParsedSymbol[]`

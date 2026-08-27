@@ -1,9 +1,9 @@
 # Modul: packages/doc-system-agent/src/cli/update.ts
 
-<!-- change: symbol-added name="RulesVersion" kind="interface" -->
+<!-- change: symbol-added name="fileExists" kind="function" -->
 ### interface: UpdateResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface UpdateResult {
+Signatur: `export interface UpdateResult {
   success: boolean;
   currentVersion: number;
   targetVersion: number;
@@ -12,7 +12,7 @@ Signatur: `interface UpdateResult {
   errors: string[];
 }`
 ```ts
-interface UpdateResult {
+export interface UpdateResult {
   success: boolean;
   currentVersion: number;
   targetVersion: number;
@@ -33,16 +33,16 @@ Eigenschaften:
 | `targetVersion` | `number` | nein |
 | `updated` | `string[]` | nein |
 
-<!-- change: symbol-added name="fileExists" kind="function" -->
+<!-- change: symbol-added name="updateRules" kind="function" -->
 ### interface: UpdateOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface UpdateOptions {
+Signatur: `export interface UpdateOptions {
   targetDir?: string;
   safe?: boolean;
   verbose?: boolean;
 }`
 ```ts
-interface UpdateOptions {
+export interface UpdateOptions {
   targetDir?: string;
   safe?: boolean;
   verbose?: boolean;
@@ -57,9 +57,9 @@ Eigenschaften:
 | `targetDir` | `string` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="updateRules" kind="function" -->
+<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### interface: RulesVersion
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `interface RulesVersion {
   version: number;
   updatedAt: string;
@@ -78,27 +78,11 @@ Eigenschaften:
 | `updatedAt` | `string` | nein |
 | `version` | `number` | nein |
 
-<!-- change: symbol-added name="__dirname" kind="variable" -->
-### function: fileExists
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `fileExists(filePath: string): Promise<boolean>`
-```ts
-fileExists(filePath: string): Promise<boolean>
-```
-
-Parameter:
-
-| Name | Typ | Optional | Default |
-|------|-----|----------|---------|
-| `filePath` | `string` | nein | nein |
-
-Rückgabewert: `Promise<boolean>`
-
 ### function: updateRules
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `updateRules(options: UpdateOptions = …): Promise<UpdateResult>`
+Signatur: `export async updateRules(options: UpdateOptions = …): Promise<UpdateResult>`
 ```ts
-updateRules(options: UpdateOptions = …): Promise<UpdateResult>
+export async updateRules(options: UpdateOptions = …): Promise<UpdateResult>
 ```
 
 Parameter:
@@ -109,8 +93,23 @@ Parameter:
 
 Rückgabewert: `Promise<UpdateResult>`
 
+### function: fileExists
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
+Signatur: `async fileExists(filePath: string): Promise<boolean>`
+```ts
+async fileExists(filePath: string): Promise<boolean>
+```
+
+Parameter:
+
+| Name | Typ | Optional | Default |
+|------|-----|----------|---------|
+| `filePath` | `string` | nein | nein |
+
+Rückgabewert: `Promise<boolean>`
+
 ### variable: __dirname
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `__dirname: string`
 ```ts
 __dirname: string

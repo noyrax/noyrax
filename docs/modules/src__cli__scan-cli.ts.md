@@ -1,9 +1,9 @@
 # Modul: src/cli/scan-cli.ts
 
-<!-- change: symbol-added name="ScanCliResult" kind="interface" -->
+<!-- change: symbol-added name="ScanCliOptions" kind="interface" -->
 ### interface: ScanCliResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ScanCliResult {
+Signatur: `export interface ScanCliResult {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -12,7 +12,7 @@ Signatur: `interface ScanCliResult {
   errors?: string[];
 }`
 ```ts
-interface ScanCliResult {
+export interface ScanCliResult {
   status: 'success' | 'error' | 'partial';
   filesProcessed: number;
   symbolsExtracted: number;
@@ -33,17 +33,17 @@ Eigenschaften:
 | `status` | `'success' | 'error' | 'partial'` | nein |
 | `symbolsExtracted` | `number` | nein |
 
-<!-- change: symbol-added name="ScanCliOptions" kind="interface" -->
+<!-- change: symbol-added name="runScanCli" kind="function" -->
 ### interface: ScanCliOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ScanCliOptions {
+Signatur: `export interface ScanCliOptions {
   workspaceRoot?: string;
   includeBackups?: boolean;
   files?: string[];
   incremental?: boolean;
 }`
 ```ts
-interface ScanCliOptions {
+export interface ScanCliOptions {
   workspaceRoot?: string;
   includeBackups?: boolean;
   files?: string[];
@@ -60,12 +60,12 @@ Eigenschaften:
 | `incremental` | `boolean` | ja |
 | `workspaceRoot` | `string` | ja |
 
-<!-- change: symbol-added name="runScanCli" kind="function" -->
+<!-- change: symbol-added name="reexport:runScanClifrom:undefined" kind="variable" -->
 ### function: runScanCli
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runScanCli(options: ScanCliOptions = …): Promise<ScanCliResult>`
+Signatur: `export async runScanCli(options: ScanCliOptions = …): Promise<ScanCliResult>`
 ```ts
-runScanCli(options: ScanCliOptions = …): Promise<ScanCliResult>
+export async runScanCli(options: ScanCliOptions = …): Promise<ScanCliResult>
 ```
 
 Parameter:
@@ -76,7 +76,7 @@ Parameter:
 
 Rückgabewert: `Promise<ScanCliResult>`
 
-<!-- change: symbol-added name="reexport:runScanClifrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:ScanCliOptionsfrom:undefined" kind="variable" -->
 ### variable: reexport:runScanClifrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:runScanClifrom:undefined`
@@ -84,7 +84,7 @@ Signatur: `reexport:runScanClifrom:undefined`
 reexport:runScanClifrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:ScanCliOptionsfrom:undefined" kind="variable" -->
+<!-- change: symbol-added name="reexport:ScanCliResultfrom:undefined" kind="variable" -->
 ### variable: reexport:ScanCliOptionsfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ScanCliOptionsfrom:undefined`
@@ -92,7 +92,6 @@ Signatur: `reexport:ScanCliOptionsfrom:undefined`
 reexport:ScanCliOptionsfrom:undefined
 ```
 
-<!-- change: symbol-added name="reexport:ScanCliResultfrom:undefined" kind="variable" -->
 ### variable: reexport:ScanCliResultfrom:undefined
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ScanCliResultfrom:undefined`

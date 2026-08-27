@@ -1,14 +1,14 @@
 # Modul: src/cache/output-cache.ts
 
-<!-- change: symbol-added name="computeContentHash" kind="function" -->
+<!-- change: symbol-added name="loadOutputHashCache" kind="function" -->
 ### interface: OutputHashCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface OutputHashCacheData {
+Signatur: `export interface OutputHashCacheData {
   version: 1;
   entries: OutputHashEntry[];
 }`
 ```ts
-interface OutputHashCacheData {
+export interface OutputHashCacheData {
   version: 1;
   entries: OutputHashEntry[];
 }
@@ -21,15 +21,15 @@ Eigenschaften:
 | `entries` | `OutputHashEntry[]` | nein |
 | `version` | `1` | nein |
 
-<!-- change: symbol-added name="loadOutputHashCache" kind="function" -->
+<!-- change: symbol-added name="saveOutputHashCache" kind="function" -->
 ### interface: OutputHashEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface OutputHashEntry {
+Signatur: `export interface OutputHashEntry {
   path: string;
   hash: string;
 }`
 ```ts
-interface OutputHashEntry {
+export interface OutputHashEntry {
   path: string;
   hash: string;
 }
@@ -42,12 +42,11 @@ Eigenschaften:
 | `hash` | `string` | nein |
 | `path` | `string` | nein |
 
-<!-- change: symbol-added name="saveOutputHashCache" kind="function" -->
 ### function: computeContentHash
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `computeContentHash(content: string): string`
+Signatur: `export computeContentHash(content: string): string`
 ```ts
-computeContentHash(content: string): string
+export computeContentHash(content: string): string
 ```
 
 Parameter:
@@ -60,9 +59,9 @@ Rückgabewert: `string`
 
 ### function: loadOutputHashCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `loadOutputHashCache(cacheFile: string): OutputHashCacheData | null`
+Signatur: `export loadOutputHashCache(cacheFile: string): OutputHashCacheData | null`
 ```ts
-loadOutputHashCache(cacheFile: string): OutputHashCacheData | null
+export loadOutputHashCache(cacheFile: string): OutputHashCacheData | null
 ```
 
 Parameter:
@@ -75,9 +74,9 @@ Rückgabewert: `OutputHashCacheData | null`
 
 ### function: saveOutputHashCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `saveOutputHashCache(cacheDir: string, data: OutputHashCacheData): void`
+Signatur: `export saveOutputHashCache(cacheDir: string, data: OutputHashCacheData): void`
 ```ts
-saveOutputHashCache(cacheDir: string, data: OutputHashCacheData): void
+export saveOutputHashCache(cacheDir: string, data: OutputHashCacheData): void
 ```
 
 Parameter:

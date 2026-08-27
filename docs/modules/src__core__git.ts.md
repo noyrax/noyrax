@@ -2,9 +2,9 @@
 
 ### function: getChangedFiles
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `getChangedFiles(repoRoot: string): Set<string> | null`
+Signatur: `export getChangedFiles(repoRoot: string): Set<string> | null`
 ```ts
-getChangedFiles(repoRoot: string): Set<string> | null
+export getChangedFiles(repoRoot: string): Set<string> | null
 ```
 
 Parameter:
@@ -17,9 +17,9 @@ Rückgabewert: `Set<string> | null`
 
 ### function: getDeletedFiles
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `getDeletedFiles(repoRoot: string): Set<string> | null`
+Signatur: `export getDeletedFiles(repoRoot: string): Set<string> | null`
 ```ts
-getDeletedFiles(repoRoot: string): Set<string> | null
+export getDeletedFiles(repoRoot: string): Set<string> | null
 ```
 
 Parameter:

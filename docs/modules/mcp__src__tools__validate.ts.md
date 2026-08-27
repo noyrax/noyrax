@@ -1,14 +1,14 @@
 # Modul: mcp/src/tools/validate.ts
 
-<!-- change: symbol-added name="ValidationError" kind="interface" -->
+<!-- change: symbol-added name="runValidate" kind="function" -->
 ### interface: ValidateRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ValidateRequest {
+Signatur: `export interface ValidateRequest {
   files?: string[];
   verbose?: boolean;
 }`
 ```ts
-interface ValidateRequest {
+export interface ValidateRequest {
   files?: string[];
   verbose?: boolean;
 }
@@ -21,10 +21,10 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="runValidate" kind="function" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ValidateResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
-Signatur: `interface ValidateResponse {
+Signatur: `export interface ValidateResponse {
   status: 'success' | 'warnings' | 'errors';
   errors: ValidationError[];
   warnings: ValidationError[];
@@ -37,7 +37,7 @@ Signatur: `interface ValidateResponse {
   logs: string[];
 }`
 ```ts
-interface ValidateResponse {
+export interface ValidateResponse {
   status: 'success' | 'warnings' | 'errors';
   errors: ValidationError[];
   warnings: ValidationError[];
@@ -66,10 +66,9 @@ Eigenschaften:
 | `status` | `'success' | 'warnings' | 'errors'` | nein |
 | `warnings` | `ValidationError[]` | nein |
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ValidationError
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `interface ValidationError {
+Signatur: `export interface ValidationError {
   file: string;
   type: 'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage';
   message: string;
@@ -77,7 +76,7 @@ Signatur: `interface ValidationError {
   found?: string;
 }`
 ```ts
-interface ValidationError {
+export interface ValidationError {
   file: string;
   type: 'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage';
   message: string;
@@ -98,9 +97,9 @@ Eigenschaften:
 
 ### function: runValidate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `runValidate(request: ValidateRequest): Promise<ValidateResponse>`
+Signatur: `export async runValidate(request: ValidateRequest): Promise<ValidateResponse>`
 ```ts
-runValidate(request: ValidateRequest): Promise<ValidateResponse>
+export async runValidate(request: ValidateRequest): Promise<ValidateResponse>
 ```
 
 Parameter:
@@ -112,7 +111,7 @@ Parameter:
 Rückgabewert: `Promise<ValidateResponse>`
 
 ### variable: execAsync
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
 execAsync: typeof exec.__promisify__

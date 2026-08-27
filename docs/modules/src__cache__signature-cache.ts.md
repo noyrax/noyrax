@@ -1,14 +1,14 @@
 # Modul: src/cache/signature-cache.ts
 
-<!-- change: symbol-added name="loadSignatureCache" kind="function" -->
+<!-- change: symbol-added name="saveSignatureCache" kind="function" -->
 ### interface: CacheEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface CacheEntry {
+Signatur: `export interface CacheEntry {
   baseId: string;
   signatureHash: string;
 }`
 ```ts
-interface CacheEntry {
+export interface CacheEntry {
   baseId: string;
   signatureHash: string;
 }
@@ -21,15 +21,14 @@ Eigenschaften:
 | `baseId` | `string` | nein |
 | `signatureHash` | `string` | nein |
 
-<!-- change: symbol-added name="saveSignatureCache" kind="function" -->
 ### interface: SignatureCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `interface SignatureCacheData {
+Signatur: `export interface SignatureCacheData {
   version: 1;
   entries: CacheEntry[];
 }`
 ```ts
-interface SignatureCacheData {
+export interface SignatureCacheData {
   version: 1;
   entries: CacheEntry[];
 }
@@ -44,9 +43,9 @@ Eigenschaften:
 
 ### function: loadSignatureCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `loadSignatureCache(cacheFile: string): SignatureCacheData | null`
+Signatur: `export loadSignatureCache(cacheFile: string): SignatureCacheData | null`
 ```ts
-loadSignatureCache(cacheFile: string): SignatureCacheData | null
+export loadSignatureCache(cacheFile: string): SignatureCacheData | null
 ```
 
 Parameter:
@@ -59,9 +58,9 @@ Rückgabewert: `SignatureCacheData | null`
 
 ### function: saveSignatureCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `saveSignatureCache(cacheDir: string, data: SignatureCacheData): void`
+Signatur: `export saveSignatureCache(cacheDir: string, data: SignatureCacheData): void`
 ```ts
-saveSignatureCache(cacheDir: string, data: SignatureCacheData): void
+export saveSignatureCache(cacheDir: string, data: SignatureCacheData): void
 ```
 
 Parameter:

@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import ignore from 'ignore';
-import { guessLanguageByShebang } from './language-detection';
+import { guessLanguageByShebang, detectLanguageByExtension } from './language-detection';
 import { Logger } from '../logging/index';
 
 export interface ScannedFile {
@@ -81,30 +81,6 @@ export function scanWorkspace(options: ScanOptions, includeBackups = false): Sca
             return false;
         } catch {
             return false;
-        }
-    }
-
-    function detectLanguageByExtension(filePath: string): string | null {
-        const ext = path.extname(filePath).toLowerCase();
-        switch (ext) {
-            case '.ts':
-            case '.tsx':
-                return 'ts';
-            case '.js':
-            case '.jsx':
-            case '.mjs':
-                return 'js';
-            case '.json':
-                return 'json';
-            case '.yaml':
-            case '.yml':
-                return 'yaml';
-            case '.py':
-                return 'python';
-            case '.md':
-                return 'markdown';
-            default:
-                return null;
         }
     }
 

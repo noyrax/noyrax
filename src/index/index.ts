@@ -3,6 +3,7 @@ import * as path from 'path';
 import { ParsedSymbol, SymbolSignature } from '../parsers/types';
 import { makeStableSymbolId } from '../core/symbols';
 import { DependencyCacheEntry } from '../cache/dependencies-cache';
+import { detectLanguageByExtension } from '../core/language-detection';
 
 export interface DependencyEntry {
     module: string;
@@ -149,7 +150,12 @@ export function readSymbolsFromIndex(indexFile: string): ParsedSymbol[] {
             try {
                 const row = JSON.parse(line) as IndexRow;
                 symbols.push({
-                    language: 'unknown', // Index speichert die Sprache aktuell nicht
+                    // Der Index speichert die Sprache nicht, sie laesst sich aber
+                    // aus dem Pfad ableiten. Der frueher gesetzte Festwert
+                    // 'unknown' fiel in computeCoverage() durch den Filter auf
+                    // ts/js -- jedes Symbol aus dem Index wurde verworfen und
+                    // "0 von 0" als 100 % Abdeckung gemeldet.
+                    language: detectLanguageByExtension(row.path) ?? 'unknown',
                     filePath: row.path,
                     fullyQualifiedName: row.name,
                     kind: row.kind as ParsedSymbol['kind'],

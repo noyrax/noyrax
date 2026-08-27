@@ -122,6 +122,20 @@ export function computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thr
         return total === 0 ? 1 : doc / total;
     }
 
+    // Wenn Symbole vorliegen, aber keines zaehlbar ist, hat die Pruefung nicht
+    // stattgefunden. ratio() liefert dann fuer jede Kategorie 1, alle Schwellen
+    // gelten als erfuellt und das Ergebnis sieht perfekt aus. Genau so blieb
+    // unbemerkt, dass readSymbolsFromIndex() die Sprache auf 'unknown' setzte
+    // und der ts/js-Filter unten jedes Symbol verwarf. Vgl. ADR-113.
+    const zaehlbar = metrics.totalClasses + metrics.totalInterfaces
+        + metrics.totalMethods + metrics.totalFunctions;
+    if (symbols.length > 0 && zaehlbar === 0) {
+        errors.push(
+            `Coverage nicht ermittelbar: ${symbols.length} Symbole geladen, aber keines zaehlbar `
+            + `(Filter auf Sprache ts/js und Sichtbarkeit public)`
+        );
+    }
+
     const classesOk = ratio(metrics.documentedClasses, metrics.totalClasses) >= thresholds.classes;
     const interfacesOk = ratio(metrics.documentedInterfaces, metrics.totalInterfaces) >= thresholds.interfaces;
     const methodsOk = ratio(metrics.documentedMethods, metrics.totalMethods) >= thresholds.methods;

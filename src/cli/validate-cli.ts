@@ -211,7 +211,10 @@ async function runValidateCli(options: ValidateCliOptions = {}): Promise<Validat
         return {
           documented,
           total,
-          percentage: total > 0 ? Math.round((documented / total) * 100) : 100,
+          // Kein geprueftes Symbol heisst nicht "vollstaendig abgedeckt".
+          // Der fruehere Festwert 100 machte aus einer ausgefallenen Pruefung
+          // ein perfektes Ergebnis -- genau das, was ADR-113 ausschliesst.
+          percentage: total > 0 ? Math.round((documented / total) * 100) : 0,
         };
       })(),
       duration: Date.now() - startTime,

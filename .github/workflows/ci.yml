@@ -97,8 +97,7 @@ jobs:
           # npm-Publish, vsce lehnt sie aber zusammen mit einer .vscodeignore
           # ab ("VSCE does not support combining both strategies"). Fuer die
           # VSIX gilt .vscodeignore.
-          node -e "const fs=require('fs');const j=JSON.parse(fs.readFileSync('package.json','utf8'));j.name='noyrax';delete j.files;fs.writeFileSync('package.json',JSON.stringify(j,null,2)+'
-');"
+          node -e "const fs=require('fs');const j=JSON.parse(fs.readFileSync('package.json','utf8'));j.name='noyrax';delete j.files;fs.writeFileSync('package.json',JSON.stringify(j,null,2));"
           npx @vscode/vsce package
           git checkout -- package.json
       

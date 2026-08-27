@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 echo "🔍 Running verification checks..."
 
 # 1. Check for common issues

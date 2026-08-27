@@ -27,3 +27,9 @@ website/
 docs/.cache/
 .scannerwork/
 .coverage/
+
+# Vom Generator erzeugt und maschinenspezifisch: workspace_root ist ein
+# absoluter Pfad, und system_id wird daraus gehasht. Versioniert ergaebe
+# die Datei auf jedem Rechner einen anderen Inhalt; gelesen wird sie von
+# keiner Stelle im Code.
+docs/system/SYSTEM_METADATA.json

@@ -1,6 +1,6 @@
 # Modul: src/cache/signature-cache.ts
 
-<!-- change: symbol-added name="SignatureCacheData" kind="interface" -->
+<!-- change: symbol-added name="loadSignatureCache" kind="function" -->
 ### interface: CacheEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface CacheEntry {
@@ -21,7 +21,7 @@ Eigenschaften:
 | `baseId` | `string` | nein |
 | `signatureHash` | `string` | nein |
 
-<!-- change: symbol-added name="loadSignatureCache" kind="function" -->
+<!-- change: symbol-added name="saveSignatureCache" kind="function" -->
 ### interface: SignatureCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface SignatureCacheData {
@@ -42,7 +42,6 @@ Eigenschaften:
 | `entries` | `CacheEntry[]` | nein |
 | `version` | `1` | nein |
 
-<!-- change: symbol-added name="saveSignatureCache" kind="function" -->
 ### function: loadSignatureCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `loadSignatureCache(cacheFile: string): SignatureCacheData | null`

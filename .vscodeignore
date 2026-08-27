@@ -1,6 +1,13 @@
 node_modules/**
+
+# Source Maps und Type Definitions nicht benötigt
+out/**/*.map
+out/**/*.d.ts
 dist/**
 test-corpus/**
+
+# Source Files nicht benötigt (nur kompilierte out/ Dateien)
+src/**
 
 # Demo-Projekt nicht ins VSIX packen
 demo/**
@@ -14,8 +21,23 @@ plans-archive/**
 .ai-agent-context/**
 .ai-agent-rules.json
 
+# Generierte Dokumentation nicht ins VSIX packen
+docs/**
+
+# MCP Server und Packages nicht ins VSIX packen (separate Projekte)
+mcp/**
+packages/**
+
+# GitHub Actions nicht ins VSIX packen
+action/**
+
 # Lokale Build-/Cache-Artefakte
 *.vsix
+*.zip
+temp-vsix-extract/**
+temp-check/**
+temp-*/**
 *.log
 
-
+# node_modules wird von vsce automatisch eingebunden (nur dependencies, nicht devDependencies)
+# Daher NICHT ausschließen - vsce kümmert sich darum

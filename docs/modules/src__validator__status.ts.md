@@ -1,6 +1,6 @@
 # Modul: src/validator/status.ts
 
-<!-- change: symbol-added name="computeValidationStatus" kind="function" -->
+<!-- change: symbol-added name="ValidationStatus" kind="type" -->
 ### interface: StatusReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface StatusReport {
@@ -42,7 +42,6 @@ Eigenschaften:
 | `message` | `string` | nein |
 | `status` | `ValidationStatus` | nein |
 
-<!-- change: symbol-added name="ValidationStatus" kind="type" -->
 ### function: computeValidationStatus
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `computeValidationStatus(errors: string[], warnings: string[], coverageErrors: string[], signatureMismatches: number, markdownErrors: string[]): StatusReport`

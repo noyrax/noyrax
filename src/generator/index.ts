@@ -1,11 +1,12 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { ParsedSymbol } from '../parsers/types';
 import {
     parseModuleDoc,
     buildModuleDocWithChanges,
     renderModuleDoc
 } from './module-doc';
+import { AdrLinker } from './adr-linker';
 
 /**
  * @public
@@ -38,6 +39,29 @@ export function generatePerFileDocs(
         grouped.get(key)!.push(s);
     }
 
+    // Create AdrLinker once for all files (performance optimization)
+    const adrDir = path.join(path.dirname(modulesDir), 'adr');
+    let adrLinker: AdrLinker | undefined;
+    try {
+        if (fs.existsSync(adrDir)) {
+            adrLinker = new AdrLinker(adrDir);
+            // Debug: Log ADR mappings
+            // WICHTIG: console.error() statt console.log(), damit stdout nur JSON enthält (siehe ADR-066)
+            const mappings = adrLinker.getAllAdrMappings();
+            if (mappings.size > 0) {
+                console.error(`[ADR-Linker] Loaded ${mappings.size} file path mappings from ${adrDir}`);
+            } else {
+                console.error(`[ADR-Linker] No file path mappings found in ${adrDir}`);
+            }
+        } else {
+            console.error(`[ADR-Linker] ADR directory does not exist: ${adrDir}`);
+        }
+    } catch (err) {
+        // If ADR linking fails, continue without it
+        // This ensures the documentation generation doesn't break
+        console.error(`[ADR-Linker] Error creating AdrLinker: ${err}`);
+    }
+
     const files = new Map<string, string>();
     for (const [filePath, syms] of grouped.entries()) {
         const safeName = makeSafeFileName(filePath);
@@ -64,7 +88,8 @@ export function generatePerFileDocs(
         
         // Build documentation with change tracking
         const newDoc = buildModuleDocWithChanges(syms, existingDoc);
-        const content = renderModuleDoc(newDoc, filePath);
+        // Reuse AdrLinker instance for all files
+        const content = renderModuleDoc(newDoc, filePath, adrLinker);
         files.set(filePath, content);
     }
     return files;

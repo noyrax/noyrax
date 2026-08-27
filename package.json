@@ -1,17 +1,28 @@
 {
-  "name": "noyrax",
+  "name": "@noyrax/documentation-system-plugin",
   "displayName": "Noyrax",
-  "description": "Documentation that never drifts. Automatische Dokumentationsgenerierung mit Validierung und Drift-Detection.",
-  "version": "1.0.4",
+  "description": "Documentation that never drifts. Automatic documentation generation with validation and drift detection. Generates 5-dimensional documentation structure (modules, symbols, dependencies, ADRs, changes) for codebases.",
+  "version": "1.0.4-beta.15",
   "publisher": "noyrax",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noyrax/noyrax"
+    "url": "git+https://github.com/noyrax/noyrax.git",
+    "directory": "documentation-system-plugin"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "homepage": "https://noyrax.dev",
   "bugs": {
     "url": "https://github.com/noyrax/noyrax/issues"
   },
+  "files": [
+    "out/",
+    "scripts/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -34,19 +45,7 @@
   ],
   "main": "./out/extension.js",
   "activationEvents": [
-    "onStartupFinished",
-    "onView:noyraxExplorer",
-    "onView:noyraxCommands",
-    "onCommand:noyrax.generate",
-    "onCommand:noyrax.scan",
-    "onCommand:noyrax.search",
-    "onCommand:noyrax.validate",
-    "onCommand:noyrax.drift",
-    "onCommand:noyrax.open",
-    "onCommand:noyrax.overview",
-    "onCommand:noyrax.sync",
-    "onCommand:noyrax.fullCycle",
-    "onCommand:noyrax.refresh"
+    "onStartupFinished"
   ],
   "contributes": {
     "commands": [
@@ -191,7 +190,11 @@
         },
         "noyrax.apiDoc.depth": {
           "type": "string",
-          "enum": ["full", "standard", "minimal"],
+          "enum": [
+            "full",
+            "standard",
+            "minimal"
+          ],
           "default": "full",
           "description": "Depth of generated API documentation for symbols (full | standard | minimal)."
         },
@@ -269,6 +272,8 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "prepublishOnly": "npm run compile",
+    "postinstall": "node -e \"const fs=require('fs'),path=require('path');const cliPath=path.join(__dirname,'out','cli','scan-cli.js');if(!fs.existsSync(cliPath)){console.log('[postinstall] CLI files missing, compiling...');require('child_process').execSync('npm run compile',{stdio:'inherit',cwd:__dirname});}\"",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "test": "jest",
@@ -278,29 +283,31 @@
     "sonar:cloud": "sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}",
     "quality": "npm run test && npm run sonar:cloud",
     "package": "vsce package",
-    "publish": "vsce publish",
+    "publish:npm": "npm publish --access public",
+    "publish:vsce": "vsce publish",
     "scan:cli": "node out/cli/scan-cli.js",
     "validate:cli": "node out/cli/validate-cli.js",
+    "generate:cli": "node out/cli/generate-cli.js",
     "verify:all": "node scripts/verify-architecture.js && node scripts/verify-adrs.js && node scripts/verify-imports.js",
     "verify:architecture": "node scripts/verify-architecture.js",
     "verify:adrs": "node scripts/verify-adrs.js",
     "verify:imports": "node scripts/verify-imports.js"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "16.x",
     "@types/vscode": "^1.74.0",
     "@vscode/vsce": "^2.22.0",
-    "typescript": "^4.9.4",
-    "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
-    "ts-jest": "^29.1.2"
+    "ts-jest": "^29.1.2",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@types/yaml": "^1.9.6",
     "ignore": "^5.3.2",
-    "ts-morph": "^22.0.0",
-    "yaml": "^2.8.1",
     "tree-sitter": "^0.21.1",
-    "tree-sitter-python": "^0.21.0"
+    "tree-sitter-python": "^0.21.0",
+    "ts-morph": "^22.0.0",
+    "yaml": "^2.8.1"
   }
 }

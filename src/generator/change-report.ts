@@ -1,6 +1,3 @@
-import { ParsedSymbol } from '../parsers/types';
-import { ModuleDependency } from '../parsers/dependencies';
-
 /**
  * @public
  * Change data for report generation

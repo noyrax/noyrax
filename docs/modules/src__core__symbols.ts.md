@@ -1,6 +1,5 @@
 # Modul: src/core/symbols.ts
 
-<!-- change: symbol-added name="makeStableSymbolId" kind="function" -->
 ### function: computeSignatureHash
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `computeSignatureHash(symbol: ParsedSymbol): string`

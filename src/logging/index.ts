@@ -12,7 +12,13 @@ export class Logger {
     }
 
     info(message: string) {
-        console.log(`[${this.component}] ${message}`);
+        // Bewusst console.error und nicht console.log: Log-Ausgaben sind ein
+        // Diagnosekanal, stdout ist der Datenkanal. Die CLIs unter src/cli/
+        // schreiben ihr Ergebnis als JSON nach stdout; eine dazwischenliegende
+        // info()-Zeile machte daraus ungueltiges JSON und liess die
+        // Verifikation in der CI abbrechen. warn() und error() schreiben aus
+        // demselben Grund bereits nach stderr.
+        console.error(`[${this.component}] ${message}`);
     }
 
     warn(message: string) {

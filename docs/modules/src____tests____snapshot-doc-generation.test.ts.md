@@ -2,7 +2,7 @@
 
 ### variable: SNAPSHOT_TS
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `SNAPSHOT_TS: any`
+Signatur: `SNAPSHOT_TS: string`
 ```ts
-SNAPSHOT_TS: any
+SNAPSHOT_TS: string
 ```

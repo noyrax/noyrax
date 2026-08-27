@@ -1,7 +1,6 @@
 import { Project, SyntaxKind, ModuleDeclaration, FunctionDeclaration, ParameterDeclaration, ExportDeclaration, Type } from 'ts-morph';
 import * as path from 'path';
 import { ParsedSymbol, ParserAdapter, SymbolSignature } from './types';
-import { extractTsJsDependencies } from './dependencies';
 
 export class TsJsParser implements ParserAdapter {
     language = 'ts-js';
@@ -64,7 +63,7 @@ export class TsJsParser implements ParserAdapter {
         };
 
         // Hilfsfunktion für Push
-        const pushSymbol = (kind: ParsedSymbol['kind'], name: string, signature?: Partial<SymbolSignature>) => {
+        const pushSymbol = (kind: ParsedSymbol['kind'], name: string, signature?: Partial<SymbolSignature>, node?: any) => {
             const sig: SymbolSignature = {
                 name,
                 parameters: [],
@@ -72,12 +71,37 @@ export class TsJsParser implements ParserAdapter {
                 visibility: 'public',
                 ...signature,
             };
+            
+            // NEW: Capture span if node provided
+            let spanInfo: Partial<ParsedSymbol> = {};
+            if (node && sourceFile) {
+                try {
+                    // Use compilerNode to access TypeScript compiler API
+                    const compilerSourceFile = sourceFile.compilerNode;
+                    const startPos = node.getStart();
+                    const endPos = node.getEnd();
+                    const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                    const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                    spanInfo = {
+                        start_line: start.line + 1,  // Convert to 1-indexed
+                        end_line: end.line + 1,      // Convert to 1-indexed
+                        start_col: start.character,
+                        end_col: end.character,
+                        byte_offset_start: startPos,
+                        byte_offset_end: endPos
+                    };
+                } catch {
+                    // If span capture fails, continue without span info
+                }
+            }
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
                 signature: sig,
                 kind,
+                ...spanInfo
             });
         };
 
@@ -94,6 +118,7 @@ export class TsJsParser implements ParserAdapter {
                         name: p.getName(),
                         type: nodeOrTypeText(p as any),
                         hasDefault: !!p.getInitializer(),
+                        optional: (typeof (p as any).hasQuestionToken === 'function') ? (p as any).hasQuestionToken() : false,
                     })),
                     returnType: (() => {
                         try {
@@ -104,13 +129,32 @@ export class TsJsParser implements ParserAdapter {
                     })(),
                     visibility: method.getScope() as any,
                 };
-                symbols.push({
-                    language: 'ts',
-                    filePath: repoRelPath,
-                    fullyQualifiedName: `${fqn}.${sig.name}`,
-                    signature: sig,
-                    kind: 'method',
-                });
+            // Capture span for method
+            let methodSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = method.getStart();
+                const endPos = method.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                methodSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
+            symbols.push({
+                language: 'ts',
+                filePath: repoRelPath,
+                fullyQualifiedName: `${fqn}.${sig.name}`,
+                signature: sig,
+                kind: 'method',
+                ...methodSpanInfo
+            });
             });
             // Properties
             cls.getProperties().forEach(prop => {
@@ -123,20 +167,58 @@ export class TsJsParser implements ParserAdapter {
                     return safeTypeText(prop.getType());
                 })();
                 const sig: SymbolSignature = { name: propName, parameters: [], returnType: typeText, visibility: prop.getScope() as any };
+                // Capture span for property
+                let propSpanInfo: Partial<ParsedSymbol> = {};
+                try {
+                    const compilerSourceFile = sourceFile.compilerNode;
+                    const startPos = prop.getStart();
+                    const endPos = prop.getEnd();
+                    const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                    const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                    propSpanInfo = {
+                        start_line: start.line + 1,
+                        end_line: end.line + 1,
+                        start_col: start.character,
+                        end_col: end.character,
+                        byte_offset_start: startPos,
+                        byte_offset_end: endPos
+                    };
+                } catch {}
+                
                 symbols.push({
                     language: 'ts',
                     filePath: repoRelPath,
                     fullyQualifiedName: `${fqn}.${propName}`,
                     signature: sig,
                     kind: 'variable',
+                    ...propSpanInfo
                 });
             });
+            // Capture span for class
+            let classSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = cls.getStart();
+                const endPos = cls.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                classSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
                 signature: { name, parameters: [] },
                 kind: 'class',
+                ...classSpanInfo
             });
         });
 
@@ -149,6 +231,7 @@ export class TsJsParser implements ParserAdapter {
                     name: p.getName(),
                     type: nodeOrTypeText(p as any),
                     hasDefault: !!p.getInitializer(),
+                    optional: (typeof (p as any).hasQuestionToken === 'function') ? (p as any).hasQuestionToken() : false,
                 })),
                 returnType: (() => {
                     try {
@@ -159,12 +242,31 @@ export class TsJsParser implements ParserAdapter {
                 })(),
                 visibility: 'public',
             };
+            // Capture span for function
+            let functionSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = fn.getStart();
+                const endPos = fn.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                functionSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
                 signature: sig,
                 kind: 'function',
+                ...functionSpanInfo
             });
         });
 
@@ -177,6 +279,24 @@ export class TsJsParser implements ParserAdapter {
                 hasDefault: !!prop.getInitializer(),
                 optional: (typeof (prop as any).hasQuestionToken === 'function') ? (prop as any).hasQuestionToken() : false,
             }));
+            // Capture span for interface
+            let interfaceSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = intf.getStart();
+                const endPos = intf.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                interfaceSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
@@ -188,17 +308,37 @@ export class TsJsParser implements ParserAdapter {
                     visibility: 'public'
                 },
                 kind: 'interface',
+                ...interfaceSpanInfo
             });
         });
 
         sourceFile.getEnums().forEach(en => {
             const name = en.getName();
+            // Capture span for enum
+            let enumSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = en.getStart();
+                const endPos = en.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                enumSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
                 signature: { name, parameters: [] },
                 kind: 'enum',
+                ...enumSpanInfo
             });
         });
 
@@ -207,12 +347,31 @@ export class TsJsParser implements ParserAdapter {
             const name = ta.getName();
             const typeNode = ta.getTypeNode();
             const typeText = typeNode ? normalizeTypeString(typeNode.getText()) : '';
+            // Capture span for type alias
+            let typeSpanInfo: Partial<ParsedSymbol> = {};
+            try {
+                const compilerSourceFile = sourceFile.compilerNode;
+                const startPos = ta.getStart();
+                const endPos = ta.getEnd();
+                const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                typeSpanInfo = {
+                    start_line: start.line + 1,
+                    end_line: end.line + 1,
+                    start_col: start.character,
+                    end_col: end.character,
+                    byte_offset_start: startPos,
+                    byte_offset_end: endPos
+                };
+            } catch {}
+            
             symbols.push({
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
                 signature: { name, parameters: [], returnType: typeText },
                 kind: 'type',
+                ...typeSpanInfo
             });
         });
 
@@ -258,12 +417,31 @@ export class TsJsParser implements ParserAdapter {
                     return safeTypeText(decl.getType());
                 })();
                 const sig: SymbolSignature = { name, parameters: [], returnType: typeText, visibility: 'public' };
+                // Capture span for variable
+                let varSpanInfo: Partial<ParsedSymbol> = {};
+                try {
+                    const compilerSourceFile = sourceFile.compilerNode;
+                    const startPos = decl.getStart();
+                    const endPos = decl.getEnd();
+                    const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                    const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                    varSpanInfo = {
+                        start_line: start.line + 1,
+                        end_line: end.line + 1,
+                        start_col: start.character,
+                        end_col: end.character,
+                        byte_offset_start: startPos,
+                        byte_offset_end: endPos
+                    };
+                } catch {}
+                
                 symbols.push({
                     language: 'ts',
                     filePath: repoRelPath,
                     fullyQualifiedName: name,
                     signature: sig,
                     kind: 'variable',
+                    ...varSpanInfo
                 });
             });
         });
@@ -272,7 +450,7 @@ export class TsJsParser implements ParserAdapter {
         const moduleDecls: ModuleDeclaration[] = sourceFile.getDescendantsOfKind(SyntaxKind.ModuleDeclaration);
         moduleDecls.forEach((ns: ModuleDeclaration) => {
             const name = ns.getName() ?? 'anonymousModule';
-            pushSymbol('module', name);
+            pushSymbol('module', name, undefined, ns);
             ns.getFunctions().forEach((fn: FunctionDeclaration) => {
                 const fnName = `${name}.${fn.getName() || 'anonymous'}`;
                 const sig: SymbolSignature = {
@@ -281,6 +459,7 @@ export class TsJsParser implements ParserAdapter {
                         name: p.getName(),
                         type: nodeOrTypeText(p as any),
                         hasDefault: !!p.getInitializer(),
+                        optional: (typeof (p as any).hasQuestionToken === 'function') ? (p as any).hasQuestionToken() : false,
                     })),
                     returnType: (() => {
                         try {
@@ -291,12 +470,31 @@ export class TsJsParser implements ParserAdapter {
                     })(),
                     visibility: 'public',
                 };
+                // Capture span for namespace function
+                let nsFunctionSpanInfo: Partial<ParsedSymbol> = {};
+                try {
+                    const compilerSourceFile = sourceFile.compilerNode;
+                    const startPos = fn.getStart();
+                    const endPos = fn.getEnd();
+                    const start = compilerSourceFile.getLineAndCharacterOfPosition(startPos);
+                    const end = compilerSourceFile.getLineAndCharacterOfPosition(endPos);
+                    nsFunctionSpanInfo = {
+                        start_line: start.line + 1,
+                        end_line: end.line + 1,
+                        start_col: start.character,
+                        end_col: end.character,
+                        byte_offset_start: startPos,
+                        byte_offset_end: endPos
+                    };
+                } catch {}
+                
                 symbols.push({
                     language: 'ts',
                     filePath: repoRelPath,
                     fullyQualifiedName: fnName,
                     signature: sig,
                     kind: 'function',
+                    ...nsFunctionSpanInfo
                 });
             });
         });
@@ -308,7 +506,8 @@ export class TsJsParser implements ParserAdapter {
             if (defaultExportSymbol) {
                 const decls = defaultExportSymbol.getDeclarations();
                 const name = decls?.[0]?.getSymbol()?.getName?.() || 'default';
-                pushSymbol('variable', `default:${name}`);
+                const node = decls?.[0] as any; // Declaration is already a Node
+                pushSymbol('variable', `default:${name}`, undefined, node);
             }
         } catch {}
 
@@ -320,7 +519,9 @@ export class TsJsParser implements ParserAdapter {
                     const name = sym?.getName?.();
                     if (!name) return;
                     if (!symbols.some(s => s.fullyQualifiedName === name)) {
-                        pushSymbol('variable', name);
+                        const decls = sym.getDeclarations();
+                        const node = decls?.[0] as any; // Declaration is already a Node
+                        pushSymbol('variable', name, undefined, node);
                     }
                 } catch {}
             });
@@ -330,17 +531,17 @@ export class TsJsParser implements ParserAdapter {
         sourceFile.getExportDeclarations().forEach((ed: ExportDeclaration) => {
             const moduleSpec = ed.getModuleSpecifierValue();
             if (ed.isNamespaceExport()) {
-                pushSymbol('module', `reexport:*from:${moduleSpec}`);
+                pushSymbol('module', `reexport:*from:${moduleSpec}`, undefined, ed);
             } else {
                 const named = ed.getNamedExports();
                 if (named.length > 0) {
                     named.forEach(ne => {
                         const n = ne.getAliasNode()?.getText() || ne.getName();
-                        pushSymbol('variable', `reexport:${n}from:${moduleSpec}`);
+                        pushSymbol('variable', `reexport:${n}from:${moduleSpec}`, undefined, ne);
                     });
                 } else {
                     // treat as star export when no named and no namespace export
-                    pushSymbol('module', `reexport:*from:${moduleSpec}`);
+                    pushSymbol('module', `reexport:*from:${moduleSpec}`, undefined, ed);
                 }
             }
         });

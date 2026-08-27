@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/cli/update.ts
 
-<!-- change: symbol-added name="UpdateOptions" kind="interface" -->
+<!-- change: symbol-added name="RulesVersion" kind="interface" -->
 ### interface: UpdateResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface UpdateResult {
@@ -33,7 +33,7 @@ Eigenschaften:
 | `targetVersion` | `number` | nein |
 | `updated` | `string[]` | nein |
 
-<!-- change: symbol-added name="RulesVersion" kind="interface" -->
+<!-- change: symbol-added name="fileExists" kind="function" -->
 ### interface: UpdateOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface UpdateOptions {
@@ -57,7 +57,7 @@ Eigenschaften:
 | `targetDir` | `string` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="fileExists" kind="function" -->
+<!-- change: symbol-added name="updateRules" kind="function" -->
 ### interface: RulesVersion
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface RulesVersion {
@@ -78,7 +78,7 @@ Eigenschaften:
 | `updatedAt` | `string` | nein |
 | `version` | `number` | nein |
 
-<!-- change: symbol-added name="updateRules" kind="function" -->
+<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### function: fileExists
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `fileExists(filePath: string): Promise<boolean>`
@@ -94,7 +94,6 @@ Parameter:
 
 Rückgabewert: `Promise<boolean>`
 
-<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### function: updateRules
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `updateRules(options: UpdateOptions = …): Promise<UpdateResult>`
@@ -112,7 +111,7 @@ Rückgabewert: `Promise<UpdateResult>`
 
 ### variable: __dirname
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `__dirname: any`
+Signatur: `__dirname: string`
 ```ts
-__dirname: any
+__dirname: string
 ```

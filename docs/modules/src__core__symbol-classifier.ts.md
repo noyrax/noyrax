@@ -1,6 +1,6 @@
 # Modul: src/core/symbol-classifier.ts
 
-<!-- change: symbol-added name="classifyPriority" kind="function" -->
+<!-- change: symbol-added name="classifyRole" kind="function" -->
 ### interface: SymbolClassification
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface SymbolClassification {
@@ -24,7 +24,7 @@ Eigenschaften:
 | `role` | `SymbolRole` | nein |
 | `visibility` | `SymbolVisibility` | nein |
 
-<!-- change: symbol-added name="classifyRole" kind="function" -->
+<!-- change: symbol-added name="classifySymbol" kind="function" -->
 ### function: classifyPriority
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `classifyPriority(role: SymbolRole, visibility: SymbolVisibility): SymbolPriority`
@@ -41,7 +41,7 @@ Parameter:
 
 Rückgabewert: `SymbolPriority`
 
-<!-- change: symbol-added name="classifySymbol" kind="function" -->
+<!-- change: symbol-added name="classifyVisibility" kind="function" -->
 ### function: classifyRole
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `classifyRole(symbol: ParsedSymbol): SymbolRole`
@@ -57,7 +57,7 @@ Parameter:
 
 Rückgabewert: `SymbolRole`
 
-<!-- change: symbol-added name="classifyVisibility" kind="function" -->
+<!-- change: symbol-added name="filePathIncludes" kind="function" -->
 ### function: classifySymbol
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `classifySymbol(symbol: ParsedSymbol): SymbolClassification`
@@ -73,7 +73,7 @@ Parameter:
 
 Rückgabewert: `SymbolClassification`
 
-<!-- change: symbol-added name="filePathIncludes" kind="function" -->
+<!-- change: symbol-added name="hasAnySubstring" kind="function" -->
 ### function: classifyVisibility
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `classifyVisibility(symbol: ParsedSymbol): SymbolVisibility`
@@ -89,7 +89,7 @@ Parameter:
 
 Rückgabewert: `SymbolVisibility`
 
-<!-- change: symbol-added name="hasAnySubstring" kind="function" -->
+<!-- change: symbol-added name="hasAnySuffix" kind="function" -->
 ### function: filePathIncludes
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `filePathIncludes(path: string, segments: string[]): boolean`
@@ -106,7 +106,7 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="hasAnySuffix" kind="function" -->
+<!-- change: symbol-added name="normalizePath" kind="function" -->
 ### function: hasAnySubstring
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `hasAnySubstring(name: string, parts: string[]): boolean`
@@ -123,7 +123,7 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="normalizePath" kind="function" -->
+<!-- change: symbol-added name="SymbolPriority" kind="type" -->
 ### function: hasAnySuffix
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `hasAnySuffix(name: string, suffixes: string[]): boolean`
@@ -140,7 +140,7 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="SymbolPriority" kind="type" -->
+<!-- change: symbol-added name="SymbolRole" kind="type" -->
 ### function: normalizePath
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `normalizePath(p: string): string`
@@ -156,7 +156,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SymbolRole" kind="type" -->
+<!-- change: symbol-added name="SymbolVisibility" kind="type" -->
 ### type: SymbolPriority
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `type SymbolPriority`
@@ -164,7 +164,6 @@ Signatur: `type SymbolPriority`
 type SymbolPriority
 ```
 
-<!-- change: symbol-added name="SymbolVisibility" kind="type" -->
 ### type: SymbolRole
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `type SymbolRole`

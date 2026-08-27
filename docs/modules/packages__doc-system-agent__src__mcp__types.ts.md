@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/mcp/types.ts
 
-<!-- change: symbol-added name="DriftResponse" kind="interface" -->
+<!-- change: symbol-added name="ImpactRequest" kind="interface" -->
 ### interface: DriftRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface DriftRequest {
@@ -18,7 +18,7 @@ Eigenschaften:
 |------|-----|----------|
 | `since` | `string` | ja |
 
-<!-- change: symbol-added name="ImpactRequest" kind="interface" -->
+<!-- change: symbol-added name="ImpactResponse" kind="interface" -->
 ### interface: DriftResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface DriftResponse {
@@ -45,7 +45,7 @@ Eigenschaften:
 | `duration` | `number` | nein |
 | `status` | `'clean' | 'drift_detected'` | nein |
 
-<!-- change: symbol-added name="ImpactResponse" kind="interface" -->
+<!-- change: symbol-added name="ScanRequest" kind="interface" -->
 ### interface: ImpactRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ImpactRequest {
@@ -66,7 +66,7 @@ Eigenschaften:
 | `file` | `string` | nein |
 | `symbol` | `string` | ja |
 
-<!-- change: symbol-added name="ScanRequest" kind="interface" -->
+<!-- change: symbol-added name="ScanResponse" kind="interface" -->
 ### interface: ImpactResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ImpactResponse {
@@ -99,7 +99,7 @@ Eigenschaften:
 | `symbol` | `string` | ja |
 | `transitiveDependents` | `string[]` | nein |
 
-<!-- change: symbol-added name="ScanResponse" kind="interface" -->
+<!-- change: symbol-added name="ValidateRequest" kind="interface" -->
 ### interface: ScanRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ScanRequest {
@@ -120,7 +120,7 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `incremental` | `boolean` | ja |
 
-<!-- change: symbol-added name="ValidateRequest" kind="interface" -->
+<!-- change: symbol-added name="ValidateResponse" kind="interface" -->
 ### interface: ScanResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ScanResponse {
@@ -153,7 +153,7 @@ Eigenschaften:
 | `status` | `'success' | 'error' | 'partial'` | nein |
 | `symbolsExtracted` | `number` | nein |
 
-<!-- change: symbol-added name="ValidateResponse" kind="interface" -->
+<!-- change: symbol-added name="DriftItem" kind="interface" -->
 ### interface: ValidateRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ValidateRequest {
@@ -174,7 +174,7 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="DriftItem" kind="interface" -->
+<!-- change: symbol-added name="ValidationError" kind="interface" -->
 ### interface: ValidateResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ValidateResponse {
@@ -219,7 +219,87 @@ Eigenschaften:
 | `status` | `'success' | 'warnings' | 'errors'` | nein |
 | `warnings` | `ValidationError[]` | nein |
 
-<!-- change: symbol-added name="ValidationError" kind="interface" -->
+<!-- change: symbol-added name="VerifyAdrsRequest" kind="interface" -->
+### interface: VerifyAdrsRequest
+Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
+Signatur: `interface VerifyAdrsRequest {
+  verbose?: boolean;
+}`
+```ts
+interface VerifyAdrsRequest {
+  verbose?: boolean;
+}
+```
+
+Eigenschaften:
+
+| Name | Typ | Optional |
+|------|-----|----------|
+| `verbose` | `boolean` | ja |
+
+<!-- change: symbol-added name="VerifyAdrsResponse" kind="interface" -->
+### interface: VerifyAdrsResponse
+Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
+Signatur: `interface VerifyAdrsResponse {
+  status: 'success' | 'warnings' | 'errors';
+  totalClaims: number;
+  verifiedClaims: number;
+  errors: AdrClaim[];
+  warnings: AdrClaim[];
+  duration: number;
+  logs: string[];
+}`
+```ts
+interface VerifyAdrsResponse {
+  status: 'success' | 'warnings' | 'errors';
+  totalClaims: number;
+  verifiedClaims: number;
+  errors: AdrClaim[];
+  warnings: AdrClaim[];
+  duration: number;
+  logs: string[];
+}
+```
+
+Eigenschaften:
+
+| Name | Typ | Optional |
+|------|-----|----------|
+| `duration` | `number` | nein |
+| `errors` | `AdrClaim[]` | nein |
+| `logs` | `string[]` | nein |
+| `status` | `'success' | 'warnings' | 'errors'` | nein |
+| `totalClaims` | `number` | nein |
+| `verifiedClaims` | `number` | nein |
+| `warnings` | `AdrClaim[]` | nein |
+
+<!-- change: symbol-added name="AdrClaim" kind="interface" -->
+### interface: AdrClaim
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `interface AdrClaim {
+  adr: string;
+  line: number;
+  claim: string;
+  type: 'file-exists' | 'function-exists';
+}`
+```ts
+interface AdrClaim {
+  adr: string;
+  line: number;
+  claim: string;
+  type: 'file-exists' | 'function-exists';
+}
+```
+
+Eigenschaften:
+
+| Name | Typ | Optional |
+|------|-----|----------|
+| `adr` | `string` | nein |
+| `claim` | `string` | nein |
+| `line` | `number` | nein |
+| `type` | `'file-exists' | 'function-exists'` | nein |
+
 ### interface: DriftItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface DriftItem {

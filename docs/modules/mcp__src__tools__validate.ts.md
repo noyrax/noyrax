@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/validate.ts
 
-<!-- change: symbol-added name="ValidateResponse" kind="interface" -->
+<!-- change: symbol-added name="ValidationError" kind="interface" -->
 ### interface: ValidateRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ValidateRequest {
@@ -21,7 +21,7 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="ValidationError" kind="interface" -->
+<!-- change: symbol-added name="runValidate" kind="function" -->
 ### interface: ValidateResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ValidateResponse {
@@ -66,7 +66,7 @@ Eigenschaften:
 | `status` | `'success' | 'warnings' | 'errors'` | nein |
 | `warnings` | `ValidationError[]` | nein |
 
-<!-- change: symbol-added name="runValidate" kind="function" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ValidationError
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ValidationError {
@@ -96,7 +96,6 @@ Eigenschaften:
 | `message` | `string` | nein |
 | `type` | `'signature_mismatch' | 'missing_docs' | 'stale_docs' | 'coverage'` | nein |
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### function: runValidate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `runValidate(request: ValidateRequest): Promise<ValidateResponse>`
@@ -114,7 +113,7 @@ Rückgabewert: `Promise<ValidateResponse>`
 
 ### variable: execAsync
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `execAsync: any`
+Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
-execAsync: any
+execAsync: typeof exec.__promisify__
 ```

@@ -2,200 +2,168 @@
   "version": 1,
   "entries": [
     {
-      "path": ".pytest_cache/CACHEDIR.TAG",
-      "hash": "37dc88ef9a0abedd"
+      "path": ".cursorrules",
+      "hash": "af9047661cb1970d"
     },
     {
-      "path": ".pytest_cache/README.md",
-      "hash": "420e808d79a6c25d"
+      "path": ".husky/pre-commit",
+      "hash": "4ebeec974aa7e8e2"
     },
     {
-      "path": ".pytest_cache/v/cache/nodeids",
-      "hash": "4f53cda18c2baa0c"
-    },
-    {
-      "path": ".scannerwork/.sonar_lock",
-      "hash": "e3b0c44298fc1c14"
-    },
-    {
-      "path": ".scannerwork/report-task.txt",
-      "hash": "4dc314043fc0de0a"
+      "path": ".vscodeignore",
+      "hash": "c1d56470e8c4c7f2"
     },
     {
       "path": "action/action.yml",
-      "hash": "d7efb425ad616b1a"
+      "hash": "bf43f9ea94008092"
     },
     {
       "path": "action/README.md",
-      "hash": "8a2c5909b86c30ad"
+      "hash": "f32495ec91367087"
     },
     {
       "path": "assets/icon.svg",
-      "hash": "aed18e0e711c6b39"
+      "hash": "c30a4ca3ebe187d5"
     },
     {
       "path": "BRANDING.md",
-      "hash": "bb4971bee2913931"
+      "hash": "182b7d2c210c0728"
     },
     {
       "path": "CODE_OF_CONDUCT.md",
-      "hash": "cb60af106c5e3fba"
+      "hash": "feface3ef83d7728"
     },
     {
       "path": "CONTRIBUTING.md",
-      "hash": "7af708efce1789ca"
-    },
-    {
-      "path": "demo/docguard.config.json",
-      "hash": "69c12af5f9de99ab"
-    },
-    {
-      "path": "demo/package.json",
-      "hash": "9bd520224834a16b"
-    },
-    {
-      "path": "demo/README.md",
-      "hash": "f0ed7f142ee183ed"
-    },
-    {
-      "path": "demo/src/calculator.ts",
-      "hash": "cb2fe24d3387334a"
-    },
-    {
-      "path": "demo/src/types.ts",
-      "hash": "20f7e21968c9b78c"
-    },
-    {
-      "path": "demo/src/user-service.ts",
-      "hash": "91cc6dc5e51d9779"
-    },
-    {
-      "path": "documentation.config.schema.json",
-      "hash": "f7b2ee31b25c8779"
+      "hash": "0c643a5bb267ac95"
     },
     {
       "path": "jest.config.js",
-      "hash": "b269a35835f21c8b"
+      "hash": "721d74a914babacd"
     },
     {
       "path": "LICENSE",
-      "hash": "8f625336ab31925f"
+      "hash": "d2db8c42cc9ee45a"
+    },
+    {
+      "path": "LINKEDIN_POST.md",
+      "hash": "043717713ab86d4a"
     },
     {
       "path": "mcp/package.json",
-      "hash": "2cedbfea86071140"
+      "hash": "f9e9eaa8807bcfd2"
     },
     {
       "path": "mcp/README.md",
-      "hash": "1c4f5e52478fff00"
+      "hash": "2023fb93c607a548"
     },
     {
       "path": "mcp/src/resources/docs.ts",
-      "hash": "951225a1dbfbdb85"
-    },
-    {
-      "path": "mcp/src/server.ts",
-      "hash": "59b236a585a947f1"
+      "hash": "da9484f84d188777"
     },
     {
       "path": "mcp/src/tools/drift.ts",
-      "hash": "eac1e0c0620082e0"
+      "hash": "cf93cd201a545933"
     },
     {
       "path": "mcp/src/tools/impact.ts",
-      "hash": "33351350ecebe7c1"
+      "hash": "5fbae9e8833c445d"
     },
     {
       "path": "mcp/src/tools/scan.ts",
-      "hash": "d65944c707067427"
+      "hash": "dbf8d59acc0fffeb"
     },
     {
       "path": "mcp/src/tools/validate.ts",
-      "hash": "473957d2960dd60c"
+      "hash": "bccedf29db192ec3"
     },
     {
       "path": "mcp/tsconfig.json",
-      "hash": "46883495b243be4d"
+      "hash": "7922d45d234963b3"
+    },
+    {
+      "path": "package-lock.json",
+      "hash": "26c1e5209f7ed9c4"
     },
     {
       "path": "package.json",
-      "hash": "c3754c3ced11ae77"
+      "hash": "965f4abca87c621d"
     },
     {
       "path": "packages/doc-system-agent/examples/basic-project/package.json",
-      "hash": "00758747bd7a19aa"
+      "hash": "70de705fd49925cf"
     },
     {
       "path": "packages/doc-system-agent/examples/basic-project/README.md",
-      "hash": "bd957e418881f88b"
+      "hash": "dab6e3dcc0598f76"
     },
     {
       "path": "packages/doc-system-agent/examples/basic-project/src/calculator.ts",
-      "hash": "2d06b2a4cfbdd0eb"
+      "hash": "ffb9187e4a0ff571"
     },
     {
       "path": "packages/doc-system-agent/package.json",
-      "hash": "66225f296c76ff3d"
+      "hash": "26a2e0cef3421a19"
     },
     {
       "path": "packages/doc-system-agent/README.md",
-      "hash": "91176371f210f142"
+      "hash": "cc9e4bed6d50ab7a"
     },
     {
       "path": "packages/doc-system-agent/src/cli/index.ts",
-      "hash": "bb209004a41c592c"
+      "hash": "d1bfa2fe2c5a6504"
     },
     {
       "path": "packages/doc-system-agent/src/cli/init.ts",
-      "hash": "56a0bb288d30a90b"
+      "hash": "8ae40788c352ff18"
     },
     {
       "path": "packages/doc-system-agent/src/cli/update.ts",
-      "hash": "d5e7183434fad71f"
+      "hash": "d5d8b52e08183d79"
     },
     {
       "path": "packages/doc-system-agent/src/constants.ts",
-      "hash": "061c05ac9efad1cc"
+      "hash": "16988d511e47b504"
     },
     {
       "path": "packages/doc-system-agent/src/index.ts",
-      "hash": "9aff1f673998dffb"
+      "hash": "51739981086a5a8b"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/resources/docs.ts",
-      "hash": "aded57a62082f4d5"
-    },
-    {
-      "path": "packages/doc-system-agent/src/mcp/server.ts",
-      "hash": "e56b623a4ab7d883"
+      "hash": "fcac1f928e1843d1"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/tools/drift.ts",
-      "hash": "631c7e67778cc802"
+      "hash": "e005bf7027aa0f83"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/tools/impact.ts",
-      "hash": "160a484bce3833fd"
+      "hash": "b084bfb493fbdb81"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/tools/scan.ts",
-      "hash": "f042169a93eff04d"
+      "hash": "4a9277980b77814d"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/tools/validate.ts",
-      "hash": "ea8e7cbe47ebbc86"
+      "hash": "a5ecd26e5aaad632"
     },
     {
       "path": "packages/doc-system-agent/src/mcp/types.ts",
-      "hash": "a69434089214a88b"
+      "hash": "bf05bd2758df5ed2"
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/000-orchestrator.mdc",
-      "hash": "6a8c5579428336db"
+      "hash": "87c0e0c05692331a"
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/001-pre-check.mdc",
-      "hash": "a6cfd96b28bb1e93"
+      "hash": "1fc40a1f0788f5c4"
+    },
+    {
+      "path": "packages/doc-system-agent/templates/cursor-rules/002-system-context.mdc",
+      "hash": "f0f11875c49f3083"
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/010-parsers.mdc",
@@ -219,11 +187,19 @@
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/021-impact-analysis.mdc",
-      "hash": "54eb9942ca2ef713"
+      "hash": "b82f8b85a42327e4"
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/022-adr-workflow.mdc",
       "hash": "a58dbc290f027654"
+    },
+    {
+      "path": "packages/doc-system-agent/templates/cursor-rules/023-pre-planning.mdc",
+      "hash": "2d3968780555beb0"
+    },
+    {
+      "path": "packages/doc-system-agent/templates/cursor-rules/026-reality-driven-verification.mdc",
+      "hash": "0a2a2cd4816937f6"
     },
     {
       "path": "packages/doc-system-agent/templates/cursor-rules/030-constraints.mdc",
@@ -231,63 +207,63 @@
     },
     {
       "path": "packages/doc-system-agent/tsconfig.json",
-      "hash": "d59c6e3bc244d7c2"
+      "hash": "42c60413d5100622"
     },
     {
       "path": "packages/doc-system-agent/VSCODE_INTEGRATION.md",
-      "hash": "c8e7a335d53f879f"
+      "hash": "538b4b678950727d"
     },
     {
-      "path": "plans-archive/ADDITIVE_DOCUMENTATION_PLAN.md",
-      "hash": "38834f93af9bb444"
-    },
-    {
-      "path": "plans-archive/COMPREHENSIVE_FIX_PLAN.md",
-      "hash": "1492c4256f3b3313"
-    },
-    {
-      "path": "plans-archive/MVP_PLAN.md",
-      "hash": "2d0fe631c8e0fd6e"
-    },
-    {
-      "path": "plans-archive/MVP_VALIDATION_PLAN.md",
-      "hash": "0e74f514d5d20a27"
-    },
-    {
-      "path": "plans-archive/MVP_VALIDATION_RESULTS.md",
-      "hash": "aaed359ab7282dfd"
+      "path": "README_PORTFOLIO.md",
+      "hash": "065c692c83971c12"
     },
     {
       "path": "README.md",
-      "hash": "5b1724490222ee56"
+      "hash": "8d22aa19c6095bc1"
+    },
+    {
+      "path": "scripts/verify-adrs.js",
+      "hash": "3aa156000590e40b"
+    },
+    {
+      "path": "scripts/verify-architecture.js",
+      "hash": "57a7d3603f8370eb"
+    },
+    {
+      "path": "scripts/verify-imports.js",
+      "hash": "648269d33989f8f4"
     },
     {
       "path": "sonar-project.properties",
-      "hash": "03a744038ab44577"
+      "hash": "83257ce98701be1b"
+    },
+    {
+      "path": "src/__tests__/adr-linker.test.ts",
+      "hash": "a06a31b267d215ee"
     },
     {
       "path": "src/__tests__/determinism.test.ts",
-      "hash": "48d1221f541d7370"
+      "hash": "106e0c67d418df53"
     },
     {
       "path": "src/__tests__/parser-symbol-types.test.ts",
-      "hash": "6a9fd6ebc8d8b47b"
+      "hash": "c2a5c4fcc0e188ca"
     },
     {
       "path": "src/__tests__/setup.ts",
-      "hash": "e59d2bab6218bab1"
+      "hash": "26152fefff21cd75"
     },
     {
       "path": "src/__tests__/signature-formatter.test.ts",
-      "hash": "03211c0a77cd7f8f"
+      "hash": "eaeab57b47fb0125"
     },
     {
       "path": "src/__tests__/snapshot-doc-generation.test.ts",
-      "hash": "b9f89640d35143fd"
+      "hash": "e38e2974c3567e3f"
     },
     {
       "path": "src/__tests__/symbol-classifier.test.ts",
-      "hash": "1a72edd9a463e571"
+      "hash": "e82c313095850a92"
     },
     {
       "path": "src/cache/ast-cache.ts",
@@ -295,15 +271,27 @@
     },
     {
       "path": "src/cache/dependencies-cache.ts",
-      "hash": "407a56a1420a8042"
+      "hash": "0618c6eff99a493c"
     },
     {
       "path": "src/cache/output-cache.ts",
-      "hash": "49ce9b5398a9f5f4"
+      "hash": "31dd418295069373"
     },
     {
       "path": "src/cache/signature-cache.ts",
-      "hash": "ed06b54bf770ba8b"
+      "hash": "b54d41d47954b430"
+    },
+    {
+      "path": "src/cli/generate-cli.ts",
+      "hash": "4e9b1663f512617f"
+    },
+    {
+      "path": "src/cli/scan-cli.ts",
+      "hash": "ef4669d47357d6a7"
+    },
+    {
+      "path": "src/cli/validate-cli.ts",
+      "hash": "a70c5b1b337e2e3c"
     },
     {
       "path": "src/core/async.ts",
@@ -311,175 +299,115 @@
     },
     {
       "path": "src/core/consolidation.ts",
-      "hash": "e8c3bcb4054c7cc9"
+      "hash": "e4108c333f31b0ee"
     },
     {
       "path": "src/core/git.ts",
-      "hash": "aa0ea620c2e8a39e"
+      "hash": "f47fdd67a42f4a96"
     },
     {
       "path": "src/core/language-detection.ts",
-      "hash": "3bc74e2c5f6b46f0"
+      "hash": "2385c8497da441af"
     },
     {
       "path": "src/core/scanner.ts",
-      "hash": "b0470de1be459b54"
+      "hash": "585f316f2735811f"
     },
     {
       "path": "src/core/signature-formatter.ts",
-      "hash": "8578da65d9b42b80"
+      "hash": "9ec3de95b1d83237"
     },
     {
       "path": "src/core/symbol-classifier.ts",
-      "hash": "a9e4b0b287bde252"
+      "hash": "4ca4032a04c57d49"
     },
     {
       "path": "src/core/symbols.ts",
-      "hash": "4eec53c25ab1e7dc"
+      "hash": "70a606a0255361cc"
     },
     {
       "path": "src/drift/index.ts",
-      "hash": "bf981324f6bd46a2"
+      "hash": "9f9360b99e9b83ff"
     },
     {
       "path": "src/extension.ts",
-      "hash": "fd2c7661046b05cb"
+      "hash": "e5113de64137ec2a"
+    },
+    {
+      "path": "src/generator/adr-linker.ts",
+      "hash": "9615b0df629fafa4"
     },
     {
       "path": "src/generator/change-report.ts",
-      "hash": "13f5e21bce73eb27"
+      "hash": "a418fb2460d6296d"
     },
     {
       "path": "src/generator/dependency-graph.ts",
-      "hash": "de7ecc2043658aeb"
+      "hash": "51a5dc4fa173d6af"
     },
     {
       "path": "src/generator/index.ts",
-      "hash": "57d262fe121d0b79"
+      "hash": "013ae51d11b2e954"
     },
     {
       "path": "src/generator/module-doc.ts",
-      "hash": "4610650a1de8c751"
+      "hash": "b45114b00ff169c4"
+    },
+    {
+      "path": "src/generator/system-metadata.ts",
+      "hash": "394ed80cb7419439"
     },
     {
       "path": "src/index/index.ts",
-      "hash": "d230ad0492114b0c"
+      "hash": "fac0b3abfafd2a35"
     },
     {
       "path": "src/logging/index.ts",
-      "hash": "bce62a5874564ea1"
+      "hash": "030587af5b16cc0c"
     },
     {
       "path": "src/parsers/dependencies.ts",
-      "hash": "f5f2a879fda1b9ae"
+      "hash": "45d34437ce1a6017"
     },
     {
       "path": "src/parsers/json-yaml.ts",
-      "hash": "22ca292d8dff6488"
+      "hash": "2cf4b2bf22bfe6f1"
     },
     {
       "path": "src/parsers/python.ts",
-      "hash": "867325929951c8c2"
+      "hash": "8ba735ec4339d64a"
     },
     {
       "path": "src/parsers/ts-js.ts",
-      "hash": "ad71a8c110d804e3"
+      "hash": "04fc490ec50b9584"
     },
     {
       "path": "src/parsers/types.ts",
-      "hash": "89dafde540e4fcdd"
+      "hash": "14475f7630c5e017"
     },
     {
       "path": "src/ui/commands-provider.ts",
-      "hash": "a00661fbcb2d95c7"
+      "hash": "1cca3ce0d1cb905b"
     },
     {
       "path": "src/ui/status-bar.ts",
-      "hash": "b71098e533f0677c"
+      "hash": "bb14adf5f38f4f6d"
     },
     {
       "path": "src/validator/index.ts",
-      "hash": "b21c22488de64a4b"
+      "hash": "4e78ce0b830ccaa3"
     },
     {
       "path": "src/validator/signature-matching.ts",
-      "hash": "38c17468e942d1bd"
+      "hash": "67b6e8e9725b1622"
     },
     {
       "path": "src/validator/status.ts",
-      "hash": "ae6160fcdf635cfa"
+      "hash": "90355bc294fd88ca"
     },
     {
       "path": "tsconfig.json",
-      "hash": "c3d6744d424febc6"
-    },
-    {
-      "path": "website/astro.config.mjs",
-      "hash": "23510d0bdc09eb42"
-    },
-    {
-      "path": "website/package.json",
-      "hash": "40a4b3dd146f1655"
-    },
-    {
-      "path": "website/public/favicon.svg",
-      "hash": "1353af17fbfc79aa"
-    },
-    {
-      "path": "website/public/tabs.js",
-      "hash": "b56b34805a3f6a9f"
-    },
-    {
-      "path": "website/README.md",
-      "hash": "a77d536c269745fe"
-    },
-    {
-      "path": "website/src/components/Features.astro",
-      "hash": "66f4713fd82cf8a6"
-    },
-    {
-      "path": "website/src/components/Footer.astro",
-      "hash": "6c1c2b27d2fe53fa"
-    },
-    {
-      "path": "website/src/components/Header.astro",
-      "hash": "fb7d93a88f89cf0c"
-    },
-    {
-      "path": "website/src/components/Hero.astro",
-      "hash": "743acac677ab74e1"
-    },
-    {
-      "path": "website/src/components/HowItWorks.astro",
-      "hash": "a05081c3c8b2b9de"
-    },
-    {
-      "path": "website/src/components/Pricing.astro",
-      "hash": "90707c4a8a2d2f33"
-    },
-    {
-      "path": "website/src/components/QuickStart.astro",
-      "hash": "907ef8bb98dba47d"
-    },
-    {
-      "path": "website/src/layouts/Layout.astro",
-      "hash": "4a29e12accb8a788"
-    },
-    {
-      "path": "website/src/pages/index.astro",
-      "hash": "55ab18606224be59"
-    },
-    {
-      "path": "website/tailwind.config.mjs",
-      "hash": "2c7732697c4d162f"
-    },
-    {
-      "path": "website/tsconfig.json",
-      "hash": "f984fbc29f8b60a5"
-    },
-    {
-      "path": "website/vercel.json",
-      "hash": "6667652c1e12b16e"
+      "hash": "4ed0ace7c2ecd051"
     }
   ]
 }

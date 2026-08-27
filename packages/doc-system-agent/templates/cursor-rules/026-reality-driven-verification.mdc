@@ -113,15 +113,38 @@ npm run command | Select-String "expected"
 #### 2.1 Vollständiger Workflow-Test
 
 ```bash
-# Vollständiger Scan
-npm run scan:cli
+# Kompilieren (triggert automatisch scan + validate + db-sync via postcompile Hook)
+npm run compile
 
-# Vollständige Validierung
-npm run validate:cli
+# ADR-Claims gegen Code verifizieren
+npm run verify:adrs
+
+# Vollständige Verification (compile + verify:adrs + scan:cli + validate:cli)
+npm run verify:all
 
 # Tests ausführen
 npm test
 ```
+
+**Hinweis:** Der `postcompile` Hook führt automatisch `scan-cli.js` und `validate-cli.js` aus.
+Der FileSystemWatcher im database-plugin triggert automatisch die DB-Ingestion.
+Siehe `docs/adr/001-postcompile-workflow-chain.md` für Details.
+
+#### 2.1a ADR-Verification (WICHTIG)
+
+Das `verify:adrs` Script prüft automatisch:
+- **Datei-Existenz:** Claims wie `Erstelle \`src/path/file.ts\`` werden gegen das Dateisystem geprüft
+- **Funktions-Existenz:** Explizit erwähnte Funktionen/Klassen werden im Code gesucht
+
+```bash
+# ADR-Verification ausführen
+npm run verify:adrs
+
+# Mit Warnungen anzeigen
+npm run verify:adrs -- --verbose
+```
+
+**Alle Plugins haben dieses Script:** documentation-system, database, semantic-brain, ai-code-checker, python-code-checker.
 
 #### 2.2 Side-Effects prüfen
 
@@ -242,10 +265,39 @@ Get-ChildItem -Recurse -Filter "*.ts" | Select-String "pattern"
 
 ### Build-Verification
 
+**Standalone CLI (mit @noyrax/doc-cli installiert):**
 ```bash
+# Dokumentation generieren
+noyrax-scan
+
+# Dokumentation validieren
+noyrax-validate
+
+# ADR-Claims verifizieren
+noyrax-verify-adrs
+
+# Architektur-Regeln prüfen
+noyrax-verify-architecture
+
+# Import-Verfügbarkeit prüfen
+noyrax-verify-imports
+
+# Alle Verification-Checks
+noyrax-verify-all
+```
+
+**Lokal (mit documentation-system-plugin):**
+```bash
+# Kompilieren (triggert automatisch scan + validate + db-sync)
 npm run compile
-npm run scan:cli
-npm run validate:cli
+
+# ADR-Claims verifizieren
+npm run verify:adrs
+
+# Vollständige Verification
+npm run verify:all
+
+# Tests ausführen
 npm test
 ```
 

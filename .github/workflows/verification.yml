@@ -38,8 +38,22 @@ jobs:
         run: |
           echo "Testing CLI tools..."
           if [ -f out/cli/scan-cli.js ] && [ -f out/cli/validate-cli.js ]; then
-            npm run scan:cli > scan-output.json || exit 1
-            npm run validate:cli > validate-output.json || exit 1
+            # Die CLIs direkt aufrufen statt ueber "npm run": npm schreibt seine
+            # Banner-Zeilen ("> paket@version script") ebenfalls nach stdout.
+            # In die Ausgabedatei umgeleitet ist das kein gueltiges JSON mehr,
+            # und das nachfolgende jq bricht ab. Die Pfade sind dieselben, die
+            # die if-Bedingung oben bereits prueft.
+            node out/cli/scan-cli.js > scan-output.json || {
+              echo "scan-cli fehlgeschlagen. Ausgabe:"; head -c 4000 scan-output.json; exit 1;
+            }
+            # Bei Fehlschlag die Fehlerliste zeigen: das CLI schreibt sein
+            # Ergebnis nach stdout in die Datei, ein blosser exit 1 im Log
+            # nennt die Ursache sonst nicht.
+            node out/cli/validate-cli.js > validate-output.json || {
+              echo "validate-cli fehlgeschlagen. Fehler:"
+              jq -r '.errors[]? | "  - \(.message // .)"' validate-output.json 2>/dev/null                 || head -c 4000 validate-output.json
+              exit 1
+            }
 
             # Verify outputs are valid JSON
             cat scan-output.json | jq . > /dev/null || exit 1

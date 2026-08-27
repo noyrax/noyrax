@@ -14,6 +14,7 @@ const execAsync = promisify(exec);
 
 export interface DriftRequest {
   since?: string;
+  workspaceRoot?: string; // Optional: Workspace root directory (defaults to process.cwd())
 }
 
 export interface DriftItem {
@@ -38,13 +39,14 @@ export interface DriftResponse {
 export async function runDriftCheck(request: DriftRequest): Promise<DriftResponse> {
   const startTime = Date.now();
   const since = request.since || 'HEAD~1';
+  const workspaceRoot = request.workspaceRoot || process.cwd();
   const drifted: DriftItem[] = [];
 
   try {
     // Git-Änderungen seit der Referenz abrufen
     const { stdout: gitDiff } = await execAsync(
       `git diff --name-status ${since}`,
-      { cwd: process.cwd() }
+      { cwd: workspaceRoot }
     );
 
     const changedFiles: string[] = [];
@@ -80,7 +82,7 @@ export async function runDriftCheck(request: DriftRequest): Promise<DriftRespons
 
         case 'M': {
           // Modified - Prüfen ob Dokumentation existiert und aktuell ist
-          const docPath = getDocPath(filePath);
+          const docPath = getDocPath(filePath, workspaceRoot);
           try {
             await fs.access(docPath);
             // Dokumentation existiert - könnte veraltet sein
@@ -126,9 +128,13 @@ export async function runDriftCheck(request: DriftRequest): Promise<DriftRespons
 
 /**
  * Konvertiert einen Source-Pfad in den entsprechenden Dokumentations-Pfad.
+ * @param sourcePath Source file path (e.g., "src/parsers/ts-js.ts")
+ * @param workspaceRoot Workspace root directory (defaults to process.cwd())
+ * @returns Absolute path to documentation file
  */
-function getDocPath(sourcePath: string): string {
+function getDocPath(sourcePath: string, workspaceRoot: string = process.cwd()): string {
   // src/parsers/ts-js.ts → docs/modules/src__parsers__ts-js.ts.md
   const normalized = sourcePath.replaceAll('/', '__');
-  return path.join('docs', 'modules', `${normalized}.md`);
+  // WICHTIG: docs/ muss im Workspace-Root sein (wird von Noyrax generiert)
+  return path.join(workspaceRoot, 'docs', 'modules', `${normalized}.md`);
 }

@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/examples/basic-project/package.json
 
-<!-- change: symbol-added name="devDependencies" kind="variable" -->
+<!-- change: symbol-added name="name" kind="variable" -->
 ### variable: description
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `description: string`
@@ -8,7 +8,7 @@ Signatur: `description: string`
 description: string
 ```
 
-<!-- change: symbol-added name="name" kind="variable" -->
+<!-- change: symbol-added name="scripts" kind="variable" -->
 ### variable: devDependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `devDependencies: object`
@@ -16,7 +16,7 @@ Signatur: `devDependencies: object`
 devDependencies: object
 ```
 
-<!-- change: symbol-added name="scripts" kind="variable" -->
+<!-- change: symbol-added name="type" kind="variable" -->
 ### variable: name
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `name: string`
@@ -24,7 +24,7 @@ Signatur: `name: string`
 name: string
 ```
 
-<!-- change: symbol-added name="type" kind="variable" -->
+<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: scripts
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `scripts: object`
@@ -32,7 +32,6 @@ Signatur: `scripts: object`
 scripts: object
 ```
 
-<!-- change: symbol-added name="version" kind="variable" -->
 ### variable: type
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `type: string`

@@ -1,6 +1,6 @@
 # Modul: mcp/src/tools/scan.ts
 
-<!-- change: symbol-added name="ScanResponse" kind="interface" -->
+<!-- change: symbol-added name="runScan" kind="function" -->
 ### interface: ScanRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ScanRequest {
@@ -21,7 +21,7 @@ Eigenschaften:
 | `files` | `string[]` | ja |
 | `incremental` | `boolean` | ja |
 
-<!-- change: symbol-added name="runScan" kind="function" -->
+<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### interface: ScanResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ScanResponse {
@@ -54,7 +54,6 @@ Eigenschaften:
 | `status` | `'success' | 'error' | 'partial'` | nein |
 | `symbolsExtracted` | `number` | nein |
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### function: runScan
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `runScan(request: ScanRequest): Promise<ScanResponse>`
@@ -72,7 +71,7 @@ Rückgabewert: `Promise<ScanResponse>`
 
 ### variable: execAsync
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `execAsync: any`
+Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
-execAsync: any
+execAsync: typeof exec.__promisify__
 ```

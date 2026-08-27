@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/mcp/tools/impact.ts
 
-<!-- change: symbol-added name="analyzeImpact" kind="function" -->
+<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
 ### interface: SymbolEntry
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface SymbolEntry {
@@ -30,7 +30,7 @@ Eigenschaften:
 | `name` | `string` | nein |
 | `type` | `string` | nein |
 
-<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
+<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### function: analyzeImpact
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>`
@@ -46,7 +46,6 @@ Parameter:
 
 Rückgabewert: `Promise<ImpactResponse>`
 
-<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### function: buildDependencyMap
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>`

@@ -1,6 +1,6 @@
 # Modul: src/generator/change-report.ts
 
-<!-- change: symbol-added name="extractChangesFromModuleDocs" kind="function" -->
+<!-- change: symbol-added name="generateChangeReport" kind="function" -->
 ### interface: ChangeData
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ChangeData {
@@ -51,7 +51,6 @@ Eigenschaften:
 | `validationErrors` | `number` | nein |
 | `validationWarnings` | `number` | nein |
 
-<!-- change: symbol-added name="generateChangeReport" kind="function" -->
 ### function: extractChangesFromModuleDocs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `extractChangesFromModuleDocs(moduleDocs: Map<string, string>): { symbolsAdded: ChangeData['symbolsAdded']; symbolsRemoved: ChangeData['symbolsRemoved']; symbolsChanged: ChangeData['symbolsChanged']; }`

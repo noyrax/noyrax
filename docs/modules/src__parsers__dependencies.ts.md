@@ -1,6 +1,6 @@
 # Modul: src/parsers/dependencies.ts
 
-<!-- change: symbol-added name="extractPythonDependencies" kind="function" -->
+<!-- change: symbol-added name="extractTsJsDependencies" kind="function" -->
 ### interface: ModuleDependency
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ModuleDependency {
@@ -8,6 +8,8 @@ Signatur: `interface ModuleDependency {
   to: string;
   type: 'import' | 'export' | 'require';
   symbols?: string[];
+  isTypeOnly?: boolean;
+  isReexport?: boolean;
 }`
 ```ts
 interface ModuleDependency {
@@ -15,6 +17,8 @@ interface ModuleDependency {
   to: string;
   type: 'import' | 'export' | 'require';
   symbols?: string[];
+  isTypeOnly?: boolean;
+  isReexport?: boolean;
 }
 ```
 
@@ -23,11 +27,12 @@ Eigenschaften:
 | Name | Typ | Optional |
 |------|-----|----------|
 | `from` | `string` | nein |
+| `isReexport` | `boolean` | ja |
+| `isTypeOnly` | `boolean` | ja |
 | `symbols` | `string[]` | ja |
 | `to` | `string` | nein |
 | `type` | `'import' | 'export' | 'require'` | nein |
 
-<!-- change: symbol-added name="extractTsJsDependencies" kind="function" -->
 ### function: extractPythonDependencies
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `extractPythonDependencies(content: string, repoRelPath: string): ModuleDependency[]`

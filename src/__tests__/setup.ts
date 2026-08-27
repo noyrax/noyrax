@@ -1,4 +1,5 @@
 // Jest Setup für deterministische Tests
+import { jest } from '@jest/globals';
 
 // Zeitstempel mocken für deterministische Ausgaben
 const mockDate = new Date('2024-01-01T00:00:00.000Z');

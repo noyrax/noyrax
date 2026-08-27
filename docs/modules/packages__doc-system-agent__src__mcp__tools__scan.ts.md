@@ -1,6 +1,5 @@
 # Modul: packages/doc-system-agent/src/mcp/tools/scan.ts
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### function: runScan
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `runScan(request: ScanRequest): Promise<ScanResponse>`
@@ -18,7 +17,7 @@ Rückgabewert: `Promise<ScanResponse>`
 
 ### variable: execAsync
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `execAsync: any`
+Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
-execAsync: any
+execAsync: typeof exec.__promisify__
 ```

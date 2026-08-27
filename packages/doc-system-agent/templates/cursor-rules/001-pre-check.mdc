@@ -69,15 +69,16 @@ Diese Checkliste ist **PFLICHT** vor jeder Code-Änderung. Keine Ausnahmen.
 - [ ] Frühe Guard-Clauses, keine stillen Catches
 - [ ] **SOFORT nach Änderungen kompilieren:** `npm run compile`
 - [ ] **Fehler VOR Fortfahren beheben**
-- [ ] **SOFORT testen:** `node dist/file.js` oder `npm run scan:cli`
 
 ### 6. Nach der Änderung: End-to-End Verification
 
-**WICHTIG:** Siehe `026-reality-driven-verification.mdc` für vollständige Verification-Checkliste.
+**AUTOMATISIERT:** Der `postcompile` Hook führt automatisch `scan-cli` und `validate-cli` aus.
+Der FileSystemWatcher im database-plugin triggert automatisch die DB-Aktualisierung.
 
-- [ ] `npm run scan:cli` ausführen (PowerShell: `npm run scan:cli; npm run validate:cli`)
-- [ ] `npm run validate:cli` ausführen
-- [ ] Change Report (`docs://system/changes`) prüfen - wurden Änderungen korrekt erfasst? (Zeit-Raum)
+Siehe `docs/adr/001-postcompile-workflow-chain.md` für Details.
+
+- [ ] `npm run compile` ausführen (triggert automatisch: scan → validate → db-sync)
+- [ ] Auf Fehler in der Ausgabe achten
 - [ ] **Evidence sammeln:** Nie "Ich habe X implementiert" ohne Beweis sagen
 - [ ] **Beweis bereitstellen:** grep-Output, compile-Output, test-Output
 - [ ] Bei Fehlern: Korrigieren bevor fortfahren
@@ -115,6 +116,43 @@ Pfad-Konvention: `/` wird zu `__`, dann `.md` angehängt.
 4. **Kleiner anfangen** – lieber weniger ändern und validieren
 
 ## Verification-Commands Quick-Reference
+
+### Standalone CLI (nach Installation von @noyrax/doc-cli)
+
+```bash
+# Dokumentation generieren
+noyrax-scan
+
+# Dokumentation validieren
+noyrax-validate
+
+# Dokumentation generieren (nur Generate, kein Scan)
+noyrax-generate
+
+# ADR-Claims prüfen
+noyrax-verify-adrs
+
+# Architektur-Regeln prüfen
+noyrax-verify-architecture
+
+# Import-Verfügbarkeit prüfen
+noyrax-verify-imports
+
+# Alle Verification-Checks
+noyrax-verify-all
+```
+
+### Lokal (mit documentation-system-plugin)
+
+```bash
+npm run scan:cli
+npm run validate:cli
+npm run generate:cli
+npm run verify:adrs
+npm run verify:architecture
+npm run verify:imports
+npm run verify:all
+```
 
 ### PowerShell (Windows)
 ```powershell

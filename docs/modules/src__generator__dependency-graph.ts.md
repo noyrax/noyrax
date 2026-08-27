@@ -1,6 +1,6 @@
 # Modul: src/generator/dependency-graph.ts
 
-<!-- change: symbol-added name="generateDependencyOverview" kind="function" -->
+<!-- change: symbol-added name="generateMermaidGraph" kind="function" -->
 ### function: appendDependencySection
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `appendDependencySection(lines: string[], title: string, deps: ModuleDependency[]): void`
@@ -18,7 +18,7 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="generateMermaidGraph" kind="function" -->
+<!-- change: symbol-added name="groupDependenciesByFrom" kind="function" -->
 ### function: generateDependencyOverview
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `generateDependencyOverview(dependencies: ModuleDependency[]): string`
@@ -34,7 +34,6 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="groupDependenciesByFrom" kind="function" -->
 ### function: generateMermaidGraph
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `generateMermaidGraph(dependencies: ModuleDependency[]): string`

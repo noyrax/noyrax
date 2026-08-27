@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/tsconfig.json
 
-<!-- change: symbol-added name="exclude" kind="variable" -->
+<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: compilerOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `compilerOptions: object`
@@ -8,7 +8,6 @@ Signatur: `compilerOptions: object`
 compilerOptions: object
 ```
 
-<!-- change: symbol-added name="include" kind="variable" -->
 ### variable: exclude
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `exclude: object`

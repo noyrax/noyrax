@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/index.ts
 
-<!-- change: symbol-added name="UpdateOptions" kind="variable" -->
+<!-- change: symbol-added name="DriftRequest" kind="variable" -->
 ### variable: InitOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `InitOptions`
@@ -8,7 +8,7 @@ Signatur: `InitOptions`
 InitOptions
 ```
 
-<!-- change: symbol-added name="DriftRequest" kind="variable" -->
+<!-- change: symbol-added name="DriftResponse" kind="variable" -->
 ### variable: UpdateOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `UpdateOptions`
@@ -16,7 +16,7 @@ Signatur: `UpdateOptions`
 UpdateOptions
 ```
 
-<!-- change: symbol-added name="DriftResponse" kind="variable" -->
+<!-- change: symbol-added name="ImpactRequest" kind="variable" -->
 ### variable: DriftRequest
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `DriftRequest`
@@ -24,7 +24,7 @@ Signatur: `DriftRequest`
 DriftRequest
 ```
 
-<!-- change: symbol-added name="ImpactRequest" kind="variable" -->
+<!-- change: symbol-added name="ImpactResponse" kind="variable" -->
 ### variable: DriftResponse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `DriftResponse`
@@ -32,7 +32,7 @@ Signatur: `DriftResponse`
 DriftResponse
 ```
 
-<!-- change: symbol-added name="ImpactResponse" kind="variable" -->
+<!-- change: symbol-added name="initProject" kind="variable" -->
 ### variable: ImpactRequest
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `ImpactRequest`
@@ -40,7 +40,7 @@ Signatur: `ImpactRequest`
 ImpactRequest
 ```
 
-<!-- change: symbol-added name="initProject" kind="variable" -->
+<!-- change: symbol-added name="PACKAGE_VERSION" kind="variable" -->
 ### variable: ImpactResponse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `ImpactResponse`
@@ -48,7 +48,7 @@ Signatur: `ImpactResponse`
 ImpactResponse
 ```
 
-<!-- change: symbol-added name="PACKAGE_VERSION" kind="variable" -->
+<!-- change: symbol-added name="reexport:DriftRequestfrom:./mcp/types.js" kind="variable" -->
 ### variable: initProject
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `initProject`
@@ -56,7 +56,7 @@ Signatur: `initProject`
 initProject
 ```
 
-<!-- change: symbol-added name="reexport:DriftRequestfrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:DriftResponsefrom:./mcp/types.js" kind="variable" -->
 ### variable: PACKAGE_VERSION
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `PACKAGE_VERSION`
@@ -64,7 +64,7 @@ Signatur: `PACKAGE_VERSION`
 PACKAGE_VERSION
 ```
 
-<!-- change: symbol-added name="reexport:DriftResponsefrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ImpactRequestfrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:DriftRequestfrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:DriftRequestfrom:./mcp/types.js`
@@ -72,7 +72,7 @@ Signatur: `reexport:DriftRequestfrom:./mcp/types.js`
 reexport:DriftRequestfrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:ImpactRequestfrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ImpactResponsefrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:DriftResponsefrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:DriftResponsefrom:./mcp/types.js`
@@ -80,7 +80,7 @@ Signatur: `reexport:DriftResponsefrom:./mcp/types.js`
 reexport:DriftResponsefrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:ImpactResponsefrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:InitOptionsfrom:./cli/init.js" kind="variable" -->
 ### variable: reexport:ImpactRequestfrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ImpactRequestfrom:./mcp/types.js`
@@ -88,7 +88,7 @@ Signatur: `reexport:ImpactRequestfrom:./mcp/types.js`
 reexport:ImpactRequestfrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:InitOptionsfrom:./cli/init.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:initProjectfrom:./cli/init.js" kind="variable" -->
 ### variable: reexport:ImpactResponsefrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ImpactResponsefrom:./mcp/types.js`
@@ -96,7 +96,7 @@ Signatur: `reexport:ImpactResponsefrom:./mcp/types.js`
 reexport:ImpactResponsefrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:initProjectfrom:./cli/init.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:PACKAGE_VERSIONfrom:./constants.js" kind="variable" -->
 ### variable: reexport:InitOptionsfrom:./cli/init.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:InitOptionsfrom:./cli/init.js`
@@ -104,7 +104,7 @@ Signatur: `reexport:InitOptionsfrom:./cli/init.js`
 reexport:InitOptionsfrom:./cli/init.js
 ```
 
-<!-- change: symbol-added name="reexport:PACKAGE_VERSIONfrom:./constants.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:RULES_VERSIONfrom:./constants.js" kind="variable" -->
 ### variable: reexport:initProjectfrom:./cli/init.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:initProjectfrom:./cli/init.js`
@@ -112,7 +112,7 @@ Signatur: `reexport:initProjectfrom:./cli/init.js`
 reexport:initProjectfrom:./cli/init.js
 ```
 
-<!-- change: symbol-added name="reexport:RULES_VERSIONfrom:./constants.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ScanRequestfrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:PACKAGE_VERSIONfrom:./constants.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:PACKAGE_VERSIONfrom:./constants.js`
@@ -120,7 +120,7 @@ Signatur: `reexport:PACKAGE_VERSIONfrom:./constants.js`
 reexport:PACKAGE_VERSIONfrom:./constants.js
 ```
 
-<!-- change: symbol-added name="reexport:ScanRequestfrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ScanResponsefrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:RULES_VERSIONfrom:./constants.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:RULES_VERSIONfrom:./constants.js`
@@ -128,7 +128,7 @@ Signatur: `reexport:RULES_VERSIONfrom:./constants.js`
 reexport:RULES_VERSIONfrom:./constants.js
 ```
 
-<!-- change: symbol-added name="reexport:ScanResponsefrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:startMcpServerfrom:./mcp/server.js" kind="variable" -->
 ### variable: reexport:ScanRequestfrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ScanRequestfrom:./mcp/types.js`
@@ -136,7 +136,7 @@ Signatur: `reexport:ScanRequestfrom:./mcp/types.js`
 reexport:ScanRequestfrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:startMcpServerfrom:./mcp/server.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:UpdateOptionsfrom:./cli/update.js" kind="variable" -->
 ### variable: reexport:ScanResponsefrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ScanResponsefrom:./mcp/types.js`
@@ -144,7 +144,7 @@ Signatur: `reexport:ScanResponsefrom:./mcp/types.js`
 reexport:ScanResponsefrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="reexport:UpdateOptionsfrom:./cli/update.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:updateRulesfrom:./cli/update.js" kind="variable" -->
 ### variable: reexport:startMcpServerfrom:./mcp/server.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:startMcpServerfrom:./mcp/server.js`
@@ -152,7 +152,7 @@ Signatur: `reexport:startMcpServerfrom:./mcp/server.js`
 reexport:startMcpServerfrom:./mcp/server.js
 ```
 
-<!-- change: symbol-added name="reexport:updateRulesfrom:./cli/update.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ValidateRequestfrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:UpdateOptionsfrom:./cli/update.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:UpdateOptionsfrom:./cli/update.js`
@@ -160,7 +160,7 @@ Signatur: `reexport:UpdateOptionsfrom:./cli/update.js`
 reexport:UpdateOptionsfrom:./cli/update.js
 ```
 
-<!-- change: symbol-added name="reexport:ValidateRequestfrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="reexport:ValidateResponsefrom:./mcp/types.js" kind="variable" -->
 ### variable: reexport:updateRulesfrom:./cli/update.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:updateRulesfrom:./cli/update.js`
@@ -168,7 +168,7 @@ Signatur: `reexport:updateRulesfrom:./cli/update.js`
 reexport:updateRulesfrom:./cli/update.js
 ```
 
-<!-- change: symbol-added name="reexport:ValidateResponsefrom:./mcp/types.js" kind="variable" -->
+<!-- change: symbol-added name="RULES_VERSION" kind="variable" -->
 ### variable: reexport:ValidateRequestfrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ValidateRequestfrom:./mcp/types.js`
@@ -176,7 +176,7 @@ Signatur: `reexport:ValidateRequestfrom:./mcp/types.js`
 reexport:ValidateRequestfrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="RULES_VERSION" kind="variable" -->
+<!-- change: symbol-added name="ScanRequest" kind="variable" -->
 ### variable: reexport:ValidateResponsefrom:./mcp/types.js
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `reexport:ValidateResponsefrom:./mcp/types.js`
@@ -184,7 +184,7 @@ Signatur: `reexport:ValidateResponsefrom:./mcp/types.js`
 reexport:ValidateResponsefrom:./mcp/types.js
 ```
 
-<!-- change: symbol-added name="ScanRequest" kind="variable" -->
+<!-- change: symbol-added name="ScanResponse" kind="variable" -->
 ### variable: RULES_VERSION
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `RULES_VERSION`
@@ -192,7 +192,7 @@ Signatur: `RULES_VERSION`
 RULES_VERSION
 ```
 
-<!-- change: symbol-added name="ScanResponse" kind="variable" -->
+<!-- change: symbol-added name="startMcpServer" kind="variable" -->
 ### variable: ScanRequest
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `ScanRequest`
@@ -200,7 +200,7 @@ Signatur: `ScanRequest`
 ScanRequest
 ```
 
-<!-- change: symbol-added name="startMcpServer" kind="variable" -->
+<!-- change: symbol-added name="updateRules" kind="variable" -->
 ### variable: ScanResponse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `ScanResponse`
@@ -208,7 +208,7 @@ Signatur: `ScanResponse`
 ScanResponse
 ```
 
-<!-- change: symbol-added name="updateRules" kind="variable" -->
+<!-- change: symbol-added name="ValidateRequest" kind="variable" -->
 ### variable: startMcpServer
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `startMcpServer`
@@ -216,7 +216,7 @@ Signatur: `startMcpServer`
 startMcpServer
 ```
 
-<!-- change: symbol-added name="ValidateRequest" kind="variable" -->
+<!-- change: symbol-added name="ValidateResponse" kind="variable" -->
 ### variable: updateRules
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `updateRules`
@@ -224,7 +224,6 @@ Signatur: `updateRules`
 updateRules
 ```
 
-<!-- change: symbol-added name="ValidateResponse" kind="variable" -->
 ### variable: ValidateRequest
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `ValidateRequest`

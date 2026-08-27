@@ -2,7 +2,7 @@
 
 ### variable: mockDate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `mockDate: any`
+Signatur: `mockDate: Date`
 ```ts
-mockDate: any
+mockDate: Date
 ```

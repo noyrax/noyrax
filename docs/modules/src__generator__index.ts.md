@@ -1,18 +1,17 @@
 # Modul: src/generator/index.ts
 
-<!-- change: symbol-added name="makeSafeFileName" kind="function" -->
 ### function: generatePerFileDocs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs: Map<string, string>): Map<string, string>`
+Signatur: `generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>`
 ```ts
-generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs: Map<string, string>): Map<string, string>
+generatePerFileDocs(symbols: ParsedSymbol[], modulesDir: string, existingDocs?: Map<string, string>): Map<string, string>
 ```
 
 Parameter:
 
 | Name | Typ | Optional | Default |
 |------|-----|----------|---------|
-| `existingDocs` | `Map<string, string>` | nein | nein |
+| `existingDocs` | `Map<string, string>` | ja | nein |
 | `modulesDir` | `string` | nein | nein |
 | `symbols` | `ParsedSymbol[]` | nein | nein |
 

@@ -299,18 +299,20 @@
       "to": "./cli/init.js",
       "type": "export",
       "symbols": [
-        "InitOptions",
-        "initProject"
-      ]
+        "initProject",
+        "type InitOptions"
+      ],
+      "isReexport": true
     },
     {
       "from": "packages/doc-system-agent/src/index.ts",
       "to": "./cli/update.js",
       "type": "export",
       "symbols": [
-        "UpdateOptions",
+        "type UpdateOptions",
         "updateRules"
-      ]
+      ],
+      "isReexport": true
     },
     {
       "from": "packages/doc-system-agent/src/index.ts",
@@ -319,7 +321,8 @@
       "symbols": [
         "PACKAGE_VERSION",
         "RULES_VERSION"
-      ]
+      ],
+      "isReexport": true
     },
     {
       "from": "packages/doc-system-agent/src/index.ts",
@@ -327,22 +330,25 @@
       "type": "export",
       "symbols": [
         "startMcpServer"
-      ]
+      ],
+      "isReexport": true
     },
     {
       "from": "packages/doc-system-agent/src/index.ts",
       "to": "./mcp/types.js",
       "type": "export",
       "symbols": [
-        "DriftRequest",
-        "DriftResponse",
-        "ImpactRequest",
-        "ImpactResponse",
-        "ScanRequest",
-        "ScanResponse",
-        "ValidateRequest",
-        "ValidateResponse"
-      ]
+        "type DriftRequest",
+        "type DriftResponse",
+        "type ImpactRequest",
+        "type ImpactResponse",
+        "type ScanRequest",
+        "type ScanResponse",
+        "type ValidateRequest",
+        "type ValidateResponse"
+      ],
+      "isTypeOnly": true,
+      "isReexport": true
     },
     {
       "from": "packages/doc-system-agent/src/mcp/resources/docs.ts",
@@ -443,10 +449,11 @@
       "to": "../types.js",
       "type": "import",
       "symbols": [
-        "DriftItem",
-        "DriftRequest",
-        "DriftResponse"
-      ]
+        "type DriftItem",
+        "type DriftRequest",
+        "type DriftResponse"
+      ],
+      "isTypeOnly": true
     },
     {
       "from": "packages/doc-system-agent/src/mcp/tools/drift.ts",
@@ -485,9 +492,10 @@
       "to": "../types.js",
       "type": "import",
       "symbols": [
-        "ImpactRequest",
-        "ImpactResponse"
-      ]
+        "type ImpactRequest",
+        "type ImpactResponse"
+      ],
+      "isTypeOnly": true
     },
     {
       "from": "packages/doc-system-agent/src/mcp/tools/impact.ts",
@@ -518,9 +526,10 @@
       "to": "../types.js",
       "type": "import",
       "symbols": [
-        "ScanRequest",
-        "ScanResponse"
-      ]
+        "type ScanRequest",
+        "type ScanResponse"
+      ],
+      "isTypeOnly": true
     },
     {
       "from": "packages/doc-system-agent/src/mcp/tools/scan.ts",
@@ -543,10 +552,11 @@
       "to": "../types.js",
       "type": "import",
       "symbols": [
-        "ValidateRequest",
-        "ValidateResponse",
-        "ValidationError"
-      ]
+        "type ValidateRequest",
+        "type ValidateResponse",
+        "type ValidationError"
+      ],
+      "isTypeOnly": true
     },
     {
       "from": "packages/doc-system-agent/src/mcp/tools/validate.ts",
@@ -562,6 +572,38 @@
       "type": "import",
       "symbols": [
         "promisify"
+      ]
+    },
+    {
+      "from": "src/__tests__/adr-linker.test.ts",
+      "to": "../generator/adr-linker",
+      "type": "import",
+      "symbols": [
+        "AdrLinker"
+      ]
+    },
+    {
+      "from": "src/__tests__/adr-linker.test.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/__tests__/adr-linker.test.ts",
+      "to": "os",
+      "type": "import",
+      "symbols": [
+        "* as os"
+      ]
+    },
+    {
+      "from": "src/__tests__/adr-linker.test.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
       ]
     },
     {
@@ -587,6 +629,24 @@
       "symbols": [
         "generatePerFileDocs"
       ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../index/index",
+      "type": "import",
+      "symbols": [
+        "buildIndexFromSymbols",
+        "type DependencyEntry"
+      ]
+    },
+    {
+      "from": "src/__tests__/determinism.test.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "type ModuleDependency"
+      ],
+      "isTypeOnly": true
     },
     {
       "from": "src/__tests__/determinism.test.ts",
@@ -642,6 +702,14 @@
       "type": "import",
       "symbols": [
         "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/__tests__/setup.ts",
+      "to": "@jest/globals",
+      "type": "import",
+      "symbols": [
+        "jest"
       ]
     },
     {
@@ -823,6 +891,313 @@
       ]
     },
     {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../cache/ast-cache",
+      "type": "import",
+      "symbols": [
+        "computeFileHash",
+        "loadAstHashCache",
+        "saveAstHashCache"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../cache/dependencies-cache",
+      "type": "import",
+      "symbols": [
+        "loadDependenciesCache",
+        "saveDependenciesCache"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../cache/output-cache",
+      "type": "import",
+      "symbols": [
+        "computeContentHash",
+        "loadOutputHashCache",
+        "saveOutputHashCache"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../cache/signature-cache",
+      "type": "import",
+      "symbols": [
+        "loadSignatureCache",
+        "saveSignatureCache"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../core/consolidation",
+      "type": "import",
+      "symbols": [
+        "buildDependenciesUnion",
+        "buildSymbolsUnion"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../core/git",
+      "type": "import",
+      "symbols": [
+        "getChangedFiles",
+        "getDeletedFiles"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../core/scanner",
+      "type": "import",
+      "symbols": [
+        "scanWorkspace"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../drift/index",
+      "type": "import",
+      "symbols": [
+        "computeCacheEntries",
+        "detectDrift"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../generator/change-report",
+      "type": "import",
+      "symbols": [
+        "extractChangesFromModuleDocs",
+        "generateChangeReport"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../generator/dependency-graph",
+      "type": "import",
+      "symbols": [
+        "generateDependencyOverview",
+        "generateMermaidGraph"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../generator/index",
+      "type": "import",
+      "symbols": [
+        "generatePerFileDocs"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../generator/system-metadata",
+      "type": "import",
+      "symbols": [
+        "writeSystemMetadata"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../index/index",
+      "type": "import",
+      "symbols": [
+        "buildIndexFromSymbols",
+        "readSymbolsFromIndex",
+        "writeJsonlIndex"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../parsers/dependencies",
+      "type": "import",
+      "symbols": [
+        "extractPythonDependencies",
+        "extractTsJsDependencies",
+        "ModuleDependency"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../parsers/json-yaml",
+      "type": "import",
+      "symbols": [
+        "JsonYamlParser"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../parsers/python",
+      "type": "import",
+      "symbols": [
+        "PythonParser"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cli/generate-cli.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "../core/scanner",
+      "type": "import",
+      "symbols": [
+        "scanWorkspace"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "../parsers/json-yaml",
+      "type": "import",
+      "symbols": [
+        "JsonYamlParser"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "../parsers/python",
+      "type": "import",
+      "symbols": [
+        "PythonParser"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol",
+        "ParserAdapter"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cli/scan-cli.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../core/scanner",
+      "type": "import",
+      "symbols": [
+        "scanWorkspace"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../index/index",
+      "type": "import",
+      "symbols": [
+        "readSymbolsFromIndex"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../parsers/json-yaml",
+      "type": "import",
+      "symbols": [
+        "JsonYamlParser"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../parsers/python",
+      "type": "import",
+      "symbols": [
+        "PythonParser"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../parsers/ts-js",
+      "type": "import",
+      "symbols": [
+        "TsJsParser"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../parsers/types",
+      "type": "import",
+      "symbols": [
+        "ParsedSymbol"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "../validator/index",
+      "type": "import",
+      "symbols": [
+        "computeCoverage",
+        "CoverageThresholds",
+        "validateMarkdownDir"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/cli/validate-cli.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
       "from": "src/core/consolidation.ts",
       "to": "../cache/dependencies-cache",
       "type": "import",
@@ -875,15 +1250,8 @@
       "to": "./language-detection",
       "type": "import",
       "symbols": [
+        "detectLanguageByExtension",
         "guessLanguageByShebang"
-      ]
-    },
-    {
-      "from": "src/core/scanner.ts",
-      "to": "fs",
-      "type": "import",
-      "symbols": [
-        "* as fs"
       ]
     },
     {
@@ -896,7 +1264,15 @@
     },
     {
       "from": "src/core/scanner.ts",
-      "to": "path",
+      "to": "node:fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/core/scanner.ts",
+      "to": "node:path",
       "type": "import",
       "symbols": [
         "* as path"
@@ -1076,6 +1452,7 @@
       "type": "import",
       "symbols": [
         "buildIndexFromSymbols",
+        "readSymbolsFromIndex",
         "writeJsonlIndex"
       ]
     },
@@ -1180,19 +1557,19 @@
       ]
     },
     {
-      "from": "src/generator/change-report.ts",
-      "to": "../parsers/dependencies",
+      "from": "src/generator/adr-linker.ts",
+      "to": "node:fs",
       "type": "import",
       "symbols": [
-        "ModuleDependency"
+        "* as fs"
       ]
     },
     {
-      "from": "src/generator/change-report.ts",
-      "to": "../parsers/types",
+      "from": "src/generator/adr-linker.ts",
+      "to": "node:path",
       "type": "import",
       "symbols": [
-        "ParsedSymbol"
+        "* as path"
       ]
     },
     {
@@ -1213,6 +1590,14 @@
     },
     {
       "from": "src/generator/index.ts",
+      "to": "./adr-linker",
+      "type": "import",
+      "symbols": [
+        "AdrLinker"
+      ]
+    },
+    {
+      "from": "src/generator/index.ts",
       "to": "./module-doc",
       "type": "import",
       "symbols": [
@@ -1223,7 +1608,7 @@
     },
     {
       "from": "src/generator/index.ts",
-      "to": "fs",
+      "to": "node:fs",
       "type": "import",
       "symbols": [
         "* as fs"
@@ -1231,7 +1616,7 @@
     },
     {
       "from": "src/generator/index.ts",
-      "to": "path",
+      "to": "node:path",
       "type": "import",
       "symbols": [
         "* as path"
@@ -1263,19 +1648,59 @@
       ]
     },
     {
+      "from": "src/generator/module-doc.ts",
+      "to": "./adr-linker",
+      "type": "import",
+      "symbols": [
+        "AdrLinker"
+      ]
+    },
+    {
+      "from": "src/generator/system-metadata.ts",
+      "to": "crypto",
+      "type": "import",
+      "symbols": [
+        "* as crypto"
+      ]
+    },
+    {
+      "from": "src/generator/system-metadata.ts",
+      "to": "fs",
+      "type": "import",
+      "symbols": [
+        "* as fs"
+      ]
+    },
+    {
+      "from": "src/generator/system-metadata.ts",
+      "to": "path",
+      "type": "import",
+      "symbols": [
+        "* as path"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "../cache/dependencies-cache",
+      "type": "import",
+      "symbols": [
+        "DependencyCacheEntry"
+      ]
+    },
+    {
+      "from": "src/index/index.ts",
+      "to": "../core/language-detection",
+      "type": "import",
+      "symbols": [
+        "detectLanguageByExtension"
+      ]
+    },
+    {
       "from": "src/index/index.ts",
       "to": "../core/symbols",
       "type": "import",
       "symbols": [
         "makeStableSymbolId"
-      ]
-    },
-    {
-      "from": "src/index/index.ts",
-      "to": "../parsers/dependencies",
-      "type": "import",
-      "symbols": [
-        "ModuleDependency"
       ]
     },
     {
@@ -1297,14 +1722,6 @@
     },
     {
       "from": "src/index/index.ts",
-      "to": "path",
-      "type": "import",
-      "symbols": [
-        "* as path"
-      ]
-    },
-    {
-      "from": "src/parsers/dependencies.ts",
       "to": "path",
       "type": "import",
       "symbols": [
@@ -1347,20 +1764,11 @@
     },
     {
       "from": "src/parsers/python.ts",
-      "to": "./dependencies",
-      "type": "import",
-      "symbols": [
-        "extractPythonDependencies"
-      ]
-    },
-    {
-      "from": "src/parsers/python.ts",
       "to": "./types",
       "type": "import",
       "symbols": [
         "ParsedSymbol",
-        "ParserAdapter",
-        "SymbolSignature"
+        "ParserAdapter"
       ]
     },
     {
@@ -1385,14 +1793,6 @@
       "type": "import",
       "symbols": [
         "default as Python"
-      ]
-    },
-    {
-      "from": "src/parsers/ts-js.ts",
-      "to": "./dependencies",
-      "type": "import",
-      "symbols": [
-        "extractTsJsDependencies"
       ]
     },
     {
@@ -1472,7 +1872,6 @@
       "to": "./status",
       "type": "import",
       "symbols": [
-        "computeValidationStatus",
         "StatusReport"
       ]
     },
@@ -1506,14 +1905,6 @@
       "type": "import",
       "symbols": [
         "classifySymbol"
-      ]
-    },
-    {
-      "from": "src/validator/signature-matching.ts",
-      "to": "../core/symbols",
-      "type": "import",
-      "symbols": [
-        "computeSignatureHash"
       ]
     },
     {

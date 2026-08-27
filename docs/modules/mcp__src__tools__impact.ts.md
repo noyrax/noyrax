@@ -1,16 +1,18 @@
 # Modul: mcp/src/tools/impact.ts
 
-<!-- change: symbol-added name="ImpactResponse" kind="interface" -->
+<!-- change: symbol-added name="SymbolEntry" kind="interface" -->
 ### interface: ImpactRequest
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ImpactRequest {
   file: string;
   symbol?: string;
+  workspaceRoot?: string;
 }`
 ```ts
 interface ImpactRequest {
   file: string;
   symbol?: string;
+  workspaceRoot?: string;
 }
 ```
 
@@ -20,8 +22,9 @@ Eigenschaften:
 |------|-----|----------|
 | `file` | `string` | nein |
 | `symbol` | `string` | ja |
+| `workspaceRoot` | `string` | ja |
 
-<!-- change: symbol-added name="SymbolEntry" kind="interface" -->
+<!-- change: symbol-added name="analyzeImpact" kind="function" -->
 ### interface: ImpactResponse
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ImpactResponse {
@@ -54,7 +57,7 @@ Eigenschaften:
 | `symbol` | `string` | ja |
 | `transitiveDependents` | `string[]` | nein |
 
-<!-- change: symbol-added name="analyzeImpact" kind="function" -->
+<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
 ### interface: SymbolEntry
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface SymbolEntry {
@@ -84,7 +87,7 @@ Eigenschaften:
 | `name` | `string` | nein |
 | `type` | `string` | nein |
 
-<!-- change: symbol-added name="buildDependencyMap" kind="function" -->
+<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### function: analyzeImpact
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `analyzeImpact(request: ImpactRequest): Promise<ImpactResponse>`
@@ -100,7 +103,6 @@ Parameter:
 
 Rückgabewert: `Promise<ImpactResponse>`
 
-<!-- change: symbol-added name="calculateImpact" kind="function" -->
 ### function: buildDependencyMap
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `buildDependencyMap(symbolsPath: string): Promise<Map<string, Set<string>>>`

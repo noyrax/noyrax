@@ -1,6 +1,6 @@
 # Modul: src/generator/module-doc.ts
 
-<!-- change: symbol-added name="ModuleDocBlock" kind="interface" -->
+<!-- change: symbol-added name="ParsedBlock" kind="interface" -->
 ### interface: ModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ModuleDoc {
@@ -18,7 +18,7 @@ Eigenschaften:
 |------|-----|----------|
 | `blocks` | `ModuleDocBlock[]` | nein |
 
-<!-- change: symbol-added name="ParsedBlock" kind="interface" -->
+<!-- change: symbol-added name="ParsedModuleDoc" kind="interface" -->
 ### interface: ModuleDocBlock
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ModuleDocBlock {
@@ -39,7 +39,7 @@ Eigenschaften:
 | `comment` | `string` | nein |
 | `symbol` | `ParsedSymbol` | nein |
 
-<!-- change: symbol-added name="ParsedModuleDoc" kind="interface" -->
+<!-- change: symbol-added name="buildModuleDocWithChanges" kind="function" -->
 ### interface: ParsedBlock
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ParsedBlock {
@@ -69,7 +69,7 @@ Eigenschaften:
 | `signature` | `SymbolSignature` | nein |
 | `symbol` | `ParsedSymbol` | nein |
 
-<!-- change: symbol-added name="buildModuleDocWithChanges" kind="function" -->
+<!-- change: symbol-added name="compareBlocks" kind="function" -->
 ### interface: ParsedModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ParsedModuleDoc {
@@ -87,7 +87,7 @@ Eigenschaften:
 |------|-----|----------|
 | `blocks` | `ParsedBlock[]` | nein |
 
-<!-- change: symbol-added name="compareBlocks" kind="function" -->
+<!-- change: symbol-added name="isTrivialNormalizedSignature" kind="function" -->
 ### function: buildModuleDocWithChanges
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `buildModuleDocWithChanges(symbols: ParsedSymbol[], existingDoc: ParsedModuleDoc): ModuleDoc`
@@ -104,7 +104,7 @@ Parameter:
 
 Rückgabewert: `ModuleDoc`
 
-<!-- change: symbol-added name="isTrivialNormalizedSignature" kind="function" -->
+<!-- change: symbol-added name="normalizeSignature" kind="function" -->
 ### function: compareBlocks
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `compareBlocks(a: ModuleDocBlock, b: ModuleDocBlock): number`
@@ -121,7 +121,7 @@ Parameter:
 
 Rückgabewert: `number`
 
-<!-- change: symbol-added name="normalizeSignature" kind="function" -->
+<!-- change: symbol-added name="parseModuleDoc" kind="function" -->
 ### function: isTrivialNormalizedSignature
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `isTrivialNormalizedSignature(sig: string): boolean`
@@ -137,7 +137,7 @@ Parameter:
 
 Rückgabewert: `boolean`
 
-<!-- change: symbol-added name="parseModuleDoc" kind="function" -->
+<!-- change: symbol-added name="parseSignatureFromCode" kind="function" -->
 ### function: normalizeSignature
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `normalizeSignature(sig: SymbolSignature): string`
@@ -153,7 +153,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="parseSignatureFromCode" kind="function" -->
+<!-- change: symbol-added name="renderModuleDoc" kind="function" -->
 ### function: parseModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parseModuleDoc(content: string): ParsedModuleDoc`
@@ -169,7 +169,7 @@ Parameter:
 
 Rückgabewert: `ParsedModuleDoc`
 
-<!-- change: symbol-added name="renderModuleDoc" kind="function" -->
+<!-- change: symbol-added name="signatureChanged" kind="function" -->
 ### function: parseSignatureFromCode
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parseSignatureFromCode(code: string, kind: ParsedSymbol['kind']): SymbolSignature`
@@ -186,24 +186,24 @@ Parameter:
 
 Rückgabewert: `SymbolSignature`
 
-<!-- change: symbol-added name="signatureChanged" kind="function" -->
+<!-- change: symbol-added name="isFormatterMigration" kind="function" -->
 ### function: renderModuleDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `renderModuleDoc(doc: ModuleDoc, filePath: string): string`
+Signatur: `renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string`
 ```ts
-renderModuleDoc(doc: ModuleDoc, filePath: string): string
+renderModuleDoc(doc: ModuleDoc, filePath: string, adrLinker?: AdrLinker): string
 ```
 
 Parameter:
 
 | Name | Typ | Optional | Default |
 |------|-----|----------|---------|
+| `adrLinker` | `AdrLinker` | ja | nein |
 | `doc` | `ModuleDoc` | nein | nein |
 | `filePath` | `string` | nein | nein |
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="isFormatterMigration" kind="function" -->
 ### function: signatureChanged
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `signatureChanged(a: ParsedSymbol, b: ParsedSymbol): boolean`

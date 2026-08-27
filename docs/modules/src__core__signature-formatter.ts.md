@@ -1,6 +1,6 @@
 # Modul: src/core/signature-formatter.ts
 
-<!-- change: symbol-added name="CompareResult" kind="interface" -->
+<!-- change: symbol-added name="CompareOptions" kind="interface" -->
 ### class: SignatureFormatter
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class SignatureFormatter`
@@ -10,7 +10,7 @@ class SignatureFormatter
 
 Diese Klasse bündelt 11 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="CompareOptions" kind="interface" -->
+<!-- change: symbol-added name="SignatureFormatter.compare" kind="method" -->
 ### interface: CompareResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface CompareResult {
@@ -31,7 +31,7 @@ Eigenschaften:
 | `match` | `boolean` | nein |
 | `reason` | `'exact' | 'optional-fields' | 'generic-simplification' | 'mismatch'` | nein |
 
-<!-- change: symbol-added name="SignatureFormatter.compare" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatForDoc" kind="method" -->
 ### interface: CompareOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface CompareOptions {
@@ -52,7 +52,7 @@ Eigenschaften:
 | `tolerateGenericSimplification` | `boolean` | ja |
 | `tolerateOptionalFields` | `boolean` | ja |
 
-<!-- change: symbol-added name="SignatureFormatter.formatForDoc" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.normalize" kind="method" -->
 ### method: SignatureFormatter.compare
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `compare(expected: string, documented: string, options: CompareOptions = …): CompareResult`
@@ -70,7 +70,7 @@ Parameter:
 
 Rückgabewert: `CompareResult`
 
-<!-- change: symbol-added name="SignatureFormatter.normalize" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.normalizeSignature" kind="method" -->
 ### method: SignatureFormatter.formatForDoc
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `formatForDoc(symbol: ParsedSymbol): string`
@@ -86,7 +86,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.normalizeSignature" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatFunctionOrMethod" kind="method" -->
 ### method: SignatureFormatter.normalize
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `normalize(signature: string): string`
@@ -102,7 +102,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.formatFunctionOrMethod" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatFunctionParameter" kind="method" -->
 ### method: SignatureFormatter.normalizeSignature
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `normalizeSignature(sig: SymbolSignature): string`
@@ -118,7 +118,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.formatFunctionParameter" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatInterface" kind="method" -->
 ### method: SignatureFormatter.formatFunctionOrMethod
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `formatFunctionOrMethod(symbol: ParsedSymbol): string`
@@ -134,7 +134,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.formatInterface" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatInterfaceProperty" kind="method" -->
 ### method: SignatureFormatter.formatFunctionParameter
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `formatFunctionParameter(p: { name: string; optional?: boolean; type?: string; hasDefault?: boolean }): string`
@@ -150,7 +150,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.formatInterfaceProperty" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.formatVariable" kind="method" -->
 ### method: SignatureFormatter.formatInterface
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `formatInterface(symbol: ParsedSymbol): string`
@@ -166,7 +166,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.formatVariable" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.isGenericTypeSimplification" kind="method" -->
 ### method: SignatureFormatter.formatInterfaceProperty
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `formatInterfaceProperty(p: { name: string; optional?: boolean; type?: string }): string`
@@ -182,7 +182,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.isGenericTypeSimplification" kind="method" -->
+<!-- change: symbol-added name="SignatureFormatter.isOptionalFieldCompatible" kind="method" -->
 ### method: SignatureFormatter.formatVariable
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `formatVariable(symbol: ParsedSymbol): string`
@@ -198,7 +198,6 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="SignatureFormatter.isOptionalFieldCompatible" kind="method" -->
 ### method: SignatureFormatter.isGenericTypeSimplification
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `isGenericTypeSimplification(expected: string, documented: string): boolean`

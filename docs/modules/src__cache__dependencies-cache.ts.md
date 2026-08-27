@@ -1,6 +1,6 @@
 # Modul: src/cache/dependencies-cache.ts
 
-<!-- change: symbol-added name="DependencyCacheEntry" kind="interface" -->
+<!-- change: symbol-added name="loadDependenciesCache" kind="function" -->
 ### interface: DependenciesCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface DependenciesCacheData {
@@ -21,7 +21,7 @@ Eigenschaften:
 | `entries` | `DependencyCacheEntry[]` | nein |
 | `version` | `1` | nein |
 
-<!-- change: symbol-added name="loadDependenciesCache" kind="function" -->
+<!-- change: symbol-added name="saveDependenciesCache" kind="function" -->
 ### interface: DependencyCacheEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface DependencyCacheEntry {
@@ -29,6 +29,8 @@ Signatur: `interface DependencyCacheEntry {
   to: string;
   type: 'import' | 'export' | 'require';
   symbols?: string[];
+  isTypeOnly?: boolean;
+  isReexport?: boolean;
 }`
 ```ts
 interface DependencyCacheEntry {
@@ -36,6 +38,8 @@ interface DependencyCacheEntry {
   to: string;
   type: 'import' | 'export' | 'require';
   symbols?: string[];
+  isTypeOnly?: boolean;
+  isReexport?: boolean;
 }
 ```
 
@@ -44,11 +48,12 @@ Eigenschaften:
 | Name | Typ | Optional |
 |------|-----|----------|
 | `from` | `string` | nein |
+| `isReexport` | `boolean` | ja |
+| `isTypeOnly` | `boolean` | ja |
 | `symbols` | `string[]` | ja |
 | `to` | `string` | nein |
 | `type` | `'import' | 'export' | 'require'` | nein |
 
-<!-- change: symbol-added name="saveDependenciesCache" kind="function" -->
 ### function: loadDependenciesCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `loadDependenciesCache(cacheFile: string): DependenciesCacheData | null`

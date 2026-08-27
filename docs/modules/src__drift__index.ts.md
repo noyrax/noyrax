@@ -1,6 +1,6 @@
 # Modul: src/drift/index.ts
 
-<!-- change: symbol-added name="detectDrift" kind="function" -->
+<!-- change: symbol-added name="computeCacheEntries" kind="function" -->
 ### interface: DriftResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface DriftResult {
@@ -18,7 +18,6 @@ Eigenschaften:
 |------|-----|----------|
 | `staleSymbols` | `string[]` | nein |
 
-<!-- change: symbol-added name="computeCacheEntries" kind="function" -->
 ### function: detectDrift
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `detectDrift(previous: SignatureCacheData | null, current: CacheEntry[]): DriftResult`

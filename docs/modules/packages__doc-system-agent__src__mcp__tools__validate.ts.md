@@ -1,6 +1,5 @@
 # Modul: packages/doc-system-agent/src/mcp/tools/validate.ts
 
-<!-- change: symbol-added name="execAsync" kind="variable" -->
 ### function: runValidate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `runValidate(request: ValidateRequest): Promise<ValidateResponse>`
@@ -18,7 +17,7 @@ Rückgabewert: `Promise<ValidateResponse>`
 
 ### variable: execAsync
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `execAsync: any`
+Signatur: `execAsync: typeof exec.__promisify__`
 ```ts
-execAsync: any
+execAsync: typeof exec.__promisify__
 ```

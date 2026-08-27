@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/cli/init.ts
 
-<!-- change: symbol-added name="InitOptions" kind="interface" -->
+<!-- change: symbol-added name="fileExists" kind="function" -->
 ### interface: InitResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface InitResult {
@@ -30,7 +30,7 @@ Eigenschaften:
 | `rulesSkipped` | `string[]` | nein |
 | `success` | `boolean` | nein |
 
-<!-- change: symbol-added name="fileExists" kind="function" -->
+<!-- change: symbol-added name="initProject" kind="function" -->
 ### interface: InitOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface InitOptions {
@@ -57,7 +57,7 @@ Eigenschaften:
 | `targetDir` | `string` | ja |
 | `verbose` | `boolean` | ja |
 
-<!-- change: symbol-added name="initProject" kind="function" -->
+<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### function: fileExists
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `fileExists(filePath: string): Promise<boolean>`
@@ -73,7 +73,6 @@ Parameter:
 
 Rückgabewert: `Promise<boolean>`
 
-<!-- change: symbol-added name="__dirname" kind="variable" -->
 ### function: initProject
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `initProject(options: InitOptions = …): Promise<InitResult>`
@@ -91,7 +90,7 @@ Rückgabewert: `Promise<InitResult>`
 
 ### variable: __dirname
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `__dirname: any`
+Signatur: `__dirname: string`
 ```ts
-__dirname: any
+__dirname: string
 ```

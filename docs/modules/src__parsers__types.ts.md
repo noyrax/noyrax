@@ -1,6 +1,6 @@
 # Modul: src/parsers/types.ts
 
-<!-- change: symbol-added name="ParserAdapter" kind="interface" -->
+<!-- change: symbol-added name="SymbolParameter" kind="interface" -->
 ### interface: ParsedSymbol
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ParsedSymbol {
@@ -9,6 +9,12 @@ Signatur: `interface ParsedSymbol {
   fullyQualifiedName: string;
   signature: SymbolSignature;
   kind: 'class' | 'interface' | 'function' | 'method' | 'type' | 'enum' | 'variable' | 'module';
+  start_line?: number;
+  end_line?: number;
+  start_col?: number;
+  end_col?: number;
+  byte_offset_start?: number;
+  byte_offset_end?: number;
 }`
 ```ts
 interface ParsedSymbol {
@@ -17,6 +23,12 @@ interface ParsedSymbol {
   fullyQualifiedName: string;
   signature: SymbolSignature;
   kind: 'class' | 'interface' | 'function' | 'method' | 'type' | 'enum' | 'variable' | 'module';
+  start_line?: number;
+  end_line?: number;
+  start_col?: number;
+  end_col?: number;
+  byte_offset_start?: number;
+  byte_offset_end?: number;
 }
 ```
 
@@ -24,13 +36,19 @@ Eigenschaften:
 
 | Name | Typ | Optional |
 |------|-----|----------|
+| `byte_offset_end` | `number` | ja |
+| `byte_offset_start` | `number` | ja |
+| `end_col` | `number` | ja |
+| `end_line` | `number` | ja |
 | `filePath` | `string` | nein |
 | `fullyQualifiedName` | `string` | nein |
 | `kind` | `'class' | 'interface' | 'function' | 'method' | 'type' | 'enum' | 'variable' | 'module'` | nein |
 | `language` | `string` | nein |
 | `signature` | `SymbolSignature` | nein |
+| `start_col` | `number` | ja |
+| `start_line` | `number` | ja |
 
-<!-- change: symbol-added name="SymbolParameter" kind="interface" -->
+<!-- change: symbol-added name="SymbolSignature" kind="interface" -->
 ### interface: ParserAdapter
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ParserAdapter {
@@ -48,7 +66,6 @@ Eigenschaften:
 |------|-----|----------|
 | `language` | `string` | nein |
 
-<!-- change: symbol-added name="SymbolSignature" kind="interface" -->
 ### interface: SymbolParameter
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface SymbolParameter {

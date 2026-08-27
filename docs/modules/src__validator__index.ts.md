@@ -1,6 +1,6 @@
 # Modul: src/validator/index.ts
 
-<!-- change: symbol-added name="CoverageReport" kind="interface" -->
+<!-- change: symbol-added name="CoverageThresholds" kind="interface" -->
 ### interface: CoverageMetrics
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface CoverageMetrics {
@@ -39,7 +39,7 @@ Eigenschaften:
 | `totalInterfaces` | `number` | nein |
 | `totalMethods` | `number` | nein |
 
-<!-- change: symbol-added name="CoverageThresholds" kind="interface" -->
+<!-- change: symbol-added name="MarkdownDirReport" kind="interface" -->
 ### interface: CoverageReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface CoverageReport {
@@ -63,7 +63,7 @@ Eigenschaften:
 | `metrics` | `CoverageMetrics` | nein |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="MarkdownDirReport" kind="interface" -->
+<!-- change: symbol-added name="ValidationReport" kind="interface" -->
 ### interface: CoverageThresholds
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface CoverageThresholds {
@@ -90,7 +90,7 @@ Eigenschaften:
 | `interfaces` | `number` | nein |
 | `methods` | `number` | nein |
 
-<!-- change: symbol-added name="ValidationReport" kind="interface" -->
+<!-- change: symbol-added name="computeCoverage" kind="function" -->
 ### interface: MarkdownDirReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface MarkdownDirReport {
@@ -117,7 +117,7 @@ Eigenschaften:
 | `mismatchesCount` | `number` | ja |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="computeCoverage" kind="function" -->
+<!-- change: symbol-added name="validateMarkdownContent" kind="function" -->
 ### interface: ValidationReport
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface ValidationReport {
@@ -144,7 +144,7 @@ Eigenschaften:
 | `totalSymbols` | `number` | nein |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="validateMarkdownContent" kind="function" -->
+<!-- change: symbol-added name="validateMarkdownDir" kind="function" -->
 ### function: computeCoverage
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `computeCoverage(symbols: ParsedSymbol[], modulesDir: string, thresholds: CoverageThresholds = …): CoverageReport`
@@ -162,7 +162,7 @@ Parameter:
 
 Rückgabewert: `CoverageReport`
 
-<!-- change: symbol-added name="validateMarkdownDir" kind="function" -->
+<!-- change: symbol-added name="validateSymbols" kind="function" -->
 ### function: validateMarkdownContent
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `validateMarkdownContent(md: string): { errors: string[]; warnings: string[] }`
@@ -178,12 +178,11 @@ Parameter:
 
 Rückgabewert: `{ errors: string[]; warnings: string[] }`
 
-<!-- change: symbol-added name="validateSymbols" kind="function" -->
 ### function: validateMarkdownDir
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
-Signatur: `validateMarkdownDir(modulesDir: string, symbols: ParsedSymbol[]): MarkdownDirReport`
+Signatur: `validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport`
 ```ts
-validateMarkdownDir(modulesDir: string, symbols: ParsedSymbol[]): MarkdownDirReport
+validateMarkdownDir(modulesDir: string, symbols?: ParsedSymbol[]): MarkdownDirReport
 ```
 
 Parameter:
@@ -191,7 +190,7 @@ Parameter:
 | Name | Typ | Optional | Default |
 |------|-----|----------|---------|
 | `modulesDir` | `string` | nein | nein |
-| `symbols` | `ParsedSymbol[]` | nein | nein |
+| `symbols` | `ParsedSymbol[]` | ja | nein |
 
 Rückgabewert: `MarkdownDirReport`
 

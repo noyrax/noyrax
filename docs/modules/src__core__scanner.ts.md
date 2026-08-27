@@ -1,6 +1,6 @@
 # Modul: src/core/scanner.ts
 
-<!-- change: symbol-added name="ScannedFile" kind="interface" -->
+<!-- change: symbol-added name="scanWorkspace" kind="function" -->
 ### interface: ScanOptions
 Rolle: config (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ScanOptions {
@@ -24,7 +24,7 @@ Eigenschaften:
 | `includeGlobs` | `string[]` | ja |
 | `workspaceRoot` | `string` | nein |
 
-<!-- change: symbol-added name="scanWorkspace" kind="function" -->
+<!-- change: symbol-added name="BACKUP_DIR_NAMES" kind="variable" -->
 ### interface: ScannedFile
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ScannedFile {
@@ -48,7 +48,7 @@ Eigenschaften:
 | `language` | `string | null` | nein |
 | `repositoryRelativePath` | `string` | nein |
 
-<!-- change: symbol-added name="BACKUP_DIR_NAMES" kind="variable" -->
+<!-- change: symbol-added name="BACKUP_FILE_SUFFIXES" kind="variable" -->
 ### function: scanWorkspace
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `scanWorkspace(options: ScanOptions, includeBackups: boolean = …): ScannedFile[]`
@@ -65,7 +65,7 @@ Parameter:
 
 Rückgabewert: `ScannedFile[]`
 
-<!-- change: symbol-added name="BACKUP_FILE_SUFFIXES" kind="variable" -->
+<!-- change: symbol-added name="DEFAULT_EXCLUDES" kind="variable" -->
 ### variable: BACKUP_DIR_NAMES
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `BACKUP_DIR_NAMES: Set<string>`
@@ -73,7 +73,6 @@ Signatur: `BACKUP_DIR_NAMES: Set<string>`
 BACKUP_DIR_NAMES: Set<string>
 ```
 
-<!-- change: symbol-added name="DEFAULT_EXCLUDES" kind="variable" -->
 ### variable: BACKUP_FILE_SUFFIXES
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `BACKUP_FILE_SUFFIXES: string[]`
@@ -86,4 +85,12 @@ Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `DEFAULT_EXCLUDES: Set<string>`
 ```ts
 DEFAULT_EXCLUDES: Set<string>
+```
+
+<!-- change: symbol-added name="EXCLUDE_FILE_PATTERNS" kind="variable" -->
+### variable: EXCLUDE_FILE_PATTERNS
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `EXCLUDE_FILE_PATTERNS: RegExp[]`
+```ts
+EXCLUDE_FILE_PATTERNS: RegExp[]
 ```

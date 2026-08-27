@@ -1,6 +1,5 @@
 # Modul: src/core/git.ts
 
-<!-- change: symbol-added name="getDeletedFiles" kind="function" -->
 ### function: getChangedFiles
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getChangedFiles(repoRoot: string): Set<string> | null`

@@ -1,6 +1,6 @@
 # Modul: src/ui/commands-provider.ts
 
-<!-- change: symbol-added name="CommandsProvider" kind="class" -->
+<!-- change: symbol-added name="CommandsProvider.getChildren" kind="method" -->
 ### class: CommandItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class CommandItem`
@@ -8,7 +8,7 @@ Signatur: `class CommandItem`
 class CommandItem
 ```
 
-<!-- change: symbol-added name="CommandsProvider.getChildren" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.getTreeItem" kind="method" -->
 ### class: CommandsProvider
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class CommandsProvider`
@@ -18,23 +18,23 @@ class CommandsProvider
 
 Diese Klasse bündelt 3 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="CommandsProvider.getTreeItem" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.refresh" kind="method" -->
 ### method: CommandsProvider.getChildren
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `getChildren(element: CommandItem): Thenable<CommandItem[]>`
+Signatur: `getChildren(element?: CommandItem): Thenable<CommandItem[]>`
 ```ts
-getChildren(element: CommandItem): Thenable<CommandItem[]>
+getChildren(element?: CommandItem): Thenable<CommandItem[]>
 ```
 
 Parameter:
 
 | Name | Typ | Optional | Default |
 |------|-----|----------|---------|
-| `element` | `CommandItem` | nein | nein |
+| `element` | `CommandItem` | ja | nein |
 
 Rückgabewert: `Thenable<CommandItem[]>`
 
-<!-- change: symbol-added name="CommandsProvider.refresh" kind="method" -->
+<!-- change: symbol-added name="CommandsProvider.onDidChangeTreeData" kind="variable" -->
 ### method: CommandsProvider.getTreeItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getTreeItem(element: CommandItem): vscode.TreeItem`
@@ -50,7 +50,7 @@ Parameter:
 
 Rückgabewert: `vscode.TreeItem`
 
-<!-- change: symbol-added name="CommandsProvider.onDidChangeTreeData" kind="variable" -->
+<!-- change: symbol-added name="CommandsProvider._onDidChangeTreeData" kind="variable" -->
 ### method: CommandsProvider.refresh
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `refresh(): void`
@@ -60,7 +60,6 @@ refresh(): void
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="CommandsProvider._onDidChangeTreeData" kind="variable" -->
 ### variable: CommandsProvider.onDidChangeTreeData
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `onDidChangeTreeData: vscode.Event<CommandItem | undefined | null | void>`

@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/src/mcp/resources/docs.ts
 
-<!-- change: symbol-added name="getSystemFilePath" kind="function" -->
+<!-- change: symbol-added name="listADRs" kind="function" -->
 ### interface: ParsedUri
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `interface ParsedUri {
@@ -24,7 +24,7 @@ Eigenschaften:
 | `name` | `string` | nein |
 | `type` | `'system' | 'modules' | 'adr' | 'index'` | nein |
 
-<!-- change: symbol-added name="listADRs" kind="function" -->
+<!-- change: symbol-added name="listModuleDocs" kind="function" -->
 ### function: getSystemFilePath
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getSystemFilePath(name: string): string`
@@ -40,7 +40,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="listModuleDocs" kind="function" -->
+<!-- change: symbol-added name="parseDocsUri" kind="function" -->
 ### function: listADRs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `listADRs(): Promise<string[]>`
@@ -50,7 +50,7 @@ listADRs(): Promise<string[]>
 
 Rückgabewert: `Promise<string[]>`
 
-<!-- change: symbol-added name="parseDocsUri" kind="function" -->
+<!-- change: symbol-added name="readDocsResource" kind="function" -->
 ### function: listModuleDocs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `listModuleDocs(): Promise<string[]>`
@@ -60,7 +60,7 @@ listModuleDocs(): Promise<string[]>
 
 Rückgabewert: `Promise<string[]>`
 
-<!-- change: symbol-added name="readDocsResource" kind="function" -->
+<!-- change: symbol-added name="DOCS_BASE" kind="variable" -->
 ### function: parseDocsUri
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parseDocsUri(uri: string): ParsedUri | null`
@@ -76,7 +76,6 @@ Parameter:
 
 Rückgabewert: `ParsedUri | null`
 
-<!-- change: symbol-added name="DOCS_BASE" kind="variable" -->
 ### function: readDocsResource
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `readDocsResource(uri: string): Promise<string>`

@@ -1,6 +1,6 @@
 # Modul: src/cache/output-cache.ts
 
-<!-- change: symbol-added name="OutputHashEntry" kind="interface" -->
+<!-- change: symbol-added name="computeContentHash" kind="function" -->
 ### interface: OutputHashCacheData
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface OutputHashCacheData {
@@ -21,7 +21,7 @@ Eigenschaften:
 | `entries` | `OutputHashEntry[]` | nein |
 | `version` | `1` | nein |
 
-<!-- change: symbol-added name="computeContentHash" kind="function" -->
+<!-- change: symbol-added name="loadOutputHashCache" kind="function" -->
 ### interface: OutputHashEntry
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `interface OutputHashEntry {
@@ -42,7 +42,7 @@ Eigenschaften:
 | `hash` | `string` | nein |
 | `path` | `string` | nein |
 
-<!-- change: symbol-added name="loadOutputHashCache" kind="function" -->
+<!-- change: symbol-added name="saveOutputHashCache" kind="function" -->
 ### function: computeContentHash
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `computeContentHash(content: string): string`
@@ -58,7 +58,6 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="saveOutputHashCache" kind="function" -->
 ### function: loadOutputHashCache
 Rolle: infra (Sichtbarkeit: public, Priorität: low)
 Signatur: `loadOutputHashCache(cacheFile: string): OutputHashCacheData | null`

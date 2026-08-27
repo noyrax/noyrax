@@ -1,6 +1,6 @@
 # Modul: packages/doc-system-agent/examples/basic-project/src/calculator.ts
 
-<!-- change: symbol-added name="divide" kind="function" -->
+<!-- change: symbol-added name="multiply" kind="function" -->
 ### function: add
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `add(a: number, b: number): number`
@@ -17,7 +17,7 @@ Parameter:
 
 Rückgabewert: `number`
 
-<!-- change: symbol-added name="multiply" kind="function" -->
+<!-- change: symbol-added name="power" kind="function" -->
 ### function: divide
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `divide(a: number, b: number): number`
@@ -34,7 +34,7 @@ Parameter:
 
 Rückgabewert: `number`
 
-<!-- change: symbol-added name="power" kind="function" -->
+<!-- change: symbol-added name="subtract" kind="function" -->
 ### function: multiply
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `multiply(a: number, b: number): number`
@@ -51,7 +51,6 @@ Parameter:
 
 Rückgabewert: `number`
 
-<!-- change: symbol-added name="subtract" kind="function" -->
 ### function: power
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `power(base: number, exponent: number): number`

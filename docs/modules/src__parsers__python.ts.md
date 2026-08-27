@@ -1,6 +1,6 @@
 # Modul: src/parsers/python.ts
 
-<!-- change: symbol-added name="PythonParser.parse" kind="method" -->
+<!-- change: symbol-added name="PythonParser.extractParameters" kind="method" -->
 ### class: PythonParser
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class PythonParser`
@@ -10,7 +10,7 @@ class PythonParser
 
 Diese Klasse bündelt 3 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="PythonParser.extractParameters" kind="method" -->
+<!-- change: symbol-added name="PythonParser.getNodeText" kind="method" -->
 ### method: PythonParser.parse
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `parse(filePath: string, fileContent: string): ParsedSymbol[]`
@@ -27,7 +27,7 @@ Parameter:
 
 Rückgabewert: `ParsedSymbol[]`
 
-<!-- change: symbol-added name="PythonParser.getNodeText" kind="method" -->
+<!-- change: symbol-added name="PythonParser.language" kind="variable" -->
 ### method: PythonParser.extractParameters
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `extractParameters(funcNode: Parser.SyntaxNode, source: string): Array<{ name: string; type?: string; hasDefault?: boolean }>`
@@ -44,7 +44,7 @@ Parameter:
 
 Rückgabewert: `Array<{ name: string; type?: string; hasDefault?: boolean }>`
 
-<!-- change: symbol-added name="PythonParser.language" kind="variable" -->
+<!-- change: symbol-added name="PythonParser.parser" kind="variable" -->
 ### method: PythonParser.getNodeText
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `getNodeText(node: Parser.SyntaxNode, childType: string, source: string): string | null`
@@ -62,7 +62,6 @@ Parameter:
 
 Rückgabewert: `string | null`
 
-<!-- change: symbol-added name="PythonParser.parser" kind="variable" -->
 ### variable: PythonParser.language
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `language: string`

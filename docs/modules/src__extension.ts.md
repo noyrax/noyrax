@@ -1,6 +1,6 @@
 # Modul: src/extension.ts
 
-<!-- change: symbol-added name="DocumentationProvider" kind="class" -->
+<!-- change: symbol-added name="SearchResult" kind="interface" -->
 ### class: DocumentationItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class DocumentationItem`
@@ -8,7 +8,7 @@ Signatur: `class DocumentationItem`
 class DocumentationItem
 ```
 
-<!-- change: symbol-added name="SearchResult" kind="interface" -->
+<!-- change: symbol-added name="ValidationResult" kind="interface" -->
 ### class: DocumentationProvider
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `class DocumentationProvider`
@@ -18,7 +18,7 @@ class DocumentationProvider
 
 Diese Klasse bündelt 4 Methoden. Die detaillierten Signaturen sind in den nachfolgenden `method:`-Abschnitten dokumentiert.
 
-<!-- change: symbol-added name="ValidationResult" kind="interface" -->
+<!-- change: symbol-added name="DocumentationProvider.getChildren" kind="method" -->
 ### interface: SearchResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface SearchResult {
@@ -57,7 +57,7 @@ Eigenschaften:
 | `module` | `string` | nein |
 | `score` | `number` | nein |
 
-<!-- change: symbol-added name="DocumentationProvider.getChildren" kind="method" -->
+<!-- change: symbol-added name="DocumentationProvider.getTreeItem" kind="method" -->
 ### interface: ValidationResult
 Rolle: domain-model (Sichtbarkeit: public, Priorität: high)
 Signatur: `interface ValidationResult {
@@ -111,23 +111,23 @@ Eigenschaften:
 | `valid_files` | `number` | nein |
 | `warnings` | `string[]` | nein |
 
-<!-- change: symbol-added name="DocumentationProvider.getTreeItem" kind="method" -->
+<!-- change: symbol-added name="DocumentationProvider.refresh" kind="method" -->
 ### method: DocumentationProvider.getChildren
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `getChildren(element: DocumentationItem): Thenable<DocumentationItem[]>`
+Signatur: `getChildren(element?: DocumentationItem): Thenable<DocumentationItem[]>`
 ```ts
-getChildren(element: DocumentationItem): Thenable<DocumentationItem[]>
+getChildren(element?: DocumentationItem): Thenable<DocumentationItem[]>
 ```
 
 Parameter:
 
 | Name | Typ | Optional | Default |
 |------|-----|----------|---------|
-| `element` | `DocumentationItem` | nein | nein |
+| `element` | `DocumentationItem` | ja | nein |
 
 Rückgabewert: `Thenable<DocumentationItem[]>`
 
-<!-- change: symbol-added name="DocumentationProvider.refresh" kind="method" -->
+<!-- change: symbol-added name="DocumentationProvider.getDocumentationFiles" kind="method" -->
 ### method: DocumentationProvider.getTreeItem
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `getTreeItem(element: DocumentationItem): vscode.TreeItem`
@@ -143,7 +143,7 @@ Parameter:
 
 Rückgabewert: `vscode.TreeItem`
 
-<!-- change: symbol-added name="DocumentationProvider.getDocumentationFiles" kind="method" -->
+<!-- change: symbol-added name="activate" kind="function" -->
 ### method: DocumentationProvider.refresh
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `refresh(): void`
@@ -153,7 +153,7 @@ refresh(): void
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="activate" kind="function" -->
+<!-- change: symbol-added name="checkDriftTs" kind="function" -->
 ### method: DocumentationProvider.getDocumentationFiles
 Rolle: other (Sichtbarkeit: internal, Priorität: low)
 Signatur: `getDocumentationFiles(): Promise<DocumentationItem[]>`
@@ -163,7 +163,7 @@ getDocumentationFiles(): Promise<DocumentationItem[]>
 
 Rückgabewert: `Promise<DocumentationItem[]>`
 
-<!-- change: symbol-added name="checkDriftTs" kind="function" -->
+<!-- change: symbol-added name="deactivate" kind="function" -->
 ### function: activate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `activate(context: vscode.ExtensionContext): void`
@@ -179,17 +179,17 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="deactivate" kind="function" -->
+<!-- change: symbol-added name="escapeHtml" kind="function" -->
 ### function: checkDriftTs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `checkDriftTs(): any`
+Signatur: `checkDriftTs(): Promise<void>`
 ```ts
-checkDriftTs(): any
+checkDriftTs(): Promise<void>
 ```
 
-Rückgabewert: `any`
+Rückgabewert: `Promise<void>`
 
-<!-- change: symbol-added name="escapeHtml" kind="function" -->
+<!-- change: symbol-added name="findSourceDirectories" kind="function" -->
 ### function: deactivate
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `deactivate(): void`
@@ -199,7 +199,7 @@ deactivate(): void
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="findSourceDirectories" kind="function" -->
+<!-- change: symbol-added name="generateDocumentationTs" kind="function" -->
 ### function: escapeHtml
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `escapeHtml(text: string): string`
@@ -215,7 +215,7 @@ Parameter:
 
 Rückgabewert: `string`
 
-<!-- change: symbol-added name="generateDocumentationTs" kind="function" -->
+<!-- change: symbol-added name="getConfig" kind="function" -->
 ### function: findSourceDirectories
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `findSourceDirectories(workspaceRoot: string): string[]`
@@ -231,27 +231,27 @@ Parameter:
 
 Rückgabewert: `string[]`
 
-<!-- change: symbol-added name="getConfig" kind="function" -->
+<!-- change: symbol-added name="loadEnv" kind="function" -->
 ### function: generateDocumentationTs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `generateDocumentationTs(): any`
+Signatur: `generateDocumentationTs(): Promise<void>`
 ```ts
-generateDocumentationTs(): any
+generateDocumentationTs(): Promise<void>
 ```
 
-Rückgabewert: `any`
-
-<!-- change: symbol-added name="loadEnv" kind="function" -->
-### function: getConfig
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `getConfig(): { workspaceRoot: any; outputPath: string; }`
-```ts
-getConfig(): { workspaceRoot: any; outputPath: string; }
-```
-
-Rückgabewert: `{ workspaceRoot: any; outputPath: string; }`
+Rückgabewert: `Promise<void>`
 
 <!-- change: symbol-added name="openDocumentationFile" kind="function" -->
+### function: getConfig
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `getConfig(): { workspaceRoot: string; outputPath: string; }`
+```ts
+getConfig(): { workspaceRoot: string; outputPath: string; }
+```
+
+Rückgabewert: `{ workspaceRoot: string; outputPath: string; }`
+
+<!-- change: symbol-added name="registerCommand" kind="function" -->
 ### function: loadEnv
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `loadEnv(envFile: string): Record<string, string>`
@@ -267,17 +267,17 @@ Parameter:
 
 Rückgabewert: `Record<string, string>`
 
-<!-- change: symbol-added name="registerCommand" kind="function" -->
+<!-- change: symbol-added name="scanSystemTs" kind="function" -->
 ### function: openDocumentationFile
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `openDocumentationFile(): any`
+Signatur: `openDocumentationFile(): Promise<void>`
 ```ts
-openDocumentationFile(): any
+openDocumentationFile(): Promise<void>
 ```
 
-Rückgabewert: `any`
+Rückgabewert: `Promise<void>`
 
-<!-- change: symbol-added name="scanSystemTs" kind="function" -->
+<!-- change: symbol-added name="searchDocumentation" kind="function" -->
 ### function: registerCommand
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `registerCommand(context: vscode.ExtensionContext, command: string, title: string, callback: (...args: any[]) => any): void`
@@ -296,27 +296,27 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="searchDocumentation" kind="function" -->
+<!-- change: symbol-added name="showSearchResults" kind="function" -->
 ### function: scanSystemTs
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `scanSystemTs(): any`
+Signatur: `scanSystemTs(): Promise<void>`
 ```ts
-scanSystemTs(): any
+scanSystemTs(): Promise<void>
 ```
 
-Rückgabewert: `any`
-
-<!-- change: symbol-added name="showSearchResults" kind="function" -->
-### function: searchDocumentation
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `searchDocumentation(): any`
-```ts
-searchDocumentation(): any
-```
-
-Rückgabewert: `any`
+Rückgabewert: `Promise<void>`
 
 <!-- change: symbol-added name="showSystemOverview" kind="function" -->
+### function: searchDocumentation
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `searchDocumentation(): Promise<void>`
+```ts
+searchDocumentation(): Promise<void>
+```
+
+Rückgabewert: `Promise<void>`
+
+<!-- change: symbol-added name="showValidationResults" kind="function" -->
 ### function: showSearchResults
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `showSearchResults(results: SearchResult[], query: string): void`
@@ -333,17 +333,17 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="showValidationResults" kind="function" -->
+<!-- change: symbol-added name="syncDocumentation" kind="function" -->
 ### function: showSystemOverview
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `showSystemOverview(): any`
+Signatur: `showSystemOverview(): Promise<void>`
 ```ts
-showSystemOverview(): any
+showSystemOverview(): Promise<void>
 ```
 
-Rückgabewert: `any`
+Rückgabewert: `Promise<void>`
 
-<!-- change: symbol-added name="syncDocumentation" kind="function" -->
+<!-- change: symbol-added name="validateDocumentationTs" kind="function" -->
 ### function: showValidationResults
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `showValidationResults(results: ValidationResult): void`
@@ -359,27 +359,27 @@ Parameter:
 
 Rückgabewert: `void`
 
-<!-- change: symbol-added name="validateDocumentationTs" kind="function" -->
+<!-- change: symbol-added name="DocumentationProvider.onDidChangeTreeData" kind="variable" -->
 ### function: syncDocumentation
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `syncDocumentation(): any`
+Signatur: `syncDocumentation(): Promise<void>`
 ```ts
-syncDocumentation(): any
+syncDocumentation(): Promise<void>
 ```
 
-Rückgabewert: `any`
-
-<!-- change: symbol-added name="DocumentationProvider.onDidChangeTreeData" kind="variable" -->
-### function: validateDocumentationTs
-Rolle: other (Sichtbarkeit: public, Priorität: normal)
-Signatur: `validateDocumentationTs(): any`
-```ts
-validateDocumentationTs(): any
-```
-
-Rückgabewert: `any`
+Rückgabewert: `Promise<void>`
 
 <!-- change: symbol-added name="globalOutput" kind="variable" -->
+### function: validateDocumentationTs
+Rolle: other (Sichtbarkeit: public, Priorität: normal)
+Signatur: `validateDocumentationTs(): Promise<void>`
+```ts
+validateDocumentationTs(): Promise<void>
+```
+
+Rückgabewert: `Promise<void>`
+
+<!-- change: symbol-added name="globalStatusBar" kind="variable" -->
 ### variable: DocumentationProvider.onDidChangeTreeData
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | null | void>`
@@ -387,7 +387,7 @@ Signatur: `onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | nul
 onDidChangeTreeData: vscode.Event<DocumentationItem | undefined | null | void>
 ```
 
-<!-- change: symbol-added name="globalStatusBar" kind="variable" -->
+<!-- change: symbol-added name="DocumentationProvider._onDidChangeTreeData" kind="variable" -->
 ### variable: globalOutput
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `globalOutput: vscode.OutputChannel`
@@ -395,7 +395,6 @@ Signatur: `globalOutput: vscode.OutputChannel`
 globalOutput: vscode.OutputChannel
 ```
 
-<!-- change: symbol-added name="DocumentationProvider._onDidChangeTreeData" kind="variable" -->
 ### variable: globalStatusBar
 Rolle: other (Sichtbarkeit: public, Priorität: normal)
 Signatur: `globalStatusBar: StatusBarManager`

@@ -62,6 +62,46 @@ export class TsJsParser implements ParserAdapter {
             return safeTypeText(decl.getType());
         };
 
+        // Liest einen Modifier defensiv vom Knoten. ts-morph stellt je nach
+        // Knotentyp unterschiedliche Methoden bereit; fehlt eine, bleibt das
+        // Ergebnis undefined statt geraten zu werden.
+        const readModifier = (node: any, method: string): boolean | undefined => {
+            try {
+                return typeof node?.[method] === 'function' ? !!node[method]() : undefined;
+            } catch {
+                return undefined;
+            }
+        };
+
+        // Modifier einer Top-Level-Deklaration. Die Sichtbarkeit wird aus dem
+        // Export abgeleitet: nicht exportiert heißt modulprivat, nicht public.
+        const declModifiers = (node: any): Partial<SymbolSignature> => {
+            const mods: Partial<SymbolSignature> = {};
+            const isExported = readModifier(node, 'isExported');
+            if (isExported !== undefined) {
+                mods.isExported = isExported;
+                mods.visibility = isExported ? 'public' : 'package';
+            }
+            const isAsync = readModifier(node, 'isAsync');
+            if (isAsync !== undefined) mods.isAsync = isAsync;
+            const isAbstract = readModifier(node, 'isAbstract');
+            if (isAbstract !== undefined) mods.isAbstract = isAbstract;
+            return mods;
+        };
+
+        // Modifier eines Klassenmitglieds. Mitglieder werden nicht exportiert,
+        // ihre Sichtbarkeit kommt aus getScope() an der jeweiligen Aufrufstelle.
+        const memberModifiers = (node: any): Partial<SymbolSignature> => {
+            const mods: Partial<SymbolSignature> = {};
+            const isStatic = readModifier(node, 'isStatic');
+            if (isStatic !== undefined) mods.isStatic = isStatic;
+            const isAsync = readModifier(node, 'isAsync');
+            if (isAsync !== undefined) mods.isAsync = isAsync;
+            const isAbstract = readModifier(node, 'isAbstract');
+            if (isAbstract !== undefined) mods.isAbstract = isAbstract;
+            return mods;
+        };
+
         // Hilfsfunktion für Push
         const pushSymbol = (kind: ParsedSymbol['kind'], name: string, signature?: Partial<SymbolSignature>, node?: any) => {
             const sig: SymbolSignature = {
@@ -69,6 +109,7 @@ export class TsJsParser implements ParserAdapter {
                 parameters: [],
                 returnType: undefined,
                 visibility: 'public',
+                ...(node ? declModifiers(node) : {}),
                 ...signature,
             };
             
@@ -128,6 +169,8 @@ export class TsJsParser implements ParserAdapter {
                         return safeTypeText(impl.getReturnType());
                     })(),
                     visibility: method.getScope() as any,
+                    // impl trägt bei Überladungen die tatsächlichen Modifier.
+                    ...memberModifiers(impl),
                 };
             // Capture span for method
             let methodSpanInfo: Partial<ParsedSymbol> = {};
@@ -166,7 +209,7 @@ export class TsJsParser implements ParserAdapter {
                     } catch {}
                     return safeTypeText(prop.getType());
                 })();
-                const sig: SymbolSignature = { name: propName, parameters: [], returnType: typeText, visibility: prop.getScope() as any };
+                const sig: SymbolSignature = { name: propName, parameters: [], returnType: typeText, visibility: prop.getScope() as any, ...memberModifiers(prop) };
                 // Capture span for property
                 let propSpanInfo: Partial<ParsedSymbol> = {};
                 try {
@@ -216,7 +259,7 @@ export class TsJsParser implements ParserAdapter {
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
-                signature: { name, parameters: [] },
+                signature: { name, parameters: [], ...declModifiers(cls) },
                 kind: 'class',
                 ...classSpanInfo
             });
@@ -240,7 +283,7 @@ export class TsJsParser implements ParserAdapter {
                     } catch {}
                     return safeTypeText(fn.getReturnType());
                 })(),
-                visibility: 'public',
+                ...declModifiers(fn),
             };
             // Capture span for function
             let functionSpanInfo: Partial<ParsedSymbol> = {};
@@ -301,11 +344,11 @@ export class TsJsParser implements ParserAdapter {
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
-                signature: { 
-                    name, 
+                signature: {
+                    name,
                     parameters: properties,
                     returnType: undefined,
-                    visibility: 'public'
+                    ...declModifiers(intf)
                 },
                 kind: 'interface',
                 ...interfaceSpanInfo
@@ -336,7 +379,7 @@ export class TsJsParser implements ParserAdapter {
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
-                signature: { name, parameters: [] },
+                signature: { name, parameters: [], ...declModifiers(en) },
                 kind: 'enum',
                 ...enumSpanInfo
             });
@@ -369,7 +412,7 @@ export class TsJsParser implements ParserAdapter {
                 language: 'ts',
                 filePath: repoRelPath,
                 fullyQualifiedName: name,
-                signature: { name, parameters: [], returnType: typeText },
+                signature: { name, parameters: [], returnType: typeText, ...declModifiers(ta) },
                 kind: 'type',
                 ...typeSpanInfo
             });
@@ -416,7 +459,7 @@ export class TsJsParser implements ParserAdapter {
                     // 3) Fallback: Type aus Checker
                     return safeTypeText(decl.getType());
                 })();
-                const sig: SymbolSignature = { name, parameters: [], returnType: typeText, visibility: 'public' };
+                const sig: SymbolSignature = { name, parameters: [], returnType: typeText, ...declModifiers(decl) };
                 // Capture span for variable
                 let varSpanInfo: Partial<ParsedSymbol> = {};
                 try {
@@ -468,7 +511,7 @@ export class TsJsParser implements ParserAdapter {
                         } catch {}
                         return safeTypeText(fn.getReturnType());
                     })(),
-                    visibility: 'public',
+                    ...declModifiers(fn),
                 };
                 // Capture span for namespace function
                 let nsFunctionSpanInfo: Partial<ParsedSymbol> = {};

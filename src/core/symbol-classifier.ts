@@ -52,8 +52,12 @@ export function classifySymbol(symbol: ParsedSymbol): SymbolClassification {
 function classifyVisibility(symbol: ParsedSymbol): SymbolVisibility {
     // Wenn der Parser explizite Sichtbarkeit liefert, respektieren
     // wir diese. Fallback ist „public“, um sich konservativ zu verhalten.
+    //
+    // 'package' steht für eine nicht exportierte Deklaration auf Modulebene.
+    // Sie als „public“ zu führen war irreführend: ein Agent, der das glaubt,
+    // schreibt einen Import, der nicht kompiliert.
     const v = symbol.signature.visibility;
-    if (v === 'private' || v === 'protected') {
+    if (v === 'private' || v === 'protected' || v === 'package') {
         return 'internal';
     }
     return 'public';

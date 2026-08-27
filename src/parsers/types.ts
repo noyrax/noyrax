@@ -10,6 +10,15 @@ export interface SymbolSignature {
     parameters: SymbolParameter[];
     returnType?: string;
     visibility?: 'public' | 'protected' | 'private' | 'package';
+
+    // Modifier. Ohne sie ist eine Signatur nicht aufrufbar: `create(...)` und
+    // `static create(...)` erfordern unterschiedliche Aufrufe, und eine nicht
+    // exportierte Funktion lässt sich nicht importieren.
+    // undefined = am Knoten nicht ermittelbar (nicht: "trifft nicht zu").
+    isStatic?: boolean;
+    isExported?: boolean;
+    isAbstract?: boolean;
+    isAsync?: boolean;
 }
 
 export interface ParsedSymbol {

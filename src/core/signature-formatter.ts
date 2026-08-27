@@ -14,6 +14,33 @@ export class SignatureFormatter {
      * Verwendet von: Generator (renderModuleDoc) und Validator (formatSignatureForDoc)
      */
     static formatForDoc(symbol: ParsedSymbol): string {
+        const body = SignatureFormatter.formatBody(symbol);
+        return SignatureFormatter.modifierPrefix(symbol) + body;
+    }
+
+    /**
+     * Baut das Modifier-Präfix einer Signatur (`export`, `static`, `abstract`,
+     * `async`) in der Reihenfolge, in der es auch im Quelltext steht.
+     *
+     * Ohne dieses Präfix ist eine Signatur nicht aufrufbar: `create(...)` liest
+     * sich als Instanzmethode, obwohl `VectorDatabaseFactory.create(...)` nötig
+     * ist. Nur explizit gesetzte Modifier werden ausgegeben — undefined heißt
+     * "am Knoten nicht ermittelbar" und darf nicht als "nein" gerendert werden.
+     */
+    private static modifierPrefix(symbol: ParsedSymbol): string {
+        const sig = symbol.signature;
+        const parts: string[] = [];
+        if (sig.isExported === true) parts.push('export');
+        if (sig.isAbstract === true) parts.push('abstract');
+        if (sig.isStatic === true) parts.push('static');
+        if (sig.isAsync === true) parts.push('async');
+        return parts.length > 0 ? parts.join(' ') + ' ' : '';
+    }
+
+    /**
+     * Formatiert den Signatur-Rumpf ohne Modifier.
+     */
+    private static formatBody(symbol: ParsedSymbol): string {
         switch (symbol.kind) {
             case 'interface':
                 return SignatureFormatter.formatInterface(symbol);

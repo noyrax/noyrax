@@ -2,12 +2,11 @@
   "name": "@noyrax/documentation-system-plugin",
   "displayName": "Noyrax",
   "description": "Documentation that never drifts. Automatic documentation generation with validation and drift detection. Generates 5-dimensional documentation structure (modules, symbols, dependencies, ADRs, changes) for codebases.",
-  "version": "1.0.4-beta.15",
+  "version": "1.0.4-beta.16",
   "publisher": "noyrax",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noyrax/noyrax.git",
-    "directory": "documentation-system-plugin"
+    "url": "git+https://github.com/noyrax/noyrax.git"
   },
   "publishConfig": {
     "access": "public"
